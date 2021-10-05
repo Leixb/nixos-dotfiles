@@ -49,6 +49,7 @@
     settings = {
       disable_ligatures = "cursor";
       background_opacity = "0.9";
+      wayland_titlebar_color = "#1c262b";
 
       background = "#1c262b";
       foreground = "#c1c8d6";
