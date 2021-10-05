@@ -2,13 +2,20 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
 {
   imports =
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
+
+  nixpkgs.config = {
+    allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+      "discord"
+      "vscode"
+    ];
+  };
 
   hardware.cpu.intel.updateMicrocode = true;
 
@@ -46,6 +53,9 @@
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.displayManager.gdm.wayland = true;
+  services.xserver.displayManager.gdm.settings = {
+    "greeting" = { "include" = "leix"; };
+  };
   services.xserver.desktopManager.gnome.enable = true;
 
   # gnome app indicator
@@ -67,6 +77,7 @@
     pkgs.gnome.atomix
     pkgs.gnome-tour
   ];
+  programs.geary.enable = false;
 
   # Configure keymap in X11
   # services.xserver.layout = "us";

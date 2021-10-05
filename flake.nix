@@ -5,34 +5,27 @@
     nixpkgs.url = "nixpkgs/nixos-unstable";
     home-manager.url = "github:nix-community/home-manager/master";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    nur.url = github:nix-community/NUR;
   };
 
-  outputs = { nixpkgs, home-manager, ... }:
+  outputs = { nixpkgs, home-manager, nur, ... }:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs { inherit system; };
+
     inherit (nixpkgs) lib;
   in {
-
-    homeManagerConfigurations = {
-      leix = home-manager.lib.homeManagerConfiguration {
-        inherit system pkgs;
-        username = "leix";
-        homeDirectory = "/home/leix";
-        stateVersion = "21.11";
-        configuration = {
-          imports = [
-            ./users/leix/home.nix
-          ];
-        };
-      };
-    };
-
     nixosConfigurations = {
       nixos = lib.nixosSystem {
         inherit system;
         modules = [
           ./system/configuration.nix
+	  { nixpkgs.overlays = [ nur.overlay ]; }
+	  home-manager.nixosModules.home-manager {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.users.leix = import ./users/leix/home.nix;
+          }
         ];
       };
     };
