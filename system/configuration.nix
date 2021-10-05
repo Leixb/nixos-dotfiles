@@ -14,6 +14,8 @@
     allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
       "discord"
       "vscode"
+      "languagetool"
+      "matte-black-red"
     ];
   };
 

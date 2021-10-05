@@ -147,8 +147,14 @@
 
   programs.firefox.enable = true;
   programs.firefox.extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+    bitwarden
+    darkreader
     https-everywhere
+    languagetool
+    matte-black-red
+    no-pdf-download
     privacy-badger
+    refined-github
     ublock-origin
   ];
   programs.firefox.profiles.leix = { };
