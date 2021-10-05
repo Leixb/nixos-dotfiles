@@ -91,7 +91,7 @@
 
     extraConfig = {
       init = {
-        defaultBranch = "master";
+        "defaultBranch" = "master";
       };
     };
   };
