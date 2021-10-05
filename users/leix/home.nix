@@ -75,6 +75,7 @@
   };
 
   programs.git = {
+    enable = true;
     userEmail = "abone9999@gmail.com";
     userName = "LeixB";
 
