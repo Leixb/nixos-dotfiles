@@ -63,19 +63,22 @@
 
   services.flatpak.enable = true;
 
-  environment.gnome.excludePackages = [
-    pkgs.gnome.cheese
-    pkgs.gnome-photos
-    pkgs.gnome.gnome-music
-    pkgs.gnome.gnome-terminal
-    pkgs.gnome.gedit
-    pkgs.epiphany
-    pkgs.gnome.totem
-    pkgs.gnome.tali
-    pkgs.gnome.iagno
-    pkgs.gnome.hitori
-    pkgs.gnome.atomix
-    pkgs.gnome-tour
+  environment.gnome.excludePackages = with pkgs; [
+    gnome.cheese
+    gnome-photos
+    gnome-connections
+    gnome.gnome-software
+    gnome.yelp
+    gnome.gnome-music
+    gnome.gnome-terminal
+    gnome.gedit
+    epiphany
+    gnome.totem
+    gnome.tali
+    gnome.iagno
+    gnome.hitori
+    gnome.atomix
+    gnome-tour
   ];
   programs.geary.enable = false;
 
@@ -127,6 +130,7 @@
       x = [
         firefox-wayland
         libreoffice
+	mpv
         gnomeExtensions.appindicator
       ];
     in common ++ (if config.services.xserver.enable then x else []);

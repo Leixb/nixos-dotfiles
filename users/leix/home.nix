@@ -1,3 +1,4 @@
+# vim: sw=2 ts=2:
 { config, pkgs, lib, ... }:
 
 {
@@ -14,9 +15,9 @@
     wrapperFeatures.gtk = true ;
     config = {
       modifier = "Mod4";
-	    window = {
-		    titlebar = false;
-	    };
+      window = {
+        titlebar = false;
+      };
     };
   };
 
@@ -28,21 +29,49 @@
     swayidle
     wl-clipboard
     mako # notification daemon
-    alacritty # Alacritty is the default terminal in the config
     wofi # Dmenu is the default in the config but i recommend wofi since its wayland native
     tdesktop # telegram desktop
+    gcc
+    rust-analyzer
+    go
   ];
 
-  home.file = {
-    #".config/nvim/lua".source = ./users/leix/neovim-config/lua;
-    #".config/nvim/init.lua".source = ./users/leix/neovim-config/init.lua;
-    #".config/nvim/init.vim".text = "echo hello; luafile init.lua\n";
+  programs.neovim = {
+    enable = true;
+    viAlias = true;
+    vimAlias = true;
+    vimdiffAlias = true;
+    extraConfig = "lua require('init')";
   };
 
-  programs.neovim.configure = {
-    customRC = ''
-    luafile ~/.config/nvim/init.lua
-    '';
+  programs.kitty = {
+    enable = true;
+    settings = {
+      disable_ligatures = "cursor";
+      background_opacity = "0.9";
+
+      background = "#1c262b";
+      foreground = "#c1c8d6";
+      cursor = "#b2b8c3";
+      selection_background = "#6dc1b8";
+      color0 = "#000000";
+      color8 = "#767676";
+      color1 = "#ee2a29";
+      color9 = "#dc5b60";
+      color2 = "#3fa33f";
+      color10 = "#70be71";
+      color3 = "#fee92e";
+      color11 = "#fef063";
+      color4 = "#1d80ef";
+      color12 = "#53a4f3";
+      color5 = "#8800a0";
+      color13 = "#a94dbb";
+      color6 = "#16aec9";
+      color14 = "#42c6d9";
+      color7 = "#a4a4a4";
+      color15 = "#fffefe";
+      selection_foreground = "#1c262b";
+    };
   };
 
   programs.git = {
@@ -66,6 +95,9 @@
   programs.direnv.nix-direnv.enable = true;
   programs.fish = {
     enable = true;
+    shellAliases = {
+      cat = "bat";
+    };
     interactiveShellInit = ''
     set fish_greeting
     fish_vi_key_bindings
@@ -78,6 +110,10 @@
   };
 
   programs.fzf = {
+    enable = true;
+    enableFishIntegration = true;
+  };
+  programs.zoxide = {
     enable = true;
     enableFishIntegration = true;
   };
@@ -105,12 +141,12 @@
   };
 
   programs.firefox.enable = true;
-  #programs.firefox.extensions = with nur.repos.rycee.firefox-addons; [
   programs.firefox.extensions = with pkgs.nur.repos.rycee.firefox-addons; [
     https-everywhere
     privacy-badger
     ublock-origin
   ];
+  programs.firefox.profiles.leix = { };
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
