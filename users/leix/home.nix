@@ -98,6 +98,11 @@
     };
   };
 
+  programs.gh = {
+    enable = true;
+    gitProtocol = "ssh";
+  };
+
   # Direnv
   programs.direnv.enable = true;
   programs.direnv.nix-direnv.enable = true;
