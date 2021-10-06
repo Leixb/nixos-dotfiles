@@ -167,6 +167,18 @@
   ];
   programs.firefox.profiles.leix = { };
 
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Juno-ocean";
+      package = pkgs.juno-theme;
+    };
+    iconTheme = {
+      name = "Arc";
+      package = pkgs.arc-icon-theme;
+    };
+  };
+
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
   # when a new Home Manager release introduces backwards
