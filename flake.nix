@@ -20,8 +20,8 @@
         inherit system;
         modules = [
           ./system/configuration.nix
-	  { nixpkgs.overlays = [ nur.overlay ]; }
-	  home-manager.nixosModules.home-manager {
+          { nixpkgs.overlays = [ nur.overlay ]; }
+          home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users.leix = import ./users/leix/home.nix;
