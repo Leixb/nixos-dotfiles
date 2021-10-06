@@ -79,6 +79,8 @@
     enable = true;
     userEmail = "abone9999@gmail.com";
     userName = "LeixB";
+    signing.key = "FC035BB2BB28E15D";
+    signing.signByDefault = true;
 
     ignores = [
       "*~"
