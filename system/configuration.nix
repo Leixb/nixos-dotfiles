@@ -20,6 +20,7 @@
   };
 
   hardware.cpu.intel.updateMicrocode = true;
+  hardware.sensor.iio.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
