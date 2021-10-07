@@ -124,6 +124,7 @@
   environment.systemPackages = with pkgs;
     let 
       common = [
+        vim
         wget
 	ripgrep
 	lsof
@@ -138,9 +139,6 @@
       ];
     in common ++ (if config.services.xserver.enable then x else []);
 
-  programs.neovim.enable = true;
-  programs.neovim.viAlias = true;
-  programs.neovim.vimAlias = true;
   environment.variables.EDITOR = "vim";
 
   environment.sessionVariables = {

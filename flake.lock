@@ -21,6 +21,22 @@
         "type": "github"
       }
     },
+    "neovim-config": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1633636716,
+        "narHash": "sha256-zuOTvpbpn0TBxa/ko3OovGHuCHGXM+XvntO8sCUj3T0=",
+        "owner": "leixb",
+        "repo": "neovim-config",
+        "rev": "8b12ba4bba120302ae5cbf1dfb9663369a9b5505",
+        "type": "github"
+      },
+      "original": {
+        "owner": "leixb",
+        "repo": "neovim-config",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
       "locked": {
         "lastModified": 1633351077,
@@ -54,6 +70,7 @@
     "root": {
       "inputs": {
         "home-manager": "home-manager",
+        "neovim-config": "neovim-config",
         "nixpkgs": "nixpkgs",
         "nur": "nur"
       }

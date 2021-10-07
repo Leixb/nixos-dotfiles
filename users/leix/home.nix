@@ -1,5 +1,5 @@
 # vim: sw=2 ts=2:
-{ config, pkgs, lib, ... }:
+{ config, lib, pkgs, neovim-config, ... }:
 
 {
   # Let Home Manager install and manage itself.
@@ -21,7 +21,16 @@
     };
   };
 
+  home.file = {
+    ".config/nvim".source = neovim-config.outPath;
+  };
+
+  home.sessionVariables = {
+    EDITOR = "nvim";
+  };
+
   home.packages = with pkgs; [
+    neovim
     vscode
     discord
     bitwarden
@@ -35,14 +44,6 @@
     rust-analyzer
     go
   ];
-
-  programs.neovim = {
-    enable = true;
-    viAlias = true;
-    vimAlias = true;
-    vimdiffAlias = true;
-    extraConfig = "lua require('init')";
-  };
 
   programs.kitty = {
     enable = true;
@@ -110,6 +111,8 @@
     enable = true;
     shellAliases = {
       cat = "bat";
+      vim = "nvim";
+      vi  = "nvim";
     };
     interactiveShellInit = ''
     set fish_greeting
