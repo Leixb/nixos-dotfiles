@@ -19,6 +19,10 @@
     ];
   };
 
+  services.journald.extraConfig = ''
+  Storage=volatile
+  '';
+
   hardware.cpu.intel.updateMicrocode = true;
   hardware.sensor.iio.enable = true;
 
