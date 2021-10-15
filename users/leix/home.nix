@@ -117,6 +117,8 @@
     enableFishIntegration = true;
   };
 
+  services.lorri.enable = true;
+
   programs.fish = {
     enable = true;
     shellAliases = {
