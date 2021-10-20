@@ -15,6 +15,13 @@
     wrapperFeatures.gtk = true ;
     config = {
       modifier = "Mod4";
+      terminal = "kitty";
+      input = {
+        "type:touchpad" = {
+          tap = "enabled";
+          natural_scroll = "enabled";
+        };
+      };
       window = {
         titlebar = false;
       };
