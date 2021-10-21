@@ -13,9 +13,11 @@
   wayland.windowManager.sway = {
     enable = true;
     wrapperFeatures.gtk = true ;
+    xwayland = false;
     config = {
       modifier = "Mod4";
       terminal = "kitty";
+      menu = "wofi --show drun";
       input = {
         "type:touchpad" = {
           tap = "enabled";
@@ -28,8 +30,11 @@
     };
   };
 
-  home.file = {
-    ".config/nvim".source = neovim-config.outPath;
+  xdg = {
+    enable = true;
+    configFile = {
+      "nvim".source = neovim-config.outPath;
+    };
   };
 
   home.sessionVariables = {
@@ -38,19 +43,32 @@
 
   home.packages = with pkgs; [
     neovim
-    vscode
     discord
     bitwarden
     swaylock
     swayidle
+    swaybg
     wl-clipboard
     mako # notification daemon
     wofi # Dmenu is the default in the config but i recommend wofi since its wayland native
     tdesktop # telegram desktop
     gcc
-    rust-analyzer
-    go
+    fd
+    zathura
+    bottom
   ];
+
+  services = {
+    lorri.enable = true;
+    gpg-agent = {
+      enable = true;
+      enableSshSupport = true;
+    };
+  };
+
+  programs.vscode = {
+    enable = true;
+  };
 
   programs.kitty = {
     enable = true;
@@ -115,7 +133,7 @@
   };
 
   # Direnv
-  programs.direnv= {
+  programs.direnv = {
     enable = true;
     nix-direnv = {
       enable = true;
@@ -123,8 +141,6 @@
     };
     enableFishIntegration = true;
   };
-
-  services.lorri.enable = true;
 
   programs.fish = {
     enable = true;
@@ -188,6 +204,10 @@
     ublock-origin
   ];
   programs.firefox.profiles.leix = { };
+
+  programs.waybar = {
+    enable = true;
+  };
 
   gtk = {
     enable = true;
