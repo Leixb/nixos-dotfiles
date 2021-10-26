@@ -105,7 +105,7 @@
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-  
+
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
     #media-session.enable = true;
@@ -126,22 +126,22 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs;
-    let 
-      common = [
-        vim
-        wget
-	ripgrep
-	lsof
-	file
-	git
-      ];
-      x = [
-        firefox-wayland
-        libreoffice
-	mpv
-        gnomeExtensions.appindicator
-      ];
-    in common ++ (if config.services.xserver.enable then x else []);
+  let 
+    common = [
+      vim
+      wget
+      ripgrep
+      lsof
+      file
+      git
+    ];
+    x = [
+      firefox-wayland
+      libreoffice
+      mpv
+      gnomeExtensions.appindicator
+    ];
+  in common ++ (if config.services.xserver.enable then x else []);
 
   environment.variables.EDITOR = "vim";
 
@@ -198,9 +198,9 @@
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = ''
-      experimental-features = nix-command flakes
-      keep-outputs = true
-      keep-derivations = true
+    experimental-features = nix-command flakes
+    keep-outputs = true
+    keep-derivations = true
     '';
   };
 
