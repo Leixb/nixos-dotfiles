@@ -1,9 +1,20 @@
 # vim: sw=2 ts=2:
-{ config, lib, pkgs, neovim-config, ... }:
+{ config, lib, pkgs, neovim-config, rnix-lsp, ... }:
 
-{
+let
+
+  dbeaver-adawaita = pkgs.symlinkJoin {
+    name = "dbeaver";
+    paths = [ pkgs.dbeaver ];
+    buildInputs = [ pkgs.makeWrapper ];
+    postBuild = ''
+      wrapProgram "$out/bin/dbeaver" --set GTK_THEME "Adwaita:light"
+    '';
+  };
+
+in {
   # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
+  #programs.home-manager.enable = true;
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
@@ -27,15 +38,21 @@
       window = {
         titlebar = false;
       };
+      bars = [];
     };
   };
 
-  xdg = {
-    enable = true;
-    configFile = {
-      "nvim".source = neovim-config.outPath;
-    };
-  };
+  # xdg = {
+  #   enable = true;
+  #   configFile = {
+  #     "nvim" = {
+				# recursive = true;
+				# source = neovim-config.outPath;
+			# };
+  #   };
+  # };
+
+  home.file.".config/nvim".source = neovim-config.outPath;
 
   home.sessionVariables = {
     EDITOR = "nvim";
@@ -56,10 +73,12 @@
     fd
     zathura
     bottom
+    dbeaver-adawaita
+  ] ++ [
+    rnix-lsp.packages.x86_64-linux.rnix-lsp
   ];
 
   services = {
-    lorri.enable = true;
     gpg-agent = {
       enable = true;
       enableSshSupport = true;
@@ -119,7 +138,7 @@
 
     extraConfig = {
       init = {
-        "defaultBranch" = "master";
+        defaultBranch = "master";
       };
       pull = {
         rebase = true;
@@ -207,6 +226,25 @@
 
   programs.waybar = {
     enable = true;
+    settings = [{
+      modules-left = [ "sway/workspaces" "sway/mode" "wlr/taskbar" ];
+      modules-center = [ "sway/window" ];
+      modules-right = [
+        "tray"
+        "idle_inhibitor"
+        "backlight"
+        "pulseaudio"
+        "bluetooth"
+        "network"
+        "memory"
+        "cpu"
+        "temperature"
+        "disk"
+        "sway/language"
+        "battery"
+        "clock"
+      ];
+    }];
   };
 
   gtk = {

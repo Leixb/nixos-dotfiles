@@ -11,15 +11,25 @@
         url = github:leixb/neovim-config;
         flake = false;
     };
+
+    rnix-lsp = {
+      url = github:nix-community/rnix-lsp;
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { nixpkgs, home-manager, nur, neovim-config, ... }:
+  outputs = { nixpkgs, home-manager, nur, neovim-config, rnix-lsp, ... }:
   let
     system = "x86_64-linux";
     pkgs = import nixpkgs { inherit system; };
-    inherit neovim-config;
 
-    specialArgs = { inherit neovim-config; };
+    inherit neovim-config;
+    inherit rnix-lsp;
+
+    specialArgs = {
+      inherit neovim-config;
+      inherit rnix-lsp;
+    };
 
     inherit (nixpkgs) lib;
   in {

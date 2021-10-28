@@ -70,6 +70,22 @@
 
   services.flatpak.enable = true;
 
+  services.postgresql = {
+    enable = true;
+    package = pkgs.postgresql;
+    enableTCPIP = true;
+    authentication = pkgs.lib.mkOverride 10 ''
+    local all all trust
+    host all all 127.0.0.1/32 trust
+    host all all ::1/128 trust
+    '';
+    initialScript = pkgs.writeText "backend-initScript" ''
+    CREATE ROLE leix WITH LOGIN PASSWORD 'leix' CREATEDB;
+    CREATE DATABASE dw;
+    GRANT ALL PRIVILEGES ON DATABASE dw TO leix;
+    '';
+  };
+
   environment.gnome.excludePackages = with pkgs; [
     gnome.cheese
     gnome-photos
