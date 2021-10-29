@@ -42,17 +42,15 @@ in {
     };
   };
 
-  # xdg = {
-  #   enable = true;
-  #   configFile = {
-  #     "nvim" = {
-				# recursive = true;
-				# source = neovim-config.outPath;
-			# };
-  #   };
-  # };
-
-  home.file.".config/nvim".source = neovim-config.outPath;
+  xdg = {
+    enable = true;
+    configFile = {
+      "nvim" = {
+        recursive = true;
+        source = neovim-config.outPath;
+      };
+    };
+  };
 
   home.sessionVariables = {
     EDITOR = "nvim";
