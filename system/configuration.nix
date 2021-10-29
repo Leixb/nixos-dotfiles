@@ -6,7 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
@@ -20,7 +21,7 @@
   };
 
   services.journald.extraConfig = ''
-  Storage=volatile
+    Storage=volatile
   '';
 
   hardware.cpu.intel.updateMicrocode = true;
@@ -75,14 +76,14 @@
     package = pkgs.postgresql;
     enableTCPIP = true;
     authentication = pkgs.lib.mkOverride 10 ''
-    local all all trust
-    host all all 127.0.0.1/32 trust
-    host all all ::1/128 trust
+      local all all trust
+      host all all 127.0.0.1/32 trust
+      host all all ::1/128 trust
     '';
     initialScript = pkgs.writeText "backend-initScript" ''
-    CREATE ROLE leix WITH LOGIN PASSWORD 'leix' CREATEDB;
-    CREATE DATABASE dw;
-    GRANT ALL PRIVILEGES ON DATABASE dw TO leix;
+      CREATE ROLE leix WITH LOGIN PASSWORD 'leix' CREATEDB;
+      CREATE DATABASE dw;
+      GRANT ALL PRIVILEGES ON DATABASE dw TO leix;
     '';
   };
 
@@ -142,22 +143,23 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs;
-  let 
-    common = [
-      vim
-      wget
-      ripgrep
-      lsof
-      file
-      git
-    ];
-    x = [
-      firefox-wayland
-      libreoffice
-      mpv
-      gnomeExtensions.appindicator
-    ];
-  in common ++ (if config.services.xserver.enable then x else []);
+    let
+      common = [
+        vim
+        wget
+        ripgrep
+        lsof
+        file
+        git
+      ];
+      x = [
+        firefox-wayland
+        libreoffice
+        mpv
+        gnomeExtensions.appindicator
+      ];
+    in
+    common ++ (if config.services.xserver.enable then x else [ ]);
 
   environment.variables.EDITOR = "vim";
 
@@ -204,7 +206,7 @@
     ];
     fontconfig = {
       defaultFonts = {
-        serif     = [ "DejaVu Serif" ];
+        serif = [ "DejaVu Serif" ];
         sansSerif = [ "DejaVu Sans" ];
         monospace = [ "Fira Mono" ];
       };
@@ -214,9 +216,9 @@
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = ''
-    experimental-features = nix-command flakes
-    keep-outputs = true
-    keep-derivations = true
+      experimental-features = nix-command flakes
+      keep-outputs = true
+      keep-derivations = true
     '';
   };
 

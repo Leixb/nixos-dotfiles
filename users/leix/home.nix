@@ -12,7 +12,8 @@ let
     '';
   };
 
-in {
+in
+{
   # Let Home Manager install and manage itself.
   #programs.home-manager.enable = true;
 
@@ -23,7 +24,7 @@ in {
 
   wayland.windowManager.sway = {
     enable = true;
-    wrapperFeatures.gtk = true ;
+    wrapperFeatures.gtk = true;
     xwayland = false;
     config = {
       modifier = "Mod4";
@@ -38,7 +39,7 @@ in {
       window = {
         titlebar = false;
       };
-      bars = [];
+      bars = [ ];
     };
   };
 
@@ -164,16 +165,16 @@ in {
     shellAliases = {
       cat = "bat";
       vim = "nvim";
-      vi  = "nvim";
+      vi = "nvim";
     };
     interactiveShellInit = ''
-    set fish_greeting
-    fish_vi_key_bindings
+      set fish_greeting
+      fish_vi_key_bindings
 
-    set fish_cursor_default     block      blink
-    set fish_cursor_insert      line       blink
-    set fish_cursor_replace_one underscore blink
-    set fish_cursor_visual      block
+      set fish_cursor_default     block      blink
+      set fish_cursor_insert      line       blink
+      set fish_cursor_replace_one underscore blink
+      set fish_cursor_visual      block
     '';
   };
 

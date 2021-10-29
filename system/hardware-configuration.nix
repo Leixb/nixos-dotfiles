@@ -5,7 +5,8 @@
 
 {
   imports =
-    [ (modulesPath + "/installer/scan/not-detected.nix")
+    [
+      (modulesPath + "/installer/scan/not-detected.nix")
     ];
 
   boot.initrd.availableKernelModules = [ "xhci_pci" "ahci" "usb_storage" "sd_mod" "rtsx_pci_sdmmc" ];
@@ -14,19 +15,20 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/3a044444-35d3-40a5-ab72-ff6335799d36";
+    {
+      device = "/dev/disk/by-uuid/3a044444-35d3-40a5-ab72-ff6335799d36";
       fsType = "btrfs";
       options = [ "subvol=nixos" ];
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/3C18-77E1";
+    {
+      device = "/dev/disk/by-uuid/3C18-77E1";
       fsType = "vfat";
     };
 
   swapDevices =
-    [ { device = "/dev/disk/by-uuid/a5c5f8dd-2918-4434-ac31-8953480e2353"; }
-    ];
+    [{ device = "/dev/disk/by-uuid/a5c5f8dd-2918-4434-ac31-8953480e2353"; }];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }
