@@ -23,12 +23,12 @@
 
   };
 
-  outputs = { nixpkgs, home-manager, nur, neovim-config, rnix-lsp, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, nur, ... }:
     let
       system = "x86_64-linux";
 
       specialArgs = {
-        inherit neovim-config rnix-lsp;
+        inherit inputs;
       };
 
       inherit (nixpkgs) lib;
@@ -37,6 +37,8 @@
       nixosConfigurations = {
         nixos = lib.nixosSystem {
           inherit system;
+          inherit specialArgs;
+
           modules = [
             ./system/configuration.nix
             { nixpkgs.overlays = [ nur.overlay ]; }

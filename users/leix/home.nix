@@ -1,5 +1,5 @@
 # vim: sw=2 ts=2:
-{ config, lib, pkgs, neovim-config, rnix-lsp, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 let
 
@@ -48,7 +48,7 @@ in
     configFile = {
       "nvim" = {
         recursive = true;
-        source = neovim-config.outPath;
+        source = inputs.neovim-config.outPath;
       };
     };
   };
@@ -74,7 +74,7 @@ in
     bottom
     dbeaver-adawaita
   ] ++ [
-    rnix-lsp.packages.x86_64-linux.rnix-lsp
+    inputs.rnix-lsp.packages.x86_64-linux.rnix-lsp
   ];
 
   services = {
