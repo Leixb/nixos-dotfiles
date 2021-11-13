@@ -58,6 +58,7 @@ in
   };
 
   home.packages = with pkgs; [
+    cachix
     neovim
     discord
     bitwarden
