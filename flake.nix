@@ -40,7 +40,7 @@
           inherit specialArgs;
 
           modules = [
-            ./system/configuration.nix
+            ./system/lenovo/configuration.nix
             { nixpkgs.overlays = [ nur.overlay ]; }
             home-manager.nixosModules.home-manager
             {
