@@ -22,6 +22,19 @@ in
   home.username = "leix";
   home.homeDirectory = "/home/leix";
 
+  dconf.settings = {
+    "org/virt-manager/virt-manager/connections" = {
+      autoconnect=["qemu:///system"];
+      uris=["qemu:///system"];
+    };
+    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
+      binding="<Super>Return";
+      # command="${pkgs.kitty}/bin/kitty";
+      command="kitty";
+      name="kitty";
+    };
+  };
+
   wayland.windowManager.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
@@ -76,6 +89,7 @@ in
     dbeaver-adawaita
     ripgrep
     lutris
+    zotero
   ] ++ [
     inputs.rnix-lsp.packages.x86_64-linux.rnix-lsp
   ];
@@ -221,7 +235,18 @@ in
     refined-github
     ublock-origin
   ];
-  programs.firefox.profiles.leix = { };
+
+  programs.firefox.profiles.leix = {
+    bookmarks = {
+      wikipedia = {
+        keyword = "wiki";
+        url = "https://en.wikipedia.org/wiki/Special:Search?search=%s&go=Go";
+      };
+      "kernel.org" = {
+        url = "https://www.kernel.org";
+      };
+    };
+  };
 
   programs.waybar = {
     enable = true;
@@ -256,6 +281,9 @@ in
       name = "Arc";
       package = pkgs.arc-icon-theme;
     };
+    gtk3.bookmarks = [
+      "file:///home/leix/Documents/UPC"
+    ];
   };
 
   # This value determines the Home Manager release that your

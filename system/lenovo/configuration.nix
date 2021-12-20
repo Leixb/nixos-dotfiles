@@ -4,15 +4,6 @@
 
 { config, pkgs, lib, ... }:
 
-let
-  nvidia-offload = pkgs.writeShellScriptBin "nvidia-offload" ''
-    export __NV_PRIME_RENDER_OFFLOAD=1
-    export __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0
-    export __GLX_VENDOR_LIBRARY_NAME=nvidia
-    export __VK_LAYER_NV_optimus=NVIDIA_only
-    exec -a "$0" "$@"
-  '';
-in
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -22,6 +13,7 @@ in
   boot.kernel.sysctl = {
     "vm.swappiness" = lib.mkDefault 1;
     "net.ipv4.ip_forward" = 1;
+    "abi.vsyscall32" = 0; # lol anticheat
   };
 
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
@@ -32,7 +24,10 @@ in
     "nowatchdog"
     "intel_iommu=on"
     "iommu=pt"
+    "hid_apple.fnmode=2"
   ];
+
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
 
   boot.extraModprobeConfig = ''
     options hid_apple fnmode=2
@@ -40,10 +35,7 @@ in
 
   services.fstrim.enable = lib.mkDefault true;
 
-  boot.initrd.kernelModules = [ "i915" ];
-
-  hardware.cpu.intel.updateMicrocode =
-    lib.mkDefault config.hardware.enableRedistributableFirmware;
+  hardware.cpu.intel.updateMicrocode = true;
   
   hardware.opengl.extraPackages = with pkgs; [
     vaapiIntel
@@ -54,16 +46,11 @@ in
 
   services.xserver.videoDrivers = lib.mkDefault [ "nvidia" ];
 
-  hardware.nvidia.modesetting.enable = true;
+  hardware.nvidia.modesetting.enable = false;
+  # hardware.nvidia.powerManagement.finegrained = true;
 
   virtualisation.libvirtd.enable = true;
   programs.dconf.enable = true;
-
-  # hardware.nvidia.prime = {
-  #   nvidiaBusId = "PCI:1:0:0";
-  #   offload.enable = lib.mkDefault true;
-  #   # Hardware should specify the bus ID for intel/nvidia devices
-  # };
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot = {
@@ -104,6 +91,8 @@ in
 
   # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
+  services.xserver.displayManager.gdm.nvidiaWayland = false;
+
   services.xserver.desktopManager.gnome.enable = true;
   
   # Configure keymap in X11
@@ -139,12 +128,16 @@ in
     isNormalUser = true;
     extraGroups = [ "wheel" "libvirtd"]; # Enable ‘sudo’ for the user.
     shell = pkgs.fish;
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJlnrdcH2stIVA1hkkOIFvebIjDALugIrTxGi6mvZQBp JuiceSSH"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEe14az/yN5C7EggpqaahIyk3PX2uFT18gaZG4LxxiGl aleix.bone@a5s102pc53"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKOO1MTb4NP9qgI8P/8feqFXReeLCiB79R6YLPlXQaRQ leix@nixos"
+    ];
   };
 
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    nvidia-offload
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
     firefox
@@ -184,7 +177,12 @@ in
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
+  services.openssh = {
+    passwordAuthentication = false;
+    permitRootLogin = "no";
+    enable = true;
+    ports = [ 22 2322 ];
+  };
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
