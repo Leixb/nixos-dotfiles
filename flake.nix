@@ -2,22 +2,22 @@
   description = "System Configuration using Flakes";
 
   inputs = {
-    nixpkgs.url = "nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/a929dd99742dacd7401f12caee816bc9f611280e";
 
     home-manager = {
-      url = github:nix-community/home-manager/master;
+      url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nur.url = github:nix-community/NUR;
+    nur.url = "github:nix-community/NUR";
 
     rnix-lsp = {
-      url = github:nix-community/rnix-lsp;
+      url = "github:nix-community/rnix-lsp";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     neovim-config = {
-      url = github:leixb/neovim-config;
+      url = "github:leixb/neovim-config";
       flake = false;
     };
 

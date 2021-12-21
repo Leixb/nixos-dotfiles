@@ -4,6 +4,25 @@
 
 { config, pkgs, lib, ... }:
 
+# Set battery saving (limit charge to 60%)
+let battery_conservation_mode = pkgs.writeShellScriptBin "battery-conservation" ''
+  #!/usr/bin/env bash
+
+  method='\_SB.PCI0.LPCB.EC0.VPC0.SBMC'
+
+  on() {
+      echo $method 3 | sudo tee /proc/acpi/call
+  }
+
+  off() {
+      echo $method 5 | sudo tee /proc/acpi/call
+  }
+
+  $1
+'';
+
+in
+
 {
   imports =
     [ # Include the results of the hardware scan.
@@ -15,6 +34,9 @@
     "net.ipv4.ip_forward" = 1;
     "abi.vsyscall32" = 0; # lol anticheat
   };
+
+  boot.kernelModules = [ "acpi_call" ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
 
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
   boot.kernelParams = [
@@ -35,7 +57,17 @@
 
   services.fstrim.enable = lib.mkDefault true;
 
+  services.ananicy = {
+    enable = true;
+    # package = pkgs.ananicy-cpp;
+  };
+  services.acpid.enable = true;
+
   hardware.cpu.intel.updateMicrocode = true;
+  
+  hardware.opengl.driSupport32Bit = true;
+  hardware.opengl.enable = true;
+  hardware.pulseaudio.support32Bit = true;
   
   hardware.opengl.extraPackages = with pkgs; [
     vaapiIntel
@@ -59,6 +91,11 @@
     configurationLimit = 50;
   };
   boot.loader.efi.canTouchEfiVariables = true;
+
+  boot.loader.grub.enable = true;
+  boot.loader.grub.efiSupport = true;
+  boot.loader.grub.device = "nodev";
+
 
   networking.hostName = "nixos"; # Define your hostname.
   networking.wireless.enable = false;  # Enables wireless support via wpa_supplicant.
@@ -122,6 +159,8 @@
   # Enable touchpad support (enabled default in most desktopManager).
   services.xserver.libinput.enable = true;
 
+  programs.gamemode.enable = true;
+
   # Define a user account. Don't forget to set a password with ‘passwd’.
   programs.fish.enable = true;
   users.users.leix = {
@@ -143,7 +182,12 @@
     firefox
     openssl
     virt-manager
+    battery_conservation_mode
+    gnomeExtensions.appindicator
+    vulkan-tools
   ];
+
+  services.udev.packages = with pkgs; [ gnome3.gnome-settings-daemon ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

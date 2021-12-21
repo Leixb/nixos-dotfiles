@@ -23,15 +23,18 @@ in
   home.homeDirectory = "/home/leix";
 
   dconf.settings = {
-    "org/virt-manager/virt-manager/connections" = {
-      autoconnect=["qemu:///system"];
-      uris=["qemu:///system"];
+    "org/gnome/settings-daemon/plugins/media-keys" = {
+      custom-keybindings = [
+        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
+      ];
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-      binding="<Super>Return";
-      # command="${pkgs.kitty}/bin/kitty";
-      command="kitty";
+      binding = "<Super>Return";
+      command="${pkgs.kitty}/bin/kitty";
       name="kitty";
+    };
+    "org/gnome/shell" = {
+      favorite-apps=["firefox.desktop" "kitty.desktop" "org.gnome.Nautilus.desktop"];
     };
   };
 
