@@ -136,6 +136,8 @@ in
       color7 = "#a4a4a4";
       color15 = "#fffefe";
       selection_foreground = "#1c262b";
+
+      font_family = "Fira Mono";
     };
   };
 
