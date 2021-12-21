@@ -151,6 +151,7 @@ in
     ignores = [
       "*~"
       "*.swp"
+      "/.direnv/"
     ];
 
     aliases = {
@@ -195,6 +196,9 @@ in
       set fish_cursor_replace_one underscore blink
       set fish_cursor_visual      block
     '';
+    functions = {
+      gitignore = "curl -sL https://www.gitignore.io/api/$argv | tail -n+5 | head -n-2";
+    };
   };
 
   programs.fzf = {
