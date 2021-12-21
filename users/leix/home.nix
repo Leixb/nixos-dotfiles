@@ -36,6 +36,12 @@ in
     "org/gnome/shell" = {
       favorite-apps=["firefox.desktop" "kitty.desktop" "org.gnome.Nautilus.desktop"];
     };
+    "org/gnome/GWeather" = {
+      temperature-unit = "centigrade";
+    };
+    "org/gnome/shell/weather" = {
+      automatic-location=true;
+    };
   };
 
   wayland.windowManager.sway = {
