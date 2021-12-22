@@ -82,8 +82,17 @@ in
     lutris
     zotero
     manix
-    busybox
+    toybox
+    zip
     mount-arch-home
+    flameshot
+    gimp
+    inkscape
+    krita
+    libreoffice
+    mpv
+    feh
+    git-extras
   ] ++ [
     inputs.rnix-lsp.packages.x86_64-linux.rnix-lsp
   ];
@@ -148,6 +157,14 @@ in
     aliases = {
       lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
     };
+
+    delta = {
+      enable = true;
+      options = {
+        line-numbers = true;
+      };
+    };
+    lfs.enable = true;
 
     extraConfig = {
       init = {

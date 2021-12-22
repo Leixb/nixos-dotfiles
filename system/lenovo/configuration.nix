@@ -191,7 +191,7 @@ in
     vulkan-tools
   ];
 
-  services.udev.packages = with pkgs; [ gnome3.gnome-settings-daemon ];
+  services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
