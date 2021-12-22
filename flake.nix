@@ -2,7 +2,7 @@
   description = "System Configuration using Flakes";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/a929dd99742dacd7401f12caee816bc9f611280e";
+    nixpkgs.url = "github:NixOS/nixpkgs";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
