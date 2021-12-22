@@ -12,6 +12,15 @@ let
     '';
   };
 
+  mount-arch-home = pkgs.writeShellScriptBin "mount-arch-home" ''
+    mkdir -p /tmp/mnt
+
+    sudo mount /dev/sda2 /tmp/mnt
+    sudo losetup -fP /tmp/mnt/leix.home
+    sudo nix run nixpkgs#cryptsetup open /dev/loop0p1 leix
+    sudo mount /dev/mapper/leix /tmp/mnt/leix
+  '';
+
 in
 {
   # Let Home Manager install and manage itself.
@@ -99,6 +108,9 @@ in
     ripgrep
     lutris
     zotero
+    manix
+    busybox
+    mount-arch-home
   ] ++ [
     inputs.rnix-lsp.packages.x86_64-linux.rnix-lsp
   ];
