@@ -53,27 +53,6 @@ in
     };
   };
 
-  wayland.windowManager.sway = {
-    enable = true;
-    wrapperFeatures.gtk = true;
-    xwayland = false;
-    config = {
-      modifier = "Mod4";
-      terminal = "kitty";
-      menu = "wofi --show drun";
-      input = {
-        "type:touchpad" = {
-          tap = "enabled";
-          natural_scroll = "enabled";
-        };
-      };
-      window = {
-        titlebar = false;
-      };
-      bars = [ ];
-    };
-  };
-
   xdg = {
     enable = true;
     configFile = {
@@ -93,12 +72,6 @@ in
     neovim
     discord
     bitwarden
-    swaylock
-    swayidle
-    swaybg
-    wl-clipboard
-    mako # notification daemon
-    wofi # Dmenu is the default in the config but i recommend wofi since its wayland native
     tdesktop # telegram desktop
     gcc
     fd
@@ -273,29 +246,6 @@ in
         url = "https://www.kernel.org";
       };
     };
-  };
-
-  programs.waybar = {
-    enable = true;
-    settings = [{
-      modules-left = [ "sway/workspaces" "sway/mode" "wlr/taskbar" ];
-      modules-center = [ "sway/window" ];
-      modules-right = [
-        "tray"
-        "idle_inhibitor"
-        "backlight"
-        "pulseaudio"
-        "bluetooth"
-        "network"
-        "memory"
-        "cpu"
-        "temperature"
-        "disk"
-        "sway/language"
-        "battery"
-        "clock"
-      ];
-    }];
   };
 
   gtk = {
