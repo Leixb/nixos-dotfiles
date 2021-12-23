@@ -75,7 +75,10 @@ in
 
   home.sessionVariables = {
     EDITOR = "nvim";
+    WINEDLLOVERRIDES = "winemenubuilder.exe=d"; # Prevent wine from making file associations
   };
+
+  xsession.windowManager.awesome.enable = true;
 
   home.packages = with pkgs; [
     cachix
@@ -111,6 +114,13 @@ in
     gpg-agent = {
       enable = true;
       enableSshSupport = true;
+    };
+
+    xcape = {
+      enable = true;
+      mapExpression = {
+        Caps_Lock="F13";
+      };
     };
   };
 
@@ -288,6 +298,12 @@ in
     gtk3.bookmarks = [
       "file:///home/leix/Documents/UPC"
     ];
+  };
+
+  xsession.pointerCursor = {
+    package = pkgs.capitaine-cursors;
+    name = "Capitaine-Cursors";
+    size = 42;
   };
 
   # This value determines the Home Manager release that your

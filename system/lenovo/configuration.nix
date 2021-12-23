@@ -80,10 +80,6 @@ in
     intel-media-driver
   ];
 
-  services.xserver.videoDrivers = lib.mkDefault [ "nvidia" ];
-
-  hardware.nvidia.modesetting.enable = false;
-  # hardware.nvidia.powerManagement.finegrained = true;
 
   virtualisation.libvirtd.enable = true;
   programs.dconf.enable = true;
@@ -123,22 +119,32 @@ in
   i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
-    keyMap = "us";
+    useXkbConfig = true;
   };
 
   # Enable the X11 windowing system.
-  services.xserver.enable = true;
+  services.xserver = {
+    enable = true;
 
+    # Enable the GNOME Desktop Environment.
+    displayManager.gdm.enable = true;
+    displayManager.gdm.nvidiaWayland = false;
 
-  # Enable the GNOME Desktop Environment.
-  services.xserver.displayManager.gdm.enable = true;
-  services.xserver.displayManager.gdm.nvidiaWayland = false;
+    desktopManager.gnome.enable = true;
+    
+    # Configure keymap in X11
+    layout = "us";
+    xkbVariant = "altgr-intl";
+    xkbOptions = "lv3:caps_switch,shift:both_capslock,ralt:compose";
 
-  services.xserver.desktopManager.gnome.enable = true;
-  
-  # Configure keymap in X11
-  services.xserver.layout = "us";
-  services.xserver.xkbOptions = "eurosign:e";
+    # Enable touchpad support (enabled default in most desktopManager).
+    libinput.enable = true;
+
+    videoDrivers = lib.mkDefault [ "nvidia" ];
+  };
+
+  hardware.nvidia.modesetting.enable = false;
+  # hardware.nvidia.powerManagement.finegrained = true;
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
@@ -160,8 +166,6 @@ in
     #media-session.enable = true;
   };
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  services.xserver.libinput.enable = true;
 
   programs.gamemode.enable = true;
 
