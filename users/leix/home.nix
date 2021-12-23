@@ -12,13 +12,23 @@ let
     '';
   };
 
-  mount-arch-home = pkgs.writeShellScriptBin "mount-arch-home" ''
-    mkdir -p /tmp/mnt
+  open-arch-home = pkgs.writers.writeBashBin "open-arch-home" ''
+    set -e
+    ${pkgs.coreutils}/bin/mkdir -p /tmp/mnt
 
-    sudo mount /dev/sda2 /tmp/mnt
-    sudo losetup -fP /tmp/mnt/leix.home
-    sudo nix run nixpkgs#cryptsetup open /dev/loop0p1 leix
-    sudo mount /dev/mapper/leix /tmp/mnt/leix
+    sudo ${pkgs.util-linux}/bin/mount /dev/sda2 /tmp/mnt
+    sudo ${pkgs.util-linux}/bin/losetup /dev/loop7 -P /tmp/mnt/leix.home
+    sudo ${pkgs.cryptsetup}/bin/cryptsetup open /dev/loop7p1 leix
+    sudo ${pkgs.util-linux}/bin/mount /dev/mapper/leix /tmp/mnt/leix
+  '';
+
+  close-arch-home = pkgs.writers.writeBashBin "close-arch-home" ''
+    set -e
+
+    sudo ${pkgs.util-linux}/bin/umount /dev/mapper/leix
+    sudo ${pkgs.cryptsetup}/bin/cryptsetup close leix
+    sudo ${pkgs.util-linux}/bin/losetup -d /dev/loop7
+    sudo ${pkgs.util-linux}/bin/umount /dev/sda2
   '';
 
 in
@@ -83,7 +93,8 @@ in
     zotero
     manix
     zip
-    mount-arch-home
+    open-arch-home
+    close-arch-home
     flameshot
     gimp
     inkscape
