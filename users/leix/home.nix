@@ -82,7 +82,6 @@ in
     lutris
     zotero
     manix
-    toybox
     zip
     mount-arch-home
     flameshot
