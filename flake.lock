@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "awesome-config": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1640461759,
+        "narHash": "sha256-oc+LlfSbUVrl9UjEoGG3FY+E/H7i7Ny93V6JefmHr9M=",
+        "owner": "leixb",
+        "repo": "awesome-copycats",
+        "rev": "748490434d9ef7c70f2e8408cefd177f87e940c0",
+        "type": "github"
+      },
+      "original": {
+        "owner": "leixb",
+        "repo": "awesome-copycats",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -123,6 +139,7 @@
     },
     "root": {
       "inputs": {
+        "awesome-config": "awesome-config",
         "home-manager": "home-manager",
         "neovim-config": "neovim-config",
         "nixpkgs": "nixpkgs",

@@ -21,6 +21,11 @@
       flake = false;
     };
 
+    awesome-config = {
+      url = "github:leixb/awesome-copycats";
+      flake = false;
+    };
+
   };
 
   outputs = inputs@{ nixpkgs, home-manager, nur, ... }:

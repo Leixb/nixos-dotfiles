@@ -70,6 +70,10 @@ in
         recursive = true;
         source = inputs.neovim-config.outPath;
       };
+      "awesome" = {
+        recursive = true;
+        source = inputs.awesome-config.outPath;
+      };
     };
   };
 
@@ -78,7 +82,10 @@ in
     WINEDLLOVERRIDES = "winemenubuilder.exe=d"; # Prevent wine from making file associations
   };
 
-  xsession.windowManager.awesome.enable = true;
+  xsession.windowManager.awesome = {
+    enable = true;
+    luaModules = [ pkgs.luaPackages.lain ];
+  };
 
   home.packages = with pkgs; [
     cachix
