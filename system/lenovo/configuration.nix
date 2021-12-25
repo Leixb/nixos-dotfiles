@@ -201,7 +201,7 @@ in
     vulkan-tools
   ];
 
-  services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon ];
+  services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon logitech-udev-rules headsetcontrol ];
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

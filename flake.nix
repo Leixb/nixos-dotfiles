@@ -36,6 +36,10 @@
         inherit inputs;
       };
 
+      extra-packages = (final: prev: {
+        headsetcontrol = prev.callPackage ./packages/headsetcontrol/default.nix {}; 
+      });
+
       inherit (nixpkgs) lib;
     in
     {
@@ -45,8 +49,8 @@
           inherit specialArgs;
 
           modules = [
+            { nixpkgs.overlays = [ nur.overlay extra-packages ]; }
             ./system/lenovo/configuration.nix
-            { nixpkgs.overlays = [ nur.overlay ]; }
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
