@@ -115,6 +115,7 @@ in
     git-extras
     solaar
     headsetcontrol
+    pavucontrol
   ] ++ [
     inputs.rnix-lsp.packages.x86_64-linux.rnix-lsp
   ];
