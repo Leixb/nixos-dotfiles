@@ -284,6 +284,7 @@ in
     '';
     autoOptimiseStore = true;
     trustedUsers = [ "root" "leix" ];
+    gc.automatic = true;
   };
 
 
