@@ -31,9 +31,63 @@
       options = [ "subvol=@home" ];
     };
 
+  fileSystems."/var/lib/libvirt/images" =
+    { device = "/dev/disk/by-uuid/29a8e3e8-d792-49e6-89b5-5bd78c8ab2e9";
+      fsType = "btrfs";
+      options = [ "subvol=@libvirt-images" ];
+    };
+
+  fileSystems."/data" =
+    { device = "/dev/disk/by-uuid/29a8e3e8-d792-49e6-89b5-5bd78c8ab2e9";
+      fsType = "btrfs";
+      options = [ "subvol=@data" ];
+    };
+
   fileSystems."/boot" =
     { device = "/dev/disk/by-uuid/F806-BDD1";
       fsType = "vfat";
+    };
+
+  fileSystems."/mnt/synology/video" =
+    { device = "192.168.1.3:/volume1/video";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" ];
+    };
+
+  fileSystems."/mnt/synology/books" =
+    { device = "192.168.1.3:/volume1/books";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" ];
+    };
+
+  fileSystems."/mnt/synology/music" =
+    { device = "192.168.1.3:/volume1/music";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" ];
+    };
+
+  fileSystems."/mnt/synology/photo" =
+    { device = "192.168.1.3:/volume1/photo";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" ];
+    };
+
+  fileSystems."/mnt/synology/downloads" =
+    { device = "192.168.1.3:/volume1/Downloads";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" ];
+    };
+
+  fileSystems."/mnt/synology/shared" =
+    { device = "192.168.1.3:/volume1/Shared folder";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" ];
+    };
+
+  fileSystems."/mnt/synology/docker" =
+    { device = "192.168.1.3:/volume1/docker";
+      fsType = "nfs";
+      options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" ];
     };
 
   swapDevices = [ ];
