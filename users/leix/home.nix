@@ -80,6 +80,7 @@ in
   home.sessionVariables = {
     EDITOR = "nvim";
     WINEDLLOVERRIDES = "winemenubuilder.exe=d"; # Prevent wine from making file associations
+    WEBKIT_DISABLE_COMPOSITING_MODE = 1; # https://github.com/NixOS/nixpkgs/issues/32580
   };
 
   xsession.windowManager.awesome = {
