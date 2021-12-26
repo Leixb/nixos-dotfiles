@@ -24,26 +24,6 @@ stdenv.mkDerivation rec {
     hidapi
   ];
 
-  configurePhase = ''
-    cmake -B "build" .
-  '';
-
-  buildPhase = ''
-    make -C "build"
-  '';
-
-  installPhase = ''
-    mkdir -p $out/bin
-    cp build/headsetcontrol $out/bin
-
-    ${
-      if stdenv.isLinux then ''
-        mkdir -p $out/lib/udev/rules.d
-        cp build/70-headsets.rules $out/lib/udev/rules.d
-    '' else ""
-    }
-  '';
-
   /*
   Test depends on having the apropiate headsets connected.
   */
