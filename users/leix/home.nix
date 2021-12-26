@@ -31,6 +31,10 @@ let
     sudo ${pkgs.util-linux}/bin/umount /dev/sda2
   '';
 
+  vpn-connect = pkgs.writeShellScriptBin "vpn-connect" ''
+    sudo ${pkgs.gof5}/bin/gof5 -server https://upclink.upc.edu -username aleix.bone
+  '';
+
 in
 {
   # Let Home Manager install and manage itself.
@@ -117,6 +121,7 @@ in
     solaar
     headsetcontrol
     pavucontrol
+    vpn-connect
   ] ++ [
     inputs.rnix-lsp.packages.x86_64-linux.rnix-lsp
   ];
