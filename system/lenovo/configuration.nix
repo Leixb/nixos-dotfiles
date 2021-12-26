@@ -152,6 +152,13 @@ in
   hardware.nvidia.modesetting.enable = false;
   # hardware.nvidia.powerManagement.finegrained = true;
 
+  systemd.targets = {
+    sleep.enable = false;
+    suspend.enable = false;
+    hibernate.enable = false;
+    hybrid-sleep.enable = false;
+  };
+
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.brlaser ];
