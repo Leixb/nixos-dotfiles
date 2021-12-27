@@ -135,8 +135,14 @@ in
     # Enable the GNOME Desktop Environment.
     displayManager.gdm.enable = true;
     displayManager.gdm.nvidiaWayland = false;
+    displayManager.defaultSession = "none+awesome";
 
-    desktopManager.gnome.enable = true;
+    windowManager.awesome = {
+      enable = true;
+      package = pkgs.awesome.override { lua = pkgs.lua5_3; };
+    };
+
+    # desktopManager.gnome.enable = true;
     
     # Configure keymap in X11
     layout = "us";
@@ -149,8 +155,16 @@ in
     videoDrivers = lib.mkDefault [ "nvidia" ];
   };
 
-  hardware.nvidia.modesetting.enable = false;
-  # hardware.nvidia.powerManagement.finegrained = true;
+  hardware.bluetooth.enable = true;
+  services.blueman.enable = true;
+
+  hardware.nvidia.modesetting.enable = true;
+
+  services.xserver.screenSection = ''
+    Option         "metamodes" "HDMI-0: nvidia-auto-select +1920+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}, DP-2: nvidia-auto-select +0+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}"
+    Option         "AllowIndirectGLXProtocol" "off"
+    Option         "TripleBuffer" "on"
+  '';
 
   systemd.targets = {
     sleep.enable = false;

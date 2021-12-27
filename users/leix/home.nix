@@ -74,10 +74,10 @@ in
         recursive = true;
         source = inputs.neovim-config.outPath;
       };
-      "awesome" = {
-        recursive = true;
-        source = inputs.awesome-config.outPath;
-      };
+      # "awesome" = {
+        # recursive = true;
+        # source = inputs.awesome-config.outPath;
+      # };
     };
   };
 
@@ -87,10 +87,10 @@ in
     WEBKIT_DISABLE_COMPOSITING_MODE = 1; # https://github.com/NixOS/nixpkgs/issues/32580
   };
 
-  xsession.windowManager.awesome = {
-    enable = true;
-    luaModules = [ pkgs.luaPackages.lain ];
-  };
+  # xsession.windowManager.awesome = {
+  #   enable = true;
+  #   luaModules = [ pkgs.luaPackages.lain ];
+  # };
 
   home.packages = with pkgs; [
     cachix
@@ -122,6 +122,7 @@ in
     headsetcontrol
     pavucontrol
     vpn-connect
+    rofi
   ] ++ [
     inputs.rnix-lsp.packages.x86_64-linux.rnix-lsp
   ];
