@@ -128,6 +128,9 @@ in
     useXkbConfig = true;
   };
 
+  services.gnome.gnome-keyring.enable = true;
+  security.pam.services.gdm.enableGnomeKeyring = true;
+
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
