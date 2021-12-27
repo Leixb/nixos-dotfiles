@@ -122,7 +122,7 @@ in
     headsetcontrol
     pavucontrol
     vpn-connect
-    rofi
+    wpgtk
   ] ++ [
     inputs.rnix-lsp.packages.x86_64-linux.rnix-lsp
   ];
@@ -133,11 +133,18 @@ in
       enableSshSupport = true;
     };
 
-    xcape = {
-      enable = true;
-      mapExpression = {
-        Caps_Lock="F13";
-      };
+    picom.enable = true;
+  };
+
+  programs.rofi = {
+    enable = true;
+    extraConfig = {
+	    modi = "combi,drun,window";
+      show-icons = true;
+      cycle = false;
+      combi-modi = "window,drun";
+	    combi-hide-mode-prefix = true;
+      display-combi = "";
     };
   };
 
@@ -319,8 +326,8 @@ in
 
   xsession.pointerCursor = {
     package = pkgs.capitaine-cursors;
-    name = "Capitaine-Cursors";
-    size = 42;
+    name = "capitaine-cursors";
+    size = 32;
   };
 
   # This value determines the Home Manager release that your
