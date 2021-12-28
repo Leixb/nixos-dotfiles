@@ -133,7 +133,13 @@ in
       enableSshSupport = true;
     };
 
-    picom.enable = true;
+    picom = {
+      enable = true;
+      backend = "glx";
+      extraOptions = ''
+      unredir-if-possible = true;
+      '';
+    };
   };
 
   programs.rofi = {
