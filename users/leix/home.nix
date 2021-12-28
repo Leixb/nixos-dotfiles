@@ -284,27 +284,36 @@ in
     };
   };
 
-  programs.firefox.enable = true;
-  programs.firefox.extensions = with pkgs.nur.repos.rycee.firefox-addons; [
-    bitwarden
-    darkreader
-    https-everywhere
-    languagetool
-    matte-black-red
-    no-pdf-download
-    privacy-badger
-    refined-github
-    ublock-origin
-  ];
+  programs.firefox = {
+    enable = true;
+    extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+      bitwarden
+      darkreader
+      https-everywhere
+      languagetool
+      matte-black-red
+      no-pdf-download
+      privacy-badger
+      refined-github
+      ublock-origin
+    ];
 
-  programs.firefox.profiles.leix = {
-    bookmarks = {
-      wikipedia = {
-        keyword = "wiki";
-        url = "https://en.wikipedia.org/wiki/Special:Search?search=%s&go=Go";
+    profiles.leix = {
+      settings = {
+        "media.ffmpeg.vaapi.enabled" = true;
+        "media.rdd-ffmpeg.enabled" = true;
+
+        "media.ffvpx.enabled" = false;
       };
-      "kernel.org" = {
-        url = "https://www.kernel.org";
+
+      bookmarks = {
+        wikipedia = {
+          keyword = "wiki";
+          url = "https://en.wikipedia.org/wiki/Special:Search?search=%s&go=Go";
+        };
+        "kernel.org" = {
+          url = "https://www.kernel.org";
+        };
       };
     };
   };
