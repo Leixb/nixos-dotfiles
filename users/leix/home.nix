@@ -37,26 +37,30 @@ let
   '';
 
   theme = {
-    name = "Power Arrow Dark";
+    name = "Nightfly";
     font = "Fira Mono";
-    foreground = "#DDDDFF";
-    background = "#1A1A1A";
-    color8 = "#6E6E6E";
-    color0 = "#1A1A1A";
-    color9 = "#EA6F81";
-    color1 = "#AF5360";
-    color10 = "#7BAB4E";
-    color2 = "#447019";
-    color11 = "#CFCD63";
-    color3 = "#D8D782";
-    color4 = "#648BB5";
-    color12 = "#92ADCB";
-    color13 = "#CB92AD";
-    color5 = "#E5C8D6";
-    color6 = "#406E6F";
-    color14 = "#81DCDE";
-    color7 = "#C6C6E5";
-    color15 = "#DDDDFF";
+    
+    background  = "#011627";
+    foreground  = "#acb4c2";
+    cursor  = "#9ca1aa";
+    color0  = "#1d3b53";
+    color1  = "#fc514e";
+    color2  = "#a1cd5e";
+    color3  = "#e3d18a";
+    color4  = "#82aaff";
+    color5  = "#c792ea";
+    color6  = "#7fdbca";
+    color7  = "#a1aab8";
+    color8  = "#7c8f8f";
+    color9  = "#ff5874";
+    color10  = "#21c7a8";
+    color11  = "#ecc48d";
+    color12  = "#82aaff";
+    color13  = "#ae81ff";
+    color14  = "#7fdbca";
+    color15  = "#d6deeb";
+    selection_background  = "#b2ceee";
+    selection_foreground  = "#080808";
   };
 
 in
@@ -193,10 +197,10 @@ in
 
       background = theme.background;
       foreground = theme.foreground;
-      selection_foreground = theme.background;
-      selection_background = theme.foreground;
+      selection_foreground = theme.selection_foreground;
+      selection_background = theme.selection_background;
 
-      cursor  = theme.foreground;
+      cursor  = theme.cursor;
       color0  = theme.color0;
       color8  = theme.color8;
       color1  = theme.color1;
