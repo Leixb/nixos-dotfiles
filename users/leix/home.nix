@@ -110,31 +110,12 @@ in
     };
   };
 
-  home.file = {
-    ".xinitrc".text = ''
-        if test -z "$DBUS_SESSION_BUS_ADDRESS"; then
-          eval $(dbus-launch --exit-with-session --sh-syntax)
-        fi
-        systemctl --user import-environment DISPLAY XAUTHORITY
-
-        if command -v dbus-update-activation-environment >/dev/null 2>&1; then
-                dbus-update-activation-environment DISPLAY XAUTHORITY
-        fi
-        exec awesome
-      '';
-  };
-
   home.sessionVariables = {
     EDITOR = "nvim";
     TERMINAL = "kitty";
     WINEDLLOVERRIDES = "winemenubuilder.exe=d"; # Prevent wine from making file associations
     WEBKIT_DISABLE_COMPOSITING_MODE = 1; # https://github.com/NixOS/nixpkgs/issues/32580
   };
-
-  # xsession.windowManager.awesome = {
-  #   enable = true;
-  #   luaModules = [ pkgs.luaPackages.lain ];
-  # };
 
   home.packages = with pkgs; [
     cachix
@@ -422,10 +403,35 @@ in
     ];
   };
 
-  xsession.pointerCursor = {
-    package = pkgs.capitaine-cursors;
-    name = "capitaine-cursors";
-    size = 32;
+  xsession = {
+    enable = true;
+
+    numlock.enable = true;
+
+    pointerCursor = {
+      package = pkgs.capitaine-cursors;
+      name = "capitaine-cursors";
+      size = 32;
+    };
+
+    windowManager.awesome = {
+      enable = true;
+      package = (pkgs.awesome.overrideAttrs (oldAttrs: rec {
+
+        src = pkgs.fetchFromGitHub {
+          owner = "awesomewm";
+          repo = "awesome";
+          rev = "7451c6952e0a24bd54edc0f7ecff6ad46ef65dcb";
+          sha256 = "17w7n3s34482hzs9692f9wwwcl96drhg860mmj2ngzlxp3p5lv76";
+        };
+
+      })).override {
+        lua = pkgs.lua5_3;
+        gtk3Support = true;
+        gtk3 = pkgs.gtk3;
+      };
+    };
+
   };
 
   xresources.extraConfig = ''

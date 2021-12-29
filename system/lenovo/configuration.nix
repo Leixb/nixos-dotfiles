@@ -128,26 +128,16 @@ in
   services.xserver = {
     enable = true;
 
-    displayManager.startx.enable = true;
-    displayManager.defaultSession = "none+awesome";
+    displayManager.lightdm.enable = true;
+    displayManager.autoLogin.enable = true;
+    displayManager.autoLogin.user = "leix";
 
-    windowManager.awesome = {
-      enable = true;
-      package = (pkgs.awesome.overrideAttrs (oldAttrs: rec {
-
-        src = pkgs.fetchFromGitHub {
-          owner = "awesomewm";
-          repo = "awesome";
-          rev = "7451c6952e0a24bd54edc0f7ecff6ad46ef65dcb";
-          sha256 = "17w7n3s34482hzs9692f9wwwcl96drhg860mmj2ngzlxp3p5lv76";
-        };
-
-      })).override {
-        lua = pkgs.lua5_3;
-        gtk3Support = true;
-        gtk3 = pkgs.gtk3;
-      };
-    };
+    displayManager.defaultSession = "xsession";
+    displayManager.session = [{
+      manage = "desktop";
+      name = "xsession";
+      start = "exec $HOME/.xsession";
+    }];
 
     # Configure keymap in X11
     layout = "us";
