@@ -41,7 +41,7 @@ let
     font = "Fira Mono";
     font_size = "11.0";
     
-    background  = "#011627";
+    background  = "#011626";
     foreground  = "#acb4c2";
     cursor  = "#9ca1aa";
     color0  = "#1d3b53";
