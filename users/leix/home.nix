@@ -3,6 +3,7 @@
 
 let
 
+
   dbeaver-adawaita = pkgs.symlinkJoin {
     name = "dbeaver";
     paths = [ pkgs.dbeaver ];
@@ -34,6 +35,29 @@ let
   vpn-connect = pkgs.writeShellScriptBin "vpn-connect" ''
     sudo ${pkgs.gof5}/bin/gof5 -server https://upclink.upc.edu -username aleix.bone
   '';
+
+  theme = {
+    name = "Power Arrow Dark";
+    font = "Fira Mono";
+    foreground = "#DDDDFF";
+    background = "#1A1A1A";
+    color8 = "#6E6E6E";
+    color0 = "#1A1A1A";
+    color9 = "#EA6F81";
+    color1 = "#AF5360";
+    color10 = "#7BAB4E";
+    color2 = "#447019";
+    color11 = "#CFCD63";
+    color3 = "#D8D782";
+    color4 = "#648BB5";
+    color12 = "#92ADCB";
+    color13 = "#CB92AD";
+    color5 = "#E5C8D6";
+    color6 = "#406E6F";
+    color14 = "#81DCDE";
+    color7 = "#C6C6E5";
+    color15 = "#DDDDFF";
+  };
 
 in
 {
@@ -83,6 +107,7 @@ in
 
   home.sessionVariables = {
     EDITOR = "nvim";
+    TERMINAL = "kitty";
     WINEDLLOVERRIDES = "winemenubuilder.exe=d"; # Prevent wine from making file associations
     WEBKIT_DISABLE_COMPOSITING_MODE = 1; # https://github.com/NixOS/nixpkgs/issues/32580
   };
@@ -144,6 +169,7 @@ in
 
   programs.rofi = {
     enable = true;
+    font = theme.font;
     extraConfig = {
 	    modi = "combi,drun,window";
       show-icons = true;
@@ -163,31 +189,32 @@ in
     settings = {
       disable_ligatures = "cursor";
       background_opacity = "0.9";
-      wayland_titlebar_color = "#1c262b";
+      wayland_titlebar_color = theme.background;
 
-      background = "#1c262b";
-      foreground = "#c1c8d6";
-      cursor = "#b2b8c3";
-      selection_background = "#6dc1b8";
-      color0 = "#000000";
-      color8 = "#767676";
-      color1 = "#ee2a29";
-      color9 = "#dc5b60";
-      color2 = "#3fa33f";
-      color10 = "#70be71";
-      color3 = "#fee92e";
-      color11 = "#fef063";
-      color4 = "#1d80ef";
-      color12 = "#53a4f3";
-      color5 = "#8800a0";
-      color13 = "#a94dbb";
-      color6 = "#16aec9";
-      color14 = "#42c6d9";
-      color7 = "#a4a4a4";
-      color15 = "#fffefe";
-      selection_foreground = "#1c262b";
+      background = theme.background;
+      foreground = theme.foreground;
+      selection_foreground = theme.background;
+      selection_background = theme.foreground;
 
-      font_family = "Fira Mono";
+      cursor  = theme.foreground;
+      color0  = theme.color0;
+      color8  = theme.color8;
+      color1  = theme.color1;
+      color9  = theme.color9;
+      color2  = theme.color2;
+      color10 = theme.color10;
+      color3  = theme.color3;
+      color11 = theme.color11;
+      color4  = theme.color4;
+      color12 = theme.color12;
+      color5  = theme.color5;
+      color13 = theme.color13;
+      color6  = theme.color6;
+      color14 = theme.color14;
+      color7  = theme.color7;
+      color15 = theme.color15;
+
+      font_family = theme.font;
     };
   };
 
@@ -253,6 +280,22 @@ in
       set fish_cursor_insert      line       blink
       set fish_cursor_replace_one underscore blink
       set fish_cursor_visual      block
+
+      set fish_color_normal         "${theme.color4}"  # default color
+      set fish_color_command        "${theme.color12}" # commands like echo
+      set fish_color_keyword        "${theme.color12}" --bold # keywords like if - this falls back on the command color if unset
+      set fish_color_quote          "${theme.color3}"  # quoted text like "abc"
+      set fish_color_redirection    "${theme.color14}" --bold # IO redirections like >/dev/null
+      set fish_color_end            "${theme.color2}"  # process separators like ';' and '&'
+      set fish_color_error          "${theme.color9}"  # syntax errors
+      set fish_color_param          "${theme.color14}" # ordinary command parameters
+      set fish_color_comment        "${theme.color8}"  # comments like '# important'
+      set fish_color_selection      "${theme.color7}"  # selected text in vi visual mode
+      set fish_color_operator       "${theme.color5}"  # parameter expansion operators like '*' and '~'
+      set fish_color_escape         "${theme.color13}" # character escapes like 'n' and 'x70'
+      set fish_color_autosuggestion "${theme.color8}"  # autosuggestions (the proposed rest of a command)
+      set fish_color_cancel         "${theme.color1}"  # the '^C' indicator on a canceled command
+      set fish_color_search_match   --background="${theme.color3}"  # history search matches and selected pager items (background only)
     '';
     functions = {
       gitignore = "curl -sL https://www.gitignore.io/api/$argv | tail -n+5 | head -n-2";
@@ -346,43 +389,44 @@ in
   };
 
   xresources.extraConfig = ''
-  ! Powerarrow Dark
+  ! ${theme.name}
 
-  *.background: #1A1A1A
-  *.foreground: #DDDDFF
+  *.background: ${theme.background}
+  *.foreground: ${theme.foreground}
 
   !black
-  *color0: #1A1A1A
-  *color8: #6E6E6E
+  *color0: ${theme.color0}
+  *color8: ${theme.color8}
 
   !red
-  *color1: #AF5360
-  *color9: #EA6F81
+  *color1: ${theme.color1}
+  *color9: ${theme.color9}
 
   !green
-  *color2: #447019
-  *color10: #7BAB4E
+  *color2: ${theme.color2}
+  *color10: ${theme.color10}
 
   !yellow
-  *color3: #D8D782
-  *color11: #CFCD63
+  *color3: ${theme.color3}
+  *color11: ${theme.color11}
 
   !blue
-  *color12: #92ADCB
-  *color4: #648BB5
+  *color12: ${theme.color12}
+  *color4: ${theme.color4}
 
   !magenta
-  *color5: #E5C8D6
-  *color13: #CB92AD
+  *color5: ${theme.color5}
+  *color13: ${theme.color13}
 
   !cyan
-  *color6: #406E6F
-  *color14: #81DCDE
+  *color6: ${theme.color6}
+  *color14: ${theme.color14}
 
   !white
-  *color7: #C6C6E5
-  *color15: #DDDDFF
+  *color7: ${theme.color7}
+  *color15: ${theme.color15}
   '';
+
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
