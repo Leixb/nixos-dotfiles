@@ -59,6 +59,11 @@ in
 
   services.fstrim.enable = lib.mkDefault true;
 
+  services.earlyoom = {
+    enable = true;
+    freeMemThreshold = 2;
+  };
+
   services.ananicy = {
     enable = true;
     # package = pkgs.ananicy-cpp;
