@@ -153,6 +153,7 @@ in
     pavucontrol
     vpn-connect
     alsa-utils
+    libnotify
   ] ++ [
     inputs.rnix-lsp.packages.x86_64-linux.rnix-lsp
   ];
@@ -166,10 +167,17 @@ in
     picom = {
       enable = true;
       backend = "glx";
+      experimentalBackends = true;
       extraOptions = ''
-      unredir-if-possible = true;
+        unredir-if-possible = true;
+        use-damage = true;
+        detect-transient = true;
+        detect-client-leader = true;
+        xrender-sync-fence = true;
       '';
     };
+
+    unclutter.enable = true;
   };
 
   programs.rofi = {
@@ -183,6 +191,16 @@ in
 	    combi-hide-mode-prefix = true;
       display-combi = "";
     };
+    theme = "~/.config/rofi/theme.rasi";
+    # theme = builtins.toFile "theme.rasi" (''
+      # * {
+          # background: #0b0606;
+          # foreground: #fbffff;
+          # active-background: #6B4F4F;
+          # urgent-background: #9D5045;
+          # selected-urgent-background: #CA8D75;
+
+    # '' + builtins.readFile ./rofi_theme.rasi);
   };
 
   programs.vscode = {
@@ -359,6 +377,8 @@ in
         "media.rdd-ffmpeg.enabled" = true;
 
         "media.ffvpx.enabled" = false;
+        "gfx.x11-egl.force-enabled" = true;
+        "gfx.webrender.all" = true;
       };
 
       bookmarks = {
