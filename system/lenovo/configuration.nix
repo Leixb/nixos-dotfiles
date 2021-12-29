@@ -122,15 +122,13 @@ in
   };
 
   services.gnome.gnome-keyring.enable = true;
-  security.pam.services.gdm.enableGnomeKeyring = true;
+  security.pam.services.awesome.enableGnomeKeyring = true;
 
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
 
-    # Enable the GNOME Desktop Environment.
-    displayManager.gdm.enable = true;
-    displayManager.gdm.nvidiaWayland = false;
+    displayManager.startx.enable = true;
     displayManager.defaultSession = "none+awesome";
 
     windowManager.awesome = {
@@ -151,8 +149,6 @@ in
       };
     };
 
-    # desktopManager.gnome.enable = true;
-    
     # Configure keymap in X11
     layout = "us";
     xkbVariant = "altgr-intl";
@@ -161,7 +157,7 @@ in
     # Enable touchpad support (enabled default in most desktopManager).
     libinput.enable = true;
 
-    videoDrivers = lib.mkDefault [ "nvidia" ];
+    videoDrivers = [ "nvidia" ];
   };
 
   hardware.bluetooth.enable = true;
@@ -242,25 +238,6 @@ in
   };
 
   nixpkgs.config.allowUnfree = true;
-
-  environment.gnome.excludePackages = with pkgs; [
-    gnome.cheese
-    gnome-photos
-    gnome-connections
-    gnome.gnome-software
-    gnome.yelp
-    gnome.gnome-music
-    gnome.gnome-terminal
-    gnome.gedit
-    epiphany
-    gnome.totem
-    gnome.tali
-    gnome.iagno
-    gnome.hitori
-    gnome.atomix
-    gnome-tour
-  ];
-  programs.geary.enable = false;
 
   # List services that you want to enable:
 
