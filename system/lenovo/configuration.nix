@@ -49,8 +49,6 @@ in
     "hid_apple.fnmode=2"
   ];
 
-  boot.plymouth.enable = true;
-
   boot.blacklistedKernelModules = [ "i2c_nvidia_gpu" ];
 
   # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
