@@ -39,6 +39,7 @@ let
   theme = {
     name = "Nightfly";
     font = "Fira Mono";
+    font_size = "11.0";
     
     background  = "#011627";
     foreground  = "#acb4c2";
@@ -173,7 +174,7 @@ in
 
   programs.rofi = {
     enable = true;
-    font = theme.font;
+    font = "${theme.font} ${theme.font_size}";
     extraConfig = {
 	    modi = "combi,drun,window";
       show-icons = true;
@@ -219,6 +220,7 @@ in
       color15 = theme.color15;
 
       font_family = theme.font;
+      font_size = theme.font_size;
     };
   };
 
