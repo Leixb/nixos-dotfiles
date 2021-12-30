@@ -39,6 +39,7 @@ in
 
   boot.kernel.sysctl = {
     "vm.swappiness" = lib.mkDefault 1;
+    "abi.vsyscall32" = 0; # lol anti-cheat
   };
 
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
