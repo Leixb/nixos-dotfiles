@@ -4,22 +4,30 @@
 
 { config, pkgs, lib, ... }:
 
-# Set battery saving (limit charge to 60%)
-let battery_conservation_mode = pkgs.writeShellScriptBin "battery-conservation" ''
-  #!/usr/bin/env bash
+let
 
-  method='\_SB.PCI0.LPCB.EC0.VPC0.SBMC'
+  # Set battery saving (limit charge to 60%)
+  battery_conservation_mode = pkgs.writeShellScriptBin "battery-conservation" ''
+    #!/usr/bin/env bash
 
-  on() {
-      echo $method 3 | sudo tee /proc/acpi/call
-  }
+    method='\_SB.PCI0.LPCB.EC0.VPC0.SBMC'
 
-  off() {
-      echo $method 5 | sudo tee /proc/acpi/call
-  }
+    on() {
+        sudo modprobe acpi_call
+        echo $method 3 | sudo tee /proc/acpi/call
+        sudo rmmod acpi_call
+    }
 
-  $1
-'';
+    off() {
+        sudo modprobe acpi_call
+        echo $method 5 | sudo tee /proc/acpi/call
+        sudo rmmod acpi_call
+    }
+
+    $1
+  '';
+
+  iommu = false;
 
 in
 
@@ -31,12 +39,7 @@ in
 
   boot.kernel.sysctl = {
     "vm.swappiness" = lib.mkDefault 1;
-    "net.ipv4.ip_forward" = 1;
-    "abi.vsyscall32" = 0; # lol anticheat
   };
-
-  boot.kernelModules = [ "acpi_call" ];
-  boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
 
   boot.kernelPackages = pkgs.linuxPackages_xanmod;
   boot.kernelParams = [
@@ -44,9 +47,10 @@ in
     "rw"
     "mitigations=off"
     "nowatchdog"
+    "hid_apple.fnmode=2"
+  ] ++ lib.optionals iommu [
     "intel_iommu=on"
     "iommu=pt"
-    "hid_apple.fnmode=2"
   ];
 
   boot.blacklistedKernelModules = [ "i2c_nvidia_gpu" ];
