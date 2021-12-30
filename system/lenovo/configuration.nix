@@ -94,6 +94,7 @@ in
     configurationLimit = 50;
   };
   boot.loader.efi.canTouchEfiVariables = true;
+  boot.loader.timeout = 0;
 
   networking.hostName = "nixos"; # Define your hostname.
   networking.wireless.enable = false;  # Enables wireless support via wpa_supplicant.
