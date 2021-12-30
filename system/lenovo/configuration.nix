@@ -27,7 +27,7 @@ let
     $1
   '';
 
-  iommu = false;
+  iommu = true;
 
 in
 
@@ -62,7 +62,8 @@ in
     options hid_apple fnmode=2
   '';
 
-  services.fstrim.enable = lib.mkDefault true;
+  services.fstrim.enable = true;
+  services.irqbalance.enable = true;
 
   services.earlyoom = {
     enable = true;
@@ -81,6 +82,10 @@ in
   hardware.opengl.enable = true;
   hardware.pulseaudio.support32Bit = true;
   
+  nixpkgs.config.packageOverrides = pkgs: {
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+  };
+
   hardware.opengl.extraPackages = with pkgs; [
     intel-media-driver
     vaapiIntel
@@ -88,6 +93,7 @@ in
     libvdpau-va-gl
   ];
 
+  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ vaapiIntel ];
 
   virtualisation.libvirtd.enable = true;
   programs.dconf.enable = true;
