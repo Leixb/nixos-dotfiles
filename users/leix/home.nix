@@ -149,11 +149,20 @@ in
     vpn-connect
     alsa-utils
     libnotify
+    gh
   ] ++ [
     inputs.rnix-lsp.packages.x86_64-linux.rnix-lsp
   ];
 
   services = {
+    gnome-keyring.enable = true;
+
+    gammastep = {
+      enable = true;
+      longitude = 41.4;
+      latitude = 2.0;
+    };
+
     gpg-agent = {
       enable = true;
       enableSshSupport = true;
@@ -270,11 +279,6 @@ in
         rebase = true;
       };
     };
-  };
-
-  programs.gh = {
-    enable = true;
-    settings.git_protocol = "ssh";
   };
 
   # Direnv

@@ -127,9 +127,6 @@ in
     useXkbConfig = true;
   };
 
-  services.gnome.gnome-keyring.enable = true;
-  security.pam.services.awesome.enableGnomeKeyring = true;
-
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;
@@ -224,14 +221,7 @@ in
   ];
 
   services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon logitech-udev-rules headsetcontrol ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
+  services.dbus.packages = with pkgs; [ gcr ];
 
   nixpkgs.config.allowUnfree = true;
 
