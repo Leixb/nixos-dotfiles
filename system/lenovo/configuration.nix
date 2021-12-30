@@ -46,7 +46,6 @@ in
   boot.kernelParams = [
     "quiet"
     "rw"
-    "mitigations=off"
     "nowatchdog"
     "hid_apple.fnmode=2"
   ] ++ lib.optionals iommu [
