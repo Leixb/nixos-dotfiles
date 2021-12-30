@@ -25,6 +25,12 @@
       options = [ "subvol=@nix" "noatime"];
     };
 
+  fileSystems."/games" =
+    { device = "/dev/disk/by-uuid/053c6498-4d72-40b1-bc18-4b8bb9a7fe1d";
+      fsType = "btrfs";
+      options = [ "subvol=@games" "noatime" "ssd"];
+    };
+
   fileSystems."/home" =
     { device = "/dev/disk/by-uuid/29a8e3e8-d792-49e6-89b5-5bd78c8ab2e9";
       fsType = "btrfs";
