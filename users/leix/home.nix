@@ -381,9 +381,29 @@ in
           keyword = "wiki";
           url = "https://en.wikipedia.org/wiki/Special:Search?search=%s&go=Go";
         };
-        "kernel.org" = {
-          url = "https://www.kernel.org";
+
+        "kernel.org".url = "https://www.kernel.org";
+        whatsapp.url = "https://web.whatsapp.com/";
+        github.url = "https://github.com";
+        gmail.url = "https://gmail.com";
+        nixos.url = "https://nixos.org";
+
+        nixos-packages = {
+          keyword = "pkgs";
+          url = "https://search.nixos.org/packages?query=%s";
         };
+
+        nixos-options = {
+          keyword = "opts";
+          url = "https://search.nixos.org/options?query=%s";
+        };
+
+        home-manager.url = "https://rycee.gitlab.io/home-manager/options.html";
+
+        raco.url = "https://raco.fib.upc.edu";
+        atenea.url = "https://atenea.upc.edu";
+        learn.url = "https://learnsql2.fib.upc.edu";
+        perusall.url = "https://perusall.com";
       };
     };
   };
