@@ -158,7 +158,10 @@ in
     xkbOptions = "lv3:caps_switch,shift:both_capslock,ralt:compose";
 
     # Enable touchpad support (enabled default in most desktopManager).
-    libinput.enable = true;
+    libinput = {
+      enable = true;
+      mouse.accelProfile = "flat";
+    };
 
     videoDrivers = [ "nvidia" ];
   };
