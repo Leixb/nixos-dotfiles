@@ -16,6 +16,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    awesomewm-master = {
+      url = "github:awesomewm/awesome/master";
+      flake = false;
+    };
+
     neovim-config = {
       url = "github:leixb/neovim-config";
       flake = false;

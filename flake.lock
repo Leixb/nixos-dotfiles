@@ -16,6 +16,23 @@
         "type": "github"
       }
     },
+    "awesomewm-master": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1640899424,
+        "narHash": "sha256-xlfPAyWHSXZv2WihQM2ixOXyyYZ6rOUN+1zXG32XkM8=",
+        "owner": "awesomewm",
+        "repo": "awesome",
+        "rev": "21b908bef9043c8fe80e0f98c9460991f37b3d10",
+        "type": "github"
+      },
+      "original": {
+        "owner": "awesomewm",
+        "ref": "master",
+        "repo": "awesome",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -141,6 +158,7 @@
     "root": {
       "inputs": {
         "awesome-config": "awesome-config",
+        "awesomewm-master": "awesomewm-master",
         "home-manager": "home-manager",
         "neovim-config": "neovim-config",
         "nixpkgs": "nixpkgs",
