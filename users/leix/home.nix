@@ -150,6 +150,9 @@ in
     alsa-utils
     libnotify
     gh
+    legendary-gl
+    wineWowPackages.staging
+    i3lock-fancy-rapid
   ] ++ [
     inputs.rnix-lsp.packages.x86_64-linux.rnix-lsp
   ];
@@ -158,7 +161,7 @@ in
     gnome-keyring.enable = true;
 
     gammastep = {
-      enable = true;
+      enable = false;
       longitude = 41.4;
       latitude = 2.0;
     };
