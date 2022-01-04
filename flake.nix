@@ -21,10 +21,7 @@
       flake = false;
     };
 
-    neovim-config = {
-      url = "github:leixb/neovim-config";
-      flake = false;
-    };
+    neovim-config.url = "github:leixb/neovim-config";
 
     awesome-config = {
       url = "github:leixb/awesome-copycats";
