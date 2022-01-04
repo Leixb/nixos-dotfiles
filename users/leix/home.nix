@@ -14,6 +14,10 @@ let
     '';
   };
 
+  legendary = pkgs.writers.writeBashBin "legendary" ''
+    ${pkgs.steam-run}/bin/steam-run ${pkgs.legendary-gl}/bin/legendary "$@"
+  '';
+
   switch-audio = pkgs.writers.writeBashBin "switch-audio" ''
     headset="alsa_output.usb-Logitech_G733_Gaming_Headset-00.iec958-stereo"
     speakers="alsa_output.pci-0000_00_1f.3.analog-stereo"
@@ -193,7 +197,7 @@ in
     alsa-utils
     libnotify
     gh
-    legendary-gl
+    legendary
     wineWowPackages.staging
     i3lock-fancy-rapid
     switch-audio 
