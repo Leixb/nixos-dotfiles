@@ -180,6 +180,7 @@ in
     zotero
     manix
     zip
+    unzip
     open-arch-home
     close-arch-home
     flameshot
