@@ -181,6 +181,7 @@ in
     manix
     zip
     unzip
+    file
     open-arch-home
     close-arch-home
     flameshot
