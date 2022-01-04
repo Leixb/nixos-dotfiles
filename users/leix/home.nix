@@ -13,6 +13,25 @@ let
     '';
   };
 
+  switch-audio = pkgs.writers.writeBashBin "switch-audio" ''
+    headset="alsa_output.usb-Logitech_G733_Gaming_Headset-00.iec958-stereo"
+    speakers="alsa_output.pci-0000_00_1f.3.analog-stereo"
+
+    pactl="${pkgs.pulseaudio}/bin/pactl"
+
+    current="$($pactl info | grep 'Default Sink' | cut -d':' -f 2 | tr -d ' ')"
+
+    if [[ "$current" == "$speakers" ]]; then
+        echo -n "   headset"
+        $pactl set-default-sink "$headset"
+    elif [[ "$current" == "$headset" ]]; then
+        echo -n " 蓼 speakers"
+        $pactl set-default-sink "$speakers"
+    else
+        echo -n "Unknown sink: $current"
+    fi
+  '';
+
   open-arch-home = pkgs.writers.writeBashBin "open-arch-home" ''
     set -e
     ${pkgs.coreutils}/bin/mkdir -p /tmp/mnt
@@ -153,6 +172,7 @@ in
     legendary-gl
     wineWowPackages.staging
     i3lock-fancy-rapid
+    switch-audio 
   ] ++ [
     inputs.rnix-lsp.packages.x86_64-linux.rnix-lsp
   ];
