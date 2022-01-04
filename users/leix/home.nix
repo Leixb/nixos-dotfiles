@@ -3,6 +3,7 @@
 
 let
 
+  HOME = "/home/leix";
 
   dbeaver-adawaita = pkgs.symlinkJoin {
     name = "dbeaver";
@@ -91,7 +92,7 @@ in
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "leix";
-  home.homeDirectory = "/home/leix";
+  home.homeDirectory = HOME;
 
   dconf.settings = {
     "org/gnome/settings-daemon/plugins/media-keys" = {
@@ -122,10 +123,33 @@ in
         recursive = true;
         source = inputs.neovim-config.outPath;
       };
-      # "awesome" = {
-        # recursive = true;
-        # source = inputs.awesome-config.outPath;
-      # };
+      "awesome.test" = {
+        source = inputs.awesome-config;
+      };
+      "legendary/config.ini" = {
+        text = lib.generators.toINI {} {
+          Legendary = {
+            disable_update_check = true;
+            disable_update_notice = true;
+            install_dir = "${HOME}/Games";
+          };
+
+          "Legendary.aliases" = {
+            RiseoftheTombRaider = "f7cc1c999ac146f39b356f53e3489514";
+            TombRaider = "d6264d56f5ba434e91d4b0a0b056c83a";
+          };
+
+          "f7cc1c999ac146f39b356f53e3489514" = {
+            wrapper = "\"${HOME}/.steam/steam/steamapps/common/Proton - Experimental/proton\" run";
+            no_wine = true;
+          };
+
+          "f7cc1c999ac146f39b356f53e3489514.env" = {
+            STEAM_COMPAT_DATA_PATH = "${HOME}/Games/.proton_data/RiseoftheTombRaider";
+            STEAM_COMPAT_CLIENT_INSTALL_PATH="${HOME}/.steam/steam";
+          };
+        };
+      };
     };
   };
 
