@@ -1,5 +1,5 @@
 # vim: sw=2 ts=2:
-{ config, lib, pkgs, inputs, ... }:
+{ config, lib, pkgs, system, inputs, ... }:
 
 let
 
@@ -127,9 +127,9 @@ in
         recursive = true;
         source = inputs.neovim-config.outPath;
       };
-      "awesome.test" = {
-        source = inputs.awesome-config;
-      };
+
+      "awesome".source = pkgs.awesome-config;
+
       "legendary/config.ini" = {
         text = lib.generators.toINI {} (
           let
@@ -516,15 +516,7 @@ in
 
     windowManager.awesome = {
       enable = true;
-      package = (pkgs.awesome.overrideAttrs (oldAttrs: rec {
-
-        src = inputs.awesomewm-master;
-
-      })).override {
-        lua = pkgs.lua5_3;
-        gtk3Support = true;
-        gtk3 = pkgs.gtk3;
-      };
+      luaModules = with pkgs; [ lain ];
     };
 
   };

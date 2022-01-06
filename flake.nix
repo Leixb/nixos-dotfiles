@@ -26,11 +26,14 @@
       flake = false;
     };
 
-    awesome-config.url = "github:leixb/awesome-copycats";
+    awesome-config = {
+      url = "github:leixb/awesome-copycats";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, nur, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, nur, awesome-config, ... }:
     let
       system = "x86_64-linux";
 
@@ -53,7 +56,7 @@
           inherit specialArgs;
 
           modules = [
-            { nixpkgs.overlays = [ nur.overlay extra-packages ]; }
+            { nixpkgs.overlays = [ nur.overlay extra-packages awesome-config.overlay ]; }
             ./system/lenovo/configuration.nix
             home-manager.nixosModules.home-manager
             {
