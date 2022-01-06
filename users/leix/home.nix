@@ -437,6 +437,9 @@ in
         "media.ffvpx.enabled" = false;
         "gfx.x11-egl.force-enabled" = true;
         "gfx.webrender.all" = true;
+
+        "browser.newtabpage.activity-stream.showSponsored" = false;
+        "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
       };
 
       bookmarks = {
