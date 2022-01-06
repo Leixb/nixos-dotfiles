@@ -5,6 +5,11 @@ let
 
   HOME = "/home/leix";
 
+  getLuaPath = lib: dir: "${lib}/${dir}/lua/${pkgs.luaPackages.lua.luaversion}";
+  makeSearchPath = lib.concatMapStrings (path:
+    " --search ${getLuaPath path "share"}"
+    + " --search ${getLuaPath path "lib"}");
+
   dbeaver-adawaita = pkgs.symlinkJoin {
     name = "dbeaver";
     paths = [ pkgs.dbeaver ];
@@ -514,10 +519,13 @@ in
       size = 32;
     };
 
-    windowManager.awesome = {
-      enable = true;
-      luaModules = with pkgs; [ lain ];
-    };
+    # windowManager.awesome = {
+    #   enable = true;
+    #   luaModules = with pkgs; [ lain ];
+    #   package = pkgs.awesome;
+    # };
+
+    windowManager.command = "${pkgs.awesome}/bin/awesome --config ${pkgs.awesome-config}/rc.lua" + makeSearchPath [ pkgs.lain ];
 
   };
 
