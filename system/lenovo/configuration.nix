@@ -137,6 +137,13 @@ in
     useXkbConfig = true;
   };
 
+  security.pam.services.lightdm.enableGnomeKeyring = true;
+  services.gnome.gnome-keyring.enable = true;
+
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  programs.mtr.enable = true;
+
   # Enable the X11 windowing system.
   services.xserver = {
     enable = true;

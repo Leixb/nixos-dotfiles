@@ -233,8 +233,6 @@ in
   ];
 
   services = {
-    gnome-keyring.enable = true;
-
     gammastep = {
       enable = false;
       longitude = 41.4;
