@@ -131,28 +131,34 @@ in
         source = inputs.awesome-config;
       };
       "legendary/config.ini" = {
-        text = lib.generators.toINI {} {
-          Legendary = {
-            disable_update_check = true;
-            disable_update_notice = true;
-            install_dir = "${HOME}/Games";
-          };
+        text = lib.generators.toINI {} (
+          let proton-conf = { name, alias ? name } : {
+            "Legendary.aliases".${alias} = name;
 
-          "Legendary.aliases" = {
-            RiseoftheTombRaider = "f7cc1c999ac146f39b356f53e3489514";
-            TombRaider = "d6264d56f5ba434e91d4b0a0b056c83a";
-          };
+            ${name} = {
+              wrapper = "\"${HOME}/.steam/steam/steamapps/common/Proton - Experimental/proton\" run";
+              no_wine = true;
+            };
 
-          "f7cc1c999ac146f39b356f53e3489514" = {
-            wrapper = "\"${HOME}/.steam/steam/steamapps/common/Proton - Experimental/proton\" run";
-            no_wine = true;
+            "${name}.env" = {
+              STEAM_COMPAT_DATA_PATH = "${HOME}/Games/.proton_data/${alias}";
+              STEAM_COMPAT_CLIENT_INSTALL_PATH="${HOME}/.steam/steam";
+            };
           };
-
-          "f7cc1c999ac146f39b356f53e3489514.env" = {
-            STEAM_COMPAT_DATA_PATH = "${HOME}/Games/.proton_data/RiseoftheTombRaider";
-            STEAM_COMPAT_CLIENT_INSTALL_PATH="${HOME}/.steam/steam";
-          };
-        };
+          in
+          builtins.foldl' lib.recursiveUpdate {
+            Legendary = {
+              disable_update_check = true;
+              disable_update_notice = true;
+              install_dir = "${HOME}/Games";
+            };
+          }
+          [
+            (proton-conf { name = "d6264d56f5ba434e91d4b0a0b056c83a"; alias = "TombRaider"; })
+            (proton-conf { name = "f7cc1c999ac146f39b356f53e3489514"; alias = "RiseoftheTombRaider"; })
+            (proton-conf { name = "890d9cf396d04922a1559333df419fed"; alias = "ShadowoftheTombRaider"; })
+          ]
+        );
       };
     };
   };
