@@ -132,25 +132,39 @@ in
       };
       "legendary/config.ini" = {
         text = lib.generators.toINI {} (
-          let proton-conf = { name, alias ? name } : {
-            "Legendary.aliases".${alias} = name;
+          let
+            # location to install the games
+            game_folder = "${HOME}/Games";
 
-            ${name} = {
-              wrapper = "\"${HOME}/.steam/steam/steamapps/common/Proton - Experimental/proton\" run";
-              no_wine = true;
+            # Steam folder
+            steam_folder = "${HOME}/.steam/steam";
+            proton_version = "Proton - Experimental";
+
+            # Define alias
+            set-alias = name: alias: {
+              "Legendary.aliases".${alias} = name;
             };
 
-            "${name}.env" = {
-              STEAM_COMPAT_DATA_PATH = "${HOME}/Games/.proton_data/${alias}";
-              STEAM_COMPAT_CLIENT_INSTALL_PATH="${HOME}/.steam/steam";
-            };
-          };
+            # Configure game to use proton
+            proton-conf = { name, alias ? name } :
+              (if name != alias then set-alias name alias else {})
+              // {
+                ${name} = {
+                  wrapper = "\"${steam_folder}/steamapps/common/${proton_version}/proton\" run";
+                  no_wine = true;
+                };
+
+                "${name}.env" = {
+                  STEAM_COMPAT_DATA_PATH = "${game_folder}/.proton_data/${alias}";
+                  STEAM_COMPAT_CLIENT_INSTALL_PATH="${steam_folder}";
+                };
+              };
           in
           builtins.foldl' lib.recursiveUpdate {
             Legendary = {
               disable_update_check = true;
               disable_update_notice = true;
-              install_dir = "${HOME}/Games";
+              install_dir = "${game_folder}";
             };
           }
           [
