@@ -16,11 +16,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    awesomewm-master = {
-      url = "github:awesomewm/awesome/master";
-      flake = false;
-    };
-
     neovim-config = {
       url = "github:leixb/neovim-config";
       flake = false;
@@ -29,6 +24,16 @@
     awesome-config = {
       url = "github:leixb/awesome-copycats";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.awesome = {
+        type = "github";
+        owner = "awesomewm";
+        repo = "awesome";
+      };
+      inputs.lain = {
+        type = "github";
+        owner = "lcpz";
+        repo = "lain";
+      };
     };
 
   };

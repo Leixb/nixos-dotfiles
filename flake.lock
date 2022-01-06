@@ -12,7 +12,6 @@
       },
       "original": {
         "owner": "awesomewm",
-        "ref": "master",
         "repo": "awesome",
         "type": "github"
       }
@@ -27,33 +26,16 @@
         ]
       },
       "locked": {
-        "lastModified": 1641497136,
-        "narHash": "sha256-kQQFqqIeBkASO6dU/706rGe3vVr5FHB1m6RxnemLTBY=",
+        "lastModified": 1641502402,
+        "narHash": "sha256-k7lsKnkkHhGyNQVgM/8AhqhrDQgeZiWTzRALBZPNM5k=",
         "owner": "leixb",
         "repo": "awesome-copycats",
-        "rev": "e6842e80582e8171a7f0034cd7fb9e0cd629d22e",
+        "rev": "1e03e283c5efb131958f244465f9418c8ceee21d",
         "type": "github"
       },
       "original": {
         "owner": "leixb",
         "repo": "awesome-copycats",
-        "type": "github"
-      }
-    },
-    "awesomewm-master": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1640899424,
-        "narHash": "sha256-xlfPAyWHSXZv2WihQM2ixOXyyYZ6rOUN+1zXG32XkM8=",
-        "owner": "awesomewm",
-        "repo": "awesome",
-        "rev": "21b908bef9043c8fe80e0f98c9460991f37b3d10",
-        "type": "github"
-      },
-      "original": {
-        "owner": "awesomewm",
-        "ref": "master",
-        "repo": "awesome",
         "type": "github"
       }
     },
@@ -105,7 +87,6 @@
       },
       "original": {
         "owner": "lcpz",
-        "ref": "master",
         "repo": "lain",
         "type": "github"
       }
@@ -214,7 +195,6 @@
     "root": {
       "inputs": {
         "awesome-config": "awesome-config",
-        "awesomewm-master": "awesomewm-master",
         "home-manager": "home-manager",
         "neovim-config": "neovim-config",
         "nixpkgs": "nixpkgs",

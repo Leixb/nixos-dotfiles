@@ -519,13 +519,11 @@ in
       size = 32;
     };
 
-    # windowManager.awesome = {
-    #   enable = true;
-    #   luaModules = with pkgs; [ lain ];
-    #   package = pkgs.awesome;
-    # };
-
-    windowManager.command = "${pkgs.awesome}/bin/awesome --config ${pkgs.awesome-config}/rc.lua" + makeSearchPath [ pkgs.lain ];
+    windowManager.awesome = {
+      enable = true;
+      luaModules = with pkgs; [ lain ];
+      package = pkgs.awesome;
+    };
 
   };
 
