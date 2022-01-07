@@ -471,6 +471,8 @@ in
         whatsapp.url = "https://web.whatsapp.com/";
         github.url = "https://github.com";
         gmail.url = "https://gmail.com";
+
+        # nix
         nixos.url = "https://nixos.org";
 
         nixos-packages = {
@@ -485,6 +487,19 @@ in
 
         home-manager.url = "https://rycee.gitlab.io/home-manager/options.html";
 
+        home-manager-options = {
+          keyword = "hmopts";
+          url = "https://mipmip.github.io/home-manager-option-search/?%s";
+        };
+
+        # streaming
+        disneyplus.url = "https://disneyplus.com";
+        netflix.url = "https://netflix.com";
+        plex.url = "https://app.plex.tv";
+        twitch.url = "https://twitch.tv";
+        youtube.url = "https://youtube.com";
+
+        # upc
         raco.url = "https://raco.fib.upc.edu";
         atenea.url = "https://atenea.upc.edu";
         learn.url = "https://learnsql2.fib.upc.edu";
