@@ -140,6 +140,9 @@ in
   security.pam.services.lightdm.enableGnomeKeyring = true;
   services.gnome.gnome-keyring.enable = true;
 
+  security.pam.services.lightdm.gnupg.enable = true;
+  security.pam.services.lightdm.gnupg.noAutostart = true;
+
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs.mtr.enable = true;
@@ -149,7 +152,7 @@ in
     enable = true;
 
     displayManager.lightdm.enable = true;
-    displayManager.autoLogin.enable = true;
+    displayManager.autoLogin.enable = false;
     displayManager.autoLogin.user = "leix";
 
     displayManager.defaultSession = "xsession";
@@ -158,6 +161,28 @@ in
       name = "xsession";
       start = "exec $HOME/.xsession";
     }];
+
+    displayManager.lightdm.greeters.mini = {
+        enable = true;
+        user = "leix";
+        extraConfig = ''
+            [greeter]
+            show-password-label = false
+            password-alignment = center
+            [greeter-theme]
+            background-image = "${../../users/leix/wallpapers/forest.jpg}"
+            font = "Fira Mono"
+            text-color = "#DDDDFF"
+            error-color = "#EA6F81"
+            background-color = "#1A1A1A"
+            window-color = "#313131"
+            border-color = "#313131"
+            password-color = "#82aaff"
+            password-background-color = "#1d3b53"
+            password-border-color = "#1d3b53"
+            sys-info-color = "#82aaff"
+        '';
+    };
 
     # Configure keymap in X11
     layout = "us";
