@@ -500,10 +500,11 @@ in
         youtube.url = "https://youtube.com";
 
         # upc
-        raco.url = "https://raco.fib.upc.edu";
         atenea.url = "https://atenea.upc.edu";
+        disc.url = "https://discos.fib.upc.edu";
         learn.url = "https://learnsql2.fib.upc.edu";
         perusall.url = "https://perusall.com";
+        raco.url = "https://raco.fib.upc.edu";
       };
     };
   };
