@@ -95,6 +95,7 @@ in
   hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ vaapiIntel ];
 
   virtualisation.libvirtd.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
   programs.dconf.enable = true;
 
   # Use the systemd-boot EFI boot loader.
@@ -239,6 +240,9 @@ in
 
   programs.gamemode.enable = true;
   programs.steam.enable = true;
+
+  # TI calculator ROM flasher
+  programs.tilp2.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   programs.fish.enable = true;
