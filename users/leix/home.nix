@@ -259,6 +259,8 @@ in
       '';
     };
 
+    udiskie.enable = true;
+
     unclutter.enable = true;
   };
 
