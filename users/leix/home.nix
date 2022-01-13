@@ -234,7 +234,7 @@ in
 
   services = {
     gammastep = {
-      enable = false;
+      enable = true;
       longitude = 41.4;
       latitude = 2.0;
     };
@@ -259,9 +259,25 @@ in
       '';
     };
 
+    mpd = {
+      enable = true;
+      musicDirectory = "nfs://192.168.1.3/volume1/music";
+      extraConfig = ''
+        audio_output {
+          type            "pipewire"
+          name            "PipeWire Sound Server"
+        }
+      '';
+    };
+
     udiskie.enable = true;
 
     unclutter.enable = true;
+  };
+
+  programs.ncmpcpp = {
+    enable = true;
+    mpdMusicDir = "${HOME}/Music";
   };
 
   programs.rofi = {
