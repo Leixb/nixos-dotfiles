@@ -62,7 +62,7 @@ let
   '';
 
   vpn-connect = pkgs.writeShellScriptBin "vpn-connect" ''
-    sudo ${pkgs.gof5}/bin/gof5 -server https://upclink.upc.edu -username aleix.bone
+    sudo ${pkgs.gof5}/bin/gof5 -server https://upclink.upc.edu -username aleix.bone "$@"
   '';
 
   theme = {
@@ -124,6 +124,15 @@ in
       automatic-location=true;
     };
   };
+
+  home.file.".gof5/config.yaml".text = ''
+    dns:
+    - .upc.edu.
+    - .upc.
+
+    routes:
+    - 10.0.0.0/8
+  '';
 
   xdg = {
     enable = true;
