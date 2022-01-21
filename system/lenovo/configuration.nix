@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, lib, ... }:
+{ config, pkgs, lib, inputs, ... }:
 
 let
 
@@ -55,7 +55,7 @@ in
 
   boot.blacklistedKernelModules = [ "i2c_nvidia_gpu" ];
 
-  # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.legacy_470;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
 
   boot.extraModprobeConfig = ''
     options hid_apple fnmode=2
@@ -74,6 +74,8 @@ in
     # package = pkgs.ananicy-cpp;
   };
   services.acpid.enable = true;
+
+  services.xserver.wacom.enable = true;
 
   hardware.cpu.intel.updateMicrocode = true;
   
