@@ -77,21 +77,6 @@ in
 
   services.xserver.wacom.enable = true;
 
-    services.postgresql = {
-    enable = true;
-    package = pkgs.postgresql_10;
-    enableTCPIP = true;
-    authentication = pkgs.lib.mkOverride 10 ''
-      local all all trust
-      host all all ::1/128 trust
-    '';
-    initialScript = pkgs.writeText "backend-initScript" ''
-      CREATE ROLE adsdb WITH LOGIN PASSWORD 'adsdb' CREATEDB;
-      CREATE DATABASE adsdb;
-      GRANT ALL PRIVILEGES ON DATABASE adsdb TO adsdb;
-    '';
-  };
-
   hardware.cpu.intel.updateMicrocode = true;
   
   hardware.opengl.driSupport32Bit = true;
@@ -254,6 +239,7 @@ in
     #media-session.enable = true;
   };
 
+  services.spark.master.enable = true;
 
   programs.gamemode.enable = true;
   programs.steam.enable = true;
