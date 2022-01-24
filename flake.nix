@@ -49,8 +49,6 @@
 
       extra-packages = (final: prev: {
         gof5 = prev.callPackage ./packages/gof5/default.nix {}; 
-
-        headsetcontrol = prev.callPackage ./packages/headsetcontrol/default.nix {}; 
       });
 
       inherit (nixpkgs) lib;
