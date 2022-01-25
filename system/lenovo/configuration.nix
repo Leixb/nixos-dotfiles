@@ -27,6 +27,16 @@ let
     $1
   '';
 
+  update_system = pkgs.writeShellScriptBin "update-system" ''
+    cd ~/.dotfiles
+    nixos-rebuild build --flake .# && ${pkgs.nvd}/bin/nvd diff /run/current-system result
+    read -r -p "Switch? [Y/n]" response
+    response=''${response,,} # tolower
+    if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]; then
+      sudo nixos-rebuild switch --flake .#
+    fi
+  '';
+
   iommu = true;
 
 in
@@ -55,12 +65,13 @@ in
 
   boot.blacklistedKernelModules = [ "i2c_nvidia_gpu" ];
 
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
+  # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
 
   boot.extraModprobeConfig = ''
     options hid_apple fnmode=2
   '';
 
+  services.avahi.enable = true;
   services.fstrim.enable = true;
   services.irqbalance.enable = true;
 
@@ -71,7 +82,7 @@ in
 
   services.ananicy = {
     enable = true;
-    # package = pkgs.ananicy-cpp;
+    package = pkgs.ananicy-cpp;
   };
   services.acpid.enable = true;
 
@@ -212,6 +223,8 @@ in
     Option         "TripleBuffer" "on"
   '';
 
+  systemd.enableUnifiedCgroupHierarchy = true;
+
   systemd.targets = {
     sleep.enable = false;
     suspend.enable = false;
@@ -269,8 +282,7 @@ in
     openssl
     virt-manager
     battery_conservation_mode
-    gnomeExtensions.appindicator
-    vulkan-tools
+    update_system
   ];
 
   services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon logitech-udev-rules headsetcontrol ];

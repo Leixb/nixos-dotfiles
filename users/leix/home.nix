@@ -209,6 +209,7 @@ in
     zathura
     bottom
     dbeaver-adawaita
+    beekeeper-studio
     ripgrep
     lutris
     zotero
@@ -224,6 +225,7 @@ in
     krita
     libreoffice
     mpv
+    vlc
     feh
     git-extras
     solaar
@@ -237,6 +239,8 @@ in
     wineWowPackages.staging
     i3lock-fancy-rapid
     switch-audio 
+    gnome.simple-scan
+    libqalculate
   ] ++ [
     inputs.rnix-lsp.packages.x86_64-linux.rnix-lsp
   ];

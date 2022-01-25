@@ -3,7 +3,6 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
-    nixpkgs-stable.url = "github:NixOS/nixpkgs/release-21.11";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -39,7 +38,7 @@
 
   };
 
-  outputs = inputs@{ nixpkgs, nixpkgs-stable, home-manager, nur, awesome-config, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, nur, awesome-config, ... }:
     let
       system = "x86_64-linux";
 
