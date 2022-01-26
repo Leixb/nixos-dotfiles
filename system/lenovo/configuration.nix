@@ -65,7 +65,7 @@ in
 
   boot.blacklistedKernelModules = [ "i2c_nvidia_gpu" ];
 
-  # hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
 
   boot.extraModprobeConfig = ''
     options hid_apple fnmode=2
