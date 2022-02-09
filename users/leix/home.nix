@@ -202,13 +202,13 @@ in
     cachix
     neovim
     discord
+    ripcord
     bitwarden
     tdesktop # telegram desktop
     gcc
     fd
     zathura
     bottom
-    dbeaver-adawaita
     beekeeper-studio
     ripgrep
     lutris
@@ -247,7 +247,7 @@ in
 
   services = {
     gammastep = {
-      enable = true;
+      enable = false;
       longitude = 41.4;
       latitude = 2.0;
     };
@@ -263,6 +263,7 @@ in
       enable = true;
       backend = "glx";
       experimentalBackends = true;
+      vSync = true;
       extraOptions = ''
         unredir-if-possible = true;
         use-damage = true;

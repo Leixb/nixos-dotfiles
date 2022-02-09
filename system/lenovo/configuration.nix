@@ -58,6 +58,7 @@ in
     "rw"
     "nowatchdog"
     "hid_apple.fnmode=2"
+    "mitigations=off"
   ] ++ lib.optionals iommu [
     "intel_iommu=on"
     "iommu=pt"
@@ -82,7 +83,10 @@ in
 
   services.ananicy = {
     enable = true;
-    package = pkgs.ananicy-cpp;
+
+    extraRules = ''
+    { "name" : ".Discord-wrapped", "type" : "Chat" }
+    '';
   };
   services.acpid.enable = true;
 
@@ -92,7 +96,7 @@ in
   
   hardware.opengl.driSupport32Bit = true;
   hardware.opengl.enable = true;
-  hardware.pulseaudio.support32Bit = true;
+  hardware.pulseaudio.support32Bit = false;
   
   nixpkgs.config.packageOverrides = pkgs: {
     vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
@@ -218,10 +222,9 @@ in
   hardware.nvidia.modesetting.enable = true;
 
   services.xserver.screenSection = ''
-    Option         "metamodes" "HDMI-0: nvidia-auto-select +1920+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}, DP-2: nvidia-auto-select +0+0 {ForceCompositionPipeline=On, ForceFullCompositionPipeline=On}"
-    Option         "AllowIndirectGLXProtocol" "off"
-    Option         "TripleBuffer" "on"
+    Option         "metamodes" "HDMI-0: nvidia-auto-select +1920+0, DP-2: nvidia-auto-select +0+0"
   '';
+  services.xserver.exportConfiguration = true;
 
   systemd.enableUnifiedCgroupHierarchy = true;
 
@@ -236,35 +239,29 @@ in
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.brlaser ];
 
-  sound.enable = false;
-  hardware.pulseaudio.enable = false;
+  sound.enable = true;
+  hardware.pulseaudio.enable = lib.mkForce false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
-    alsa.enable = true;
-    alsa.support32Bit = true;
+    alsa.enable = false;
+    alsa.support32Bit = false;
+
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    #jack.enable = true;
-  
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    #media-session.enable = true;
+
+    media-session.enable = false;
+    wireplumber.enable = true;
   };
 
-  services.spark.master.enable = true;
-
-  programs.gamemode.enable = true;
   programs.steam.enable = true;
 
-  # TI calculator ROM flasher
-  programs.tilp2.enable = true;
+  programs.droidcam.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   programs.fish.enable = true;
   users.users.leix = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "libvirtd"]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "libvirtd" "audio" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.fish;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJlnrdcH2stIVA1hkkOIFvebIjDALugIrTxGi6mvZQBp JuiceSSH"
@@ -340,18 +337,23 @@ in
       keep-outputs = true
       keep-derivations = true
     '';
-    autoOptimiseStore = true;
-    trustedUsers = [ "root" "leix" ];
+
+    settings = {
+      trusted-users = [ "root" "leix" ];
+      auto-optimise-store = true;
+
+      substituters = [
+        "https://nix-community.cachix.org"
+        "https://cache.nixos.org/"
+      ];
+
+      trusted-public-keys = [
+        "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+      ];
+    };
     gc.automatic = true;
 
-    binaryCaches = [
-      "https://nix-community.cachix.org"
-      "https://cache.nixos.org/"
-    ];
 
-    binaryCachePublicKeys = [
-      "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
-    ];
   };
 
 
