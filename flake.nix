@@ -2,7 +2,7 @@
   description = "System Configuration using Flakes";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -59,7 +59,11 @@
           inherit specialArgs;
 
           modules = [
-            { nixpkgs.overlays = [ nur.overlay extra-packages awesome-config.overlay ]; }
+            { nixpkgs.overlays = [ 
+              nur.overlay
+              extra-packages
+              awesome-config.overlay
+            ]; }
             ./system/lenovo/configuration.nix
             home-manager.nixosModules.home-manager
             {
