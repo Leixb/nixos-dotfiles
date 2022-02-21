@@ -43,7 +43,7 @@ in {
 
   boot.blacklistedKernelModules = [ "i2c_nvidia_gpu" ];
 
-  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.beta;
+  hardware.nvidia.package = config.boot.kernelPackages.nvidiaPackages.stable;
   hardware.nvidia.modesetting.enable = true;
 
   virtualisation.libvirtd.enable = true;
