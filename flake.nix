@@ -74,6 +74,27 @@
             }
           ];
         };
+
+        nixos-pav = lib.nixosSystem {
+          inherit system;
+          inherit specialArgs;
+
+          modules = [
+            { nixpkgs.overlays = [ 
+              nur.overlay
+              extra-packages
+              awesome-config.overlay
+            ]; }
+            ./system/pavilion/configuration.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.leix = import ./users/leix/pavilion.nix;
+              home-manager.extraSpecialArgs = specialArgs;
+            }
+          ];
+        };
       };
     };
 }
