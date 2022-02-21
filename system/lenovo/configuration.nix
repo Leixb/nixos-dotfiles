@@ -49,6 +49,7 @@ in {
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
 
+  networking.hostName = "nixos";
   networking.interfaces.enp7s0.useDHCP = true;
   networking.interfaces.wlp0s20f3.useDHCP = true;
 
