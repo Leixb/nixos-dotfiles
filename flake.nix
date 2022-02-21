@@ -69,7 +69,7 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.leix = import ./users/leix/home.nix;
+              home-manager.users.leix = import ./users/leix/lenovo.nix;
               home-manager.extraSpecialArgs = specialArgs;
             }
           ];
