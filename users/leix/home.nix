@@ -523,11 +523,39 @@ in
           url = "https://mipmip.github.io/home-manager-option-search/?%s";
         };
 
+        nix-pr-tracker = {
+          keyword = "nixpr";
+          url = "https://nixpk.gs/pr-tracker.html?pr=%s";
+        };
+
+        murder-bridge = {
+          keyword = "aram";
+          url = "https://www.murderbridge.com/champion/%s/";
+        };
+
+        mmr = {
+          keyword = "mmr";
+          url = "https://euw.whatismymmr.com/%s";
+        };
+
+        opgg = {
+          keyword = "opgg";
+          url = "https://euw.op.gg/summoners/euw/%s";
+        };
+
+        ugg = {
+          keyword = "ugg";
+          url = "https://u.gg/lol/champions/%s/build";
+        };
+
         # streaming
         disneyplus.url = "https://disneyplus.com";
         netflix.url = "https://netflix.com";
         plex.url = "https://app.plex.tv";
-        twitch.url = "https://twitch.tv";
+        twitch = {
+          keyword = "twtv";
+          url = "https://twitch.tv/%s";
+        };
         youtube.url = "https://youtube.com";
 
         # upc
