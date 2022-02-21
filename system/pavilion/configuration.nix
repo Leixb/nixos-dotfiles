@@ -11,6 +11,7 @@
       ./hardware-configuration.nix
     ];
 
+  boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.extraModprobeConfig = "options rtl8723be fwlps=N ips=N swlps=N swenc=Y disable_watchdog=1 ant_sel=1";
 
   services.journald.extraConfig = ''
