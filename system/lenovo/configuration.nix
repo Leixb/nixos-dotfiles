@@ -169,6 +169,8 @@ in
   services.xserver = {
     enable = true;
 
+    xrandrHeads = [ "DP-2" { output = "HDMI-0"; primary = true; } ];
+
     displayManager.lightdm.enable = true;
     displayManager.autoLogin.enable = false;
     displayManager.autoLogin.user = "leix";
@@ -213,7 +215,7 @@ in
       mouse.accelProfile = "flat";
     };
 
-    videoDrivers = [ "nvidia" ];
+    videoDrivers = [ "intel" "nvidia" ];
   };
 
   hardware.bluetooth.enable = true;
@@ -244,7 +246,7 @@ in
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
-    alsa.enable = false;
+    alsa.enable = true;
     alsa.support32Bit = false;
 
     pulse.enable = true;
@@ -254,6 +256,20 @@ in
   };
 
   programs.steam.enable = true;
+
+  programs.gamemode = {
+    enable = true;
+    settings = {
+      general = {
+        renice = 10;
+      };
+
+      custom = {
+        start = "${pkgs.libnotify}/bin/notify-send 'GameMode started'";
+        end = "${pkgs.libnotify}/bin/notify-send 'GameMode ended'";
+      };
+    };
+  };
 
   programs.droidcam.enable = true;
 
@@ -292,7 +308,7 @@ in
   # Enable the OpenSSH daemon.
   services.openssh = {
     passwordAuthentication = false;
-    permitRootLogin = "no";
+    permitRootLogin = "yes";
     enable = true;
     ports = [ 22 2322 ];
   };
@@ -344,7 +360,6 @@ in
 
       substituters = [
         "https://nix-community.cachix.org"
-        "https://cache.nixos.org/"
       ];
 
       trusted-public-keys = [
