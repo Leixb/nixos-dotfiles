@@ -4,7 +4,7 @@
   boot.blacklistedKernelModules = [ "i2c_nvidia_gpu" ];
 
   hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.beta;
+    package = config.boot.kernelPackages.nvidiaPackages.stable;
     modesetting.enable = true;
   };
 
