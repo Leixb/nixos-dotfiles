@@ -224,6 +224,8 @@ in
     };
   };
 
+  powerManagement.cpuFreqGovernor = "performance";
+
   nix = {
     package = pkgs.nixFlakes;
     extraOptions = ''

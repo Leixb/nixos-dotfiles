@@ -7,11 +7,6 @@ let
 
   HOME = "/home/leix";
 
-  getLuaPath = lib: dir: "${lib}/${dir}/lua/${pkgs.luaPackages.lua.luaversion}";
-  makeSearchPath = lib.concatMapStrings (path:
-    " --search ${getLuaPath path "share"}"
-    + " --search ${getLuaPath path "lib"}");
-
   dbeaver-adawaita = pkgs.symlinkJoin {
     name = "dbeaver";
     paths = [ pkgs.dbeaver ];
@@ -35,28 +30,6 @@ in
   # paths it should manage.
   home.username = "leix";
   home.homeDirectory = HOME;
-
-  dconf.settings = {
-    "org/gnome/settings-daemon/plugins/media-keys" = {
-      custom-keybindings = [
-        "/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/"
-      ];
-    };
-    "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" = {
-      binding = "<Super>Return";
-      command="${pkgs.kitty}/bin/kitty";
-      name="kitty";
-    };
-    "org/gnome/shell" = {
-      favorite-apps=["firefox.desktop" "kitty.desktop" "org.gnome.Nautilus.desktop"];
-    };
-    "org/gnome/GWeather" = {
-      temperature-unit = "centigrade";
-    };
-    "org/gnome/shell/weather" = {
-      automatic-location=true;
-    };
-  };
 
   home.file.".gof5/config.yaml".text = ''
     dns:
@@ -86,19 +59,31 @@ in
 
   home.packages = with pkgs; [
     cachix
-    neovim
+    (pkgs.symlinkJoin {
+      name = "neovim";
+      paths = [ pkgs.neovim ];
+      buildInputs = [ pkgs.makeWrapper ];
+      postBuild = ''
+        wrapProgram $out/bin/nvim \
+        --suffix PATH : "${lib.makeBinPath [
+          gcc
+          git
+          inputs.rnix-lsp.packages.x86_64-linux.rnix-lsp
+          zathura
+          ripgrep
+        ]}"
+      '';
+    })
     discord
     ripcord
     bitwarden
     tdesktop # telegram desktop
-    gcc
     fd
     zathura
     bottom
     beekeeper-studio
     ripgrep
     zotero
-    manix
     zip
     unzip
     file
@@ -118,11 +103,9 @@ in
     alsa-utils
     libnotify
     gh
-    wineWowPackages.staging
     gnome.simple-scan
     libqalculate
-  ] ++ [
-    inputs.rnix-lsp.packages.x86_64-linux.rnix-lsp
+    comma
   ];
 
   services = {
