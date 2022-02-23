@@ -70,4 +70,6 @@
     enableSSHSupport = true;
   };
 
+  programs.light.enable = true;
+
 }

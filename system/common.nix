@@ -159,7 +159,7 @@ in
   programs.fish.enable = true;
   users.users.leix = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "libvirtd" "audio" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "libvirtd" "audio" "video" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.fish;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJlnrdcH2stIVA1hkkOIFvebIjDALugIrTxGi6mvZQBp JuiceSSH"
