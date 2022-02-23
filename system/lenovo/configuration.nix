@@ -29,6 +29,7 @@ in {
     ./nvidia.nix
     ./virtualization.nix
     ./gaming.nix
+    ./awesomewm.nix
     ./hardware-configuration.nix
   ];
 
