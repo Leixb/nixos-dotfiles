@@ -1,5 +1,29 @@
 { config, lib, pkgs, inputs, ... }:
 
+let
+  eww-unstable = pkgs.eww-wayland.overrideAttrs (oldAttrs: rec {
+
+    version = "unstable-2022-02-15";
+
+    # cargoSha256 = "0000000000000000000000000000000000000000000000000000";
+    
+    src = pkgs.fetchFromGitHub {
+      owner = "elkowar";
+      repo = "eww";
+      rev = "fb0e57a0149904e76fb33807a2804d4af82350de";
+      sha256 = "sha256-oAbB9aW/nqg02peqGEfETOGgeXarI6ZcAZ6DzDXbOSE=";
+    };
+
+    cargoDeps = oldAttrs.cargoDeps.overrideAttrs (lib.const {
+      name = "eww-${version}-vendor.tar.gz";
+      inherit src;
+      outputHash = "sha256-x/NKvuuk9KrUIan1sNsdoiu7mBuCjDPYEeD1clxqTxQ=";
+    });
+
+  });
+
+in
+
 {
 
   imports = [
@@ -14,6 +38,7 @@
     wl-clipboard
     mako # notification daemon
     wofi # Dmenu is the default in the config but i recommend wofi since its wayland native
+    eww-unstable
   ];
 
   wayland.windowManager.sway = {
