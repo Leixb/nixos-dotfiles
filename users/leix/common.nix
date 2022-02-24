@@ -106,6 +106,7 @@ in
     gnome.simple-scan
     libqalculate
     comma
+    acpi
   ];
 
   services = {

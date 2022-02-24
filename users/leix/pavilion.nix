@@ -39,6 +39,8 @@ in
     mako # notification daemon
     wofi # Dmenu is the default in the config but i recommend wofi since its wayland native
     eww-unstable
+    sway-contrib.grimshot
+    imv
   ];
 
   wayland.windowManager.sway = {
