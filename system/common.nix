@@ -8,6 +8,7 @@ let
 
   update_system = pkgs.writeShellScriptBin "update-system" ''
     cd ~/.dotfiles
+    set -e
     nixos-rebuild build --flake .# && ${pkgs.nvd}/bin/nvd diff /run/current-system result
     read -r -p "Switch? [Y/n]" response
     response=''${response,,} # tolower

@@ -269,6 +269,7 @@ in
       privacy-badger
       refined-github
       ublock-origin
+      tree-style-tab
     ];
 
     profiles.leix = {
@@ -282,6 +283,8 @@ in
 
         "browser.newtabpage.activity-stream.showSponsored" = false;
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
+
+        "browser.uidensity" = 1;
       };
 
       bookmarks = {
@@ -354,7 +357,7 @@ in
         atenea.url = "https://atenea.upc.edu";
         disc.url = "https://discos.fib.upc.edu";
         learn.url = "https://learnsql2.fib.upc.edu";
-        perusall.url = "https://perusall.com";
+        ccbda.url = "https://ccbda-upc.github.io";
         raco.url = "https://raco.fib.upc.edu";
       };
     };
