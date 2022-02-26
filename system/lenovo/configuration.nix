@@ -34,20 +34,18 @@ in {
   ];
 
   networking.hostName = "nixos";
-  networking.interfaces.enp7s0.useDHCP = true;
-  networking.interfaces.wlp0s20f3.useDHCP = true;
+  networking.interfaces = {
+    enp7s0.useDHCP = true;
+    wlp0s20f3.useDHCP = true;
+  };
 
   programs.droidcam.enable = true;
 
-  environment.systemPackages = with pkgs; [
-    battery_conservation_mode
-  ];
+  environment.systemPackages = [ battery_conservation_mode ];
 
-  services.xserver = {
-    xrandrHeads = [ "DP-2" { output = "HDMI-0"; primary = true; } ];
-    screenSection = ''
-      Option         "metamodes" "HDMI-0: nvidia-auto-select +1920+0, DP-2: nvidia-auto-select +0+0"
-    '';
-  };
+  services.xserver.displayManager.setupCommands = ''
+    ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource NVIDIA-G0 modesetting
+    ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-1-0 --primary --auto --right-of eDP-1
+  '';
 
 }

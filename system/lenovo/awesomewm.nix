@@ -47,6 +47,5 @@
       mouse.accelProfile = "flat";
     };
 
-    videoDrivers = [ "intel" ];
   };
 }
