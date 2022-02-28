@@ -46,7 +46,7 @@ in
   wayland.windowManager.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
-    xwayland = false;
+    xwayland = true;
     config = {
       modifier = "Mod4";
       terminal = "kitty --single-instance";
