@@ -47,7 +47,7 @@ in
     enable = true;
     wrapperFeatures.gtk = true;
     xwayland = true;
-    config = {
+    config = rec {
       modifier = "Mod4";
       terminal = "kitty --single-instance";
       menu = "wofi --show drun";
@@ -64,6 +64,9 @@ in
         titlebar = false;
       };
       bars = [ ];
+      keybindings = lib.mkOptionDefault {
+        "${modifier}+w" = "kill";
+      };
     };
     extraConfig = ''
       output "*" background ${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/backgrounds/nixos/nix-wallpaper-simple-dark-gray.png fill
