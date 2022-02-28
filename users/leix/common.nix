@@ -126,7 +126,6 @@ in
 
     network-manager-applet.enable = true;
     blueman-applet.enable = true;
-    flameshot.enable = true;
   };
 
   programs.kitty = {
