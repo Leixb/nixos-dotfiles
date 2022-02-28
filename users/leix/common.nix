@@ -123,6 +123,10 @@ in
       defaultCacheTtl = 3600;
       defaultCacheTtlSsh = 3600;
     };
+
+    network-manager-applet.enable = true;
+    blueman-applet.enable = true;
+    flameshot.enable = true;
   };
 
   programs.kitty = {
