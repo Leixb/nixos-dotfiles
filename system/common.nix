@@ -57,6 +57,8 @@ in
 
   services.xserver.wacom.enable = true;
 
+  services.neo4j.enable = true;
+
   hardware.cpu.intel.updateMicrocode = true;
   
   hardware.opengl.driSupport32Bit = true;

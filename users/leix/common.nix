@@ -107,6 +107,7 @@ in
     libqalculate
     comma
     acpi
+    neo4j-desktop
   ];
 
   services = {
