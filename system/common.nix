@@ -133,10 +133,10 @@ in
   systemd.enableUnifiedCgroupHierarchy = true;
 
   systemd.targets = {
-    sleep.enable = false;
-    suspend.enable = false;
-    hibernate.enable = false;
-    hybrid-sleep.enable = false;
+    sleep.enable = true;
+    suspend.enable = true;
+    hibernate.enable = true;
+    hybrid-sleep.enable = true;
   };
 
   # Enable CUPS to print documents.
