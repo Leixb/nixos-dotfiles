@@ -58,6 +58,7 @@ in
   services.xserver.wacom.enable = true;
 
   services.neo4j.enable = true;
+  systemd.services.neo4j.wantedBy = lib.mkForce [ ];
 
   hardware.cpu.intel.updateMicrocode = true;
   
@@ -126,6 +127,10 @@ in
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   programs.mtr.enable = true;
+  programs.gnupg.agent = {
+    enable = true;
+    enableSSHSupport = true;
+  };
 
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
@@ -162,11 +167,11 @@ in
   programs.fish.enable = true;
   users.users.leix = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "libvirtd" "audio" "video" ]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "networkmanager" "libvirtd" "audio" "video" ]; # Enable ‘sudo’ for the user.
     shell = pkgs.fish;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJlnrdcH2stIVA1hkkOIFvebIjDALugIrTxGi6mvZQBp JuiceSSH"
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEe14az/yN5C7EggpqaahIyk3PX2uFT18gaZG4LxxiGl aleix.bone@a5s102pc53"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHPm9yDy7gOVOAsIPqp6q0XC06RSnZJUh959HJdFkCdZ aleix.bone@c6s302pc63"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKOO1MTb4NP9qgI8P/8feqFXReeLCiB79R6YLPlXQaRQ leix@nixos"
     ];
   };
@@ -192,6 +197,7 @@ in
     permitRootLogin = "yes";
     enable = true;
     ports = [ 22 2322 ];
+    forwardX11 = true;
   };
 
   # Open ports in the firewall.

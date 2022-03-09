@@ -48,6 +48,10 @@
 
       extra-packages = (final: prev: {
         gof5 = prev.callPackage ./packages/gof5/default.nix {}; 
+        yuview = prev.libsForQt5.callPackage ./packages/yuview/default.nix {}; 
+        libyuv = prev.callPackage ./packages/libyuv/default.nix {}; 
+        libsciter = prev.callPackage ./packages/libsciter/default.nix {}; 
+        rustdesk = prev.callPackage ./packages/rustdesk/default.nix {}; 
       });
 
       inherit (nixpkgs) lib;

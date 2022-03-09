@@ -107,7 +107,7 @@ in
     libqalculate
     comma
     acpi
-    neo4j-desktop
+    geogebra
   ];
 
   services = {
