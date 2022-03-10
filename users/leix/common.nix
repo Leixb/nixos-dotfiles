@@ -110,9 +110,11 @@ in
     geogebra
   ];
 
+  systemd.user.services.gammastep.Install.WantedBy = lib.mkForce [ ];
+
   services = {
     gammastep = {
-      enable = false;
+      enable = true;
       longitude = 41.4;
       latitude = 2.0;
     };
