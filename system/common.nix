@@ -120,17 +120,7 @@ in
 
   services.gnome.gnome-keyring.enable = true;
 
-  security.pam.services.lightdm.enableGnomeKeyring = true;
-  security.pam.services.lightdm.gnupg.enable = true;
-  security.pam.services.lightdm.gnupg.noAutostart = true;
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
   programs.mtr.enable = true;
-  programs.gnupg.agent = {
-    enable = true;
-    enableSSHSupport = true;
-  };
 
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
@@ -185,7 +175,7 @@ in
   ];
 
   services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon logitech-udev-rules headsetcontrol ];
-  services.dbus.packages = with pkgs; [ gcr ];
+  services.dbus.packages = with pkgs; [ gcr gnome.gnome-keyring ];
 
   nixpkgs.config.allowUnfree = true;
 

@@ -122,6 +122,7 @@ in
       enableSshSupport = true;
       defaultCacheTtl = 3600;
       defaultCacheTtlSsh = 3600;
+      pinentryFlavor = "gtk2";
     };
 
     network-manager-applet.enable = true;
