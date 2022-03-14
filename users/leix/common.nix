@@ -57,23 +57,35 @@ in
     WEBKIT_DISABLE_COMPOSITING_MODE = 1; # https://github.com/NixOS/nixpkgs/issues/32580
   };
 
-  home.packages = with pkgs; [
-    cachix
-    (pkgs.symlinkJoin {
+  programs.neovim = {
+    enable = true;
+    package = (pkgs.symlinkJoin {
       name = "neovim";
-      paths = [ pkgs.neovim ];
+      paths = [ pkgs.neovim-nightly ];
       buildInputs = [ pkgs.makeWrapper ];
       postBuild = ''
         wrapProgram $out/bin/nvim \
-        --suffix PATH : "${lib.makeBinPath [
-          gcc
-          git
-          inputs.rnix-lsp.packages.x86_64-linux.rnix-lsp
-          zathura
-          ripgrep
-        ]}"
+          --add-flags "-u ${HOME}/.config/nvim/init.lua"
       '';
-    })
+    });
+    extraPackages = with pkgs; [
+      gcc
+      git
+      inputs.rnix-lsp.packages.x86_64-linux.rnix-lsp
+      zathura
+      ripgrep
+      fd
+    ];
+    withPython3 = true;
+    withRuby = true;
+    withNodeJs = true;
+    viAlias = true;
+    vimAlias = true;
+    vimdiffAlias = true;
+  };
+
+  home.packages = with pkgs; [
+    cachix
     discord
     ripcord
     bitwarden
