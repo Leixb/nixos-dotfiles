@@ -109,6 +109,7 @@ in {
     switch-audio 
     open-arch-home
     close-arch-home
+    geogebra
   ];
   services = {
     picom = {

@@ -107,7 +107,6 @@ in
     libqalculate
     comma
     acpi
-    geogebra
   ];
 
   systemd.user.services.gammastep.Install.WantedBy = lib.mkForce [ ];
