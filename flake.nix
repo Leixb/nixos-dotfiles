@@ -41,9 +41,11 @@
       };
     };
 
+    neovim-nightly-overlay.url = "github:nix-community/neovim-nightly-overlay";
+
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, nur, awesome-config, ... }:
+  outputs = inputs@{ nixpkgs, home-manager, ... }:
     let
       system = "x86_64-linux";
 
@@ -57,6 +59,13 @@
         comma = inputs.comma.packages.${system}.comma;
       });
 
+      overlays =  [
+        extra-packages
+        inputs.nur.overlay
+        inputs.awesome-config.overlay
+        inputs.neovim-nightly-overlay.overlay
+      ];
+
       inherit (nixpkgs) lib;
     in
     {
@@ -66,11 +75,8 @@
           inherit specialArgs;
 
           modules = [
-            { nixpkgs.overlays = [ 
-              nur.overlay
-              extra-packages
-              awesome-config.overlay
-            ]; }
+            { nixpkgs.overlays = overlays; }
+            ({ ... }: { imports = [ { nix.nixPath = [ "nixpkgs=${nixpkgs}" ]; }];})
             ./system/lenovo/configuration.nix
             home-manager.nixosModules.home-manager
             {
@@ -87,11 +93,8 @@
           inherit specialArgs;
 
           modules = [
-            { nixpkgs.overlays = [ 
-              nur.overlay
-              extra-packages
-              awesome-config.overlay
-            ]; }
+            { nixpkgs.overlays = overlays; }
+            ({ ... }: { imports = [ { nix.nixPath = [ "nixpkgs=${nixpkgs}" ]; }];})
             ./system/pavilion/configuration.nix
             home-manager.nixosModules.home-manager
             {
