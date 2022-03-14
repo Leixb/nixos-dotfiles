@@ -107,6 +107,7 @@ in
     libqalculate
     comma
     acpi
+    rustdesk
   ];
 
   systemd.user.services.gammastep.Install.WantedBy = lib.mkForce [ ];

@@ -21,6 +21,11 @@
       flake = false;
     };
 
+    comma = {
+      url = "github:nix-community/comma";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     awesome-config = {
       url = "github:leixb/awesome-copycats";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -49,9 +54,7 @@
       extra-packages = (final: prev: {
         gof5 = prev.callPackage ./packages/gof5/default.nix {}; 
         yuview = prev.libsForQt5.callPackage ./packages/yuview/default.nix {}; 
-        libyuv = prev.callPackage ./packages/libyuv/default.nix {}; 
-        libsciter = prev.callPackage ./packages/libsciter/default.nix {}; 
-        rustdesk = prev.callPackage ./packages/rustdesk/default.nix {}; 
+        comma = inputs.comma.packages.${system}.comma;
       });
 
       inherit (nixpkgs) lib;
