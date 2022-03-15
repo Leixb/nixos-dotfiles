@@ -57,9 +57,6 @@ in
 
   services.xserver.wacom.enable = true;
 
-  services.neo4j.enable = true;
-  systemd.services.neo4j.wantedBy = lib.mkForce [ ];
-
   hardware.cpu.intel.updateMicrocode = true;
   
   hardware.opengl.driSupport32Bit = true;
