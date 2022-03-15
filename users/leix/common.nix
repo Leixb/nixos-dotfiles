@@ -384,6 +384,8 @@ in
     };
   };
 
+  programs.nix-index.enable = true;
+
   gtk = {
     enable = true;
     theme = {
