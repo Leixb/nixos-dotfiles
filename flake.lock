@@ -129,11 +129,11 @@
     "lain": {
       "flake": false,
       "locked": {
-        "lastModified": 1647361021,
-        "narHash": "sha256-awbureowiOsiIIwO+QcoqBfK0hWRGusEdu6ikYfilBg=",
+        "lastModified": 1647461590,
+        "narHash": "sha256-zeSCu8/Ga5TnhNgO97MK9C1JauRcFiS/F+3CUr7ht1M=",
         "owner": "lcpz",
         "repo": "lain",
-        "rev": "6a06d3cb7915589670b6cbaf538e5abec7e987bf",
+        "rev": "07cf82e3b2cb051e57d8bba9585973fa6e2c659e",
         "type": "github"
       },
       "original": {

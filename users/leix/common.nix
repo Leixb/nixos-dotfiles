@@ -290,6 +290,7 @@ in
       privacy-badger
       refined-github
       ublock-origin
+      sponsorblock
       tree-style-tab
     ];
 
