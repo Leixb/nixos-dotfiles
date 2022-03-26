@@ -22,7 +22,7 @@ in
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
-  hardware.nvidia.powerManagement.finegrained = true;
+  # hardware.nvidia.powerManagement.finegrained = true;
 
   environment.systemPackages = [ prime-run ];
 }

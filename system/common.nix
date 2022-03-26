@@ -67,11 +67,12 @@ in
     vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
   };
 
-  hardware.opengl.extraPackages = with pkgs; [
+  hardware.opengl.extraPackages = with pkgs; lib.mkForce [
     intel-media-driver
     vaapiIntel
     vaapiVdpau
     libvdpau-va-gl
+    # nvidia-vaapi-driver
   ];
 
   hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ vaapiIntel ];
