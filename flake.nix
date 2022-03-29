@@ -9,7 +9,10 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nur.url = "github:nix-community/NUR";
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     rnix-lsp = {
       url = "github:nix-community/rnix-lsp";
@@ -57,11 +60,12 @@
         gof5 = prev.callPackage ./packages/gof5/default.nix {}; 
         yuview = prev.libsForQt5.callPackage ./packages/yuview/default.nix {}; 
         comma = inputs.comma.packages.${system}.comma;
+
+        firefox-addons = inputs.firefox-addons.packages.${system};
       });
 
       overlays =  [
         extra-packages
-        inputs.nur.overlay
         inputs.awesome-config.overlay
         inputs.neovim-nightly-overlay.overlay
       ];

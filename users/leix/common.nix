@@ -280,12 +280,11 @@ in
 
   programs.firefox = {
     enable = true;
-    extensions = with pkgs.nur.repos.rycee.firefox-addons; [
+    extensions = with pkgs.firefox-addons; [
       bitwarden
       darkreader
       https-everywhere
-      languagetool
-      matte-black-red
+      (languagetool.overrideAttrs (oldAttrs: {meta.unfree = false;})) # Dirty workaround since nixpkgs.config.allowUnfree does not work with firefox-addons flake
       no-pdf-download
       privacy-badger
       refined-github
