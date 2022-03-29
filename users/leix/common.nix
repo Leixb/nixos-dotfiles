@@ -389,8 +389,8 @@ in
   gtk = {
     enable = true;
     theme = {
-      name = "Juno-ocean";
-      package = pkgs.juno-theme;
+      name = "Arc";
+      package = pkgs.arc-theme;
     };
     iconTheme = {
       name = "Arc";
