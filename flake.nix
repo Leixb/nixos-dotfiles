@@ -90,7 +90,6 @@
       nixosConfigurations = {
         nixos = lib.nixosSystem {
           inherit system;
-          inherit specialArgs;
 
           modules = [
             common-modules
@@ -107,7 +106,6 @@
 
         nixos-pav = lib.nixosSystem {
           inherit system;
-          inherit specialArgs;
 
           modules = [
             common-modules
