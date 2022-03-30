@@ -79,6 +79,11 @@
         inputs.neovim-nightly-overlay.overlay
       ];
 
+      common-modules = {
+        nixpkgs.overlays = overlays;
+        nix.nixPath = [ "nixpkgs=${nixpkgs}" ];
+      };
+
       inherit (nixpkgs) lib;
     in
     {
@@ -88,8 +93,7 @@
           inherit specialArgs;
 
           modules = [
-            { nixpkgs.overlays = overlays; }
-            ({ ... }: { imports = [ { nix.nixPath = [ "nixpkgs=${nixpkgs}" ]; }];})
+            common-modules
             ./system/lenovo/configuration.nix
             home-manager.nixosModules.home-manager
             {
@@ -106,8 +110,7 @@
           inherit specialArgs;
 
           modules = [
-            { nixpkgs.overlays = overlays; }
-            ({ ... }: { imports = [ { nix.nixPath = [ "nixpkgs=${nixpkgs}" ]; }];})
+            common-modules
             ./system/pavilion/configuration.nix
             home-manager.nixosModules.home-manager
             {
