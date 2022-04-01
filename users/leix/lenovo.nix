@@ -50,6 +50,7 @@ let
 in {
   imports = [
     ./common.nix
+    ./sway.nix
   ];
 
   xdg.configFile = {
