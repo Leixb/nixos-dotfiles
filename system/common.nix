@@ -58,6 +58,8 @@ in
   services.xserver.wacom.enable = true;
 
   hardware.cpu.intel.updateMicrocode = true;
+  hardware.enableAllFirmware = true;
+  hardware.enableRedistributableFirmware = true;
   
   hardware.opengl.driSupport32Bit = true;
   hardware.opengl.enable = true;
@@ -171,6 +173,12 @@ in
     openssl
     update_system
   ];
+
+  system.activationScripts.diff = ''
+    ${pkgs.nixUnstable}/bin/nix store \
+        --experimental-features 'nix-command' \
+        diff-closures /run/current-system "$systemConfig"
+  '';
 
   services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon logitech-udev-rules headsetcontrol ];
   services.dbus.packages = with pkgs; [ gcr gnome.gnome-keyring ];

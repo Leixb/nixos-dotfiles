@@ -78,10 +78,16 @@
         inputs.neovim-nightly-overlay.overlay
       ];
 
+      pin-flake-reg = with inputs; {
+        nix.registry.nixpkgs.flake = nixpkgs;
+        nix.registry.flake-utils.flake = flake-utils;
+        nix.registry.leixb.flake = self;
+      };
+
       common-modules = {
         nixpkgs.overlays = overlays;
         nix.nixPath = [ "nixpkgs=${nixpkgs}" ];
-      };
+      } // pin-flake-reg;
 
       inherit (nixpkgs) lib;
     in
