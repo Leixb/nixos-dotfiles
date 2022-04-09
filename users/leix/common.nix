@@ -73,7 +73,7 @@ in
       gcc
       git
       inputs.rnix-lsp.packages.x86_64-linux.rnix-lsp
-      zathura
+      trunk.zathura
       ripgrep
       fd
     ];
@@ -92,7 +92,7 @@ in
     bitwarden
     tdesktop # telegram desktop
     fd
-    zathura
+    trunk.zathura
     bottom
     beekeeper-studio
     ripgrep
@@ -118,6 +118,7 @@ in
     gh
     gnome.simple-scan
     libqalculate
+    qalculate-gtk
     comma
     acpi
     rustdesk

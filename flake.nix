@@ -3,6 +3,8 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs_stable.url = "github:nixos/nixpkgs/nixos-21.11";
+    nixpkgs_trunk.url = "github:nixos/nixpkgs";
 
     flake-utils.url = "github:numtide/flake-utils";
 
@@ -65,6 +67,11 @@
         inherit inputs;
       };
 
+      pkg-sets = final: prev: {
+        stable = import inputs.nixpkgs_stable { system = final.system; };
+        trunk = import inputs.nixpkgs_trunk { system = final.system; };
+      };
+
       extra-packages = (final: prev: {
         gof5 = prev.callPackage ./packages/gof5/default.nix {}; 
         comma = inputs.comma.packages.${system}.comma;
@@ -73,6 +80,7 @@
       });
 
       overlays =  [
+        pkg-sets
         extra-packages
         inputs.awesome-config.overlay
         inputs.neovim-nightly-overlay.overlay
