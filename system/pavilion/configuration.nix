@@ -12,6 +12,15 @@
       # ./gnome.nix
     ];
 
+  # Configuration for low ram and zswap
+  boot.kernel.sysctl = {
+    "vm.swappiness" = 100;
+    "vm.vfs_cache_pressure" = 500;
+    "vm.dirty_background_ratio" = 1;
+    "vm.dirty_ratio" = 50;
+  };
+  zramSwap.enable = true;
+
   boot.kernelPackages = pkgs.linuxPackages_latest;
   boot.extraModprobeConfig = ''
     options rtl8723be fwlps=0 ips=0 swlps=0 swenc=1 disable_watchdog=1 ant_sel=1
