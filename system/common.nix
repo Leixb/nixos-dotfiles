@@ -65,6 +65,8 @@ in
   services.ananicy = {
     enable = true;
 
+    package = pkgs.ananicy-cpp;
+
     extraRules = ''
     { "name" : ".Discord-wrapped", "type" : "Chat" }
     '';
