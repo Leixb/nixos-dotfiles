@@ -16,7 +16,7 @@
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/053c6498-4d72-40b1-bc18-4b8bb9a7fe1d";
       fsType = "btrfs";
-      options = [ "subvol=@" ];
+      options = [ "subvol=@" "noatime" ];
     };
 
   fileSystems."/nix" =
@@ -34,19 +34,25 @@
   fileSystems."/home" =
     { device = "/dev/disk/by-uuid/29a8e3e8-d792-49e6-89b5-5bd78c8ab2e9";
       fsType = "btrfs";
-      options = [ "subvol=@home" ];
+      options = [ "subvol=@home" "noatime" ];
+    };
+
+  fileSystems."/swap" =
+    { device = "/dev/disk/by-uuid/29a8e3e8-d792-49e6-89b5-5bd78c8ab2e9";
+      fsType = "btrfs";
+      options = [ "subvol=@swap" "noatime" ];
     };
 
   fileSystems."/var/lib/libvirt/images" =
     { device = "/dev/disk/by-uuid/29a8e3e8-d792-49e6-89b5-5bd78c8ab2e9";
       fsType = "btrfs";
-      options = [ "subvol=@libvirt-images" ];
+      options = [ "subvol=@libvirt-images" "noatime" ];
     };
 
   fileSystems."/data" =
     { device = "/dev/disk/by-uuid/29a8e3e8-d792-49e6-89b5-5bd78c8ab2e9";
       fsType = "btrfs";
-      options = [ "subvol=@data" ];
+      options = [ "subvol=@data" "noatime" ];
     };
 
   fileSystems."/boot" =
@@ -96,7 +102,12 @@
       options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" ];
     };
 
-  swapDevices = [ ];
+  # swapDevices = [{
+  #   device = "/swap/swapfile";
+  #   size = (1024 * 16) + (1024 * 2); # RAM size + 2 GB
+  # }];
+
+  swapDevices = [];
 
   powerManagement.cpuFreqGovernor = "performance";
   hardware.cpu.intel.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
