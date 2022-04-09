@@ -52,6 +52,11 @@ in
     aliases = [ "dbus-org.freedesktop.oom1.service" ];
   };
 
+  systemd.sockets.systemd-oomd = {
+    listenStreams = [ "/run/systemd-oomd.socket" ];
+    wantedBy = [ "sockets.target" ];
+  };
+
   # ids should be replaced eventually with something sane
   users.groups.systemd-oom.gid = 666;
   users.users.systemd-oom = {
