@@ -27,8 +27,8 @@
       fsType = "vfat";
     };
 
-  swapDevices =
-    [{ device = "/dev/disk/by-uuid/a5c5f8dd-2918-4434-ac31-8953480e2353"; }];
+  # swapDevices =
+    # [{ device = "/dev/disk/by-uuid/a5c5f8dd-2918-4434-ac31-8953480e2353"; }];
 
   powerManagement.cpuFreqGovernor = lib.mkDefault "powersave";
 }
