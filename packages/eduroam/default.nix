@@ -9,7 +9,6 @@ stdenv.mkDerivation rec {
   version = "2.0.4";
 
   src = fetchurl {
-    name = "eduroam.py";
     url = "https://raw.githubusercontent.com/GEANT/CAT/v${version}/devices/linux/Files/main.py";
     sha256 = "sha256-3BM7N932pv2HuU+1gqKVwNW09tbCNrtq2A4K6coeeXA=";
   };
