@@ -16,6 +16,7 @@ stdenv.mkDerivation rec {
   buildInputs = [ (python3.withPackages (pythonPackages: with pythonPackages; [
     distro
     dbus-python
+    pyopenssl
   ])) ];
 
   unpackPhase = ''
