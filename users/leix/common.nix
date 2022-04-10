@@ -75,7 +75,7 @@ in
       gcc
       git
       inputs.rnix-lsp.packages.x86_64-linux.rnix-lsp
-      trunk.zathura
+      zathura
       ripgrep
       fd
     ];
@@ -94,7 +94,7 @@ in
     bitwarden
     tdesktop # telegram desktop
     fd
-    trunk.zathura
+    zathura
     bottom
     beekeeper-studio
     ripgrep
