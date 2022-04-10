@@ -39,6 +39,10 @@ in {
     wlp0s20f3.useDHCP = true;
   };
 
+  boot.kernel.sysctl = {
+    "dev.i915.perf_stream_paranoid" = 0;
+  };
+
   programs.droidcam.enable = true;
 
   environment.systemPackages = [ battery_conservation_mode ];
