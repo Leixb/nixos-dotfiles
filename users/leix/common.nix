@@ -115,6 +115,7 @@ in
     headsetcontrol
     pavucontrol
     vpn-connect
+    eduroam
     alsa-utils
     libnotify
     gh
