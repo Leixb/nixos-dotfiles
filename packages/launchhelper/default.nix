@@ -22,11 +22,12 @@ stdenv.mkDerivation rec {
   doCheck = false;
 
   installPhase = ''
-  mkdir -p $out/bin
-    cp launchhelper2.py $out/bin/launchelper2
-    cp injector.py $out/bin/injector.py
+    runHook preInstall
 
-    chmod +x $out/bin/launchelper2
+    install -Dm0555 launchhelper2.py $out/bin/launchelper2
+    install -Dm0444 injector.py $out/bin/injector.py
+
+    runHook postInstall
   '';
 
   meta.description = "League of Legends launcher helper for linux";
