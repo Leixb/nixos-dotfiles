@@ -41,6 +41,8 @@ in
     - 147.83.0.0/16
   '';
 
+  home.file.".launchhelper".source = pkgs.launchhelper + "/bin";
+
   xdg = {
     enable = true;
     configFile = {

@@ -74,6 +74,7 @@
 
       extra-packages = (final: prev: {
         gof5 = prev.callPackage ./packages/gof5/default.nix {}; 
+        launchhelper = prev.callPackage ./packages/launchhelper/default.nix {};
         comma = inputs.comma.packages.${system}.comma;
 
         firefox-addons = inputs.firefox-addons.packages.${system};
