@@ -96,8 +96,37 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 0;
 
-  networking.wireless.enable = false;  # Enables wireless support via wpa_supplicant.
-  networking.networkmanager.enable = true;
+  systemd.targets.network-online.wantedBy = [ "multi-user.target" ];
+
+  networking.wireless.enable = false;
+  networking.wireless.iwd.enable = true;
+
+  # networking.networkmanager.enable = true;
+  # networking.networkmanager.wifi.backend = "iwd";
+
+  networking.wireless.iwd.settings = {
+    Network = {
+      EnableIPv6 = true;
+      NameResolvingService = if config.services.resolved.enable
+                             then "systemd"
+                             else "resolvconf";
+    };
+  };
+
+  networking = {
+    useHostResolvConf = false;
+    useNetworkd = true;
+    networkmanager.enable = false;
+  };
+
+  services.resolved = {
+    enable = true;
+    dnssec = "false";
+    extraConfig = ''
+      DNS=8.8.8.8
+      DNSOverTLS=opportunistic
+    '';
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
@@ -181,13 +210,13 @@ in
   ];
 
   system.activationScripts.diff = ''
-    ${pkgs.nixUnstable}/bin/nix store \
+    [ -d /run/current-system ] && ${pkgs.nixUnstable}/bin/nix store \
         --experimental-features 'nix-command' \
         diff-closures /run/current-system "$systemConfig"
   '';
 
   services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon logitech-udev-rules headsetcontrol ];
-  services.dbus.packages = with pkgs; [ gcr gnome.gnome-keyring ];
+  services.dbus.packages = with pkgs; [ iwd gcr gnome.gnome-keyring ];
 
   nixpkgs.config.allowUnfree = true;
 
