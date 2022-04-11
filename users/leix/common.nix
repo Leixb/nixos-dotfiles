@@ -284,6 +284,7 @@ in
 
   programs.firefox = {
     enable = true;
+    package = pkgs.stable.firefox;
     extensions = with pkgs.firefox-addons; [
       bitwarden
       darkreader

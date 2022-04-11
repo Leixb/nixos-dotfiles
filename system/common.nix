@@ -204,7 +204,6 @@ in
   environment.systemPackages = with pkgs; [
     vim
     wget
-    firefox
     openssl
     update_system
   ];
