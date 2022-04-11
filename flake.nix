@@ -94,10 +94,11 @@
         nix.registry.leixb.flake = self;
       };
 
-      common-modules = {
-        nixpkgs.overlays = overlays;
-        nix.nixPath = [ "nixpkgs=${nixpkgs}" ];
-      } // pin-flake-reg;
+      common-modules = [
+        ({ ... }: { imports = [ { nix.nixPath = lib.mkForce [ "nixpkgs=${nixpkgs}" ]; }];})
+        { nixpkgs.overlays = overlays; }
+        pin-flake-reg
+      ];
 
       inherit (nixpkgs) lib;
     in
@@ -106,8 +107,9 @@
         nixos = lib.nixosSystem {
           inherit system;
 
-          modules = [
-            common-modules
+          modules = 
+            common-modules ++
+            [
             ./system/lenovo/configuration.nix
             home-manager.nixosModules.home-manager
             {
@@ -122,8 +124,9 @@
         nixos-pav = lib.nixosSystem {
           inherit system;
 
-          modules = [
-            common-modules
+          modules =
+            common-modules ++
+            [
             ./system/pavilion/configuration.nix
             home-manager.nixosModules.home-manager
             {
