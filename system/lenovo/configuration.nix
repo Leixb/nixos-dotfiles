@@ -46,6 +46,7 @@ in {
   programs.droidcam.enable = true;
 
   environment.systemPackages = [ battery_conservation_mode ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
 
   services.xserver.displayManager.setupCommands = ''
     ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource NVIDIA-G0 modesetting
