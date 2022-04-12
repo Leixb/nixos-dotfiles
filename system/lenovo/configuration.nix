@@ -36,7 +36,7 @@ in {
   networking.hostName = "nixos";
   networking.interfaces = {
     enp7s0.useDHCP = true;
-    wlp0s20f3.useDHCP = true;
+    wlan0.useDHCP = true;
   };
 
   boot.kernel.sysctl = {
