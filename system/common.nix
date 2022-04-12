@@ -48,6 +48,7 @@ in
   services.earlyoom = {
     enable = true;
     freeMemThreshold = 2;
+    enableNotifications = true;
   };
 
   services.ananicy = {
@@ -95,8 +96,6 @@ in
   };
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 0;
-
-  systemd.targets.network-online.wantedBy = [ "multi-user.target" ];
 
   networking.wireless.enable = false;
   networking.wireless.iwd.enable = true;
@@ -213,6 +212,8 @@ in
         --experimental-features 'nix-command' \
         diff-closures /run/current-system "$systemConfig"
   '';
+
+  services.systembus-notify.enable = true;
 
   services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon logitech-udev-rules headsetcontrol ];
   services.dbus.packages = with pkgs; [ iwd gcr gnome.gnome-keyring ];
