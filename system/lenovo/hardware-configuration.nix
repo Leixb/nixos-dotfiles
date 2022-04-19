@@ -14,39 +14,33 @@
   boot.extraModulePackages = [ ];
 
   fileSystems."/" =
-    { device = "/dev/disk/by-uuid/053c6498-4d72-40b1-bc18-4b8bb9a7fe1d";
+    { device = "/dev/disk/by-uuid/22f535b7-47ae-4615-8d52-5555523fd878";
       fsType = "btrfs";
-      options = [ "subvol=@" "noatime" ];
+      options = [ "subvol=@" "noatime"];
     };
 
   fileSystems."/nix" =
-    { device = "/dev/disk/by-uuid/053c6498-4d72-40b1-bc18-4b8bb9a7fe1d";
+    { device = "/dev/disk/by-uuid/22f535b7-47ae-4615-8d52-5555523fd878";
       fsType = "btrfs";
-      options = [ "subvol=@nix" "noatime"];
+      options = [ "subvol=nix" "noatime"];
     };
 
-  fileSystems."/games" =
-    { device = "/dev/disk/by-uuid/053c6498-4d72-40b1-bc18-4b8bb9a7fe1d";
+  fileSystems."/var/log" =
+    { device = "/dev/disk/by-uuid/22f535b7-47ae-4615-8d52-5555523fd878";
       fsType = "btrfs";
-      options = [ "subvol=@games" "noatime" "ssd"];
+      options = [ "subvol=log" "noatime"];
     };
 
   fileSystems."/home" =
+    { device = "/dev/disk/by-uuid/22f535b7-47ae-4615-8d52-5555523fd878";
+      fsType = "btrfs";
+      options = [ "subvol=home" "noatime"];
+    };
+
+  fileSystems."/home-old" =
     { device = "/dev/disk/by-uuid/29a8e3e8-d792-49e6-89b5-5bd78c8ab2e9";
       fsType = "btrfs";
       options = [ "subvol=@home" "noatime" ];
-    };
-
-  fileSystems."/swap" =
-    { device = "/dev/disk/by-uuid/29a8e3e8-d792-49e6-89b5-5bd78c8ab2e9";
-      fsType = "btrfs";
-      options = [ "subvol=@swap" "noatime" ];
-    };
-
-  fileSystems."/var/lib/libvirt/images" =
-    { device = "/dev/disk/by-uuid/29a8e3e8-d792-49e6-89b5-5bd78c8ab2e9";
-      fsType = "btrfs";
-      options = [ "x-systemd.automount" "noauto" "subvol=@libvirt-images" "noatime" ];
     };
 
   fileSystems."/data" =
@@ -56,7 +50,7 @@
     };
 
   fileSystems."/boot" =
-    { device = "/dev/disk/by-uuid/F806-BDD1";
+    { device = "/dev/disk/by-uuid/B944-74D8";
       fsType = "vfat";
     };
 
