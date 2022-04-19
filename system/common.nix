@@ -41,6 +41,10 @@ in
     options hid_apple fnmode=2
   '';
 
+  documentation.enable = true;
+  documentation.man.enable = true;
+  documentation.dev.enable = true;
+
   services.avahi.enable = true;
   services.fstrim.enable = true;
   services.irqbalance.enable = true;
