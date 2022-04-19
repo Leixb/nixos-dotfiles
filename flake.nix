@@ -7,6 +7,7 @@
     nixpkgs_trunk.url = "github:nixos/nixpkgs";
 
     flake-utils.url = "github:numtide/flake-utils";
+    utils.follows = "flake-utils";
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
@@ -23,7 +24,7 @@
     rnix-lsp = {
       url = "github:nix-community/rnix-lsp";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
+      inputs.utils.follows = "flake-utils";
     };
 
     neovim-config = {
@@ -34,6 +35,8 @@
     comma = {
       url = "github:nix-community/comma";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.naersk.follows = "rnix-lsp/naersk";
+      inputs.utils.follows = "flake-utils";
     };
 
     awesome-config = {
@@ -52,9 +55,13 @@
       };
     };
 
+    neovim-flake.follows = "neovim-nightly-overlay/neovim-flake";
+
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "comma/flake-compat";
+      # inputs.neovim-flake.inputs.flake-utils.follows = "flake-utils";
     };
 
   };
@@ -95,7 +102,10 @@
       };
 
       common-modules = [
-        ({ ... }: { imports = [ { nix.nixPath = lib.mkForce [ "nixpkgs=${nixpkgs}" ]; }];})
+        ({ ... }: { imports = [ {
+          nix.nixPath = lib.mkForce [ "nixpkgs=${nixpkgs}" ];
+          environment.sessionVariables.NIXPKGS = "${nixpkgs}";
+        }];})
         { nixpkgs.overlays = overlays; }
         pin-flake-reg
       ];
