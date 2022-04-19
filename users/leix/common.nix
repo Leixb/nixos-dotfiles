@@ -123,6 +123,7 @@ in
     comma
     acpi
     rustdesk
+    miniserve
   ];
 
   systemd.user.services.gammastep.Install.WantedBy = lib.mkForce [ ];
