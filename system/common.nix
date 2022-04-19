@@ -49,6 +49,8 @@ in
   services.fstrim.enable = true;
   services.irqbalance.enable = true;
 
+  services.fwupd.enable = true;
+
   services.earlyoom = {
     enable = true;
     freeMemThreshold = 2;
