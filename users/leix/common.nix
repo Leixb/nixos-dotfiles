@@ -261,6 +261,11 @@ in
     };
   };
 
+  programs.tmux = {
+    enable = true;
+    terminal = "xterm-kitty";
+  };
+
   programs.fzf = {
     enable = true;
     enableFishIntegration = true;
