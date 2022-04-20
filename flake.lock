@@ -201,11 +201,11 @@
     "neovim-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1649715972,
-        "narHash": "sha256-kqxY3czSgRibNL2zSbaS1D2JHMuv4AYbAPC0nXydgm8=",
+        "lastModified": 1650478019,
+        "narHash": "sha256-HpQGTak5PpNMETTF6vIJJUcux58VZpeDIbrZt6RmlHQ=",
         "owner": "leixb",
         "repo": "neovim-config",
-        "rev": "d31bed0274062ec45d6a8673e9b087dd9d3f2465",
+        "rev": "8d73af0363864621773b4282ec5844c330edaa8e",
         "type": "github"
       },
       "original": {
