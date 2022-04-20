@@ -16,37 +16,37 @@
   fileSystems."/" =
     { device = "/dev/disk/by-uuid/22f535b7-47ae-4615-8d52-5555523fd878";
       fsType = "btrfs";
-      options = [ "subvol=@" "noatime"];
+      options = [ "subvol=@" "noatime" "compress-force=zstd:3"];
     };
 
   fileSystems."/nix" =
     { device = "/dev/disk/by-uuid/22f535b7-47ae-4615-8d52-5555523fd878";
       fsType = "btrfs";
-      options = [ "subvol=nix" "noatime"];
+      options = [ "subvol=nix" "noatime" "compress-force=zstd:3" ];
     };
 
   fileSystems."/var/log" =
     { device = "/dev/disk/by-uuid/22f535b7-47ae-4615-8d52-5555523fd878";
       fsType = "btrfs";
-      options = [ "subvol=log" "noatime"];
+      options = [ "subvol=log" "noatime" "compress-force=zstd:3" ];
     };
 
   fileSystems."/home" =
     { device = "/dev/disk/by-uuid/22f535b7-47ae-4615-8d52-5555523fd878";
       fsType = "btrfs";
-      options = [ "subvol=home" "noatime"];
+      options = [ "subvol=home" "noatime" "compress-force=zstd:3" ];
     };
 
   fileSystems."/home-old" =
     { device = "/dev/disk/by-uuid/29a8e3e8-d792-49e6-89b5-5bd78c8ab2e9";
       fsType = "btrfs";
-      options = [ "subvol=@home" "noatime" ];
+      options = [ "subvol=@home" "noatime" "compress-force=zstd:5" ];
     };
 
   fileSystems."/data" =
     { device = "/dev/disk/by-uuid/29a8e3e8-d792-49e6-89b5-5bd78c8ab2e9";
       fsType = "btrfs";
-      options = [ "subvol=@data" "noatime" ];
+      options = [ "subvol=@data" "noatime" "compress-force=zstd:5" ];
     };
 
   fileSystems."/boot" =
