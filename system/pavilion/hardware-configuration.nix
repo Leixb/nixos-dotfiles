@@ -18,7 +18,7 @@
     {
       device = "/dev/disk/by-uuid/3a044444-35d3-40a5-ab72-ff6335799d36";
       fsType = "btrfs";
-      options = [ "subvol=nixos" ];
+      options = [ "subvol=nixos" "noatime" "compress=lzo:5" ];
     };
 
   fileSystems."/boot" =
