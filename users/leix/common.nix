@@ -264,6 +264,10 @@ in
   programs.tmux = {
     enable = true;
     terminal = "xterm-kitty";
+    keyMode = "vi";
+    extraConfig = ''
+      set -g mouse on
+    '';
   };
 
   programs.fzf = {
