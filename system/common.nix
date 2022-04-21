@@ -45,8 +45,11 @@ in
   documentation.man.enable = true;
   documentation.dev.enable = true;
 
-  services.avahi.enable = true;
   services.fstrim.enable = true;
+  services.btrfs.autoScrub.enable = true;
+  services.btrfs.autoScrub.interval = "monthly";
+
+  services.avahi.enable = true;
   services.irqbalance.enable = true;
 
   services.fwupd.enable = true;
