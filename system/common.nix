@@ -190,7 +190,7 @@ in
   ];
 
   system.activationScripts.diff = ''
-    ${pkgs.nixUnstable}/bin/nix store \
+    [ -d /run/current-system ] && ${pkgs.nixUnstable}/bin/nix store \
         --experimental-features 'nix-command' \
         diff-closures /run/current-system "$systemConfig"
   '';
