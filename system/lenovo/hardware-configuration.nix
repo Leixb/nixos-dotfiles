@@ -40,13 +40,13 @@
   fileSystems."/home-old" =
     { device = "/dev/disk/by-uuid/29a8e3e8-d792-49e6-89b5-5bd78c8ab2e9";
       fsType = "btrfs";
-      options = [ "subvol=@home" "noatime" "compress-force=zstd:5" ];
+      options = [ "subvol=@home" "noatime" "compress-force=zstd:5" "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" ];
     };
 
   fileSystems."/data" =
     { device = "/dev/disk/by-uuid/29a8e3e8-d792-49e6-89b5-5bd78c8ab2e9";
       fsType = "btrfs";
-      options = [ "subvol=@data" "noatime" "compress-force=zstd:5" ];
+      options = [ "subvol=@data" "noatime" "compress-force=zstd:5" "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" ];
     };
 
   fileSystems."/boot" =
