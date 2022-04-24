@@ -1,11 +1,9 @@
-{ pkgs, ... }:
-
-let
+{pkgs, ...}: let
   browser = [
     "firefox.desktop"
   ];
   associations = {
-    "application/pdf" = [ "org.pwmt.zathura.desktop" ];
+    "application/pdf" = ["org.pwmt.zathura.desktop"];
     "text/html" = browser;
     "x-scheme-handler/http" = browser;
     "x-scheme-handler/https" = browser;
@@ -27,8 +25,7 @@ let
 
     "x-scheme-handler/tg" = "userapp-Telegram Desktop-S07QK1.desktop";
   };
-in
-{
+in {
   xdg.mimeApps.enable = true;
   xdg.mimeApps.associations.added = associations;
   xdg.mimeApps.defaultApplications = associations;

@@ -1,9 +1,9 @@
-{ lib
-, stdenv
-, fetchurl
-, python3
+{
+  lib,
+  stdenv,
+  fetchurl,
+  python3,
 }:
-
 stdenv.mkDerivation rec {
   pname = "eduroam";
   version = "2.0.4";
@@ -13,11 +13,14 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-3BM7N932pv2HuU+1gqKVwNW09tbCNrtq2A4K6coeeXA=";
   };
 
-  buildInputs = [ (python3.withPackages (pythonPackages: with pythonPackages; [
-    distro
-    dbus-python
-    pyopenssl
-  ])) ];
+  buildInputs = [
+    (python3.withPackages (pythonPackages:
+      with pythonPackages; [
+        distro
+        dbus-python
+        pyopenssl
+      ]))
+  ];
 
   unpackPhase = ''
     runHook preUnpack
@@ -27,7 +30,7 @@ stdenv.mkDerivation rec {
     runHook postUnpack
   '';
 
-  patches = [ ./UPC_cert.patch ];
+  patches = [./UPC_cert.patch];
 
   installPhase = ''
     runHook preInstall

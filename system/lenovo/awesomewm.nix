@@ -1,23 +1,22 @@
-{ pkgs, ... }:
-
-{
+{pkgs, ...}: {
   services.xserver = {
     enable = true;
     exportConfiguration = true;
 
     displayManager = {
-
       autoLogin.enable = false;
       autoLogin.user = "leix";
 
       defaultSession = "xsession";
-      session = [{
-        manage = "desktop";
-        name = "xsession";
-        start = "exec $HOME/.xsession";
-      }];
+      session = [
+        {
+          manage = "desktop";
+          name = "xsession";
+          start = "exec $HOME/.xsession";
+        }
+      ];
 
-      sessionCommands = let 
+      sessionCommands = let
         xmodmap_config = pkgs.writeText "xkb-layout" ''
           clear lock
           keycode 66 = F13 F13 F13 F13
@@ -26,25 +25,25 @@
 
       lightdm.enable = true;
       lightdm.greeters.mini = {
-          enable = true;
-          user = "leix";
-          extraConfig = ''
-              [greeter]
-              show-password-label = false
-              password-alignment = center
-              [greeter-theme]
-              background-image = "${../../users/leix/wallpapers/forest.jpg}"
-              font = "Fira Mono"
-              text-color = "#DDDDFF"
-              error-color = "#EA6F81"
-              background-color = "#1A1A1A"
-              window-color = "#313131"
-              border-color = "#313131"
-              password-color = "#82aaff"
-              password-background-color = "#1d3b53"
-              password-border-color = "#1d3b53"
-              sys-info-color = "#82aaff"
-          '';
+        enable = true;
+        user = "leix";
+        extraConfig = ''
+          [greeter]
+          show-password-label = false
+          password-alignment = center
+          [greeter-theme]
+          background-image = "${../../users/leix/wallpapers/forest.jpg}"
+          font = "Fira Mono"
+          text-color = "#DDDDFF"
+          error-color = "#EA6F81"
+          background-color = "#1A1A1A"
+          window-color = "#313131"
+          border-color = "#313131"
+          password-color = "#82aaff"
+          password-background-color = "#1d3b53"
+          password-border-color = "#1d3b53"
+          sys-info-color = "#82aaff"
+        '';
       };
     };
 
@@ -58,6 +57,5 @@
       enable = true;
       mouse.accelProfile = "flat";
     };
-
   };
 }

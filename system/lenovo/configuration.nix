@@ -1,7 +1,10 @@
-{ config, pkgs, lib, inputs, ... }:
-
-let
-
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}: let
   # Set battery saving (limit charge to 60%)
   battery_conservation_mode = pkgs.writeShellScriptBin "battery-conservation" ''
     #!/usr/bin/env bash
@@ -22,7 +25,6 @@ let
 
     $1
   '';
-
 in {
   imports = [
     ../common.nix
@@ -45,12 +47,11 @@ in {
 
   programs.droidcam.enable = true;
 
-  environment.systemPackages = [ battery_conservation_mode ];
-  boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
+  environment.systemPackages = [battery_conservation_mode];
+  boot.extraModulePackages = with config.boot.kernelPackages; [acpi_call];
 
   services.xserver.displayManager.setupCommands = ''
     ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource NVIDIA-G0 modesetting
     ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-1-0 --primary --auto --right-of eDP-1
   '';
-
 }

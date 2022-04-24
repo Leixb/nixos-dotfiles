@@ -1,9 +1,9 @@
-{ lib
-, stdenv
-, fetchFromGitHub
-, python39
+{
+  lib,
+  stdenv,
+  fetchFromGitHub,
+  python39,
 }:
-
 stdenv.mkDerivation rec {
   pname = "launchhelper";
   version = "0.1.1";
@@ -15,9 +15,12 @@ stdenv.mkDerivation rec {
     sha256 = "sha256-J7Mf1sAgPkJkjQbP6dD2aXsa0P8pte65I25KcJCMvrg=";
   };
 
-  buildInputs = [(python39.withPackages (pythonPackages: with pythonPackages; [
-    psutil
-  ]))];
+  buildInputs = [
+    (python39.withPackages (pythonPackages:
+      with pythonPackages; [
+        psutil
+      ]))
+  ];
 
   doCheck = false;
 

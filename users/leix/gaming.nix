@@ -1,17 +1,19 @@
-{ config, lib, pkgs, system, inputs, ... }:
-let
-
+{
+  config,
+  lib,
+  pkgs,
+  system,
+  inputs,
+  ...
+}: let
   HOME = "/home/leix";
 
   legendary = pkgs.writers.writeBashBin "legendary" ''
     ${pkgs.steam-run}/bin/steam-run ${pkgs.legendary-gl}/bin/legendary "$@"
   '';
-
-in
-{
-
+in {
   xdg.configFile."legendary/config.ini" = {
-    text = lib.generators.toINI { } (
+    text = lib.generators.toINI {} (
       let
         # location to install the games
         game_folder = "${HOME}/Games";
@@ -26,8 +28,15 @@ in
         };
 
         # Configure game to use proton
-        proton-conf = { name, alias ? name }:
-          (if name != alias then set-alias name alias else { })
+        proton-conf = {
+          name,
+          alias ? name,
+        }:
+          (
+            if name != alias
+            then set-alias name alias
+            else {}
+          )
           // {
             ${name} = {
               wrapper = "\"${steam_folder}/steamapps/common/${proton_version}/proton\" run";
@@ -40,7 +49,7 @@ in
             };
           };
       in
-      builtins.foldl' lib.recursiveUpdate
+        builtins.foldl' lib.recursiveUpdate
         {
           Legendary = {
             disable_update_check = true;
@@ -49,9 +58,18 @@ in
           };
         }
         [
-          (proton-conf { name = "d6264d56f5ba434e91d4b0a0b056c83a"; alias = "TombRaider"; })
-          (proton-conf { name = "f7cc1c999ac146f39b356f53e3489514"; alias = "RiseoftheTombRaider"; })
-          (proton-conf { name = "890d9cf396d04922a1559333df419fed"; alias = "ShadowoftheTombRaider"; })
+          (proton-conf {
+            name = "d6264d56f5ba434e91d4b0a0b056c83a";
+            alias = "TombRaider";
+          })
+          (proton-conf {
+            name = "f7cc1c999ac146f39b356f53e3489514";
+            alias = "RiseoftheTombRaider";
+          })
+          (proton-conf {
+            name = "890d9cf396d04922a1559333df419fed";
+            alias = "ShadowoftheTombRaider";
+          })
         ]
     );
   };
@@ -62,6 +80,4 @@ in
     lutris
     legendary
   ];
-
 }
-

@@ -63,63 +63,68 @@
       inputs.flake-compat.follows = "comma/flake-compat";
       # inputs.neovim-flake.inputs.flake-utils.follows = "flake-utils";
     };
-
   };
 
-  outputs = inputs@{ nixpkgs, home-manager, ... }:
-    let
-      system = "x86_64-linux";
+  outputs = inputs @ {
+    nixpkgs,
+    home-manager,
+    ...
+  }: let
+    system = "x86_64-linux";
 
-      specialArgs = {
-        inherit inputs;
-      };
+    specialArgs = {
+      inherit inputs;
+    };
 
-      pkg-sets = final: prev: {
-        stable = import inputs.nixpkgs_stable { system = final.system; };
-        trunk = import inputs.nixpkgs_trunk { system = final.system; };
-      };
+    pkg-sets = final: prev: {
+      stable = import inputs.nixpkgs_stable {system = final.system;};
+      trunk = import inputs.nixpkgs_trunk {system = final.system;};
+    };
 
-      extra-packages = (final: prev: {
-        gof5 = prev.callPackage ./packages/gof5/default.nix {}; 
-        eduroam = prev.callPackage ./packages/eduroam/default.nix {};
-        launchhelper = prev.callPackage ./packages/launchhelper/default.nix {};
-        comma = inputs.comma.packages.${system}.comma;
+    extra-packages = final: prev: {
+      gof5 = prev.callPackage ./packages/gof5/default.nix {};
+      eduroam = prev.callPackage ./packages/eduroam/default.nix {};
+      launchhelper = prev.callPackage ./packages/launchhelper/default.nix {};
+      comma = inputs.comma.packages.${system}.comma;
 
-        firefox-addons = inputs.firefox-addons.packages.${system};
-      });
+      firefox-addons = inputs.firefox-addons.packages.${system};
+    };
 
-      overlays =  [
-        pkg-sets
-        extra-packages
-        inputs.awesome-config.overlay
-        inputs.neovim-nightly-overlay.overlay
-      ];
+    overlays = [
+      pkg-sets
+      extra-packages
+      inputs.awesome-config.overlay
+      inputs.neovim-nightly-overlay.overlay
+    ];
 
-      pin-flake-reg = with inputs; {
-        nix.registry.nixpkgs.flake = nixpkgs;
-        nix.registry.flake-utils.flake = flake-utils;
-        nix.registry.leixb.flake = self;
-      };
+    pin-flake-reg = with inputs; {
+      nix.registry.nixpkgs.flake = nixpkgs;
+      nix.registry.flake-utils.flake = flake-utils;
+      nix.registry.leixb.flake = self;
+    };
 
-      common-modules = [
-        ({ ... }: { imports = [ {
-          nix.nixPath = lib.mkForce [ "nixpkgs=${nixpkgs}" ];
-          environment.sessionVariables.NIXPKGS = "${nixpkgs}";
-        }];})
-        { nixpkgs.overlays = overlays; }
-        pin-flake-reg
-      ];
+    common-modules = [
+      ({...}: {
+        imports = [
+          {
+            nix.nixPath = lib.mkForce ["nixpkgs=${nixpkgs}"];
+            environment.sessionVariables.NIXPKGS = "${nixpkgs}";
+          }
+        ];
+      })
+      {nixpkgs.overlays = overlays;}
+      pin-flake-reg
+    ];
 
-      inherit (nixpkgs) lib;
-    in
-    {
-      nixosConfigurations = {
-        nixos = lib.nixosSystem {
-          inherit system;
+    inherit (nixpkgs) lib;
+  in {
+    nixosConfigurations = {
+      nixos = lib.nixosSystem {
+        inherit system;
 
-          modules = 
-            common-modules ++
-            [
+        modules =
+          common-modules
+          ++ [
             ./system/lenovo/configuration.nix
             home-manager.nixosModules.home-manager
             {
@@ -129,14 +134,14 @@
               home-manager.extraSpecialArgs = specialArgs;
             }
           ];
-        };
+      };
 
-        nixos-pav = lib.nixosSystem {
-          inherit system;
+      nixos-pav = lib.nixosSystem {
+        inherit system;
 
-          modules =
-            common-modules ++
-            [
+        modules =
+          common-modules
+          ++ [
             ./system/pavilion/configuration.nix
             home-manager.nixosModules.home-manager
             {
@@ -146,7 +151,7 @@
               home-manager.extraSpecialArgs = specialArgs;
             }
           ];
-        };
       };
     };
+  };
 }

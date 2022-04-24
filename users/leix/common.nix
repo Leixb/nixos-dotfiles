@@ -1,29 +1,30 @@
 # vim: sw=2 ts=2:
-{ config, lib, pkgs, system, inputs, ... }:
-
-let
-
-  theme = (import ./theme.nix);
+{
+  config,
+  lib,
+  pkgs,
+  system,
+  inputs,
+  ...
+}: let
+  theme = import ./theme.nix;
 
   HOME = "/home/leix";
 
   dbeaver-adawaita = pkgs.symlinkJoin {
     name = "dbeaver";
-    paths = [ pkgs.dbeaver ];
-    buildInputs = [ pkgs.makeWrapper ];
+    paths = [pkgs.dbeaver];
+    buildInputs = [pkgs.makeWrapper];
     postBuild = ''
       wrapProgram "$out/bin/dbeaver" --set GTK_THEME "Adwaita:light"
     '';
   };
 
-
   vpn-connect = pkgs.writeShellScriptBin "vpn-connect" ''
     sudo ${pkgs.gof5}/bin/gof5 -server https://upclink.upc.edu -username aleix.bone "$@"
   '';
-
-in
-{
-  imports = [ ./mime-apps.nix ];
+in {
+  imports = [./mime-apps.nix];
 
   # Let Home Manager install and manage itself.
   #programs.home-manager.enable = true;
@@ -62,15 +63,15 @@ in
 
   programs.neovim = {
     enable = true;
-    package = (pkgs.symlinkJoin {
+    package = pkgs.symlinkJoin {
       name = "neovim";
-      paths = [ pkgs.neovim-nightly ];
-      buildInputs = [ pkgs.makeWrapper ];
+      paths = [pkgs.neovim-nightly];
+      buildInputs = [pkgs.makeWrapper];
       postBuild = ''
         wrapProgram $out/bin/nvim \
           --add-flags "-u ${HOME}/.config/nvim/init.lua"
       '';
-    });
+    };
     extraPackages = with pkgs; [
       gcc
       git
@@ -129,7 +130,7 @@ in
     miniserve
   ];
 
-  systemd.user.services.gammastep.Install.WantedBy = lib.mkForce [ ];
+  systemd.user.services.gammastep.Install.WantedBy = lib.mkForce [];
 
   services = {
     gammastep = {
@@ -162,22 +163,22 @@ in
       selection_foreground = theme.selection_foreground;
       selection_background = theme.selection_background;
 
-      cursor  = theme.cursor;
-      color0  = theme.color0;
-      color8  = theme.color8;
-      color1  = theme.color1;
-      color9  = theme.color9;
-      color2  = theme.color2;
+      cursor = theme.cursor;
+      color0 = theme.color0;
+      color8 = theme.color8;
+      color1 = theme.color1;
+      color9 = theme.color9;
+      color2 = theme.color2;
       color10 = theme.color10;
-      color3  = theme.color3;
+      color3 = theme.color3;
       color11 = theme.color11;
-      color4  = theme.color4;
+      color4 = theme.color4;
       color12 = theme.color12;
-      color5  = theme.color5;
+      color5 = theme.color5;
       color13 = theme.color13;
-      color6  = theme.color6;
+      color6 = theme.color6;
       color14 = theme.color14;
-      color7  = theme.color7;
+      color7 = theme.color7;
       color15 = theme.color15;
 
       font_family = theme.font;
@@ -298,7 +299,6 @@ in
         symbol = "❄️ ";
       };
     };
-
   };
 
   programs.firefox = {

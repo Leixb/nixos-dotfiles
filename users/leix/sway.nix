@@ -1,7 +1,8 @@
-{lib, pkgs, ...}:
-
 {
-
+  lib,
+  pkgs,
+  ...
+}: {
   home.packages = with pkgs; [
     swaylock
     swayidle
@@ -13,7 +14,6 @@
     imv
   ];
 
-
   wayland.windowManager.sway = {
     enable = true;
     wrapperFeatures.gtk = true;
@@ -23,7 +23,10 @@
       terminal = "kitty --single-instance";
       menu = "wofi --show drun";
       startup = [
-        { command = "systemctl --user restart waybar"; always = true; }
+        {
+          command = "systemctl --user restart waybar";
+          always = true;
+        }
       ];
       input = {
         "type:touchpad" = {
@@ -34,7 +37,7 @@
       window = {
         titlebar = false;
       };
-      bars = [ ];
+      bars = [];
       keybindings = lib.mkOptionDefault {
         "${modifier}+w" = "kill";
       };
@@ -50,24 +53,26 @@
       target = "sway-session.target";
     };
     enable = true;
-    settings = [{
-      modules-left = [ "sway/workspaces" "sway/mode" "wlr/taskbar" ];
-      modules-center = [ "sway/window" ];
-      modules-right = [
-        "tray"
-        "idle_inhibitor"
-        "backlight"
-        "pulseaudio"
-        "bluetooth"
-        "network"
-        "memory"
-        "cpu"
-        "temperature"
-        "disk"
-        "sway/language"
-        "battery"
-        "clock"
-      ];
-    }];
+    settings = [
+      {
+        modules-left = ["sway/workspaces" "sway/mode" "wlr/taskbar"];
+        modules-center = ["sway/window"];
+        modules-right = [
+          "tray"
+          "idle_inhibitor"
+          "backlight"
+          "pulseaudio"
+          "bluetooth"
+          "network"
+          "memory"
+          "cpu"
+          "temperature"
+          "disk"
+          "sway/language"
+          "battery"
+          "clock"
+        ];
+      }
+    ];
   };
 }

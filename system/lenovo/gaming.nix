@@ -1,6 +1,4 @@
-{pkgs, ...}:
-
-{
+{pkgs, ...}: {
   boot.kernel.sysctl = {
     "abi.vsyscall32" = 0; # lol anti-cheat
   };

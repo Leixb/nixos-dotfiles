@@ -1,7 +1,6 @@
 let
   HOME = "/home/leix";
-in
-{
+in {
   services = {
     mpd = {
       enable = true;
@@ -19,5 +18,4 @@ in
     enable = true;
     mpdMusicDir = "${HOME}/Music";
   };
-
 }

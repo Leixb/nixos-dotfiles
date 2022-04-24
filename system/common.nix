@@ -1,11 +1,13 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, lib, inputs, ... }:
-
-let
-
+{
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}: let
   update_system = pkgs.writeShellScriptBin "update-system" ''
     cd ~/.dotfiles
     set -e
@@ -16,11 +18,7 @@ let
       sudo nixos-rebuild switch --flake .#
     fi
   '';
-
-in
-
-{
-
+in {
   boot.kernel.sysctl = {
     "vm.swappiness" = lib.mkDefault 1;
     "vm.vfs_cache_pressure" = lib.mkDefault 50;
@@ -66,7 +64,7 @@ in
     package = pkgs.ananicy-cpp;
 
     extraRules = ''
-    { "name" : ".Discord-wrapped", "type" : "Chat" }
+      { "name" : ".Discord-wrapped", "type" : "Chat" }
     '';
   };
   services.acpid.enable = true;
@@ -76,24 +74,25 @@ in
   hardware.cpu.intel.updateMicrocode = true;
   hardware.enableAllFirmware = true;
   hardware.enableRedistributableFirmware = true;
-  
+
   hardware.opengl.driSupport32Bit = true;
   hardware.opengl.enable = true;
   hardware.pulseaudio.support32Bit = false;
-  
+
   nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
+    vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
   };
 
-  hardware.opengl.extraPackages = with pkgs; lib.mkForce [
-    intel-media-driver
-    vaapiIntel
-    vaapiVdpau
-    libvdpau-va-gl
-    # nvidia-vaapi-driver
-  ];
+  hardware.opengl.extraPackages = with pkgs;
+    lib.mkForce [
+      intel-media-driver
+      vaapiIntel
+      vaapiVdpau
+      libvdpau-va-gl
+      # nvidia-vaapi-driver
+    ];
 
-  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ vaapiIntel ];
+  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [vaapiIntel];
 
   programs.dconf.enable = true;
 
@@ -106,7 +105,7 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 0;
 
-  networking.wireless.enable = false;  # Enables wireless support via wpa_supplicant.
+  networking.wireless.enable = false; # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
 
   # Set your time zone.
@@ -152,7 +151,7 @@ in
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-  services.printing.drivers = [ pkgs.brlaser ];
+  services.printing.drivers = [pkgs.brlaser];
 
   sound.enable = true;
   hardware.pulseaudio.enable = lib.mkForce false;
@@ -168,12 +167,11 @@ in
     wireplumber.enable = true;
   };
 
-
   # Define a user account. Don't forget to set a password with ‘passwd’.
   programs.fish.enable = true;
   users.users.leix = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" "libvirtd" "audio" "video" ]; # Enable ‘sudo’ for the user.
+    extraGroups = ["wheel" "networkmanager" "libvirtd" "audio" "video"]; # Enable ‘sudo’ for the user.
     shell = pkgs.fish;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJlnrdcH2stIVA1hkkOIFvebIjDALugIrTxGi6mvZQBp JuiceSSH"
@@ -198,8 +196,8 @@ in
 
   services.systembus-notify.enable = true;
 
-  services.udev.packages = with pkgs; [ gnome.gnome-settings-daemon logitech-udev-rules headsetcontrol ];
-  services.dbus.packages = with pkgs; [ gcr gnome.gnome-keyring ];
+  services.udev.packages = with pkgs; [gnome.gnome-settings-daemon logitech-udev-rules headsetcontrol];
+  services.dbus.packages = with pkgs; [gcr gnome.gnome-keyring];
 
   nixpkgs.config.allowUnfree = true;
 
@@ -210,7 +208,7 @@ in
     passwordAuthentication = false;
     permitRootLogin = "yes";
     enable = true;
-    ports = [ 22 2322 ];
+    ports = [22 2322];
     forwardX11 = true;
   };
 
@@ -236,13 +234,13 @@ in
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
-      (nerdfonts.override { fonts = [ "FiraCode" "DroidSansMono" ]; })
+      (nerdfonts.override {fonts = ["FiraCode" "DroidSansMono"];})
     ];
     fontconfig = {
       defaultFonts = {
-        serif = [ "DejaVu Serif" ];
-        sansSerif = [ "DejaVu Sans" ];
-        monospace = [ "Fira Mono" ];
+        serif = ["DejaVu Serif"];
+        sansSerif = ["DejaVu Sans"];
+        monospace = ["Fira Mono"];
       };
     };
   };
@@ -258,7 +256,7 @@ in
     '';
 
     settings = {
-      trusted-users = [ "root" "leix" ];
+      trusted-users = ["root" "leix"];
       auto-optimise-store = true;
 
       substituters = [
@@ -271,7 +269,6 @@ in
     };
     gc.automatic = true;
   };
-
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

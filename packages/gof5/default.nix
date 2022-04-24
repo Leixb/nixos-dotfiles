@@ -1,8 +1,8 @@
-{ lib
-, fetchFromGitHub
-, buildGo117Module
+{
+  lib,
+  fetchFromGitHub,
+  buildGo117Module,
 }:
-
 buildGo117Module rec {
   pname = "gof5";
   version = "0.1.4";
@@ -27,7 +27,7 @@ buildGo117Module rec {
     description = "Open Source F5 BIG-IP VPN client for Linux, MacOS, FreeBSD and Windows";
     homepage = "https://github.com/kayrus/gof5";
     license = licenses.asl20;
-    maintainers = with maintainers; [ leixb ];
+    maintainers = with maintainers; [leixb];
     platforms = platforms.linux ++ platforms.darwin;
   };
 }

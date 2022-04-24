@@ -1,7 +1,11 @@
-{ config, lib, pkgs, system, inputs, ... }:
-
-let
-
+{
+  config,
+  lib,
+  pkgs,
+  system,
+  inputs,
+  ...
+}: let
   switch-audio = pkgs.writers.writeBashBin "switch-audio" ''
     headset="alsa_output.usb-Logitech_G733_Gaming_Headset-00.iec958-stereo"
     speakers="alsa_output.pci-0000_00_1f.3.analog-stereo"
@@ -40,7 +44,6 @@ let
     sudo ${pkgs.util-linux}/bin/umount /dev/sda2
   '';
 in {
-
   imports = [
     ./common.nix
     ./sway.nix
@@ -49,12 +52,10 @@ in {
     ./mpd.nix
   ];
 
-
   home.packages = with pkgs; [
-    switch-audio 
+    switch-audio
     open-arch-home
     close-arch-home
     geogebra
   ];
-
 }
