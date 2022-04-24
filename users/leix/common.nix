@@ -91,6 +91,7 @@ in
     ripcord
     bitwarden
     tdesktop # telegram desktop
+    element-desktop
     fd
     zathura
     bottom
