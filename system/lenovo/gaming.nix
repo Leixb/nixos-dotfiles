@@ -5,7 +5,7 @@
     "abi.vsyscall32" = 0; # lol anti-cheat
   };
 
-  boot.kernelPackages = pkgs.linuxPackages_xanmod;
+  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
   programs.steam.enable = true;
 
