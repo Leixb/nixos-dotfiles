@@ -23,6 +23,8 @@ let
 
 in
 {
+  imports = [ ./mime-apps.nix ];
+
   # Let Home Manager install and manage itself.
   #programs.home-manager.enable = true;
 
@@ -231,6 +233,7 @@ in
       cat = "bat";
       vim = "nvim";
       vi = "nvim";
+      o = "xdg-open";
     };
     interactiveShellInit = ''
       set fish_greeting
