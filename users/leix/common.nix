@@ -128,6 +128,7 @@ in {
     acpi
     rustdesk
     miniserve
+    sshfs
   ];
 
   systemd.user.services.gammastep.Install.WantedBy = lib.mkForce [];
