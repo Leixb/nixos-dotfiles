@@ -199,6 +199,21 @@ in {
   services.udev.packages = with pkgs; [gnome.gnome-settings-daemon logitech-udev-rules headsetcontrol];
   services.dbus.packages = with pkgs; [gcr gnome.gnome-keyring];
 
+  services.restic.backups = {
+    localbackup = {
+      initialize = true;
+      user = "leix";
+      passwordFile = "/etc/nixos/secrets/restic-password";
+      paths = [
+        "/home/leix"
+      ];
+      repository = "/data/backups/restic";
+      timerConfig = {
+        OnCalendar = "weekly";
+      };
+    };
+  };
+
   nixpkgs.config.allowUnfree = true;
 
   # List services that you want to enable:
