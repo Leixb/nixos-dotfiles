@@ -93,6 +93,7 @@ in {
     discord
     ripcord
     bitwarden
+    bitwarden-cli
     tdesktop # telegram desktop
     element-desktop
     fd
