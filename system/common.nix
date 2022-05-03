@@ -72,8 +72,6 @@ in {
   services.xserver.wacom.enable = true;
 
   hardware.cpu.intel.updateMicrocode = true;
-  hardware.enableAllFirmware = true;
-  hardware.enableRedistributableFirmware = true;
 
   hardware.opengl.driSupport32Bit = true;
   hardware.opengl.enable = true;
