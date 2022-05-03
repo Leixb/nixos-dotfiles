@@ -83,7 +83,6 @@
 
     extra-packages = final: prev: {
       eduroam = prev.callPackage ./packages/eduroam/default.nix {};
-      launchhelper = prev.callPackage ./packages/launchhelper/default.nix {};
       comma = inputs.comma.packages.${system}.comma;
 
       firefox-addons = inputs.firefox-addons.packages.${system};

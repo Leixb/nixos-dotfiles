@@ -74,8 +74,6 @@ in {
     );
   };
 
-  home.file.".launchhelper".source = pkgs.launchhelper + "/bin";
-
   home.packages = with pkgs; [
     lutris
     legendary
