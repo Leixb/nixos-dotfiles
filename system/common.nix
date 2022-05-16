@@ -212,6 +212,9 @@ in {
     };
   };
 
+  # Mout MTP and other network shares
+  services.gvfs.enable = true;
+
   nixpkgs.config.allowUnfree = true;
 
   # List services that you want to enable:
