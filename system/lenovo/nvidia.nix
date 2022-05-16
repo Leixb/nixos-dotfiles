@@ -12,7 +12,12 @@ in {
   boot.blacklistedKernelModules = ["i2c_nvidia_gpu"];
 
   hardware.nvidia = {
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
+    # Use latest driver version
+    package = let nPkgs = config.boot.kernelPackages.nvidiaPackages;
+      in
+      lib.mkForce (if (lib.versionOlder nPkgs.beta.version nPkgs.stable.version) then nPkgs.stable else nPkgs.beta);
+
+
     modesetting.enable = true;
 
     prime = {
