@@ -303,6 +303,17 @@ in {
     };
   };
 
+  programs.vscode = {
+    enable = true;
+    extensions = with pkgs.vscode-extensions; [
+        vscodevim.vim
+        yzhang.markdown-all-in-one
+        github.copilot
+        editorconfig.editorconfig
+        golang.go
+      ];
+  };
+
   programs.firefox = {
     enable = true;
     package = pkgs.stable.firefox;
