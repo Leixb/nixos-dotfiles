@@ -91,6 +91,7 @@ in {
   home.packages = with pkgs; [
     cachix
     discord
+    plexamp
     ripcord
     bitwarden
     bitwarden-cli
