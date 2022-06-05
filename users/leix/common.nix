@@ -91,6 +91,7 @@ in {
   home.packages = with pkgs; [
     cachix
     discord
+    todoist-electron
     plexamp
     ripcord
     bitwarden
