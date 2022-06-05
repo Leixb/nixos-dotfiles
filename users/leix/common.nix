@@ -162,6 +162,8 @@ in {
       background_opacity = "0.9";
       wayland_titlebar_color = theme.background;
 
+      confirm_os_window_close = 0;
+
       background = theme.background;
       foreground = theme.foreground;
       selection_foreground = theme.selection_foreground;
