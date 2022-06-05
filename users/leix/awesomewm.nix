@@ -14,6 +14,7 @@ in {
 
   home.packages = with pkgs; [
     i3lock-fancy-rapid
+    xsel
   ];
 
   services = {
