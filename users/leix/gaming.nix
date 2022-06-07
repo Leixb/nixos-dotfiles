@@ -77,6 +77,6 @@ in {
   home.packages = with pkgs; [
     lutris
     legendary
-    minecraft
+    polymc
   ];
 }
