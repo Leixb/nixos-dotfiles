@@ -137,6 +137,8 @@ in {
   systemd.user.services.gammastep.Install.WantedBy = lib.mkForce [];
 
   services = {
+    caffeine.enable = true;
+
     gammastep = {
       enable = true;
       longitude = 41.4;
