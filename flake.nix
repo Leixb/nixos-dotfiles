@@ -7,12 +7,14 @@
     nixpkgs_trunk.url = "github:nixos/nixpkgs";
 
     flake-utils.url = "github:numtide/flake-utils";
-    utils.follows = "flake-utils";
+    flake-compat.url = "github:edolstra/flake-compat";
+    flake-compat.flake = false;
 
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-utils.follows = "flake-utils";
+      inputs.utils.follows = "flake-utils";
+      inputs.flake-compat.follows = "flake-compat";
     };
 
     firefox-addons = {
@@ -37,6 +39,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.naersk.follows = "rnix-lsp/naersk";
       inputs.utils.follows = "flake-utils";
+      inputs.flake-compat.follows = "flake-compat";
     };
 
     awesome-config = {
@@ -60,7 +63,7 @@
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.flake-compat.follows = "comma/flake-compat";
+      inputs.flake-compat.follows = "flake-compat";
       # inputs.neovim-flake.inputs.flake-utils.follows = "flake-utils";
     };
   };
