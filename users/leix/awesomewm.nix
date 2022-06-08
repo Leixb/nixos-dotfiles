@@ -48,16 +48,17 @@ in {
       combi-hide-mode-prefix = true;
       display-combi = "";
     };
-    theme = "~/.config/rofi/theme.rasi";
-    # theme = builtins.toFile "theme.rasi" (''
-    # * {
-    # background: #0b0606;
-    # foreground: #fbffff;
-    # active-background: #6B4F4F;
-    # urgent-background: #9D5045;
-    # selected-urgent-background: #CA8D75;
-
-    # '' + builtins.readFile ./rofi_theme.rasi);
+    theme = builtins.toFile "theme.rasi" (with theme; ''
+      * {
+          background: ${background};
+          foreground: ${foreground};
+          border-color: ${color15};
+          primary: ${color4};
+          accent: ${color6};
+          urgent: ${color9};
+          urgent-alt: ${color1};
+      }
+    '' + builtins.readFile ./rofi_theme.rasi);
   };
 
   xsession = {

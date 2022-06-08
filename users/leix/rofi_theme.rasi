@@ -1,10 +1,10 @@
-    selected-active-background: @urgent-background;
-    selected-normal-background: @active-background;
-
-    active-foreground: @foreground;
+* {
+    active-background: @accent;
+    active-foreground: @background;
     normal-background: @background;
     normal-foreground: @foreground;
-    urgent-foreground: @foreground;
+    urgent-background: @urgent;
+    urgent-foreground: @background;
 
     alternate-active-background: @background;
     alternate-active-foreground: @foreground;
@@ -13,19 +13,28 @@
     alternate-urgent-background: @background;
     alternate-urgent-foreground: @foreground;
 
-    selected-active-foreground: @foreground;
-    selected-normal-foreground: @foreground;
-    selected-urgent-foreground: @foreground;
+    selected-active-background: @primary;
+    selected-active-foreground: @background;
+    selected-normal-background: @primary;
+    selected-normal-foreground: @background;
+    selected-urgent-background: @urgent-alt;
+    selected-urgent-foreground: @background;
 
-    background-color: @background;
-    border-color: @background;
+    background-color: #00000000;
+    text-color: @foreground;
     spacing: 2;
+}
+
+element-text {
+    background-color: inherit;
+    text-color:       inherit;
 }
 
 #window {
     background-color: @background;
-    border: 0;
+    border: 2;
     padding: 2.5ch;
+    border-radius: 15;
 }
 
 #mainbox {
@@ -54,18 +63,23 @@
     text-color: @normal-foreground;
 }
 
+element-icon {
+  margin: 0 10px 0 0;
+}
+
 #listview {
     fixed-height: 0;
-    border: 2px 0px 0px;
+    border: 0; /* separator */
     border-color: @border-color;
     spacing: 2px;
-    scrollbar: true;
-    padding: 2px 0px 0px;
+    scrollbar: false;
+    padding: 5px 0px 0px;
 }
 
 #element {
     border: 0;
-    padding: 1px;
+    border-radius: 5;
+    padding: 2px 10px;
 }
 
 #element.normal.normal {
@@ -117,6 +131,8 @@
     width: 4px;
     border: 0;
     handle-width: 8px;
+    handle-color: @foreground;
+    border-radius: 10;
     padding: 0;
 }
 
