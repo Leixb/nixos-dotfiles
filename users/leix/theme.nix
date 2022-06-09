@@ -1,6 +1,6 @@
 {
   name = "Nightfly";
-  font = "Fira Mono";
+  font = "FiraCode Nerd Font Mono";
   font_size = "11.0";
 
   background = "#011626";
