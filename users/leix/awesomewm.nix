@@ -61,16 +61,12 @@ in {
     '' + builtins.readFile ./rofi_theme.rasi);
   };
 
+  home.pointerCursor.x11.enable = true;
+
   xsession = {
     enable = true;
 
     numlock.enable = true;
-
-    pointerCursor = {
-      package = pkgs.capitaine-cursors;
-      name = "capitaine-cursors";
-      size = 32;
-    };
 
     windowManager.awesome = {
       enable = true;

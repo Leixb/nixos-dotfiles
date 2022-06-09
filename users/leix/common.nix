@@ -134,6 +134,13 @@ in {
     sshfs
   ];
 
+  home.pointerCursor = {
+    gtk.enable = true;
+    package = pkgs.capitaine-cursors;
+    name = "capitaine-cursors";
+    size = 32;
+  };
+
   systemd.user.services.gammastep.Install.WantedBy = lib.mkForce [];
 
   services = {
