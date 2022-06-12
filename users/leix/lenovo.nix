@@ -15,13 +15,13 @@
     current="$($pactl info | grep 'Default Sink' | cut -d':' -f 2 | tr -d ' ')"
 
     if [[ "$current" == "$speakers" ]]; then
-        echo -n "   headset"
+        echo "   headset"
         $pactl set-default-sink "$headset"
     elif [[ "$current" == "$headset" ]]; then
-        echo -n " 蓼 speakers"
+        echo " 蓼 speakers"
         $pactl set-default-sink "$speakers"
     else
-        echo -n "Unknown sink: $current"
+        echo "Unknown sink: $current"
     fi
   '';
 
