@@ -98,8 +98,8 @@ in {
     *color11: ${theme.color11}
 
     !blue
-    *color12: ${theme.color12}
     *color4: ${theme.color4}
+    *color12: ${theme.color12}
 
     !magenta
     *color5: ${theme.color5}

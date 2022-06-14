@@ -18,9 +18,9 @@
   color9 = "#6D0402";
   color10 = "#21c7a8";
   color11 = "#ecc48d";
-  color12 = "#82aaff";
+  color12 = "#003ec1";
   color13 = "#ae81ff";
-  color14 = "#7fdbca";
+  color14 = "#278a77";
   color15 = "#d6deeb";
   selection_background = "#b2ceee";
   selection_foreground = "#080808";
