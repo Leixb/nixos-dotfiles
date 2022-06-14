@@ -129,7 +129,6 @@ in {
     qalculate-gtk
     comma
     acpi
-    rustdesk
     miniserve
     sshfs
   ];
