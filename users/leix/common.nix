@@ -265,7 +265,7 @@ in {
       set fish_color_quote          "${theme.color3}"  # quoted text like "abc"
       set fish_color_redirection    "${theme.color14}" --bold # IO redirections like >/dev/null
       set fish_color_end            "${theme.color2}"  # process separators like ';' and '&'
-      set fish_color_error          "${theme.color9}"  # syntax errors
+      set fish_color_error          "${theme.color1}"  # syntax errors
       set fish_color_param          "${theme.color14}" # ordinary command parameters
       set fish_color_comment        "${theme.color8}"  # comments like '# important'
       set fish_color_selection      "${theme.color7}"  # selected text in vi visual mode

@@ -7,7 +7,7 @@
   foreground = "#acb4c2";
   cursor = "#9ca1aa";
   color0 = "#1d3b53";
-  color1 = "#fc514e";
+  color1 = "#ff5874";
   color2 = "#a1cd5e";
   color3 = "#e3d18a";
   color4 = "#82aaff";
@@ -15,7 +15,7 @@
   color6 = "#7fdbca";
   color7 = "#a1aab8";
   color8 = "#7c8f8f";
-  color9 = "#ff5874";
+  color9 = "#6D0402";
   color10 = "#21c7a8";
   color11 = "#ecc48d";
   color12 = "#82aaff";
