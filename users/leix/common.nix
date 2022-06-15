@@ -260,13 +260,13 @@ in {
       set fish_cursor_visual      block
 
       set fish_color_normal         "${theme.color4}"  # default color
-      set fish_color_command        "${theme.color12}" # commands like echo
-      set fish_color_keyword        "${theme.color12}" --bold # keywords like if - this falls back on the command color if unset
+      set fish_color_command        "${theme.color4}" # commands like echo
+      set fish_color_keyword        "${theme.color4}" --bold # keywords like if - this falls back on the command color if unset
       set fish_color_quote          "${theme.color3}"  # quoted text like "abc"
       set fish_color_redirection    "${theme.color14}" --bold # IO redirections like >/dev/null
       set fish_color_end            "${theme.color2}"  # process separators like ';' and '&'
       set fish_color_error          "${theme.color1}"  # syntax errors
-      set fish_color_param          "${theme.color14}" # ordinary command parameters
+      set fish_color_param          "${theme.color6}" # ordinary command parameters
       set fish_color_comment        "${theme.color8}"  # comments like '# important'
       set fish_color_selection      "${theme.color7}"  # selected text in vi visual mode
       set fish_color_operator       "${theme.color5}"  # parameter expansion operators like '*' and '~'
