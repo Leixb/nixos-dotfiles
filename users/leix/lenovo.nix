@@ -57,5 +57,7 @@ in {
     open-arch-home
     close-arch-home
     geogebra
+    obs-studio
+    kdenlive
   ];
 }
