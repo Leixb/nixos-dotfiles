@@ -131,6 +131,7 @@ in {
     acpi
     miniserve
     sshfs
+    home-assistant-cli
   ];
 
   home.pointerCursor = {
