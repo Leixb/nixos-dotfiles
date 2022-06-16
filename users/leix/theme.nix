@@ -18,7 +18,7 @@
   color9 = "#6D0402";
   color10 = "#21c7a8";
   color11 = "#ecc48d";
-  color12 = "#003ec1";
+  color12 = "#629ef1";
   color13 = "#ae81ff";
   color14 = "#278a77";
   color15 = "#d6deeb";
