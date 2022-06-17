@@ -172,7 +172,7 @@ in {
     extraGroups = ["wheel" "networkmanager" "libvirtd" "audio" "video"]; # Enable ‘sudo’ for the user.
     shell = pkgs.fish;
     openssh.authorizedKeys.keys = [
-      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIJlnrdcH2stIVA1hkkOIFvebIjDALugIrTxGi6mvZQBp JuiceSSH"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP01irZGcIE6n5svXRpAqFNgdRl15cum7vEV1go9qvI5 JuiceSSH"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHPm9yDy7gOVOAsIPqp6q0XC06RSnZJUh959HJdFkCdZ aleix.bone@c6s302pc63"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKOO1MTb4NP9qgI8P/8feqFXReeLCiB79R6YLPlXQaRQ leix@nixos-pav"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPWmQFG8ogdMgYH0Ldi4gJK/PWBQBfnTXMwtqq4cHBCp leix@nixos"
