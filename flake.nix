@@ -108,7 +108,7 @@
       ({...}: {
         imports = [
           {
-            nix.nixPath = lib.mkForce ["nixpkgs=${nixpkgs}"];
+            nix.nixPath = ["nixpkgs=${nixpkgs}"];
             environment.sessionVariables.NIXPKGS = "${nixpkgs}";
           }
         ];
