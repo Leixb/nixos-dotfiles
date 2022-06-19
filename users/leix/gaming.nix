@@ -6,7 +6,7 @@
   inputs,
   ...
 }: let
-  HOME = "/home/leix";
+  HOME = config.home.homeDirectory;
 
   legendary = pkgs.writers.writeBashBin "legendary" ''
     ${pkgs.steam-run}/bin/steam-run ${pkgs.legendary-gl}/bin/legendary "$@"

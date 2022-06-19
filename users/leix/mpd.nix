@@ -1,5 +1,6 @@
+{config, ...}:
 let
-  HOME = "/home/leix";
+  HOME = config.home.homeDirectory;
 in {
   services = {
     mpd = {

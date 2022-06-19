@@ -9,7 +9,7 @@
 }: let
   theme = import ./theme.nix;
 
-  HOME = "/home/leix";
+  username = "leix";
 
   dbeaver-adawaita = pkgs.symlinkJoin {
     name = "dbeaver";
@@ -31,8 +31,8 @@ in {
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  home.username = "leix";
-  home.homeDirectory = HOME;
+  home.username = username;
+  home.homeDirectory = "/home/${username}";
 
   home.file.".gof5/config.yaml".text = ''
     dns:
@@ -59,6 +59,15 @@ in {
     TERMINAL = "kitty";
     WINEDLLOVERRIDES = "winemenubuilder.exe=d"; # Prevent wine from making file associations
     WEBKIT_DISABLE_COMPOSITING_MODE = 1; # https://github.com/NixOS/nixpkgs/issues/32580
+
+    DOCKER_CONFIG="${config.xdg.configHome}/docker";
+    ANDROID_HOME="${config.xdg.dataHome}/android";
+    CARGO_HOME="${config.xdg.dataHome}/cargo";
+    GNUPGHOME="${config.xdg.dataHome}/gnupg";
+    GRIPHOME="${config.xdg.configHome}/grip";
+    PARALLEL_HOME="${config.xdg.configHome}/parallel";
+    JUPYTER_CONFIG_DIR="${config.xdg.configHome}/jupyter";
+    KERAS_HOME="${config.xdg.stateHome}/keras";
   };
 
   programs.neovim = {
@@ -69,7 +78,7 @@ in {
       buildInputs = [pkgs.makeWrapper];
       postBuild = ''
         wrapProgram $out/bin/nvim \
-          --add-flags "-u ${HOME}/.config/nvim/init.lua"
+          --add-flags "-u ${config.xdg.configHome}/nvim/init.lua"
       '';
     };
     extraPackages = with pkgs; [
