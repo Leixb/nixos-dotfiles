@@ -56,6 +56,9 @@
     libinput = {
       enable = true;
       mouse.accelProfile = "flat";
+      touchpad = {
+        naturalScrolling = true;
+      };
     };
   };
 }
