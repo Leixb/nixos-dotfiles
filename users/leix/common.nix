@@ -239,6 +239,7 @@ in {
     interactiveShellInit = ''
       set fish_greeting
       fish_vi_key_bindings
+      bind -M insert \e\; accept-autosuggestion
 
       set fish_cursor_default     block      blink
       set fish_cursor_insert      line       blink
