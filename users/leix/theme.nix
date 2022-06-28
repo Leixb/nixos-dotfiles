@@ -15,7 +15,7 @@ rec {
     black = "#24283A";
   };
 
-  font_family = "VictorMono Nerd Font Mono";
+  font_family = "JetBrainsMono Nerd Font Mono";
   font_size = "13.0";
 
   foreground              = palette.white;

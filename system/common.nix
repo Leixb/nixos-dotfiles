@@ -260,7 +260,7 @@ in {
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
-      (nerdfonts.override {fonts = ["FiraCode" "DroidSansMono" "VictorMono"];})
+      (nerdfonts.override {fonts = ["FiraCode" "DroidSansMono" "JetBrainsMono"];})
     ];
     fontconfig = {
       defaultFonts = {
