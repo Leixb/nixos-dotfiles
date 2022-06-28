@@ -3,11 +3,11 @@
     "awesome": {
       "flake": false,
       "locked": {
-        "lastModified": 1655581139,
-        "narHash": "sha256-2YK5IPxpvDyoGcxpvqjiYhgHNQTXzRDRGj6IoyYjLBE=",
+        "lastModified": 1656313292,
+        "narHash": "sha256-65fwx5IlnMO0mSkWG4Z8JmKMnCHS5fk5d4BzGYJVH8Y=",
         "owner": "awesomewm",
         "repo": "awesome",
-        "rev": "29c0057795efcd52616e97a8f61c98a4660ae2af",
+        "rev": "02fa372d9e6e692b608cb2e1b46df45984830df1",
         "type": "github"
       },
       "original": {
@@ -28,11 +28,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1655371724,
-        "narHash": "sha256-Bg9uUkwSORhixoNlxFq4/YOWiTdKOzCkkYfjKFM0udo=",
+        "lastModified": 1656422912,
+        "narHash": "sha256-jwM9/YLDUscFsPNHjMl55tOzbF9Eac3tQUnf/YOVAb0=",
         "owner": "leixb",
         "repo": "awesome-copycats",
-        "rev": "c41c8ce6844d286bb362f1601245cf8cc214b534",
+        "rev": "479e413039fa7ced3d0fd5f6deaa6f395eb317e4",
         "type": "github"
       },
       "original": {
@@ -206,11 +206,11 @@
     "neovim-config": {
       "flake": false,
       "locked": {
-        "lastModified": 1655983682,
-        "narHash": "sha256-9P4OVxAPEJZBCJa8dS7xACUwB3l8Umc27nUtRPwLgXM=",
+        "lastModified": 1656417061,
+        "narHash": "sha256-b8nohnpyhT3taPjsD3wD9riU08EPqUrac+V281UISeU=",
         "owner": "leixb",
         "repo": "neovim-config",
-        "rev": "9b43cda8713bbde717ad47f44d9b1f887b7d0ed3",
+        "rev": "f47429e14b8dd3a218002f04c90c6a7d2b11b31d",
         "type": "github"
       },
       "original": {

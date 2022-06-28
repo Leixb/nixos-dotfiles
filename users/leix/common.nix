@@ -178,36 +178,10 @@ in {
     settings = {
       disable_ligatures = "cursor";
       background_opacity = "0.9";
-      wayland_titlebar_color = theme.background;
-
       confirm_os_window_close = 0;
 
-      background = theme.background;
-      foreground = theme.foreground;
-      selection_foreground = theme.selection_foreground;
-      selection_background = theme.selection_background;
-
-      cursor = theme.cursor;
-      color0 = theme.color0;
-      color8 = theme.color8;
-      color1 = theme.color1;
-      color9 = theme.color9;
-      color2 = theme.color2;
-      color10 = theme.color10;
-      color3 = theme.color3;
-      color11 = theme.color11;
-      color4 = theme.color4;
-      color12 = theme.color12;
-      color5 = theme.color5;
-      color13 = theme.color13;
-      color6 = theme.color6;
-      color14 = theme.color14;
-      color7 = theme.color7;
-      color15 = theme.color15;
-
-      font_family = theme.font;
-      font_size = theme.font_size;
-    };
+      wayland_titlebar_color = theme.background;
+    } // (lib.filterAttrs (n: v: n != "name") theme);
   };
 
   programs.git = {
@@ -449,8 +423,8 @@ in {
   gtk = {
     enable = true;
     theme = {
-      name = "Arc";
-      package = pkgs.arc-theme;
+      name = "Catppuccin-teal-dark";
+      package = pkgs.catppuccin-gtk;
     };
     iconTheme = {
       name = "Arc";

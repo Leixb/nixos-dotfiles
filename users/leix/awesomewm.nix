@@ -39,7 +39,7 @@ in {
 
   programs.rofi = {
     enable = true;
-    font = "${theme.font} ${theme.font_size}";
+    font = "${theme.font_family} ${theme.font_size}";
     extraConfig = {
       modi = "combi,drun,window";
       show-icons = true;
