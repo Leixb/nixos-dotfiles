@@ -181,7 +181,7 @@ in {
       confirm_os_window_close = 0;
 
       wayland_titlebar_color = theme.background;
-    } // (lib.filterAttrs (n: v: n != "name") theme);
+    } // (lib.filterAttrs (n: v: n != "palette") theme);
   };
 
   programs.git = {

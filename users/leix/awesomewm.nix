@@ -85,7 +85,7 @@ in {
   };
 
   xresources.extraConfig = ''
-    ! ${theme.name}
+    ! ${theme.palette.name}
 
     *.background: ${theme.background}
     *.foreground: ${theme.foreground}
