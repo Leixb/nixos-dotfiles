@@ -280,6 +280,14 @@ in {
     enable = true;
     enableFishIntegration = true;
   };
+  home.sessionVariables = {
+    FZF_DEFAULT_OPTS = with theme.palette; builtins.concatStringsSep " " [
+      "--color=bg+:${gray},bg:${black},spinner:${flamingo},hl:${red}"
+      "--color=fg:${white},header:${red},info:${pink},pointer:${yellow}"
+      "--color=marker:${yellow},fg+:${flamingo},prompt:${pink},hl+:${red}"
+    ];
+  };
+
   programs.zoxide = {
     enable = true;
     enableFishIntegration = true;
