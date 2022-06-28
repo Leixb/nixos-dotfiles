@@ -177,7 +177,7 @@ in {
     enable = true;
     settings = {
       disable_ligatures = "cursor";
-      background_opacity = "0.9";
+      background_opacity = "0.75";
       confirm_os_window_close = 0;
 
       wayland_titlebar_color = theme.background;

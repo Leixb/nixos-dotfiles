@@ -23,12 +23,21 @@ in {
       backend = "glx";
       experimentalBackends = true;
       vSync = true;
+      blur = true;
+      blurExclude = [
+        "window_type = 'dock'"
+      ];
       extraOptions = ''
         unredir-if-possible = true;
         use-damage = true;
         detect-transient = true;
         detect-client-leader = true;
         xrender-sync-fence = true;
+
+        blur:
+        {
+          method = "dual_kawase";
+        };
       '';
     };
 

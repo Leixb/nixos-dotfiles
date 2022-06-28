@@ -4,7 +4,7 @@
   font_size = "11.0";
 
   foreground              = "#CAD3F5";
-  background              = "#24273A";
+  background              = "#24283A";
   selection_foreground  = "#24273A";
   selection_background  = "#F4DBD6";
 # Cursor colors";
