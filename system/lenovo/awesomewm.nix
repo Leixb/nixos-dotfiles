@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{pkgs, ...}:
+
+let
+  theme = import ../../users/leix/theme.nix;
+in {
   services.xserver = {
     enable = true;
     exportConfiguration = true;
@@ -27,22 +31,22 @@
       lightdm.greeters.mini = {
         enable = true;
         user = "leix";
-        extraConfig = ''
+        extraConfig = with theme; ''
           [greeter]
           show-password-label = false
           password-alignment = center
           [greeter-theme]
-          background-image = "${../../users/leix/wallpapers/forest.jpg}"
-          font = "Fira Mono"
-          text-color = "#DDDDFF"
-          error-color = "#EA6F81"
-          background-color = "#1A1A1A"
-          window-color = "#313131"
-          border-color = "#313131"
-          password-color = "#82aaff"
-          password-background-color = "#1d3b53"
-          password-border-color = "#1d3b53"
-          sys-info-color = "#82aaff"
+          background-image = "${palette.wallpaper}"
+          font = "${font_family}"
+          text-color = "${foreground}"
+          error-color = "${palette.red}"
+          background-color = "${background}"
+          window-color = "${color0}"
+          border-color = "${color0}"
+          password-color = "${color4}"
+          password-background-color = "${palette.black}"
+          password-border-color = "${palette.black}"
+          sys-info-color = "${color4}"
         '';
       };
     };

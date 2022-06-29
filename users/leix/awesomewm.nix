@@ -87,6 +87,9 @@ in {
   xresources.extraConfig = ''
     ! ${theme.palette.name}
 
+    *.font_family: ${theme.font_family}
+    *.font_size: ${theme.font_size}
+
     *.background: ${theme.background}
     *.foreground: ${theme.foreground}
 
