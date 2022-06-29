@@ -1,6 +1,6 @@
 rec {
   palette = {
-    wallpaper = ./wallpapers/forest.jpg;
+    wallpaper = ./wallpapers/keyboards.png;
     name = "Catppuccin Macchiato";
     teal = "#8BD5CA";
     flamingo = "#F0C6C6";
