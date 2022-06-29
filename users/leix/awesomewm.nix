@@ -13,7 +13,11 @@ in {
   };
 
   home.packages = with pkgs; [
-    i3lock-fancy-rapid
+    (i3lock-fancy-rapid.override {
+      i3lock = pkgs.writeShellScriptBin "i3lock" ''
+        ${pkgs.i3lock-color}/bin/i3lock-color "$@"
+      '';
+    })
     xsel
   ];
 
