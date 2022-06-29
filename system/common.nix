@@ -215,7 +215,7 @@ in {
       paths = [
         "/home/leix"
       ];
-      repository = "/data/backups/restic";
+      repository = "/mnt/data/backups/restic";
       timerConfig = {
         OnCalendar = "weekly";
       };
