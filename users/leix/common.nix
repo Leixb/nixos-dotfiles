@@ -205,8 +205,11 @@ in {
 
     delta = {
       enable = true;
-      options = {
+      options = with theme.palette; {
         line-numbers = true;
+        line-numbers-zero-style = "${white}";
+        line-numbers-minus-style = "${red}";
+        line-numbers-plus-style = "${green}";
       };
     };
     lfs.enable = true;
