@@ -261,7 +261,7 @@ in {
       set fish_color_selection      "${theme.color7}"  # selected text in vi visual mode
       set fish_color_operator       "${theme.color5}"  # parameter expansion operators like '*' and '~'
       set fish_color_escape         "${theme.color13}" # character escapes like 'n' and 'x70'
-      set fish_color_autosuggestion "${theme.color8}"  # autosuggestions (the proposed rest of a command)
+      set fish_color_autosuggestion "${theme.color15}"  # autosuggestions (the proposed rest of a command)
       set fish_color_cancel         "${theme.color1}"  # the '^C' indicator on a canceled command
       set fish_color_search_match   --background="${theme.color3}"  # history search matches and selected pager items (background only)
     '';
