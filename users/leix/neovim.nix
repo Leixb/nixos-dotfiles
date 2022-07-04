@@ -149,6 +149,7 @@
       nvim-lsp-ts-utils
       lsp_signature-nvim
       lspkind-nvim
+      nvim-code-action-menu
 
       nvim-dap
       nvim-dap-ui
