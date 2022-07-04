@@ -3,11 +3,11 @@
     "awesome": {
       "flake": false,
       "locked": {
-        "lastModified": 1656313292,
-        "narHash": "sha256-65fwx5IlnMO0mSkWG4Z8JmKMnCHS5fk5d4BzGYJVH8Y=",
+        "lastModified": 1656603165,
+        "narHash": "sha256-RRpwAIYNLkovXI0y/eXO9uRDqB4qQcXlnYYUCEmx/EA=",
         "owner": "awesomewm",
         "repo": "awesome",
-        "rev": "02fa372d9e6e692b608cb2e1b46df45984830df1",
+        "rev": "9ca7bb487a5d1d2d5c102f94cd9e8cb5b6e7ffaa",
         "type": "github"
       },
       "original": {
@@ -18,11 +18,15 @@
     },
     "awesome-config": {
       "inputs": {
-        "awesome": "awesome",
+        "awesome": [
+          "awesome"
+        ],
         "flake-utils": [
           "flake-utils"
         ],
-        "lain": "lain",
+        "lain": [
+          "lain"
+        ],
         "nixpkgs": [
           "nixpkgs"
         ]
@@ -340,12 +344,14 @@
     },
     "root": {
       "inputs": {
+        "awesome": "awesome",
         "awesome-config": "awesome-config",
         "comma": "comma",
         "firefox-addons": "firefox-addons",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
+        "lain": "lain",
         "neovim-config": "neovim-config",
         "neovim-flake": [
           "neovim-nightly-overlay",

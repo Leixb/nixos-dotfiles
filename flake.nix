@@ -42,20 +42,22 @@
       inputs.flake-compat.follows = "flake-compat";
     };
 
+    awesome = {
+      url = "github:awesomewm/awesome";
+      flake = false;
+    };
+
+    lain = {
+      url = "github:lcpz/lain";
+      flake = false;
+    };
+
     awesome-config = {
       url = "github:leixb/awesome-copycats";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
-      inputs.awesome = {
-        type = "github";
-        owner = "awesomewm";
-        repo = "awesome";
-      };
-      inputs.lain = {
-        type = "github";
-        owner = "lcpz";
-        repo = "lain";
-      };
+      inputs.awesome.follows = "awesome";
+      inputs.lain.follows = "lain";
     };
 
     neovim-flake.follows = "neovim-nightly-overlay/neovim-flake";
