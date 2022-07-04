@@ -126,6 +126,9 @@ in
         type = "lua";
         config = builtins.readFile ./neovim/telescope.lua;
       }
+
+      telescope-fzf-native-nvim
+
       plenary-nvim
       {
         plugin = rust-tools-nvim;
