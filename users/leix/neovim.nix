@@ -7,9 +7,9 @@
         fd
         gcc
         git
-        rnix-lsp
+        ltex-ls
         ripgrep
-        zathura
+        rnix-lsp
       ];
 
     plugins = with pkgs.vimPlugins; [
@@ -133,7 +133,11 @@
       gv-vim
 
       vim-grammarous
-      grammar-guard-nvim
+      {
+        plugin = grammar-guard-nvim;
+        type = "lua";
+        config = builtins.readFile ./neovim/grammar-guard-nvim.lua;
+      }
 
       copilot-vim
 
