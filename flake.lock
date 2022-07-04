@@ -45,33 +45,6 @@
         "type": "github"
       }
     },
-    "comma": {
-      "inputs": {
-        "flake-compat": [
-          "flake-compat"
-        ],
-        "naersk": "naersk",
-        "nixpkgs": [
-          "nixpkgs"
-        ],
-        "utils": [
-          "flake-utils"
-        ]
-      },
-      "locked": {
-        "lastModified": 1656104701,
-        "narHash": "sha256-XulD3y2wTN6gwoOmdUnUj7euFQ6lMB9+LEvbj2QSGEw=",
-        "owner": "nix-community",
-        "repo": "comma",
-        "rev": "af2f2904f165f7bb56f0baca7135e75923c2bc1a",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "repo": "comma",
-        "type": "github"
-      }
-    },
     "firefox-addons": {
       "inputs": {
         "flake-utils": [
@@ -183,28 +156,6 @@
         "type": "github"
       }
     },
-    "naersk": {
-      "inputs": {
-        "nixpkgs": [
-          "comma",
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1655042882,
-        "narHash": "sha256-9BX8Fuez5YJlN7cdPO63InoyBy7dm3VlJkkmTt6fS1A=",
-        "owner": "nix-community",
-        "repo": "naersk",
-        "rev": "cddffb5aa211f50c4b8750adbec0bbbdfb26bb9f",
-        "type": "github"
-      },
-      "original": {
-        "owner": "nix-community",
-        "ref": "master",
-        "repo": "naersk",
-        "type": "github"
-      }
-    },
     "neovim-flake": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -304,7 +255,6 @@
       "inputs": {
         "awesome": "awesome",
         "awesome-config": "awesome-config",
-        "comma": "comma",
         "firefox-addons": "firefox-addons",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",

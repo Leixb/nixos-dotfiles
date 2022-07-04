@@ -23,13 +23,6 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
-    comma = {
-      url = "github:nix-community/comma";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.utils.follows = "flake-utils";
-      inputs.flake-compat.follows = "flake-compat";
-    };
-
     awesome = {
       url = "github:awesomewm/awesome";
       flake = false;
@@ -76,7 +69,6 @@
 
     extra-packages = final: prev: {
       eduroam = prev.callPackage ./packages/eduroam/default.nix {};
-      comma = inputs.comma.packages.${system}.comma;
 
       firefox-addons = inputs.firefox-addons.packages.${system};
     };
