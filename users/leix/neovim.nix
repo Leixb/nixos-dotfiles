@@ -20,16 +20,7 @@ in
       {
         plugin = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
         type = "lua";
-        config = ''
-          require'nvim-treesitter.configs'.setup {
-              highlight = {enable = true},
-              indent = {enable = true},
-              autopairs = {enable = true},
-              rainbow = {enable = true},
-              autotag = {enable = true},
-              context_commentstring = {enable = true},
-          }
-        '';
+        config = builtins.readFile ./neovim/nvim-treesitter.lua;
       }
 
       nvim-ts-rainbow
@@ -69,14 +60,7 @@ in
       {
         plugin = lualine-nvim;
         type = "lua";
-        config = ''
-          require'lualine'.setup({
-              options     = { globalstatus = true, theme = 'catppuccin' },
-              sections    = {
-                  lualine_c = { 'filename', {'diagnostics', sources = {'nvim_diagnostic'}}, 'lsp_progress' },
-              },
-          })
-        '';
+        config = builtins.readFile ./neovim/lualine-nvim.lua;
       }
 
       barbar-nvim
@@ -133,20 +117,7 @@ in
       {
         plugin = rust-tools-nvim;
         type = "lua";
-        config = ''
-          require'rust-tools'.setup({
-              tools = {
-                  autoSetHints = true,
-                  hover_with_actions = true,
-                  runnables = { use_telescope = true },
-
-                  inlay_hints = {
-                      show_parameter_hints = true,
-                  },
-              },
-              server = {},
-          })
-        '';
+        config = builtins.readFile ./neovim/rust-tools-nvim.lua;
       }
       vimtex
       dart-vim-plugin
@@ -156,20 +127,7 @@ in
       {
         plugin = nvim-metals;
         type = "lua";
-        config = ''
-          local group_id = vim.api.nvim_create_augroup('nvim-metals', {})
-
-          vim.api.nvim_create_autocmd(
-            'FileType',
-            {
-              pattern = 'scala,sbt',
-              callback = function()
-                require("metals").initialize_or_attach({})
-              end,
-              group = group_id
-            }
-          )
-        '';
+        config = builtins.readFile ./neovim/nvim-metals.lua;
       }
 
       {
