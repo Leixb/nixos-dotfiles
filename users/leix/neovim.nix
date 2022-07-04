@@ -1,4 +1,15 @@
 { pkgs, inputs, ... }:
+let
+  bufresize-nvim = pkgs.vimUtils.buildVimPlugin {
+    name = "bufresize-nvim";
+    src = pkgs.fetchFromGitHub {
+      owner = "kwkarlwang";
+      repo = "bufresize.nvim";
+      rev = "3b19527ab936d6910484dcc20fb59bdb12322d8b";
+      sha256 = "sha256-6jqlKe8Ekm+3dvlgFCpJnI0BZzWC3KDYoOb88/itH+g=";
+    };
+  };
+in
   {
     programs.neovim = {
       enable = true;
@@ -78,6 +89,13 @@
       lualine-lsp-progress
 
       barbar-nvim
+      {
+        plugin = bufresize-nvim;
+        type = "lua";
+        config = ''
+          require'bufresize'.setup()
+        '';
+      }
       nvim-web-devicons
 
       {
