@@ -11,7 +11,7 @@ in
         fd
         gcc
         git
-        inputs.rnix-lsp.packages.x86_64-linux.rnix-lsp
+        rnix-lsp
         ripgrep
         zathura
       ];

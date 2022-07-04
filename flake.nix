@@ -89,6 +89,7 @@
     extra-packages = final: prev: {
       eduroam = prev.callPackage ./packages/eduroam/default.nix {};
       comma = inputs.comma.packages.${system}.comma;
+      rnix-lsp = inputs.rnix-lsp.packages.${system}.rnix-lsp;
 
       firefox-addons = inputs.firefox-addons.packages.${system};
     };
