@@ -205,22 +205,6 @@
         "type": "github"
       }
     },
-    "neovim-config": {
-      "flake": false,
-      "locked": {
-        "lastModified": 1656942237,
-        "narHash": "sha256-vdIZL/H972tcObr0Hzc5mzhnVX2xsOh22GwgMyhs2hw=",
-        "owner": "leixb",
-        "repo": "neovim-config",
-        "rev": "94eaf8e8040ae774a9f840c27fea81c94bacccf9",
-        "type": "github"
-      },
-      "original": {
-        "owner": "leixb",
-        "repo": "neovim-config",
-        "type": "github"
-      }
-    },
     "neovim-flake": {
       "inputs": {
         "flake-utils": "flake-utils_2",
@@ -326,7 +310,6 @@
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
         "lain": "lain",
-        "neovim-config": "neovim-config",
         "neovim-flake": [
           "neovim-nightly-overlay",
           "neovim-flake"

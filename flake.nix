@@ -23,11 +23,6 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
-    neovim-config = {
-      url = "github:leixb/neovim-config";
-      flake = false;
-    };
-
     comma = {
       url = "github:nix-community/comma";
       inputs.nixpkgs.follows = "nixpkgs";
