@@ -24,7 +24,10 @@
     sudo ${pkgs.gof5}/bin/gof5 -server https://upclink.upc.edu -username aleix.bone "$@"
   '';
 in {
-  imports = [./mime-apps.nix];
+  imports = [
+    ./mime-apps.nix
+    ./neovim.nix
+  ];
 
   # Let Home Manager install and manage itself.
   #programs.home-manager.enable = true;
@@ -46,18 +49,11 @@ in {
 
   xdg = {
     enable = true;
-    configFile = {
-      "nvim" = {
-        recursive = true;
-        source = inputs.neovim-config.outPath;
-      };
-    };
     dataFile = let 
       prefix = "tree-sitter-";
-      grammars = lib.filterAttrs (k: v: lib.hasPrefix prefix k) pkgs.tree-sitter-grammars;
-      filtered = lib.mapAttrs' (name: value: lib.nameValuePair (lib.removePrefix prefix name) value) grammars;
+      filtered = lib.mapAttrs' (name: value: lib.nameValuePair (lib.removePrefix prefix name) value) pkgs.tree-sitter.builtGrammars;
     in
-      lib.mapAttrs' (name: value: lib.nameValuePair "nvim/site/parser/${name}.so" {source = value;}) filtered;
+      lib.mapAttrs' (name: value: lib.nameValuePair "nvim/site/parser/${name}.so" {source = "${value}/parser";}) filtered;
   };
 
   home.sessionVariables = {
@@ -74,33 +70,6 @@ in {
     PARALLEL_HOME="${config.xdg.configHome}/parallel";
     JUPYTER_CONFIG_DIR="${config.xdg.configHome}/jupyter";
     KERAS_HOME="${config.xdg.stateHome}/keras";
-  };
-
-  programs.neovim = {
-    enable = true;
-    package = pkgs.symlinkJoin {
-      name = "neovim";
-      paths = [pkgs.neovim-nightly];
-      buildInputs = [pkgs.makeWrapper];
-      postBuild = ''
-        wrapProgram $out/bin/nvim \
-          --add-flags "-u ${config.xdg.configHome}/nvim/init.lua"
-      '';
-    };
-    extraPackages = with pkgs; [
-      gcc
-      git
-      inputs.rnix-lsp.packages.x86_64-linux.rnix-lsp
-      zathura
-      ripgrep
-      fd
-    ];
-    withPython3 = true;
-    withRuby = true;
-    withNodeJs = true;
-    viAlias = true;
-    vimAlias = true;
-    vimdiffAlias = true;
   };
 
   home.packages = with pkgs; [
