@@ -47,6 +47,8 @@ in {
     - 147.83.0.0/16
   '';
 
+  home.file.".cache/nix-index/files".source = pkgs.nix-index-database;
+
   xdg = {
     enable = true;
     dataFile = let 

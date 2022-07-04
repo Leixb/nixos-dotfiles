@@ -41,6 +41,8 @@
       inputs.lain.follows = "lain";
     };
 
+    nix-index-database.url = "github:Mic92/nix-index-database";
+
     # neovim-flake.follows = "neovim-nightly-overlay/neovim-flake";
 
     # neovim-nightly-overlay = {
@@ -70,6 +72,7 @@
     extra-packages = final: prev: {
       eduroam = prev.callPackage ./packages/eduroam/default.nix {};
 
+      nix-index-database = inputs.nix-index-database.outputs.legacyPackages.${system}.database;
       firefox-addons = inputs.firefox-addons.packages.${system};
     };
 
