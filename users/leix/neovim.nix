@@ -140,6 +140,7 @@ in
         type = "lua";
         config = builtins.readFile ./neovim/nvim-metals.lua;
       }
+      direnv-vim
 
       {
         plugin = gitsigns-nvim;
