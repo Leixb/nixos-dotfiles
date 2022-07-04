@@ -116,6 +116,7 @@ in {
     miniserve
     sshfs
     home-assistant-cli
+    luakit
   ];
 
   home.pointerCursor = {
