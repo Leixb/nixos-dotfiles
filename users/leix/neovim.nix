@@ -84,7 +84,7 @@
         plugin = nvim-notify;
         type = "lua";
         config = ''
-          require'notify'.setup()
+          vim.notify = require'notify'
         '';
       }
 
