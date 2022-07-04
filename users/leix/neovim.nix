@@ -83,9 +83,7 @@
       {
         plugin = nvim-notify;
         type = "lua";
-        config = ''
-          vim.notify = require'notify'
-        '';
+        config = builtins.readFile ./neovim/nvim-notify.lua;
       }
 
       {
