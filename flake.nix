@@ -23,12 +23,6 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
-    rnix-lsp = {
-      url = "github:nix-community/rnix-lsp";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.utils.follows = "flake-utils";
-    };
-
     neovim-config = {
       url = "github:leixb/neovim-config";
       flake = false;
@@ -37,7 +31,6 @@
     comma = {
       url = "github:nix-community/comma";
       inputs.nixpkgs.follows = "nixpkgs";
-      inputs.naersk.follows = "rnix-lsp/naersk";
       inputs.utils.follows = "flake-utils";
       inputs.flake-compat.follows = "flake-compat";
     };
@@ -89,7 +82,6 @@
     extra-packages = final: prev: {
       eduroam = prev.callPackage ./packages/eduroam/default.nix {};
       comma = inputs.comma.packages.${system}.comma;
-      rnix-lsp = inputs.rnix-lsp.packages.${system}.rnix-lsp;
 
       firefox-addons = inputs.firefox-addons.packages.${system};
     };
