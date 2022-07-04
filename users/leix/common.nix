@@ -52,6 +52,12 @@ in {
         source = inputs.neovim-config.outPath;
       };
     };
+    dataFile = let 
+      prefix = "tree-sitter-";
+      grammars = lib.filterAttrs (k: v: lib.hasPrefix prefix k) pkgs.tree-sitter-grammars;
+      filtered = lib.mapAttrs' (name: value: lib.nameValuePair (lib.removePrefix prefix name) value) grammars;
+    in
+      lib.mapAttrs' (name: value: lib.nameValuePair "nvim/site/parser/${name}.so" {source = value;}) filtered;
   };
 
   home.sessionVariables = {
