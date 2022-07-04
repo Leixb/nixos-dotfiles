@@ -1,11 +1,7 @@
 { pkgs, inputs, ... }:
-let
-  nvim = pkgs.neovim-nightly;
-in
   {
     programs.neovim = {
       enable = true;
-      package = pkgs.neovim-nightly;
 
       extraPackages = with pkgs; [
         fd
