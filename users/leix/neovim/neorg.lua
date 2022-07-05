@@ -19,7 +19,11 @@ require('neorg').setup {
         ["core.norg.completion"] = { config = { engine = "nvim-cmp" } },
         ["core.norg.qol.toc"] = {},
         ["core.export"] = {},
-        ["core.norg.journal"] = {},
+        ["core.norg.journal"] = {
+            config = {
+                workspace = "general",
+            }
+        },
         ["core.norg.concealer"] = {},
         ["core.export.markdown"]  = {},
     }
