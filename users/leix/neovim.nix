@@ -172,6 +172,12 @@ in
       nvim-dap-ui
 
       symbols-outline-nvim
+
+      {
+        plugin = neorg;
+        type = "lua";
+        config = builtins.readFile ./neovim/neorg.lua;
+      }
     ];
 
     withPython3 = true;
