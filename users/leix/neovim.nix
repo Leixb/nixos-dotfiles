@@ -24,6 +24,14 @@ in
       ];
 
     plugins = with pkgs.vimPlugins; [
+      { # This must be the first plugin to load
+        plugin = impatient-nvim;
+        type = "lua";
+        config = ''
+          require'impatient'
+        '';
+      }
+
       plenary-nvim
 
       vim-surround
