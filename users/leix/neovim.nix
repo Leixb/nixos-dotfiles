@@ -23,7 +23,7 @@ in
         rnix-lsp
       ];
 
-    plugins = with pkgs.vimPlugins; [
+    plugins = with pkgs.trunk.vimPlugins; [
       { # This must be the first plugin to load
         plugin = impatient-nvim;
         type = "lua";
