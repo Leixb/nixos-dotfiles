@@ -21,7 +21,7 @@ local opts = {
     showmode      = false,
     ruler         = false,
 
-    cmdheight     = 2,
+    cmdheight     = 1,
 
     updatetime    = 300,
     ttimeoutlen   = 10,
