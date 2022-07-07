@@ -78,19 +78,6 @@ for k, v in pairs(opts) do
 end
 
 --------------------------------------------------------------------------------
--- Plugins
---------------------------------------------------------------------------------
-
--- -- Bootstrap packer into data (.local/share/nvim)
--- package.path = package.path .. ';'.. vim.fn.stdpath('data') .. '/plugin/packer_compiled.lua'
--- local ok, _ = pcall(require, 'packer_compiled')
--- -- vim.g.did_load_filetypes = 1
--- require'plugins'
--- if not ok then
---     require'packer'.sync()
--- end
-
---------------------------------------------------------------------------------
 -- Mappings
 --------------------------------------------------------------------------------
 
