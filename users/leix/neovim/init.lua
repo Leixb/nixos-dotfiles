@@ -336,6 +336,7 @@ vim.api.nvim_create_autocmd(
             'gitrebase',
             'latex',
             'markdown',
+            'norg',
             'rmd',
             'tex',
             'text',

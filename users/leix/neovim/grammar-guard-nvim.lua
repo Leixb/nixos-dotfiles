@@ -4,7 +4,7 @@ require("lspconfig").grammar_guard.setup({
     cmd = { "ltex-ls" },
     settings = {
         ltex = {
-            enabled = { "latex", "tex", "bib", "markdown" },
+            enabled = { "latex", "tex", "bib", "markdown", "norg" },
             language = "en",
             diagnosticSeverity = "information",
             setenceCacheSize = 2000,
