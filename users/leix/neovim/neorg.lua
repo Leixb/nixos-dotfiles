@@ -14,8 +14,10 @@ require('neorg').setup {
         ["core.norg.dirman"] = {
             config = {
                 workspaces = {
-                    notes = "~/Documents/neorg/notes",
+                    root = "~/Documents/neorg",
                     gtd = "~/Documents/neorg/gtd",
+                    notes = "~/Documents/neorg/notes",
+                    blog = "~/Documents/neorg/blog",
                 }
             }
         },
@@ -24,10 +26,15 @@ require('neorg').setup {
         ["core.export"] = {},
         ["core.norg.journal"] = {
             config = {
-                workspace = "notes",
+                workspace = "root",
             }
         },
         ["core.norg.concealer"] = {},
         ["core.export.markdown"]  = {},
+        ["core.presenter"] = {
+           config = {
+                zen_mode = "zen-mode",
+           }
+        },
     }
 }

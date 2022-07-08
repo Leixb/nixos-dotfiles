@@ -186,6 +186,21 @@ in
         type = "lua";
         config = builtins.readFile ./neovim/neorg.lua;
       }
+
+      {
+        plugin = twilight-nvim;
+        type = "lua";
+        config = ''
+          require'twilight'.setup()
+        '';
+      }
+      {
+        plugin = zen-mode-nvim;
+        type = "lua";
+        config = ''
+          require'zen-mode'.setup()
+        '';
+      }
     ];
 
     withPython3 = true;
