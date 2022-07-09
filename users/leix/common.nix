@@ -27,6 +27,7 @@ in {
   imports = [
     ./mime-apps.nix
     ./neovim.nix
+    ./discord.nix
   ];
 
   # Let Home Manager install and manage itself.
@@ -76,7 +77,6 @@ in {
 
   home.packages = with pkgs; [
     cachix
-    discord
     todoist-electron
     plexamp
     ripcord
