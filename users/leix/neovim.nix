@@ -201,6 +201,12 @@ in
           require'zen-mode'.setup()
         '';
       }
+
+      {
+        plugin = auto-session;
+        type = "lua";
+        config = builtins.readFile ./neovim/auto-session.lua;
+      }
     ];
 
     withPython3 = true;
