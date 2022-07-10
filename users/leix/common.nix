@@ -7,8 +7,6 @@
   inputs,
   ...
 }: let
-  theme = import ./theme.nix;
-
   username = "leix";
 
   dbeaver-adawaita = pkgs.symlinkJoin {
@@ -27,7 +25,7 @@ in {
   imports = [
     ./mime-apps.nix
     ./neovim.nix
-    ./discord.nix
+    ../modules/all.nix
   ];
 
   # Let Home Manager install and manage itself.
@@ -48,15 +46,13 @@ in {
     - 147.83.0.0/16
   '';
 
-  home.file.".cache/nix-index/files".source = pkgs.nix-index-database;
-
-  xdg = {
+  theme = {
     enable = true;
-    dataFile = let 
-      prefix = "tree-sitter-";
-      filtered = lib.mapAttrs' (name: value: lib.nameValuePair (lib.removePrefix prefix name) value) pkgs.tree-sitter.builtGrammars;
-    in
-      lib.mapAttrs' (name: value: lib.nameValuePair "nvim/site/parser/${name}.so" {source = "${value}/parser";}) filtered;
+    font = {
+      family = "JetBrainsMono Nerd Font Mono";
+      size = 13.0;
+    };
+    enableKittyTheme = true;
   };
 
   home.sessionVariables = {
@@ -159,9 +155,7 @@ in {
       confirm_os_window_close = 0;
 
       enable_audio_bell = "no";
-
-      wayland_titlebar_color = theme.background;
-    } // (lib.filterAttrs (n: v: n != "palette") theme);
+    };
   };
 
   programs.git = {
@@ -183,11 +177,8 @@ in {
 
     delta = {
       enable = true;
-      options = with theme.palette; {
+      options = {
         line-numbers = true;
-        line-numbers-zero-style = "${white}";
-        line-numbers-minus-style = "${red}";
-        line-numbers-plus-style = "${green}";
       };
     };
     lfs.enable = true;
@@ -226,22 +217,6 @@ in {
       set fish_cursor_insert      line       blink
       set fish_cursor_replace_one underscore blink
       set fish_cursor_visual      block
-
-      set fish_color_normal         "${theme.color4}"  # default color
-      set fish_color_command        "${theme.color4}" # commands like echo
-      set fish_color_keyword        "${theme.color4}" --bold # keywords like if - this falls back on the command color if unset
-      set fish_color_quote          "${theme.color3}"  # quoted text like "abc"
-      set fish_color_redirection    "${theme.color14}" --bold # IO redirections like >/dev/null
-      set fish_color_end            "${theme.color2}"  # process separators like ';' and '&'
-      set fish_color_error          "${theme.color1}"  # syntax errors
-      set fish_color_param          "${theme.color6}" # ordinary command parameters
-      set fish_color_comment        "${theme.color8}"  # comments like '# important'
-      set fish_color_selection      "${theme.color7}"  # selected text in vi visual mode
-      set fish_color_operator       "${theme.color5}"  # parameter expansion operators like '*' and '~'
-      set fish_color_escape         "${theme.color13}" # character escapes like 'n' and 'x70'
-      set fish_color_autosuggestion "${theme.color15}"  # autosuggestions (the proposed rest of a command)
-      set fish_color_cancel         "${theme.color1}"  # the '^C' indicator on a canceled command
-      set fish_color_search_match   --background="${theme.color3}"  # history search matches and selected pager items (background only)
     '';
     functions = {
       gitignore = "curl -sL https://www.gitignore.io/api/$argv | tail -n+5 | head -n-2";
@@ -260,13 +235,6 @@ in {
   programs.fzf = {
     enable = true;
     enableFishIntegration = true;
-  };
-  home.sessionVariables = {
-    FZF_DEFAULT_OPTS = with theme.palette; builtins.concatStringsSep " " [
-      "--color=bg+:${gray},bg:${black},spinner:${flamingo},hl:${red}"
-      "--color=fg:${white},header:${red},info:${pink},pointer:${yellow}"
-      "--color=marker:${yellow},fg+:${flamingo},prompt:${pink},hl+:${red}"
-    ];
   };
 
   programs.zoxide = {
@@ -427,6 +395,27 @@ in {
   };
 
   programs.nix-index.enable = true;
+  home.file.".cache/nix-index/files".source = pkgs.nix-index-database;
+
+  programs.discord = {
+    enable = true;
+    openASAR = true;
+
+    options = {
+      SKIP_HOST_UPDATE = true;
+
+      IS_MAXIMIZED = false;
+      IS_MINIMIZED = false;
+
+      MIN_WIDTH = 0;
+      MIN_HEIGHT = 0;
+
+      openasar = {
+        setup = true;
+        quickstart = true;
+      };
+    };
+  };
 
   gtk = {
     enable = true;
