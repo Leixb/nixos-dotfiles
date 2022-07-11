@@ -1,7 +1,7 @@
 {pkgs, ...}:
 
 let
-  theme = import ../../users/leix/theme.nix;
+  palette = import ../../users/modules/theme/palette.nix;
 in {
   services.xserver = {
     enable = true;
@@ -31,22 +31,22 @@ in {
       lightdm.greeters.mini = {
         enable = true;
         user = "leix";
-        extraConfig = with theme; ''
+        extraConfig = with palette; ''
           [greeter]
           show-password-label = false
           password-alignment = center
           [greeter-theme]
-          background-image = "${palette.wallpaper}"
-          font = "${font_family}"
-          text-color = "${foreground}"
-          error-color = "${palette.red}"
-          background-color = "${background}"
-          window-color = "${color0}"
-          border-color = "${color0}"
-          password-color = "${color4}"
-          password-background-color = "${palette.black}"
-          password-border-color = "${palette.black}"
-          sys-info-color = "${color4}"
+          background-image = "${./../../users/leix/wallpapers/keyboards.png}"
+          font = "DejaVu Sans Mono"
+          text-color = "${white}"
+          error-color = "${red}"
+          background-color = "${black}"
+          window-color = "${black}"
+          border-color = "${black}"
+          password-color = "${blue}"
+          password-background-color = "${darkgray1}"
+          password-border-color = "${black}"
+          sys-info-color = "${blue}"
         '';
       };
     };

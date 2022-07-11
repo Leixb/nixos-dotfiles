@@ -2,6 +2,6 @@
 {
   imports = [
     ./discord.nix
-    ./theme.nix
+    ./theme/theme.nix
   ];
 }

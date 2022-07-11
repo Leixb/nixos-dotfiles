@@ -50,7 +50,7 @@ in {
     enable = true;
     font = {
       family = "JetBrainsMono Nerd Font Mono";
-      size = 13.0;
+      size = 13;
     };
     enableKittyTheme = true;
   };

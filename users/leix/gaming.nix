@@ -46,6 +46,7 @@ in {
             "${name}.env" = {
               STEAM_COMPAT_DATA_PATH = "${game_folder}/.proton_data/${alias}";
               STEAM_COMPAT_CLIENT_INSTALL_PATH = "${steam_folder}";
+              PROTON_EAC_RUNTIME = "${steam_folder}/steamapps/common/Proton EasyAntiCheat Runtime";
             };
           };
       in
@@ -57,20 +58,24 @@ in {
             install_dir = "${game_folder}";
           };
         }
-        [
-          (proton-conf {
+        (builtins.map proton-conf [
+          {
             name = "d6264d56f5ba434e91d4b0a0b056c83a";
             alias = "TombRaider";
-          })
-          (proton-conf {
+          }
+          {
             name = "f7cc1c999ac146f39b356f53e3489514";
             alias = "RiseoftheTombRaider";
-          })
-          (proton-conf {
+          }
+          {
             name = "890d9cf396d04922a1559333df419fed";
             alias = "ShadowoftheTombRaider";
-          })
-        ]
+          }
+          {
+            name = "0a2d9f6403244d12969e11da6713137b";
+            alias = "FallGuys";
+          }
+        ])
     );
   };
 
