@@ -53,6 +53,29 @@ in {
       size = 13;
     };
     enableKittyTheme = true;
+    enableBatTheme = true;
+  };
+
+  home.pointerCursor = {
+    gtk.enable = true;
+    package = pkgs.capitaine-cursors;
+    name = "capitaine-cursors";
+    size = 32;
+  };
+
+  gtk = {
+    enable = true;
+    theme = {
+      name = "Catppuccin-teal-dark";
+      package = pkgs.catppuccin-gtk;
+    };
+    iconTheme = {
+      name = "Arc";
+      package = pkgs.arc-icon-theme;
+    };
+    gtk3.bookmarks = [
+      "file:///home/leix/Documents/UPC"
+    ];
   };
 
   home.sessionVariables = {
@@ -116,13 +139,6 @@ in {
     home-assistant-cli
     luakit
   ];
-
-  home.pointerCursor = {
-    gtk.enable = true;
-    package = pkgs.capitaine-cursors;
-    name = "capitaine-cursors";
-    size = 32;
-  };
 
   systemd.user.services.gammastep.Install.WantedBy = lib.mkForce [];
 
@@ -246,22 +262,12 @@ in {
     enable = true;
     enableAliases = true;
   };
+
   programs.bat = {
     enable = true;
-    config = {
-      map-syntax = [
+    config.map-syntax = [
         "flake.lock:JSON"
       ];
-      theme = "catppuccin";
-    };
-    themes = {
-      catppuccin = builtins.readFile (pkgs.fetchFromGitHub {
-        owner = "catppuccin";
-        repo = "sublime-text"; # Bat uses sublime syntax for its themes
-        rev = "95c5f44d8f75dc7e5cb7d20180e991aac3841440";
-        sha256 = "sha256-RQCo35Gi8M0Xonkvd6EBPNeid1OLStIXIIHq4x5nM/U=";
-      } + "/Catppuccin.tmTheme");
-    };
   };
 
   programs.starship = {
@@ -284,6 +290,29 @@ in {
         editorconfig.editorconfig
         golang.go
       ];
+  };
+
+  programs.nix-index.enable = true;
+  home.file.".cache/nix-index/files".source = pkgs.nix-index-database;
+
+  programs.discord = {
+    enable = true;
+    openASAR = true;
+
+    options = {
+      SKIP_HOST_UPDATE = true;
+
+      IS_MAXIMIZED = false;
+      IS_MINIMIZED = false;
+
+      MIN_WIDTH = 0;
+      MIN_HEIGHT = 0;
+
+      openasar = {
+        setup = true;
+        quickstart = true;
+      };
+    };
   };
 
   programs.firefox = {
@@ -392,44 +421,6 @@ in {
         raco.url = "https://raco.fib.upc.edu";
       };
     };
-  };
-
-  programs.nix-index.enable = true;
-  home.file.".cache/nix-index/files".source = pkgs.nix-index-database;
-
-  programs.discord = {
-    enable = true;
-    openASAR = true;
-
-    options = {
-      SKIP_HOST_UPDATE = true;
-
-      IS_MAXIMIZED = false;
-      IS_MINIMIZED = false;
-
-      MIN_WIDTH = 0;
-      MIN_HEIGHT = 0;
-
-      openasar = {
-        setup = true;
-        quickstart = true;
-      };
-    };
-  };
-
-  gtk = {
-    enable = true;
-    theme = {
-      name = "Catppuccin-teal-dark";
-      package = pkgs.catppuccin-gtk;
-    };
-    iconTheme = {
-      name = "Arc";
-      package = pkgs.arc-icon-theme;
-    };
-    gtk3.bookmarks = [
-      "file:///home/leix/Documents/UPC"
-    ];
   };
 
   # This value determines the Home Manager release that your

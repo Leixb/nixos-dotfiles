@@ -52,6 +52,7 @@ in {
       };
 
       enableKittyTheme = mkEnableOption "enableKittyTheme";
+      enableBatTheme = mkEnableOption "enableBatTheme";
     };
   };
 
@@ -211,6 +212,20 @@ in {
       "--color=fg:${white},header:${red},info:${pink},pointer:${yellow}"
       "--color=marker:${yellow},fg+:${flamingo},prompt:${pink},hl+:${red}"
     ];
+  })
+
+  (mkIf cfg.enableBatTheme {
+    programs.bat = {
+      config.theme = "catppuccin";
+      themes = {
+        catppuccin = builtins.readFile (pkgs.fetchFromGitHub {
+          owner = "catppuccin";
+          repo = "sublime-text"; # Bat uses sublime syntax for its themes
+          rev = "95c5f44d8f75dc7e5cb7d20180e991aac3841440";
+          sha256 = "sha256-RQCo35Gi8M0Xonkvd6EBPNeid1OLStIXIIHq4x5nM/U=";
+        } + "/Catppuccin.tmTheme");
+      };
+    };
   })
 
 ]);
