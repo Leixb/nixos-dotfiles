@@ -49,7 +49,13 @@ in
 
       vim-easy-align
 
-      editorconfig-nvim
+      {
+        plugin = editorconfig-nvim;
+        type = "lua";
+        config = ''
+          vim.g.EditorConfig_exclude_patterns = {'fugitive://.*'},
+        '';
+      }
 
       {
         plugin = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
@@ -102,7 +108,13 @@ in
       }
       lualine-lsp-progress
 
-      barbar-nvim
+      {
+        plugin = barbar-nvim;
+        type = "lua";
+        config = ''
+          vim.g.bufferline = { closable = false }
+        '';
+      }
       {
         plugin = bufresize-nvim;
         type = "lua";
@@ -144,7 +156,12 @@ in
         type = "lua";
         config = builtins.readFile ./neovim/rust-tools-nvim.lua;
       }
-      vimtex
+      {
+        plugin = vimtex;
+        type = "lua";
+        config = builtins.readFile ./neovim/vimtex.lua;
+      }
+        
       # dart-vim-plugin
       # julia-vim
       vim-fish
@@ -170,7 +187,11 @@ in
         config = builtins.readFile ./neovim/grammar-guard-nvim.lua;
       }
 
-      copilot-vim
+      {
+        plugin = copilot-vim;
+        type = "lua";
+        config = builtins.readFile ./neovim/copilot-vim.lua;
+      }
 
       {
         plugin = nvim-lspconfig;
@@ -182,8 +203,18 @@ in
       lspkind-nvim
       nvim-code-action-menu
 
-      nvim-dap
-      nvim-dap-ui
+      {
+        plugin = nvim-dap;
+        type = "lua";
+        config = builtins.readFile ./neovim/dap.lua;
+      }
+      {
+        plugin = nvim-dap-ui;
+        type = "lua";
+        config = ''
+          vim.keymap.set('n', '<F5>' , function() require'dapui'.toggle() end, { noremap = true , silent = true, desc = "DapUI toggle" })
+        '';
+      }
 
       symbols-outline-nvim
 

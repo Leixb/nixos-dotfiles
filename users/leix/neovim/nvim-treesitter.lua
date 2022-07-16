@@ -6,3 +6,5 @@ require'nvim-treesitter.configs'.setup {
     autotag = {enable = true},
     context_commentstring = {enable = true},
 }
+vim.g.foldmethod    = 'expr'
+vim.g.foldexpr      = 'nvim_treesitter#foldexpr()'
