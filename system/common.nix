@@ -19,6 +19,10 @@
     fi
   '';
 in {
+  imports = [
+    ./restic.nix
+  ];
+
   boot.kernel.sysctl = {
     "vm.swappiness" = lib.mkDefault 1;
     "vm.vfs_cache_pressure" = lib.mkDefault 50;
@@ -206,21 +210,6 @@ in {
 
   services.udev.packages = with pkgs; [gnome.gnome-settings-daemon logitech-udev-rules headsetcontrol];
   services.dbus.packages = with pkgs; [gcr gnome.gnome-keyring];
-
-  services.restic.backups = {
-    localbackup = {
-      initialize = true;
-      user = "leix";
-      passwordFile = "/etc/nixos/secrets/restic-password";
-      paths = [
-        "/home/leix"
-      ];
-      repository = "/mnt/data/backups/restic";
-      timerConfig = {
-        OnCalendar = "weekly";
-      };
-    };
-  };
 
   # Mout MTP and other network shares
   services.gvfs.enable = true;

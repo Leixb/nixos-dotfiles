@@ -17,6 +17,23 @@
       inputs.flake-compat.follows = "flake-compat";
     };
 
+    deploy-rs = {
+      url = "github:serokell/deploy-rs";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.utils.follows = "flake-utils";
+      inputs.flake-compat.follows = "flake-compat";
+    };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
+    agenix = {
+      url = "github:ryantm/agenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -43,19 +60,26 @@
 
     nix-index-database.url = "github:Mic92/nix-index-database";
 
-    # neovim-flake.follows = "neovim-nightly-overlay/neovim-flake";
+    neorg = {
+      url = "github:nvim-neorg/neorg";
+      flake = false;
+    };
 
+    # # neovim-flake.follows = "neovim-nightly-overlay/neovim-flake";
     # neovim-nightly-overlay = {
-      # url = "github:nix-community/neovim-nightly-overlay";
-      # inputs.nixpkgs.follows = "nixpkgs";
-      # inputs.flake-compat.follows = "flake-compat";
-      # inputs.neovim-flake.inputs.flake-utils.follows = "flake-utils";
+    #   url = "github:nix-community/neovim-nightly-overlay";
+    #   inputs.nixpkgs.follows = "nixpkgs";
+    #   inputs.flake-compat.follows = "flake-compat";
+    #   # inputs.neovim-flake.inputs.flake-utils.follows = "flake-utils";
     # };
   };
 
   outputs = inputs @ {
+    self,
     nixpkgs,
     home-manager,
+    sops-nix,
+    agenix,
     ...
   }: let
     system = "x86_64-linux";
@@ -100,12 +124,14 @@
       })
       {nixpkgs.overlays = overlays;}
       pin-flake-reg
+      sops-nix.nixosModules.sops
+      agenix.nixosModules.age
     ];
 
     inherit (nixpkgs) lib;
   in {
     nixosConfigurations = {
-      nixos = lib.nixosSystem {
+      kuro = lib.nixosSystem {
         inherit system;
 
         modules =
@@ -139,5 +165,30 @@
           ];
       };
     };
+
+    colmena = {
+      meta = {
+        description = "My personal machines";
+        nixpkgs = import nixpkgs {
+          inherit system;
+        };
+      };
+
+    } // builtins.mapAttrs (name: value: {
+      nixpkgs.system = value.config.nixpkgs.system;
+      imports = value._module.args.modules;
+      deployment.allowLocalDeployment = true;
+    }) (self.nixosConfigurations);
+
+    # deploy.nodes.kuro = {
+    #   hostname = "localhost";
+    #   fastConnection = true;
+    #   sshOpts = [ "-t" ];
+    #   profiles.system = {
+    #     user = "root";
+    #     path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.kuro;
+    #   };
+    # };
+
   };
 }

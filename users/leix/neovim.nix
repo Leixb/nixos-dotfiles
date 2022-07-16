@@ -9,10 +9,16 @@ let
       sha256 = "sha256-6jqlKe8Ekm+3dvlgFCpJnI0BZzWC3KDYoOb88/itH+g=";
     };
   };
+
+  # neorg_master = pkgs.vimUtils.buildVimPluginFrom2Nix {
+  #   name = "neorg";
+  #   src = inputs.neorg;
+  # };
 in
   {
     programs.neovim = {
       enable = true;
+      # package = pkgs.neovim-nightly;
 
       extraPackages = with pkgs; [
         fd
@@ -182,6 +188,7 @@ in
       symbols-outline-nvim
 
       {
+        # plugin = neorg_master;
         plugin = neorg;
         type = "lua";
         config = builtins.readFile ./neovim/neorg.lua;

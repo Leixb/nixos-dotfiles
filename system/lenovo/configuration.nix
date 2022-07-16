@@ -5,6 +5,7 @@
   inputs,
   ...
 }: let
+  location = "192.168.1.3";
   # Set battery saving (limit charge to 60%)
   battery_conservation_mode = pkgs.writeShellScriptBin "battery-conservation" ''
     #!/usr/bin/env bash
@@ -26,8 +27,10 @@
     $1
   '';
 in {
+  _module.args.location = location;
   imports = [
     ../common.nix
+    ./synology-mounts.nix
     ./nvidia.nix
     ./virtualization.nix
     ./gaming.nix
@@ -35,7 +38,7 @@ in {
     ./hardware-configuration.nix
   ];
 
-  networking.hostName = "nixos";
+  networking.hostName = "kuro";
   networking.interfaces = {
     enp7s0.useDHCP = true;
     wlan0.useDHCP = true;
