@@ -89,8 +89,8 @@
     };
 
     pkg-sets = final: prev: {
-      stable = import inputs.nixpkgs_stable {system = final.system;};
-      trunk = import inputs.nixpkgs_trunk {system = final.system;};
+      stable = import inputs.nixpkgs_stable {inherit (final) system;};
+      trunk = import inputs.nixpkgs_trunk {inherit (final) system;};
     };
 
     extra-packages = final: prev: {
@@ -178,7 +178,7 @@
       nixpkgs.system = value.config.nixpkgs.system;
       imports = value._module.args.modules;
       deployment.allowLocalDeployment = true;
-    }) (self.nixosConfigurations);
+    }) self.nixosConfigurations;
 
     # deploy.nodes.kuro = {
     #   hostname = "localhost";
