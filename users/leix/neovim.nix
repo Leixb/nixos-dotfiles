@@ -27,6 +27,7 @@ in
         ltex-ls
         ripgrep
         rnix-lsp
+        sumneko-lua-language-server
       ];
 
     plugins = with pkgs.trunk.vimPlugins; [
@@ -111,9 +112,7 @@ in
       {
         plugin = barbar-nvim;
         type = "lua";
-        config = ''
-          vim.g.bufferline = { closable = false }
-        '';
+        config = builtins.readFile ./neovim/barbar-nvim.lua;
       }
       {
         plugin = bufresize-nvim;
@@ -212,11 +211,19 @@ in
         plugin = nvim-dap-ui;
         type = "lua";
         config = ''
-          vim.keymap.set('n', '<F5>' , function() require'dapui'.toggle() end, { noremap = true , silent = true, desc = "DapUI toggle" })
+          vim.keymap.set('n', '<F5>' , function() require'dapui'.toggle() end,
+            { noremap = true , silent = true, desc = "DapUI toggle" })
         '';
       }
 
-      symbols-outline-nvim
+      {
+        plugin = symbols-outline-nvim;
+        type = "lua";
+        config = ''
+          vim.keymap.set('n', '<F4>' , function() require'symbols-outline'.toggle_outline() end,
+            { noremap = true , silent = true, desc = "SymbolsOutline toggle" })
+        '';
+      }
 
       {
         # plugin = neorg_master;
