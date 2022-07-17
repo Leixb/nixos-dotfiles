@@ -1,13 +1,8 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-{
-  config,
-  pkgs,
-  lib,
-  inputs,
-  ...
-}: let
+{ config, pkgs, lib, inputs, ... }:
+let
   update_system = pkgs.writeShellScriptBin "update-system" ''
     cd ~/.dotfiles
     set -e
@@ -19,9 +14,7 @@
     fi
   '';
 in {
-  imports = [
-    ./restic.nix
-  ];
+  imports = [ ./restic.nix ];
 
   boot.kernel.sysctl = {
     "vm.swappiness" = lib.mkDefault 1;
@@ -31,13 +24,8 @@ in {
   zramSwap.enable = true;
   zramSwap.algorithm = "zstd";
 
-  boot.kernelParams = [
-    "quiet"
-    "rw"
-    "nowatchdog"
-    "hid_apple.fnmode=2"
-    "mitigations=off"
-  ];
+  boot.kernelParams =
+    [ "quiet" "rw" "nowatchdog" "hid_apple.fnmode=2" "mitigations=off" ];
 
   boot.extraModprobeConfig = ''
     options hid_apple fnmode=2
@@ -82,7 +70,7 @@ in {
   hardware.pulseaudio.support32Bit = false;
 
   nixpkgs.config.packageOverrides = pkgs: {
-    vaapiIntel = pkgs.vaapiIntel.override {enableHybridCodec = true;};
+    vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
   };
 
   hardware.opengl.extraPackages = with pkgs;
@@ -94,7 +82,7 @@ in {
       # nvidia-vaapi-driver
     ];
 
-  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [vaapiIntel];
+  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ vaapiIntel ];
 
   programs.dconf.enable = true;
 
@@ -107,7 +95,8 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 0;
 
-  networking.wireless.enable = false; # Enables wireless support via wpa_supplicant.
+  networking.wireless.enable =
+    false; # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
 
   # Set your time zone.
@@ -163,7 +152,7 @@ in {
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
-  services.printing.drivers = [pkgs.brlaser];
+  services.printing.drivers = [ pkgs.brlaser ];
 
   sound.enable = true;
   hardware.pulseaudio.enable = lib.mkForce false;
@@ -183,7 +172,13 @@ in {
   programs.fish.enable = true;
   users.users.leix = {
     isNormalUser = true;
-    extraGroups = ["wheel" "networkmanager" "libvirtd" "audio" "video"]; # Enable ‘sudo’ for the user.
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+      "libvirtd"
+      "audio"
+      "video"
+    ]; # Enable ‘sudo’ for the user.
     shell = pkgs.fish;
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIP01irZGcIE6n5svXRpAqFNgdRl15cum7vEV1go9qvI5 JuiceSSH"
@@ -193,12 +188,7 @@ in {
     ];
   };
 
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-    openssl
-    update_system
-  ];
+  environment.systemPackages = with pkgs; [ vim wget openssl update_system ];
 
   system.activationScripts.diff = ''
     [ -d /run/current-system ] && ${pkgs.nixUnstable}/bin/nix store \
@@ -208,8 +198,12 @@ in {
 
   services.systembus-notify.enable = true;
 
-  services.udev.packages = with pkgs; [gnome.gnome-settings-daemon logitech-udev-rules headsetcontrol];
-  services.dbus.packages = with pkgs; [gcr gnome.gnome-keyring];
+  services.udev.packages = with pkgs; [
+    gnome.gnome-settings-daemon
+    logitech-udev-rules
+    headsetcontrol
+  ];
+  services.dbus.packages = with pkgs; [ gcr gnome.gnome-keyring ];
 
   # Mout MTP and other network shares
   services.gvfs.enable = true;
@@ -223,7 +217,7 @@ in {
     passwordAuthentication = false;
     permitRootLogin = "yes";
     enable = true;
-    ports = [22 2322];
+    ports = [ 22 2322 ];
     forwardX11 = true;
   };
 
@@ -249,13 +243,15 @@ in {
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
-      (nerdfonts.override {fonts = ["FiraCode" "DroidSansMono" "JetBrainsMono"];})
+      (nerdfonts.override {
+        fonts = [ "FiraCode" "DroidSansMono" "JetBrainsMono" ];
+      })
     ];
     fontconfig = {
       defaultFonts = {
-        serif = ["DejaVu Serif"];
-        sansSerif = ["DejaVu Sans"];
-        monospace = ["Fira Mono"];
+        serif = [ "DejaVu Serif" ];
+        sansSerif = [ "DejaVu Sans" ];
+        monospace = [ "Fira Mono" ];
       };
     };
   };
@@ -271,12 +267,10 @@ in {
     '';
 
     settings = {
-      trusted-users = ["root" "leix"];
+      trusted-users = [ "root" "leix" ];
       auto-optimise-store = true;
 
-      substituters = [
-        "https://nix-community.cachix.org"
-      ];
+      substituters = [ "https://nix-community.cachix.org" ];
 
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="

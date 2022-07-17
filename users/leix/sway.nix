@@ -1,8 +1,4 @@
-{
-  lib,
-  pkgs,
-  ...
-}: {
+{ lib, pkgs, ... }: {
   home.packages = with pkgs; [
     swaylock
     swayidle
@@ -22,25 +18,19 @@
       modifier = "Mod4";
       terminal = "kitty --single-instance";
       menu = "wofi --show drun";
-      startup = [
-        {
-          command = "systemctl --user restart waybar";
-          always = true;
-        }
-      ];
+      startup = [{
+        command = "systemctl --user restart waybar";
+        always = true;
+      }];
       input = {
         "type:touchpad" = {
           tap = "enabled";
           natural_scroll = "enabled";
         };
       };
-      window = {
-        titlebar = false;
-      };
-      bars = [];
-      keybindings = lib.mkOptionDefault {
-        "${modifier}+w" = "kill";
-      };
+      window = { titlebar = false; };
+      bars = [ ];
+      keybindings = lib.mkOptionDefault { "${modifier}+w" = "kill"; };
     };
     extraConfig = ''
       output "*" background ${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/backgrounds/nixos/nix-wallpaper-simple-dark-gray.png fill
@@ -53,26 +43,24 @@
       target = "sway-session.target";
     };
     enable = true;
-    settings = [
-      {
-        modules-left = ["sway/workspaces" "sway/mode" "wlr/taskbar"];
-        modules-center = ["sway/window"];
-        modules-right = [
-          "tray"
-          "idle_inhibitor"
-          "backlight"
-          "pulseaudio"
-          "bluetooth"
-          "network"
-          "memory"
-          "cpu"
-          "temperature"
-          "disk"
-          "sway/language"
-          "battery"
-          "clock"
-        ];
-      }
-    ];
+    settings = [{
+      modules-left = [ "sway/workspaces" "sway/mode" "wlr/taskbar" ];
+      modules-center = [ "sway/window" ];
+      modules-right = [
+        "tray"
+        "idle_inhibitor"
+        "backlight"
+        "pulseaudio"
+        "bluetooth"
+        "network"
+        "memory"
+        "cpu"
+        "temperature"
+        "disk"
+        "sway/language"
+        "battery"
+        "clock"
+      ];
+    }];
   };
 }

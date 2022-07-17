@@ -14,6 +14,6 @@
   darkblack = "#181926";
   darkgray1 = "#494D64";
   darkgray2 = "#5B6078";
-  lightgray1  = "#B8C0E0";
+  lightgray1 = "#B8C0E0";
   lightgray2 = "#A5ADCB";
 }

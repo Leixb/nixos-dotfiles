@@ -6,12 +6,12 @@
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.displayManager.gdm.wayland = true;
   services.xserver.displayManager.gdm.settings = {
-    "greeting" = {"include" = "leix";};
+    "greeting" = { "include" = "leix"; };
   };
   services.xserver.desktopManager.gnome.enable = true;
 
   # gnome app indicator
-  services.udev.packages = with pkgs; [gnome3.gnome-settings-daemon];
+  services.udev.packages = with pkgs; [ gnome3.gnome-settings-daemon ];
 
   environment.gnome.excludePackages = with pkgs; [
     gnome.cheese

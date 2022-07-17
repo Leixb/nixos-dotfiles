@@ -1,25 +1,17 @@
-{
-  lib,
-  stdenv,
-  fetchurl,
-  python3,
-}:
+{ lib, stdenv, fetchurl, python3, }:
 stdenv.mkDerivation rec {
   pname = "eduroam";
   version = "2.0.4";
 
   src = fetchurl {
-    url = "https://raw.githubusercontent.com/GEANT/CAT/v${version}/devices/linux/Files/main.py";
+    url =
+      "https://raw.githubusercontent.com/GEANT/CAT/v${version}/devices/linux/Files/main.py";
     sha256 = "sha256-3BM7N932pv2HuU+1gqKVwNW09tbCNrtq2A4K6coeeXA=";
   };
 
   buildInputs = [
-    (python3.withPackages (pythonPackages:
-      with pythonPackages; [
-        distro
-        dbus-python
-        pyopenssl
-      ]))
+    (python3.withPackages
+      (pythonPackages: with pythonPackages; [ distro dbus-python pyopenssl ]))
   ];
 
   unpackPhase = ''
@@ -30,7 +22,7 @@ stdenv.mkDerivation rec {
     runHook postUnpack
   '';
 
-  patches = [./UPC_cert.patch];
+  patches = [ ./UPC_cert.patch ];
 
   installPhase = ''
     runHook preInstall
@@ -40,5 +32,6 @@ stdenv.mkDerivation rec {
     runHook postInstall
   '';
 
-  meta.description = "Eduroam Configuration Assistant Tool (CAT) with UPC patches";
+  meta.description =
+    "Eduroam Configuration Assistant Tool (CAT) with UPC patches";
 }

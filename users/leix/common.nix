@@ -1,18 +1,12 @@
 # vim: sw=2 ts=2:
-{
-  config,
-  lib,
-  pkgs,
-  system,
-  inputs,
-  ...
-}: let
+{ config, lib, pkgs, system, inputs, ... }:
+let
   username = "leix";
 
   dbeaver-adawaita = pkgs.symlinkJoin {
     name = "dbeaver";
-    paths = [pkgs.dbeaver];
-    buildInputs = [pkgs.makeWrapper];
+    paths = [ pkgs.dbeaver ];
+    buildInputs = [ pkgs.makeWrapper ];
     postBuild = ''
       wrapProgram "$out/bin/dbeaver" --set GTK_THEME "Adwaita:light"
     '';
@@ -22,11 +16,7 @@
     sudo ${pkgs.gof5}/bin/gof5 -server https://upclink.upc.edu -username aleix.bone "$@"
   '';
 in {
-  imports = [
-    ./mime-apps.nix
-    ./neovim.nix
-    ../modules/all.nix
-  ];
+  imports = [ ./mime-apps.nix ./neovim.nix ../modules/all.nix ];
 
   # Let Home Manager install and manage itself.
   #programs.home-manager.enable = true;
@@ -73,25 +63,25 @@ in {
       name = "Arc";
       package = pkgs.arc-icon-theme;
     };
-    gtk3.bookmarks = [
-      "file:///home/leix/Documents/UPC"
-    ];
+    gtk3.bookmarks = [ "file:///home/leix/Documents/UPC" ];
   };
 
   home.sessionVariables = {
     EDITOR = "nvim";
     TERMINAL = "kitty";
-    WINEDLLOVERRIDES = "winemenubuilder.exe=d"; # Prevent wine from making file associations
-    WEBKIT_DISABLE_COMPOSITING_MODE = 1; # https://github.com/NixOS/nixpkgs/issues/32580
+    WINEDLLOVERRIDES =
+      "winemenubuilder.exe=d"; # Prevent wine from making file associations
+    WEBKIT_DISABLE_COMPOSITING_MODE =
+      1; # https://github.com/NixOS/nixpkgs/issues/32580
 
-    DOCKER_CONFIG="${config.xdg.configHome}/docker";
-    ANDROID_HOME="${config.xdg.dataHome}/android";
-    CARGO_HOME="${config.xdg.dataHome}/cargo";
-    GNUPGHOME="${config.xdg.dataHome}/gnupg";
-    GRIPHOME="${config.xdg.configHome}/grip";
-    PARALLEL_HOME="${config.xdg.configHome}/parallel";
-    JUPYTER_CONFIG_DIR="${config.xdg.configHome}/jupyter";
-    KERAS_HOME="${config.xdg.stateHome}/keras";
+    DOCKER_CONFIG = "${config.xdg.configHome}/docker";
+    ANDROID_HOME = "${config.xdg.dataHome}/android";
+    CARGO_HOME = "${config.xdg.dataHome}/cargo";
+    GNUPGHOME = "${config.xdg.dataHome}/gnupg";
+    GRIPHOME = "${config.xdg.configHome}/grip";
+    PARALLEL_HOME = "${config.xdg.configHome}/parallel";
+    JUPYTER_CONFIG_DIR = "${config.xdg.configHome}/jupyter";
+    KERAS_HOME = "${config.xdg.stateHome}/keras";
   };
 
   home.packages = with pkgs; [
@@ -140,7 +130,7 @@ in {
     luakit
   ];
 
-  systemd.user.services.gammastep.Install.WantedBy = lib.mkForce [];
+  systemd.user.services.gammastep.Install.WantedBy = lib.mkForce [ ];
 
   services = {
     caffeine.enable = true;
@@ -181,31 +171,22 @@ in {
     signing.key = "FC035BB2BB28E15D";
     signing.signByDefault = true;
 
-    ignores = [
-      "*~"
-      "*.swp"
-      "/.direnv/"
-    ];
+    ignores = [ "*~" "*.swp" "/.direnv/" ];
 
     aliases = {
-      lg = "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
+      lg =
+        "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
     };
 
     delta = {
       enable = true;
-      options = {
-        line-numbers = true;
-      };
+      options = { line-numbers = true; };
     };
     lfs.enable = true;
 
     extraConfig = {
-      init = {
-        defaultBranch = "master";
-      };
-      pull = {
-        rebase = true;
-      };
+      init = { defaultBranch = "master"; };
+      pull = { rebase = true; };
     };
   };
 
@@ -235,7 +216,8 @@ in {
       set fish_cursor_visual      block
     '';
     functions = {
-      gitignore = "curl -sL https://www.gitignore.io/api/$argv | tail -n+5 | head -n-2";
+      gitignore =
+        "curl -sL https://www.gitignore.io/api/$argv | tail -n+5 | head -n-2";
     };
   };
 
@@ -265,31 +247,25 @@ in {
 
   programs.bat = {
     enable = true;
-    config.map-syntax = [
-        "flake.lock:JSON"
-      ];
+    config.map-syntax = [ "flake.lock:JSON" ];
   };
 
   programs.starship = {
     enable = true;
     enableFishIntegration = true;
 
-    settings = {
-      nix_shell = {
-        symbol = "❄️ ";
-      };
-    };
+    settings = { nix_shell = { symbol = "❄️ "; }; };
   };
 
   programs.vscode = {
     enable = true;
     extensions = with pkgs.vscode-extensions; [
-        vscodevim.vim
-        yzhang.markdown-all-in-one
-        github.copilot
-        editorconfig.editorconfig
-        golang.go
-      ];
+      vscodevim.vim
+      yzhang.markdown-all-in-one
+      github.copilot
+      editorconfig.editorconfig
+      golang.go
+    ];
   };
 
   programs.nix-index.enable = true;
@@ -322,7 +298,9 @@ in {
       bitwarden
       darkreader
       https-everywhere
-      (languagetool.overrideAttrs (oldAttrs: {meta.unfree = false;})) # Dirty workaround since nixpkgs.config.allowUnfree does not work with firefox-addons flake
+      (languagetool.overrideAttrs (oldAttrs: {
+        meta.unfree = false;
+      })) # Dirty workaround since nixpkgs.config.allowUnfree does not work with firefox-addons flake
       netflix-1080p
       no-pdf-download
       privacy-badger

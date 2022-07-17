@@ -74,69 +74,58 @@
     };
   };
 
-  outputs = inputs @ {
-    self,
-    nixpkgs,
-    home-manager,
-    sops-nix,
-    agenix,
-    ...
-  }: let
-    system = "x86_64-linux";
+  outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, agenix, ... }:
+    let
+      system = "x86_64-linux";
 
-    specialArgs = {
-      inherit inputs;
-    };
+      specialArgs = { inherit inputs; };
 
-    pkg-sets = final: prev: {
-      stable = import inputs.nixpkgs_stable {inherit (final) system;};
-      trunk = import inputs.nixpkgs_trunk {inherit (final) system;};
-    };
+      pkg-sets = final: prev: {
+        stable = import inputs.nixpkgs_stable { inherit (final) system; };
+        trunk = import inputs.nixpkgs_trunk { inherit (final) system; };
+      };
 
-    extra-packages = final: prev: {
-      eduroam = prev.callPackage ./packages/eduroam/default.nix {};
+      extra-packages = final: prev: {
+        eduroam = prev.callPackage ./packages/eduroam/default.nix { };
 
-      nix-index-database = inputs.nix-index-database.outputs.legacyPackages.${system}.database;
-      firefox-addons = inputs.firefox-addons.packages.${system};
-    };
+        nix-index-database =
+          inputs.nix-index-database.outputs.legacyPackages.${system}.database;
+        firefox-addons = inputs.firefox-addons.packages.${system};
+      };
 
-    overlays = [
-      pkg-sets
-      extra-packages
-      inputs.awesome-config.overlay
-      inputs.neovim-nightly-overlay.overlay
-    ];
+      overlays = [
+        pkg-sets
+        extra-packages
+        inputs.awesome-config.overlay
+        inputs.neovim-nightly-overlay.overlay
+      ];
 
-    pin-flake-reg = with inputs; {
-      nix.registry.nixpkgs.flake = nixpkgs;
-      nix.registry.flake-utils.flake = flake-utils;
-      nix.registry.leixb.flake = self;
-    };
+      pin-flake-reg = with inputs; {
+        nix.registry.nixpkgs.flake = nixpkgs;
+        nix.registry.flake-utils.flake = flake-utils;
+        nix.registry.leixb.flake = self;
+      };
 
-    common-modules = [
-      ({...}: {
-        imports = [
-          {
-            nix.nixPath = ["nixpkgs=${nixpkgs}"];
+      common-modules = [
+        ({ ... }: {
+          imports = [{
+            nix.nixPath = [ "nixpkgs=${nixpkgs}" ];
             environment.sessionVariables.NIXPKGS = "${nixpkgs}";
-          }
-        ];
-      })
-      {nixpkgs.overlays = overlays;}
-      pin-flake-reg
-      sops-nix.nixosModules.sops
-      agenix.nixosModules.age
-    ];
+          }];
+        })
+        { nixpkgs.overlays = overlays; }
+        pin-flake-reg
+        sops-nix.nixosModules.sops
+        agenix.nixosModules.age
+      ];
 
-    inherit (nixpkgs) lib;
-  in {
-    nixosConfigurations = {
-      kuro = lib.nixosSystem {
-        inherit system;
+      inherit (nixpkgs) lib;
+    in {
+      nixosConfigurations = {
+        kuro = lib.nixosSystem {
+          inherit system;
 
-        modules =
-          common-modules
-          ++ [
+          modules = common-modules ++ [
             ./system/lenovo/configuration.nix
             home-manager.nixosModules.home-manager
             {
@@ -146,14 +135,12 @@
               home-manager.extraSpecialArgs = specialArgs;
             }
           ];
-      };
+        };
 
-      nixos-pav = lib.nixosSystem {
-        inherit system;
+        nixos-pav = lib.nixosSystem {
+          inherit system;
 
-        modules =
-          common-modules
-          ++ [
+          modules = common-modules ++ [
             ./system/pavilion/configuration.nix
             home-manager.nixosModules.home-manager
             {
@@ -163,32 +150,30 @@
               home-manager.extraSpecialArgs = specialArgs;
             }
           ];
-      };
-    };
-
-    colmena = {
-      meta = {
-        description = "My personal machines";
-        nixpkgs = import nixpkgs {
-          inherit system;
         };
       };
 
-    } // builtins.mapAttrs (name: value: {
-      nixpkgs.system = value.config.nixpkgs.system;
-      imports = value._module.args.modules;
-      deployment.allowLocalDeployment = true;
-    }) self.nixosConfigurations;
+      colmena = {
+        meta = {
+          description = "My personal machines";
+          nixpkgs = import nixpkgs { inherit system; };
+        };
 
-    # deploy.nodes.kuro = {
-    #   hostname = "localhost";
-    #   fastConnection = true;
-    #   sshOpts = [ "-t" ];
-    #   profiles.system = {
-    #     user = "root";
-    #     path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.kuro;
-    #   };
-    # };
+      } // builtins.mapAttrs (name: value: {
+        nixpkgs.system = value.config.nixpkgs.system;
+        imports = value._module.args.modules;
+        deployment.allowLocalDeployment = true;
+      }) self.nixosConfigurations;
 
-  };
+      # deploy.nodes.kuro = {
+      #   hostname = "localhost";
+      #   fastConnection = true;
+      #   sshOpts = [ "-t" ];
+      #   profiles.system = {
+      #     user = "root";
+      #     path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.kuro;
+      #   };
+      # };
+
+    };
 }

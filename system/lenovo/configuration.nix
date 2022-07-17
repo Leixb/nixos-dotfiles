@@ -1,10 +1,5 @@
-{
-  config,
-  pkgs,
-  lib,
-  inputs,
-  ...
-}: let
+{ config, pkgs, lib, inputs, ... }:
+let
   location = "192.168.1.3";
   # Set battery saving (limit charge to 60%)
   battery_conservation_mode = pkgs.writeShellScriptBin "battery-conservation" ''
@@ -44,14 +39,12 @@ in {
     wlan0.useDHCP = true;
   };
 
-  boot.kernel.sysctl = {
-    "dev.i915.perf_stream_paranoid" = 0;
-  };
+  boot.kernel.sysctl = { "dev.i915.perf_stream_paranoid" = 0; };
 
   programs.droidcam.enable = true;
 
-  environment.systemPackages = [battery_conservation_mode];
-  boot.extraModulePackages = with config.boot.kernelPackages; [acpi_call];
+  environment.systemPackages = [ battery_conservation_mode ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
 
   services.xserver.displayManager.setupCommands = ''
     ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource NVIDIA-G0 modesetting

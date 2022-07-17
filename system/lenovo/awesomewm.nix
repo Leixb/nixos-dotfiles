@@ -1,7 +1,6 @@
-{pkgs, ...}:
+{ pkgs, ... }:
 
-let
-  palette = import ../../users/modules/theme/palette.nix;
+let palette = import ../../users/modules/theme/palette.nix;
 in {
   services.xserver = {
     enable = true;
@@ -12,13 +11,11 @@ in {
       autoLogin.user = "leix";
 
       defaultSession = "xsession";
-      session = [
-        {
-          manage = "desktop";
-          name = "xsession";
-          start = "exec $HOME/.xsession";
-        }
-      ];
+      session = [{
+        manage = "desktop";
+        name = "xsession";
+        start = "exec $HOME/.xsession";
+      }];
 
       sessionCommands = let
         xmodmap_config = pkgs.writeText "xkb-layout" ''
@@ -60,9 +57,7 @@ in {
     libinput = {
       enable = true;
       mouse.accelProfile = "flat";
-      touchpad = {
-        naturalScrolling = true;
-      };
+      touchpad = { naturalScrolling = true; };
     };
   };
 }

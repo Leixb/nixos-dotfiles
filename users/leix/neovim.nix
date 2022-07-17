@@ -14,42 +14,41 @@ let
   #   name = "neorg";
   #   src = inputs.neorg;
   # };
-in
-  {
-    programs.neovim = {
-      enable = true;
-      package = pkgs.neovim-nightly;
+in {
+  programs.neovim = {
+    enable = true;
+    package = pkgs.neovim-nightly;
 
-      extraPackages = with pkgs; [
-        gcc
-        git
+    extraPackages = with pkgs; [
+      gcc
+      git
 
-        ## telescope
-        ripgrep
-        fd
+      ## telescope
+      ripgrep
+      fd
 
-        ## LSP
-        ltex-ls
-        ripgrep
-        rnix-lsp
-        sumneko-lua-language-server
-        gopls
-        texlab
-        clang-tools
+      ## LSP
+      ltex-ls
+      ripgrep
+      rnix-lsp
+      sumneko-lua-language-server
+      gopls
+      texlab
+      clang-tools
 
-        nodePackages.dockerfile-language-server-nodejs
-        nodePackages.typescript
-        nodePackages.typescript-language-server
-        nodePackages.vscode-langservers-extracted
-        nodePackages.yaml-language-server
+      nodePackages.dockerfile-language-server-nodejs
+      nodePackages.typescript
+      nodePackages.typescript-language-server
+      nodePackages.vscode-langservers-extracted
+      nodePackages.yaml-language-server
 
-        ## null-ls
-        actionlint
-        hadolint
-        shellcheck
-        stylua
-        vale
-      ];
+      ## null-ls
+      actionlint
+      hadolint
+      shellcheck
+      stylua
+      vale
+    ];
 
     plugins = with pkgs.trunk.vimPlugins; [
       { # This must be the first plugin to load
@@ -120,7 +119,6 @@ in
         '';
       }
 
-
       {
         plugin = lualine-nvim;
         type = "lua";
@@ -150,7 +148,7 @@ in
 
       {
         plugin = nvim-cmp;
-        type =  "lua";
+        type = "lua";
         config = builtins.readFile ./neovim/cmp.lua;
       }
 
@@ -179,7 +177,7 @@ in
         type = "lua";
         config = builtins.readFile ./neovim/vimtex.lua;
       }
-        
+
       # dart-vim-plugin
       # julia-vim
       vim-fish

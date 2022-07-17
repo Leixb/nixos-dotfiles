@@ -1,8 +1,5 @@
-{pkgs, ...}: {
-  boot.kernelParams = [
-    "intel_iommu=on"
-    "iommu=pt"
-  ];
+{ pkgs, ... }: {
+  boot.kernelParams = [ "intel_iommu=on" "iommu=pt" ];
 
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
@@ -15,9 +12,7 @@
     defaultNetwork.dnsname.enable = true;
   };
 
-  users.extraUsers.leix.extraGroups = ["podman"];
+  users.extraUsers.leix.extraGroups = [ "podman" ];
 
-  environment.systemPackages = with pkgs; [
-    virt-manager
-  ];
+  environment.systemPackages = with pkgs; [ virt-manager ];
 }

@@ -2,8 +2,7 @@
 
 with lib;
 
-let
-  cfg = config.programs.discord;
+let cfg = config.programs.discord;
 in {
   options = {
     programs.discord = {
@@ -30,12 +29,12 @@ in {
 
   config = mkIf cfg.enable {
 
-    home.packages = [(
-      if cfg.openASAR then
+    home.packages = [
+      (if cfg.openASAR then
         cfg.package.override { withOpenASAR = cfg.openASAR; }
       else
-        cfg.package
-    )];
+        cfg.package)
+    ];
 
     xdg.configFile."discord/settings.json".text =
       mkIf (cfg.options != null) (builtins.toJSON cfg.options);

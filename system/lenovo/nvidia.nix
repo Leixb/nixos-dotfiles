@@ -1,22 +1,19 @@
-{
-  config,
-  pkgs,
-  lib,
-  inputs,
-  ...
-}: let
+{ config, pkgs, lib, inputs, ... }:
+let
   prime-run = pkgs.writeShellScriptBin "prime-run" ''
     __NV_PRIME_RENDER_OFFLOAD=1 __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0 __VK_LAYER_NV_optimus=NVIDIA_only __GLX_VENDOR_LIBRARY_NAME=nvidia "$@"
   '';
 in {
-  boot.blacklistedKernelModules = ["i2c_nvidia_gpu"];
+  boot.blacklistedKernelModules = [ "i2c_nvidia_gpu" ];
 
   hardware.nvidia = {
     # Use latest driver version
     package = let nPkgs = config.boot.kernelPackages.nvidiaPackages;
-      in
-      lib.mkForce (if (lib.versionOlder nPkgs.beta.version nPkgs.stable.version) then nPkgs.stable else nPkgs.beta);
-
+    in lib.mkForce
+    (if (lib.versionOlder nPkgs.beta.version nPkgs.stable.version) then
+      nPkgs.stable
+    else
+      nPkgs.beta);
 
     modesetting.enable = true;
 
@@ -27,9 +24,9 @@ in {
     };
   };
 
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
 
   # hardware.nvidia.powerManagement.finegrained = true;
 
-  environment.systemPackages = [prime-run];
+  environment.systemPackages = [ prime-run ];
 }
