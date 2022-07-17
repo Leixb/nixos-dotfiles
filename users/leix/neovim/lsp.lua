@@ -89,7 +89,7 @@ local function lsp_attach(client, bufnr)
 
 	vim.keymap.set(
 		"n",
-		"<leader>ca",
+		"<leader>a",
 		function()
 			require("code_action_menu").open_code_action_menu()
 		end, -- vim.lsp.buf.code_action,
