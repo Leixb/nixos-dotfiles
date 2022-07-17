@@ -21,13 +21,25 @@ in
       package = pkgs.neovim-nightly;
 
       extraPackages = with pkgs; [
-        fd
         gcc
         git
+
+        ## telescope
+        ripgrep
+        fd
+
+        ## LSP
         ltex-ls
         ripgrep
         rnix-lsp
         sumneko-lua-language-server
+
+        ## null-ls
+        actionlint
+        hadolint
+        shellcheck
+        stylua
+        vale
       ];
 
     plugins = with pkgs.trunk.vimPlugins; [
@@ -38,8 +50,6 @@ in
           require'impatient'
         '';
       }
-
-      plenary-nvim
 
       vim-surround
       vim-repeat

@@ -1,8 +1,14 @@
-require("null-ls").setup({
-    sources = {
-        require("null-ls").builtins.completion.spell,
-        require("null-ls").builtins.diagnostics.eslint,
-        require("null_ls").builtins.diagnostics.actionlint,
-        require("null-ls").builtins.formatting.stylua,
-    },
-})
+local null_ls = require("null-ls")
+
+-- register any number of sources simultaneously
+local sources = {
+	null_ls.builtins.completion.spell,
+	null_ls.builtins.diagnostics.eslint,
+	null_ls.builtins.diagnostics.actionlint,
+    null_ls.builtins.diagnostics.hadolint,
+    null_ls.builtins.diagnostics.shellcheck,
+    null_ls.builtins.diagnostics.vale,
+	null_ls.builtins.formatting.stylua,
+}
+
+null_ls.setup({ sources = sources })
