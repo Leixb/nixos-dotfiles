@@ -172,7 +172,7 @@ local lsp_list = {
 	-- 'hls',
 	"html",
 	"jdtls",
-	-- 'jsonls',
+	'jsonls',
 	"julials",
 	-- 'kotlin_language_server',
 	"rnix",
@@ -181,7 +181,7 @@ local lsp_list = {
 	"svelte",
 	"texlab",
 	"tsserver",
-	"vimls",
+	-- "vimls",
 	"yamlls",
 }
 

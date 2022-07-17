@@ -33,6 +33,15 @@ in
         ripgrep
         rnix-lsp
         sumneko-lua-language-server
+        gopls
+        texlab
+        clang-tools
+
+        nodePackages.dockerfile-language-server-nodejs
+        nodePackages.typescript
+        nodePackages.typescript-language-server
+        nodePackages.vscode-langservers-extracted
+        nodePackages.yaml-language-server
 
         ## null-ls
         actionlint
