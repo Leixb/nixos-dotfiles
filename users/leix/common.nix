@@ -207,6 +207,7 @@ in {
       gtd = "nvim -c 'NeorgStart silent=true' -c 'Neorg gtd views'";
       neorg = "nvim -c 'NeorgStart'";
       norg = "nvim -c 'NeorgStart'";
+      journal = "nvim -c 'NeorgStart silent=true' -c 'Neorg journal'";
     };
     interactiveShellInit = ''
       set fish_greeting
