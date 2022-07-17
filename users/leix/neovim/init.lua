@@ -158,7 +158,7 @@ vim.api.nvim_create_autocmd("FileType", {
 		"text",
 	},
 	callback = function()
-		vim.bo.spell = true
+		vim.wo.spell = true
 	end,
 	group = group_id,
 })
