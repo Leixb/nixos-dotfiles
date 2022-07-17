@@ -60,18 +60,18 @@
 
     nix-index-database.url = "github:Mic92/nix-index-database";
 
-    neorg = {
-      url = "github:nvim-neorg/neorg";
-      flake = false;
-    };
-
-    # # neovim-flake.follows = "neovim-nightly-overlay/neovim-flake";
-    # neovim-nightly-overlay = {
-    #   url = "github:nix-community/neovim-nightly-overlay";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    #   inputs.flake-compat.follows = "flake-compat";
-    #   # inputs.neovim-flake.inputs.flake-utils.follows = "flake-utils";
+    # neorg = {
+    #   url = "github:nvim-neorg/neorg";
+    #   flake = false;
     # };
+
+    # neovim-flake.follows = "neovim-nightly-overlay/neovim-flake";
+    neovim-nightly-overlay = {
+      url = "github:nix-community/neovim-nightly-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
+      # inputs.neovim-flake.inputs.flake-utils.follows = "flake-utils";
+    };
   };
 
   outputs = inputs @ {
@@ -104,7 +104,7 @@
       pkg-sets
       extra-packages
       inputs.awesome-config.overlay
-      # inputs.neovim-nightly-overlay.overlay
+      inputs.neovim-nightly-overlay.overlay
     ];
 
     pin-flake-reg = with inputs; {
