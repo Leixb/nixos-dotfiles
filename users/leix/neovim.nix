@@ -203,6 +203,12 @@ in
       nvim-code-action-menu
 
       {
+        plugin = null-ls-nvim;
+        type = "lua";
+        config = builtins.readFile ./neovim/null-ls-nvim.lua;
+      }
+
+      {
         plugin = nvim-dap;
         type = "lua";
         config = builtins.readFile ./neovim/dap.lua;
