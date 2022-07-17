@@ -1,4 +1,4 @@
-local ls = require'luasnip'
+local ls = require("luasnip")
 -- some shorthands...
 -- local s = ls.snippet
 -- local sn = ls.snippet_node
@@ -15,18 +15,18 @@ local ls = require'luasnip'
 -- local dl = require'luasnip.extras'.dynamic_lambda
 -- local fmt = require'luasnip.extras.fmt'.fmt
 -- local fmta = require'luasnip.extras.fmt'.fmta
-local types = require'luasnip.util.types'
+local types = require("luasnip.util.types")
 -- local conds = require'luasnip.extras.conditions'
 
 -- Every unspecified option will be set to the default.
 ls.config.set_config({
 	history = true,
 	-- Update more often, :h events for more info.
-	updateevents = 'TextChanged,TextChangedI',
+	updateevents = "TextChanged,TextChangedI",
 	ext_opts = {
 		[types.choiceNode] = {
 			active = {
-				virt_text = { { 'choiceNode', 'Comment' } },
+				virt_text = { { "choiceNode", "Comment" } },
 			},
 		},
 	},
@@ -37,7 +37,7 @@ ls.config.set_config({
 })
 
 -- in a cpp file: search c-snippets, then all-snippets only (no cpp-snippets!!).
-ls.filetype_set('cpp', { 'c' })
+ls.filetype_set("cpp", { "c" })
 
 --[[
 -- Beside defining your own snippets you can also load snippets from 'vscode-like' packages
@@ -47,7 +47,7 @@ ls.filetype_set('cpp', { 'c' })
 ]]
 
 -- You can also use lazy loading so you only get in memory snippets of languages you use
-require'luasnip/loaders/from_vscode'.lazy_load() -- You can pass { paths = './my-snippets/'} as well
+require("luasnip/loaders/from_vscode").lazy_load() -- You can pass { paths = './my-snippets/'} as well
 
-vim.keymap.set({'i', 's'}, '<F13>'     , '<Plug>luasnip-next-choice',     {silent = true, desc = "Luasnip next choice"})
-vim.keymap.set({'i', 's'}, ''         , '<Plug>luasnip-next-choice',     {silent = true, desc = "Luasnip next choice"})
+vim.keymap.set({ "i", "s" }, "<F13>", "<Plug>luasnip-next-choice", { silent = true, desc = "Luasnip next choice" })
+vim.keymap.set({ "i", "s" }, "", "<Plug>luasnip-next-choice", { silent = true, desc = "Luasnip next choice" })
