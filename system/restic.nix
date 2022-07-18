@@ -1,5 +1,8 @@
 { config, ... }: {
-  sops.secrets.restic_password.sopsFile = ./secrets/restic.yaml;
+  sops.secrets.restic_password = {
+    sopsFile = ./secrets/restic.yaml;
+    owner = config.users.users.leix.name;
+  };
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];
   sops.age.keyFile = "/var/lib/sops-nix/key.txt";
 
