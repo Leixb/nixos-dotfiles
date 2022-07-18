@@ -168,6 +168,7 @@ local lsp_list = {
 	"cssls",
 	"dartls",
 	"dockerls",
+    "eslint",
 	"gopls",
 	-- 'hls',
 	"html",
