@@ -49,9 +49,9 @@ in {
     };
 
     # Configure keymap in X11
-    layout = "us";
-    xkbVariant = "altgr-intl";
-    xkbOptions = "lv3:caps_switch,shift:both_capslock,ralt:compose";
+    layout = "eu";
+    # xkbVariant = "altgr-intl";
+    # xkbOptions = "lv3:caps_switch,shift:both_capslock,ralt:compose";
 
     # Enable touchpad support (enabled default in most desktopManager).
     libinput = {
