@@ -1,7 +1,4 @@
 { pkgs, ... }: {
-  boot.kernel.sysctl = {
-    "abi.vsyscall32" = 0; # lol anti-cheat
-  };
 
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
