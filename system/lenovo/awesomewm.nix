@@ -6,6 +6,12 @@ in {
     enable = true;
     exportConfiguration = true;
 
+    extraConfig = ''
+    Section "Extensions"
+        Option "MIT-SHM" "Disable"
+    EndSection
+    '';
+
     displayManager = {
       autoLogin.enable = false;
       autoLogin.user = "leix";

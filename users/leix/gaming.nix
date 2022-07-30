@@ -51,5 +51,5 @@ in {
     })));
   };
 
-  home.packages = with pkgs; [ lutris legendary polymc ];
+  home.packages = with pkgs; [ lutris legendary polymc winetricks mangohud ];
 }
