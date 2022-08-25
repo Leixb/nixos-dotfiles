@@ -25,6 +25,7 @@ in {
   _module.args.location = location;
   imports = [
     ../common.nix
+    ./minecraft.nix
     ./synology-mounts.nix
     ./nvidia.nix
     ./virtualization.nix

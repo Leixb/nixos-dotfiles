@@ -72,6 +72,11 @@
       inputs.flake-compat.follows = "flake-compat";
       # inputs.neovim-flake.inputs.flake-utils.follows = "flake-utils";
     };
+
+    nix-minecraft = {
+      url = "github:Infinidoge/nix-minecraft";
+      inputs.flake-utils.follows = "flake-utils";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, agenix, ... }:
@@ -98,6 +103,7 @@
         extra-packages
         inputs.awesome-config.overlay
         inputs.neovim-nightly-overlay.overlay
+        inputs.nix-minecraft.overlay
       ];
 
       pin-flake-reg = with inputs; {
@@ -111,7 +117,9 @@
           imports = [{
             nix.nixPath = [ "nixpkgs=${nixpkgs}" ];
             environment.sessionVariables.NIXPKGS = "${nixpkgs}";
-          }];
+          }
+          inputs.nix-minecraft.nixosModules.minecraft-servers
+        ];
         })
         { nixpkgs.overlays = overlays; }
         pin-flake-reg
