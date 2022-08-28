@@ -93,6 +93,10 @@
       extra-packages = final: prev: {
         eduroam = prev.callPackage ./packages/eduroam/default.nix { };
 
+        vimPlugins = prev.vimPlugins // {
+          gitsigns-nvim-fixed = prev.callPackage ./packages/gitsigns-nvim-fixed { };
+        };
+
         nix-index-database =
           inputs.nix-index-database.outputs.legacyPackages.${system}.database;
         firefox-addons = inputs.firefox-addons.packages.${system};

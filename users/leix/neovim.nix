@@ -50,7 +50,8 @@ in {
       vale
     ];
 
-    plugins = with pkgs.trunk.vimPlugins; [
+    plugins = with pkgs.vimPlugins; [
+    # plugins = with pkgs.trunk.vimPlugins; [
       { # This must be the first plugin to load
         plugin = impatient-nvim;
         type = "lua";
@@ -190,7 +191,7 @@ in {
       direnv-vim
 
       {
-        plugin = gitsigns-nvim;
+        plugin = gitsigns-nvim-fixed;
         type = "lua";
         config = builtins.readFile ./neovim/gitsigns.lua;
       }
