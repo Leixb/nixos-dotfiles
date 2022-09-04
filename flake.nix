@@ -14,7 +14,6 @@
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.utils.follows = "flake-utils";
-      inputs.flake-compat.follows = "flake-compat";
     };
 
     deploy-rs = {
