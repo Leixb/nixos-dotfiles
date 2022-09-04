@@ -181,6 +181,7 @@ in {
 
       # dart-vim-plugin
       # julia-vim
+      nvim-luapad
       vim-fish
       vim-nix
       {
