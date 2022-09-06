@@ -94,7 +94,7 @@ in {
     tdesktop # telegram desktop
     element-desktop
     fd
-    # zathura
+    zathura
     bottom
     beekeeper-studio
     ripgrep
