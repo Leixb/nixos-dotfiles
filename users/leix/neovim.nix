@@ -10,6 +10,16 @@ let
     };
   };
 
+  nvim-R = pkgs.vimUtils.buildVimPlugin {
+    name = "nvim-R";
+    src = pkgs.fetchFromGitHub {
+      owner = "jalvesaq";
+      repo = "nvim-R";
+      rev = "fc7b710edef449a4b4c20548e21ba5e3bfca2df1";
+      sha256 = "sha256-4qYSPzFW9ASqi43ZejIPJGY0ZnSL8gucyMsJOgCw/7E=";
+    };
+  };
+
   # neorg_master = pkgs.vimUtils.buildVimPluginFrom2Nix {
   #   name = "neorg";
   #   src = inputs.neorg;
@@ -186,6 +196,7 @@ in {
       nvim-luapad
       vim-fish
       vim-nix
+      nvim-R
       {
         plugin = nvim-metals;
         type = "lua";
