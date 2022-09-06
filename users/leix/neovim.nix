@@ -42,6 +42,8 @@ in {
       nodePackages.vscode-langservers-extracted
       nodePackages.yaml-language-server
 
+      nodejs-16_x # copilot 14-17
+
       ## null-ls
       actionlint
       hadolint
@@ -281,7 +283,7 @@ in {
 
     withPython3 = true;
     withRuby = true;
-    withNodeJs = true;
+    # withNodeJs = true;
 
     viAlias = true;
     vimAlias = true;
