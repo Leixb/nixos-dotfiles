@@ -196,7 +196,13 @@ in {
       nvim-luapad
       vim-fish
       vim-nix
-      nvim-R
+      {
+        plugin = nvim-R;
+        type = "lua";
+        config = ''
+          vim.g.R_assign = 0
+        '';
+      }
       {
         plugin = nvim-metals;
         type = "lua";
