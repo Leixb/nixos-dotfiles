@@ -12,19 +12,24 @@ let
 
   nvim-R = pkgs.vimUtils.buildVimPlugin {
     name = "nvim-R";
-    src = pkgs.fetchFromGitHub {
-      owner = "jalvesaq";
-      repo = "nvim-R";
-      rev = "fc7b710edef449a4b4c20548e21ba5e3bfca2df1";
-      sha256 = "sha256-4qYSPzFW9ASqi43ZejIPJGY0ZnSL8gucyMsJOgCw/7E=";
-    };
+    src =  inputs.nvim-R;
   };
+
+  nvimcom = pkgs.rPackages.buildRPackage {
+    name = "nvimcom";
+    src = inputs.nvim-R + "/R/nvimcom";
+  } + "/library";
 
   # neorg_master = pkgs.vimUtils.buildVimPluginFrom2Nix {
   #   name = "neorg";
   #   src = inputs.neorg;
   # };
 in {
+
+  home.file.".Rprofile".text = ''
+    .libPaths( c( .libPaths(), "${nvimcom}") )
+  '';
+
   programs.neovim = {
     enable = true;
     package = pkgs.neovim-nightly;
@@ -201,6 +206,8 @@ in {
         type = "lua";
         config = ''
           vim.g.R_assign = 0
+          vim.g.R_args = { "--no-save", "--quiet" }
+          vim.g.R_nvimcom_home = "${nvimcom}"
         '';
       }
       {

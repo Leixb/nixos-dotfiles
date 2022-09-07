@@ -76,6 +76,11 @@
       url = "github:Infinidoge/nix-minecraft";
       inputs.flake-utils.follows = "flake-utils";
     };
+
+    nvim-R = {
+      url = "github:jalvesaq/Nvim-R";
+      flake = false;
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, agenix, ... }:

@@ -365,6 +365,22 @@
         "type": "github"
       }
     },
+    "nvim-R": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1660676947,
+        "narHash": "sha256-4qYSPzFW9ASqi43ZejIPJGY0ZnSL8gucyMsJOgCw/7E=",
+        "owner": "jalvesaq",
+        "repo": "Nvim-R",
+        "rev": "fc7b710edef449a4b4c20548e21ba5e3bfca2df1",
+        "type": "github"
+      },
+      "original": {
+        "owner": "jalvesaq",
+        "repo": "Nvim-R",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -382,6 +398,7 @@
         "nixpkgs": "nixpkgs_2",
         "nixpkgs_stable": "nixpkgs_stable",
         "nixpkgs_trunk": "nixpkgs_trunk",
+        "nvim-R": "nvim-R",
         "sops-nix": "sops-nix"
       }
     },
