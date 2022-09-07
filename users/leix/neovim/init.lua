@@ -66,6 +66,8 @@ local opts = {
 	wrap = true,
 	formatoptions = "jcroql",
 
+    spell = true,
+
 	laststatus = 3, -- Global statusline
 }
 
@@ -142,23 +144,6 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	pattern = "*",
 	callback = function()
 		vim.highlight.on_yank()
-	end,
-	group = group_id,
-})
-
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = {
-		"gitcommit",
-		"gitrebase",
-		"latex",
-		"markdown",
-		"norg",
-		"rmd",
-		"tex",
-		"text",
-	},
-	callback = function()
-		vim.wo.spell = true
 	end,
 	group = group_id,
 })
