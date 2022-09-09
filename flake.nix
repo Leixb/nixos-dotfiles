@@ -81,6 +81,11 @@
       url = "github:jalvesaq/Nvim-R";
       flake = false;
     };
+
+    nix-matlab = {
+      inputs.nixpkgs.follows = "nixpkgs";
+      url = "gitlab:doronbehar/nix-matlab";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, agenix, ... }:
@@ -112,6 +117,7 @@
         inputs.awesome-config.overlay
         inputs.neovim-nightly-overlay.overlay
         inputs.nix-minecraft.overlay
+        inputs.nix-matlab.overlay
       ];
 
       pin-flake-reg = with inputs; {

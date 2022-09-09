@@ -47,5 +47,6 @@ in {
     geogebra
     obs-studio
     kdenlive
+    matlab
   ];
 }
