@@ -29,7 +29,6 @@
   hardware.sensor.iio.enable = true;
 
   networking.hostName = "nixos-pav"; # Define your hostname.
-  networking.interfaces.wlo1.useDHCP = true;
 
   environment.sessionVariables = { MOZ_ENABLE_WAYLAND = "1"; };
 

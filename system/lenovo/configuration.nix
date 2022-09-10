@@ -35,10 +35,6 @@ in {
   ];
 
   networking.hostName = "kuro";
-  networking.interfaces = {
-    enp7s0.useDHCP = true;
-    wlan0.useDHCP = true;
-  };
 
   boot.kernel.sysctl = { "dev.i915.perf_stream_paranoid" = 0; };
 
