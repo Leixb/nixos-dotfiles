@@ -98,7 +98,7 @@ in {
   networking.wireless.enable =
     false; # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
-  networking.networkmanager.wifi.backend = "iwd";
+  # networking.networkmanager.wifi.backend = "iwd";
 
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
