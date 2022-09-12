@@ -28,6 +28,7 @@ in {
 
   home.file.".Rprofile".text = ''
     .libPaths( c( .libPaths(), "${nvimcom}") )
+    options(browser = "xdg-open")
   '';
 
   programs.neovim = {
