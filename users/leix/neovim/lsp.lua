@@ -164,7 +164,6 @@ capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
 
 local lsp_list = {
 	-- 'bashls', -- high CPU usage...
-	"clangd",
 	"cssls",
 	"dartls",
 	"dockerls",
@@ -192,6 +191,14 @@ for _, val in pairs(lsp_list) do
 		capabilities = capabilities,
 	})
 end
+
+-- Fix clangd warning on mixed encoding
+local capabilities_16 = capabilities
+capabilities_16.offsetEncoding = { "utf-16" }
+lspconfig.clangd.setup({
+    on_attach = lsp_attach,
+    capabilities = capabilities_16,
+})
 
 local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
