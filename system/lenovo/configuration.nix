@@ -39,6 +39,7 @@ in {
   boot.kernel.sysctl = { "dev.i915.perf_stream_paranoid" = 0; };
 
   programs.droidcam.enable = true;
+  programs.noisetorch.enable = true;
 
   environment.systemPackages = [ battery_conservation_mode ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
