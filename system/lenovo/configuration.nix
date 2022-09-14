@@ -47,4 +47,10 @@ in {
     ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource NVIDIA-G0 modesetting
     ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-1-0 --primary --auto --right-of eDP-1
   '';
+
+  services.elasticsearch = {
+    enable = true;
+    package = pkgs.elasticsearch7;
+  };
+  systemd.services.elasticsearch.wantedBy = lib.mkForce [];
 }
