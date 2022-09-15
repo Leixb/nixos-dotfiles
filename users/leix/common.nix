@@ -131,6 +131,10 @@ in {
     sageWithDoc
   ];
 
+  home.file.".sage/init.sage".text = ''
+    %colors Linux
+  '';
+
   systemd.user.services.gammastep.Install.WantedBy = lib.mkForce [ ];
 
   services = {
