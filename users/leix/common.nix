@@ -129,6 +129,7 @@ in {
     home-assistant-cli
     luakit
     sageWithDoc
+    neofetch
   ];
 
   home.file.".sage/init.sage".text = ''
