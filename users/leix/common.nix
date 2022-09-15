@@ -56,7 +56,7 @@ in {
   gtk = {
     enable = true;
     theme = {
-      name = "Catppuccin-teal-dark";
+      name = "Catppuccin-Teal-Dark";
       package = pkgs.catppuccin-gtk;
     };
     iconTheme = {
