@@ -128,6 +128,7 @@ in {
     sshfs
     home-assistant-cli
     luakit
+    sageWithDoc
   ];
 
   systemd.user.services.gammastep.Install.WantedBy = lib.mkForce [ ];
