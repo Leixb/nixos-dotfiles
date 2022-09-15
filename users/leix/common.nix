@@ -130,6 +130,7 @@ in {
     luakit
     sageWithDoc
     neofetch
+    pcmanfm
   ];
 
   home.file.".sage/init.sage".text = ''
