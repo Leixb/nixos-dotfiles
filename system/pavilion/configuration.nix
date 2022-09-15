@@ -5,6 +5,7 @@
   imports = [
     ../common.nix
     ./hardware-configuration.nix
+    ../lenovo/awesomewm.nix
     # ./gnome.nix
   ];
 
