@@ -134,6 +134,15 @@ vim.api.nvim_create_autocmd("BufRead", {
 	group = group_id,
 })
 
+-- TODO: Until norg supports spellsitter, disable spellsitter on norg files
+vim.api.nvim_create_autocmd("BufRead", {
+	pattern = "*.norg",
+	callback = function()
+		vim.opt.spelloptions = ""
+	end,
+	group = group_id,
+})
+
 vim.api.nvim_create_autocmd("TermOpen", {
 	pattern = "*",
 	command = "startinsert",
