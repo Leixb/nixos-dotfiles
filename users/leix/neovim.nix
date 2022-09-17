@@ -209,6 +209,7 @@ in {
           vim.g.R_assign = 0
           vim.g.R_args = { "--no-save", "--quiet" }
           vim.g.R_nvimcom_home = "${nvimcom}"
+          vim.g.R_openpdf = 1
         '';
       }
       {
