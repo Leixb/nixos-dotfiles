@@ -52,11 +52,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1663252294,
-        "narHash": "sha256-uDJtwOGX6jGJyH9IOKG0wHPnqvELzU1jwhD+Ewcmh5c=",
+        "lastModified": 1663527629,
+        "narHash": "sha256-qSqVNakW2XthibX7tt0wjNKgs7dq4uCjYya0cmq6BeU=",
         "owner": "leixb",
         "repo": "awesome-copycats",
-        "rev": "4e297c47372de3884153a605a5d5a02a813947d8",
+        "rev": "09b8e283c16cc3eb61f6e528b518afdd05148dde",
         "type": "github"
       },
       "original": {

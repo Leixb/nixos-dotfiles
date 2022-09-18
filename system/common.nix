@@ -85,6 +85,7 @@ in {
   hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ vaapiIntel ];
 
   programs.dconf.enable = true;
+  programs.light.enable = true;
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot = {

@@ -38,11 +38,15 @@ in {
 
   boot.kernel.sysctl = { "dev.i915.perf_stream_paranoid" = 0; };
 
+  boot.kernelParams = [ "acpi_backlight=intel" ];
+
   programs.droidcam.enable = true;
   programs.noisetorch.enable = true;
 
   environment.systemPackages = [ battery_conservation_mode ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
+
+  services.ddccontrol.enable = true;
 
   services.xserver.displayManager.setupCommands = ''
     ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource NVIDIA-G0 modesetting
