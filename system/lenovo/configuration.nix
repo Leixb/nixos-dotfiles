@@ -53,6 +53,11 @@ in {
     ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-1-0 --primary --auto --right-of eDP-1
   '';
 
+  nix.sshServe.enable = true;
+  nix.sshServe.keys = [ 
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKOO1MTb4NP9qgI8P/8feqFXReeLCiB79R6YLPlXQaRQ leix@nixos-pav"
+  ];
+
   services.elasticsearch = {
     enable = true;
     package = pkgs.elasticsearch7;
