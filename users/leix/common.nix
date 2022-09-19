@@ -131,6 +131,7 @@ in {
     sageWithDoc
     neofetch
     pcmanfm
+    powertop
   ];
 
   home.file.".sage/init.sage".text = ''
