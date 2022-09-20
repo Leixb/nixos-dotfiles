@@ -2,6 +2,8 @@
 
 let palette = import ../../users/modules/theme/palette.nix;
 in {
+  security.pam.services.lightdm.enableGnomeKeyring = true;
+
   services.xserver = {
     enable = true;
     exportConfiguration = true;
