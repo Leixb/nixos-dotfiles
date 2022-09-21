@@ -136,8 +136,6 @@ in {
     useXkbConfig = true;
   };
 
-  services.gnome.gnome-keyring.enable = true;
-
   programs.mtr.enable = true;
 
   hardware.bluetooth.enable = true;
@@ -205,7 +203,7 @@ in {
     logitech-udev-rules
     headsetcontrol
   ];
-  services.dbus.packages = with pkgs; [ gcr gnome.gnome-keyring ];
+  services.dbus.packages = with pkgs; [ gcr ];
 
   # Mout MTP and other network shares
   services.gvfs.enable = true;

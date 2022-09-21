@@ -77,7 +77,6 @@ in {
     DOCKER_CONFIG = "${config.xdg.configHome}/docker";
     ANDROID_HOME = "${config.xdg.dataHome}/android";
     CARGO_HOME = "${config.xdg.dataHome}/cargo";
-    GNUPGHOME = "${config.xdg.dataHome}/gnupg";
     GRIPHOME = "${config.xdg.configHome}/grip";
     PARALLEL_HOME = "${config.xdg.configHome}/parallel";
     JUPYTER_CONFIG_DIR = "${config.xdg.configHome}/jupyter";
@@ -132,6 +131,7 @@ in {
     neofetch
     pcmanfm
     powertop
+    gcr
   ];
 
   home.file.".sage/init.sage".text = ''
@@ -140,6 +140,18 @@ in {
 
   systemd.user.services.gammastep.Install.WantedBy = lib.mkForce [ ];
 
+  programs.gpg = {
+    enable = true;
+    homedir = "${config.xdg.dataHome}/gnupg";
+  };
+  services.gpg-agent = {
+    enable = true;
+    enableSshSupport = true;
+    defaultCacheTtl = 3600;
+    defaultCacheTtlSsh = 3600;
+    pinentryFlavor = "gtk2";
+  };
+
   services = {
     caffeine.enable = true;
 
@@ -147,14 +159,6 @@ in {
       enable = true;
       longitude = 41.4;
       latitude = 2.0;
-    };
-
-    gpg-agent = {
-      enable = true;
-      # enableSshSupport = true;
-      defaultCacheTtl = 3600;
-      defaultCacheTtlSsh = 3600;
-      pinentryFlavor = "gtk2";
     };
 
     network-manager-applet.enable = true;

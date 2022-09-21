@@ -2,8 +2,6 @@
 
 let palette = import ../../users/modules/theme/palette.nix;
 in {
-  security.pam.services.lightdm.enableGnomeKeyring = true;
-
   services.xserver = {
     enable = true;
     exportConfiguration = true;
@@ -59,7 +57,7 @@ in {
     # Configure keymap in X11
     layout = "eu";
     # xkbVariant = "altgr-intl";
-    # xkbOptions = "lv3:caps_switch,shift:both_capslock,ralt:compose";
+    xkbOptions = "lv3:caps_switch,shift:both_capslock";
 
     # Enable touchpad support (enabled default in most desktopManager).
     libinput = {
