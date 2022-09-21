@@ -151,7 +151,7 @@ in {
 
     gpg-agent = {
       enable = true;
-      enableSshSupport = true;
+      # enableSshSupport = true;
       defaultCacheTtl = 3600;
       defaultCacheTtlSsh = 3600;
       pinentryFlavor = "gtk2";
