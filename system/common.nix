@@ -188,7 +188,7 @@ in {
     ];
   };
 
-  environment.systemPackages = with pkgs; [ vim wget openssl update_system ];
+  environment.systemPackages = with pkgs; [ cntr vim wget openssl update_system ];
 
   system.activationScripts.diff = ''
     [ -d /run/current-system ] && ${pkgs.nixUnstable}/bin/nix store \
