@@ -1,11 +1,8 @@
 vim.g.tex_flavor = "latex"
 
-vim.g.vimtex_compiler_progname = "nvr"
 vim.g.vimtex_view_method = "zathura"
 vim.g.vimtex_view_use_temp_files = 1
 vim.g.vimtex_compiler_latexmk = {
-	backend = "nvim",
-	background = 1,
 	build_dir = "",
 	callback = 1,
 	continuous = 1,
@@ -31,3 +28,4 @@ vim.g.vimtex_compiler_latexmk_engines = {
 	["context (luatex)"] = "-pdf -pdflatex=context",
 	["context (xetex)"] = "-pdf -pdflatex=''texexec --xtx''",
 }
+vim.g.vimtex_imaps_leader = ";"

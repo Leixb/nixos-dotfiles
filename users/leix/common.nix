@@ -44,6 +44,7 @@ in {
     };
     enableKittyTheme = true;
     enableBatTheme = true;
+    enableZathuraTheme = true;
   };
 
   home.pointerCursor = {
@@ -93,7 +94,6 @@ in {
     tdesktop # telegram desktop
     element-desktop
     fd
-    zathura
     bottom
     beekeeper-studio
     ripgrep
@@ -286,6 +286,8 @@ in {
       golang.go
     ];
   };
+
+  programs.zathura.enable = true;
 
   programs.nix-index.enable = true;
   home.file.".cache/nix-index/files".source = pkgs.nix-index-database;

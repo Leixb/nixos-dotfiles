@@ -52,6 +52,7 @@ in {
 
       enableKittyTheme = mkEnableOption "enableKittyTheme";
       enableBatTheme = mkEnableOption "enableBatTheme";
+      enableZathuraTheme = mkEnableOption "enableZathuraTheme";
     };
   };
 
@@ -228,6 +229,50 @@ in {
             sha256 = "sha256-RQCo35Gi8M0Xonkvd6EBPNeid1OLStIXIIHq4x5nM/U=";
           } + "/Catppuccin.tmTheme");
         };
+      };
+    })
+
+    (mkIf cfg.enableZathuraTheme {
+      programs.zathura.options = with cfg.palette; {
+        
+        default-fg = white;
+        default-bg = black;
+
+        completion-bg = darkgray1;
+        completion-fg = white;
+        completion-highlight-bg = darkgray2;
+        completion-highlight-fg = white;
+        completion-group-bg = darkgray1;
+        completion-group-fg = blue;
+
+        statusbar-fg = white;
+        statusbar-bg = black;
+
+        notification-bg = black;
+        notification-fg = white;
+        notification-error-bg = black;
+        notification-error-fg = red;
+        notification-warning-bg = black;
+        notification-warning-fg = yellow;
+
+        inputbar-fg = white;
+        inputbar-bg = black;
+
+        recolor-lightcolor = black;
+        recolor-darkcolor = white;
+
+        index-fg = white;
+        index-bg = black;
+        index-active-fg = white;
+        index-active-bg = darkgray1;
+
+        render-loading-bg = black;
+        render-loading-fg = white;
+
+        highlight-color = darkgray2;
+        highlight-fg = pink;
+        highlight-active-color = flamingo;
+
       };
     })
 

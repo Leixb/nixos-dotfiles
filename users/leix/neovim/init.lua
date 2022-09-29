@@ -69,6 +69,7 @@ local opts = {
     spell = true,
 
 	laststatus = 3, -- Global statusline
+    conceallevel = 2,
 }
 
 for k, v in pairs(opts) do
