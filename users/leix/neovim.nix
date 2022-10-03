@@ -209,11 +209,6 @@ in {
       friendly-snippets
 
       {
-        plugin = rust-tools-nvim;
-        type = "lua";
-        config = builtins.readFile ./neovim/rust-tools-nvim.lua;
-      }
-      {
         plugin = vimtex;
         type = "lua";
         config = builtins.readFile ./neovim/vimtex.lua;
@@ -270,6 +265,11 @@ in {
       lsp_signature-nvim
       lspkind-nvim
       nvim-code-action-menu
+      {
+        plugin = rust-tools-nvim;
+        type = "lua";
+        config = builtins.readFile ./neovim/rust-tools-nvim.lua; # After lsp.lua
+      }
 
       {
         plugin = null-ls-nvim;

@@ -29,3 +29,4 @@ vim.g.vimtex_compiler_latexmk_engines = {
 	["context (xetex)"] = "-pdf -pdflatex=''texexec --xtx''",
 }
 vim.g.vimtex_imaps_leader = ";"
+vim.g.vimtex_callback_progpath = "nvim"

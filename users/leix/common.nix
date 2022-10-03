@@ -216,10 +216,9 @@ in {
       vim = "nvim";
       vi = "nvim";
       o = "xdg-open";
-      gtd = "nvim -c 'NeorgStart silent=true' -c 'Neorg gtd views'";
-      neorg = "nvim -c 'NeorgStart'";
-      norg = "nvim -c 'NeorgStart'";
-      journal = "nvim -c 'NeorgStart silent=true' -c 'Neorg journal'";
+      gtd = "nvim -c 'Neorg workspace gtd' -c 'Neorg gtd views'";
+      notes = "nvim -c 'Neorg workspace notes'";
+      journal = "nvim -c 'Neorg journal'";
     };
     interactiveShellInit = ''
       set fish_greeting

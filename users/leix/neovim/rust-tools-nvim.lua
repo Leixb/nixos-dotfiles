@@ -10,7 +10,9 @@ rt.setup({
 		},
 	},
 	server = {
-        on_attach = function(_, bufnr)
+        on_attach = function(client, bufnr)
+        lsp_attach(client, bufnr)
+
         -- Hover actions
         vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr, desc = "Hover action"})
         -- Code action groups
