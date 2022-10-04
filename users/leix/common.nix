@@ -127,16 +127,19 @@ in {
     sshfs
     home-assistant-cli
     luakit
-    sageWithDoc
     neofetch
     pcmanfm
     powertop
     gcr
   ];
 
-  home.file.".sage/init.sage".text = ''
-    %colors Linux
-  '';
+  programs.sagemath = {
+    enable = true;
+    package = pkgs.sageWithDoc;
+    initScript = ''
+      %colors Linux
+    '';
+  };
 
   systemd.user.services.gammastep.Install.WantedBy = lib.mkForce [ ];
 
