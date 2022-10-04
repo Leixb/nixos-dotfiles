@@ -46,6 +46,7 @@ in
     enableKittyTheme = true;
     enableBatTheme = true;
     enableZathuraTheme = true;
+    enableLuakitTheme = true;
   };
 
   home.pointerCursor = {
@@ -142,7 +143,6 @@ in
       c.InteractiveShell.colors = 'Linux'
     '';
   };
-
   programs.sagemath = {
     enable = true;
     package = pkgs.sageWithDoc;

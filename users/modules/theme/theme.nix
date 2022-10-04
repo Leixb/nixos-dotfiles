@@ -53,6 +53,7 @@ in {
       enableKittyTheme = mkEnableOption "enableKittyTheme";
       enableBatTheme = mkEnableOption "enableBatTheme";
       enableZathuraTheme = mkEnableOption "enableZathuraTheme";
+      enableLuakitTheme = mkEnableOption "enableLuakitTheme";
     };
   };
 
@@ -277,6 +278,107 @@ in {
           highlight-active-color = flamingo;
 
         };
+      })
+
+      (mkIf cfg.enableLuakitTheme {
+        xdg.configFile."luakit/theme.lua".text = with cfg.palette; ''
+          local theme = {}
+
+          -- Default settings
+          theme.font = "${builtins.toString cfg.font.size}px ${cfg.font.family}"
+          theme.fg   = "${white}"
+          theme.bg   = "${black}"
+
+          -- General colours
+          theme.success_fg = "${green}"
+          theme.loaded_fg  = "${blue}"
+          theme.error_fg = "${black}"
+          theme.error_bg = "${red}"
+
+          -- Warning colours
+          theme.warning_fg = "${yellow}"
+          theme.warning_bg = "${white}"
+
+          -- Notification colours
+          theme.notif_fg = "${darkgray1}"
+          theme.notif_bg = "${white}"
+
+          -- Menu colours
+          theme.menu_fg                   = "${black}"
+          theme.menu_bg                   = "${white}"
+          theme.menu_selected_fg          = "${black}"
+          theme.menu_selected_bg          = "${yellow}"
+          theme.menu_title_bg             = "${white}"
+          theme.menu_primary_title_fg     = "${red}"
+          theme.menu_secondary_title_fg   = "${gray}"
+
+          theme.menu_disabled_fg = "${lightgray2}"
+          theme.menu_disabled_bg = theme.menu_bg
+          theme.menu_enabled_fg = theme.menu_fg
+          theme.menu_enabled_bg = theme.menu_bg
+          theme.menu_active_fg = "${green}"
+          theme.menu_active_bg = theme.menu_bg
+
+          -- Proxy manager
+          theme.proxy_active_menu_fg      = '${black}'
+          theme.proxy_active_menu_bg      = '${white}'
+          theme.proxy_inactive_menu_fg    = '${gray}'
+          theme.proxy_inactive_menu_bg    = '${white}'
+
+          -- Statusbar specific
+          theme.sbar_fg         = "${white}"
+          theme.sbar_bg         = "${black}"
+
+          -- Downloadbar specific
+          theme.dbar_fg         = "${white}"
+          theme.dbar_bg         = "${black}"
+          theme.dbar_error_fg   = "${red}"
+
+          -- Input bar specific
+          theme.ibar_fg           = "${black}"
+          theme.ibar_bg           = "rgba(0,0,0,0)"
+
+          -- Tab label
+          theme.tab_fg            = "${gray}"
+          theme.tab_bg            = "${darkblack}"
+          theme.tab_hover_bg      = "${black}"
+          theme.tab_ntheme        = "${gray}"
+          theme.selected_fg       = "${white}"
+          theme.selected_bg       = "${black}"
+          theme.selected_ntheme   = "${gray}"
+          theme.loading_fg        = "${blue}"
+          theme.loading_bg        = "${black}"
+
+          theme.selected_private_tab_bg = "${mauve}"
+          theme.private_tab_bg    = "${pink}"
+
+          -- Trusted/untrusted ssl colours
+          theme.trust_fg          = "${green}"
+          theme.notrust_fg        = "${red}"
+
+          -- Follow mode hints
+          -- theme.hint_font = "13px monospace, courier, sans-serif"
+          theme.hint_font = "bold ${builtins.toString cfg.font.size}px monospace, courier, sans-serif"
+          theme.hint_fg = "${white}"
+          theme.hint_bg = "${darkblack}"
+          theme.hint_border = "1px dashed ${black}"
+          theme.hint_opacity = "0.3"
+          theme.hint_overlay_bg = "rgba(255,255,153,0.3)"
+          theme.hint_overlay_border = "1px dotted ${black}"
+          theme.hint_overlay_selected_bg = "rgba(0,255,0,0.3)"
+          theme.hint_overlay_selected_border = theme.hint_overlay_border
+
+          -- General colour pairings
+          theme.ok = { fg = "${black}", bg = "${white}" }
+          theme.warn = { fg = "${yellow}", bg = "${white}" }
+          theme.error = { fg = "${black}", bg = "${red}" }
+
+          -- Gopher page style (override defaults)
+          theme.gopher_light = { bg = "${white}", fg = "${black}", link = "${blue}" }
+          theme.gopher_dark  = { bg = "${black}", fg = "${white}", link = "${peach}" }
+
+          return theme
+        '';
       })
 
     ]);
