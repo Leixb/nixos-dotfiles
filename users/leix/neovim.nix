@@ -1,7 +1,8 @@
 { pkgs, inputs, ... }:
 let
   bufresize-nvim = pkgs.vimUtils.buildVimPlugin {
-    name = "bufresize-nvim";
+    pname = "bufresize-nvim";
+    version = "2021-03-21";
     src = pkgs.fetchFromGitHub {
       owner = "kwkarlwang";
       repo = "bufresize.nvim";
@@ -11,7 +12,8 @@ let
   };
 
   nvim-R = pkgs.vimUtils.buildVimPlugin {
-    name = "nvim-R";
+    pname = "nvim-R";
+    version = "master";
     src =  inputs.nvim-R;
   };
 
