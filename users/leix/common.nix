@@ -15,7 +15,8 @@ let
   vpn-connect = pkgs.writeShellScriptBin "vpn-connect" ''
     sudo ${pkgs.gof5}/bin/gof5 -server https://upclink.upc.edu -username aleix.bone "$@"
   '';
-in {
+in
+{
   imports = [ ./mime-apps.nix ./neovim.nix ../modules/all.nix ];
 
   # Let Home Manager install and manage itself.
@@ -132,6 +133,15 @@ in {
     powertop
     gcr
   ];
+
+  home.sessionVariables.IPYTHONDIR = "${config.xdg.configHome}/ipython";
+  xdg.configFile."ipython/profile_default/ipython_config.py" = {
+    recursive = true;
+    text = ''
+      c = get_config()
+      c.InteractiveShell.colors = 'Linux'
+    '';
+  };
 
   programs.sagemath = {
     enable = true;
