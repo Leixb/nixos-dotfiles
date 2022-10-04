@@ -13,7 +13,8 @@ let
       sudo nixos-rebuild switch --flake .#
     fi
   '';
-in {
+in
+{
   imports = [ ./restic.nix ];
 
   boot.kernel.sysctl = {

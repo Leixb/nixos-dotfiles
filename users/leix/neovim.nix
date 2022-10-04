@@ -14,41 +14,44 @@ let
   nvim-R = pkgs.vimUtils.buildVimPlugin {
     pname = "nvim-R";
     version = "master";
-    src =  inputs.nvim-R;
+    src = inputs.nvim-R;
   };
 
-  nvimcom = pkgs.rPackages.buildRPackage {
-    name = "nvimcom";
-    src = inputs.nvim-R + "/R/nvimcom";
-  } + "/library";
+  nvimcom = pkgs.rPackages.buildRPackage
+    {
+      name = "nvimcom";
+      src = inputs.nvim-R + "/R/nvimcom";
+    } + "/library";
 
   # neorg_master = pkgs.vimUtils.buildVimPluginFrom2Nix {
   #   name = "neorg";
   #   src = inputs.neorg;
   # };
-in {
+in
+{
 
   home.packages = with pkgs; [
 
     # Packages needed for synctex
     xdotool
 
-  (neovim-remote.overrideAttrs (old: {
-    doCheck = false;
-    disabledTests = old.disabledTests ++ [ "test_remote_send" ];
-    preCheck = ''
-      cat > pytest.ini <<EOF
-      [pytest]
-      filterwarnings =
-          ignore::DeprecationWarning
-      EOF
+    (neovim-remote.overrideAttrs (old: {
+      doCheck = false;
+      disabledTests = old.disabledTests ++ [ "test_remote_send" ];
+      preCheck = ''
+        cat > pytest.ini <<EOF
+        [pytest]
+        filterwarnings =
+            ignore::DeprecationWarning
+        EOF
 
-      cat >tests/test_nvr.py <<EOF
-      def test_placeholder():
-        pass
-      EOF
-    '';
-  }))];
+        cat >tests/test_nvr.py <<EOF
+        def test_placeholder():
+          pass
+        EOF
+      '';
+    }))
+  ];
 
   home.file.".Rprofile".text = ''
     .libPaths( c( .libPaths(), "${nvimcom}") )
@@ -94,7 +97,8 @@ in {
 
     # plugins = with pkgs.vimPlugins; [
     plugins = with pkgs.trunk.vimPlugins; [
-      { # This must be the first plugin to load
+      {
+        # This must be the first plugin to load
         plugin = impatient-nvim;
         type = "lua";
         config = ''

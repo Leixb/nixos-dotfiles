@@ -10,6 +10,12 @@
     flake-compat.url = "github:edolstra/flake-compat";
     flake-compat.flake = false;
 
+    pre-commit-hooks = {
+      url = "github:cachix/pre-commit-hooks.nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
+
     home-manager = {
       url = "github:nix-community/home-manager/master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -88,7 +94,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, agenix, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, agenix, pre-commit-hooks, ... }:
     let
       system = "x86_64-linux";
 
@@ -132,8 +138,7 @@
             nix.nixPath = [ "nixpkgs=${nixpkgs}" ];
             environment.sessionVariables.NIXPKGS = "${nixpkgs}";
           }
-          inputs.nix-minecraft.nixosModules.minecraft-servers
-        ];
+            inputs.nix-minecraft.nixosModules.minecraft-servers];
         })
         { nixpkgs.overlays = overlays; }
         pin-flake-reg
@@ -142,7 +147,33 @@
       ];
 
       inherit (nixpkgs) lib;
-    in {
+      pkgs = import nixpkgs { inherit system; };
+    in
+    {
+
+      checks.${system}.pre-commit-check = pre-commit-hooks.lib.${system}.run {
+        src = ./.;
+        hooks = {
+          nixpkgs-fmt.enable = true;
+          shfmt.enable = true;
+          shellcheck = {
+            enable = true;
+            types_or = pkgs.lib.mkForce [ ];
+          };
+          stylua.enable = true;
+        };
+      };
+
+      devShells.${system}.default = pkgs.mkShellNoCC {
+        name = "nixos";
+
+        buildInputs = with pkgs; [
+          nixpkgs-fmt
+        ];
+
+        inherit (self.checks.${system}.pre-commit-check) shellHook;
+      };
+
       nixosConfigurations = {
         kuro = lib.nixosSystem {
           inherit system;
@@ -181,11 +212,13 @@
           nixpkgs = import nixpkgs { inherit system; };
         };
 
-      } // builtins.mapAttrs (name: value: {
-        nixpkgs.system = value.config.nixpkgs.system;
-        imports = value._module.args.modules;
-        deployment.allowLocalDeployment = true;
-      }) self.nixosConfigurations;
+      } // builtins.mapAttrs
+        (name: value: {
+          nixpkgs.system = value.config.nixpkgs.system;
+          imports = value._module.args.modules;
+          deployment.allowLocalDeployment = true;
+        })
+        self.nixosConfigurations;
 
       # deploy.nodes.kuro = {
       #   hostname = "localhost";

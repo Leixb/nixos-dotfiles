@@ -1,6 +1,7 @@
-{pkgs, lib, ...}:
+{ pkgs, lib, ... }:
 
-let base-config = {
+let
+  base-config = {
     enable = true;
     autoStart = false;
     package = pkgs.fabricServers.fabric;
@@ -35,8 +36,8 @@ let base-config = {
         WoolTweaks = { id = "1edYtxOA"; hash = "9272c5d91c9292e1d1615e5cbe33726a68f914c6ee47b8f8b3cfdc499e15b16b"; };
       }));
     };
-};
-in 
+  };
+in
 {
   services.minecraft-servers = {
     enable = true;
@@ -44,9 +45,12 @@ in
 
     servers = {
       main = base-config;
-      carla = lib.mkMerge [ base-config {
-        serverProperties.server-port = 19090;
-      }];
+      carla = lib.mkMerge [
+        base-config
+        {
+          serverProperties.server-port = 19090;
+        }
+      ];
     };
   };
 }

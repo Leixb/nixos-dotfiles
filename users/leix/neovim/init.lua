@@ -66,10 +66,10 @@ local opts = {
 	wrap = true,
 	formatoptions = "jcroql",
 
-    spell = true,
+	spell = true,
 
 	laststatus = 3, -- Global statusline
-    conceallevel = 2,
+	conceallevel = 2,
 }
 
 for k, v in pairs(opts) do

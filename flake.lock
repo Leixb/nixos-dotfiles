@@ -418,6 +418,29 @@
         "type": "github"
       }
     },
+    "pre-commit-hooks": {
+      "inputs": {
+        "flake-utils": [
+          "flake-utils"
+        ],
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1664708386,
+        "narHash": "sha256-aCD8UUGNYb5nYzRmtsq/0yP9gFOQQHr/Lsb5vW+mucw=",
+        "owner": "cachix",
+        "repo": "pre-commit-hooks.nix",
+        "rev": "2e4a708918e14fdbd534cc94aaa9470cd19b2464",
+        "type": "github"
+      },
+      "original": {
+        "owner": "cachix",
+        "repo": "pre-commit-hooks.nix",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "agenix": "agenix",
@@ -437,6 +460,7 @@
         "nixpkgs_stable": "nixpkgs_stable",
         "nixpkgs_trunk": "nixpkgs_trunk",
         "nvim-R": "nvim-R",
+        "pre-commit-hooks": "pre-commit-hooks",
         "sops-nix": "sops-nix"
       }
     },

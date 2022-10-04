@@ -37,7 +37,8 @@ let
     sudo ${pkgs.util-linux}/bin/losetup -d /dev/loop7
     sudo ${pkgs.util-linux}/bin/umount /dev/sda2
   '';
-in {
+in
+{
   imports = [ ./common.nix ./sway.nix ./gaming.nix ./awesomewm.nix ./mpd.nix ];
 
   home.packages = with pkgs; [

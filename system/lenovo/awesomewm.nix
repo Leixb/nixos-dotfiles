@@ -7,9 +7,9 @@ in {
     exportConfiguration = true;
 
     extraConfig = ''
-    Section "Extensions"
-        Option "MIT-SHM" "Disable"
-    EndSection
+      Section "Extensions"
+          Option "MIT-SHM" "Disable"
+      EndSection
     '';
 
     displayManager = {
@@ -23,12 +23,14 @@ in {
         start = "exec $HOME/.xsession";
       }];
 
-      sessionCommands = let
-        xmodmap_config = pkgs.writeText "xkb-layout" ''
-          clear lock
-          keycode 66 = F13 F13 F13 F13
-        '';
-      in "${pkgs.xorg.xmodmap}/bin/xmodmap ${xmodmap_config}";
+      sessionCommands =
+        let
+          xmodmap_config = pkgs.writeText "xkb-layout" ''
+            clear lock
+            keycode 66 = F13 F13 F13 F13
+          '';
+        in
+        "${pkgs.xorg.xmodmap}/bin/xmodmap ${xmodmap_config}";
 
       lightdm.enable = true;
       lightdm.greeters.mini = {

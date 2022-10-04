@@ -31,10 +31,10 @@ require("neorg").setup({
 		},
 		["core.norg.concealer"] = {},
 		["core.export.markdown"] = {
-            config = {
-                extensions = "all",
-            },
-        },
+			config = {
+				extensions = "all",
+			},
+		},
 		["core.presenter"] = {
 			config = {
 				zen_mode = "zen-mode",

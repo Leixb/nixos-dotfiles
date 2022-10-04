@@ -21,7 +21,8 @@ let
 
     $1
   '';
-in {
+in
+{
   _module.args.location = location;
   imports = [
     ../common.nix
@@ -54,7 +55,7 @@ in {
   '';
 
   nix.sshServe.enable = true;
-  nix.sshServe.keys = [ 
+  nix.sshServe.keys = [
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKOO1MTb4NP9qgI8P/8feqFXReeLCiB79R6YLPlXQaRQ leix@nixos-pav"
   ];
 
@@ -62,5 +63,5 @@ in {
     enable = true;
     package = pkgs.elasticsearch7;
   };
-  systemd.services.elasticsearch.wantedBy = lib.mkForce [];
+  systemd.services.elasticsearch.wantedBy = lib.mkForce [ ];
 }

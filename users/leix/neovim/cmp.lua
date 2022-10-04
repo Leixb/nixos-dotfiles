@@ -16,10 +16,14 @@ cmp.setup({
 		["<C-Space>"] = cmp.mapping.complete(),
 		["<C-e>"] = cmp.mapping.close(),
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
-        ["<M-;>"] = cmp.mapping(function(fallback)
-            vim.api.nvim_feedkeys(vim.fn['copilot#Accept'](vim.api.nvim_replace_termcodes('<Tab>', true, true, true)), 'n', true)
-        end)
-    }),
+		["<M-;>"] = cmp.mapping(function(fallback)
+			vim.api.nvim_feedkeys(
+				vim.fn["copilot#Accept"](vim.api.nvim_replace_termcodes("<Tab>", true, true, true)),
+				"n",
+				true
+			)
+		end),
+	}),
 
 	sources = {
 		{ name = "nvim_lsp" },

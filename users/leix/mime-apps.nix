@@ -24,7 +24,8 @@ let
 
     "x-scheme-handler/tg" = "userapp-Telegram Desktop-S07QK1.desktop";
   };
-in {
+in
+{
   xdg.mimeApps.enable = true;
   xdg.mimeApps.associations.added = associations;
   xdg.mimeApps.defaultApplications = associations;

@@ -167,12 +167,12 @@ local lsp_list = {
 	"cssls",
 	"dartls",
 	"dockerls",
-    "eslint",
+	"eslint",
 	"gopls",
 	-- 'hls',
 	"html",
 	"jdtls",
-	'jsonls',
+	"jsonls",
 	"julials",
 	-- 'kotlin_language_server',
 	"rnix",
@@ -196,8 +196,8 @@ end
 local capabilities_16 = capabilities
 capabilities_16.offsetEncoding = { "utf-16" }
 lspconfig.clangd.setup({
-    on_attach = lsp_attach,
-    capabilities = capabilities_16,
+	on_attach = lsp_attach,
+	capabilities = capabilities_16,
 })
 
 local runtime_path = vim.split(package.path, ";")
