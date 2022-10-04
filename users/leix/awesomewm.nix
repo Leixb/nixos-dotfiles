@@ -1,7 +1,12 @@
 { config, lib, pkgs, system, inputs, ... }:
 
 {
-  xdg.configFile = { "awesome".source = pkgs.awesome-config; };
+  xdg.configFile = {
+    "awesome" = {
+      source = pkgs.awesome-config;
+      onChange = "awesome-client 'awesome.restart()'";
+    };
+  };
 
   home.packages = with pkgs; [
     (i3lock-fancy-rapid.override {
