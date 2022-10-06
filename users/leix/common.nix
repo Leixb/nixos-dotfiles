@@ -255,6 +255,7 @@ in
     keyMode = "vi";
     extraConfig = ''
       set -g mouse on
+      setw -g mode-keys vi
     '';
   };
 
