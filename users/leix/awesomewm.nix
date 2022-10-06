@@ -62,6 +62,22 @@
     udiskie.enable = true;
 
     unclutter.enable = true;
+
+    fusuma = {
+      enable = true;
+      config = {
+        swipe = {
+          "3" = {
+            left = ''
+              awesome-client 'require("awful").tag.viewnext()'
+            '';
+            right = ''
+              awesome-client 'require("awful").tag.viewprev()'
+            '';
+          };
+        };
+      };
+    };
   };
 
   programs.rofi = {
