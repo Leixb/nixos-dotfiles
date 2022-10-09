@@ -62,6 +62,9 @@ in
   services.elasticsearch = {
     enable = true;
     package = pkgs.elasticsearch7;
+    extraConf = ''
+      xpack.security.enabled: false
+    '';
   };
   systemd.services.elasticsearch.wantedBy = lib.mkForce [ ];
 }
