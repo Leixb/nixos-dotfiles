@@ -9,32 +9,29 @@ cmp.setup({
 	},
 
 	mapping = cmp.mapping.preset.insert({
-		["<C-p>"] = cmp.mapping.select_prev_item(),
-		["<C-n>"] = cmp.mapping.select_next_item(),
+		["<C-p>"] = cmp.mapping(cmp.mapping.select_prev_item(), { "i", "c" }),
+		["<C-n>"] = cmp.mapping(cmp.mapping.select_next_item(), { "i", "c" }),
 		["<C-f>"] = cmp.mapping.scroll_docs(-4),
 		["<C-d>"] = cmp.mapping.scroll_docs(4),
 		["<C-Space>"] = cmp.mapping.complete(),
 		["<C-e>"] = cmp.mapping.close(),
 		["<CR>"] = cmp.mapping.confirm({ select = false }),
 		["<M-;>"] = cmp.mapping(function(fallback)
-			vim.api.nvim_feedkeys(
-				vim.fn["copilot#Accept"](vim.api.nvim_replace_termcodes("<Tab>", true, true, true)),
-				"n",
-				true
-			)
+			vim.api.nvim_feedkeys(vim.fn["copilot#Accept"](""), "n", true)
 		end),
 	}),
 
-	sources = {
+	sources = cmp.config.sources({
 		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
-		{ name = "buffer" },
 		{ name = "calc" },
 		{ name = "path" },
 		{ name = "nvim_lua" },
 		{ name = "latex_symbols" },
 		{ name = "neorg" },
-	},
+	}, {
+		{ name = "buffer" },
+	}),
 	formatting = {
 		format = function(entry, vim_item)
 			-- fancy icons and a name of kind
@@ -54,6 +51,32 @@ cmp.setup({
 			return vim_item
 		end,
 	},
+})
+
+cmp.setup.filetype("gitcommit", {
+	sources = cmp.config.sources({
+		{ name = "cmp_git" },
+		{ name = "path" },
+	}, {
+		{ name = "buffer" },
+		{ name = "dictionary" },
+	}),
+})
+
+cmp.setup.cmdline({ "/", "?" }, {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = {
+		{ name = "buffer" },
+	},
+})
+
+cmp.setup.cmdline(":", {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = cmp.config.sources({
+		{ name = "path" },
+	}, {
+		{ name = "cmdline" },
+	}),
 })
 
 local cmp_autopairs = require("nvim-autopairs.completion.cmp")

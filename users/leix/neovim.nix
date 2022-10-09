@@ -30,27 +30,11 @@ let
 in
 {
 
+  # Packages needed for synctex
   home.packages = with pkgs; [
-
-    # Packages needed for synctex
     xdotool
-
-    (neovim-remote.overrideAttrs (old: {
-      doCheck = false;
-      disabledTests = old.disabledTests ++ [ "test_remote_send" ];
-      preCheck = ''
-        cat > pytest.ini <<EOF
-        [pytest]
-        filterwarnings =
-            ignore::DeprecationWarning
-        EOF
-
-        cat >tests/test_nvr.py <<EOF
-        def test_placeholder():
-          pass
-        EOF
-      '';
-    }))
+    neovim-remote
+    pstree
   ];
 
   home.file.".Rprofile".text = ''
@@ -187,6 +171,15 @@ in
       }
       nvim-web-devicons
 
+      # {
+      #   plugin = noice-nvim;
+      #   type = "lua";
+      #   config = ''
+      #     require("noice").setup()
+      #     require("telescope").load_extension("noice")
+      #   '';
+      # }
+
       {
         plugin = nvim-notify;
         type = "lua";
@@ -205,6 +198,8 @@ in
       cmp-latex-symbols
       cmp-nvim-lua
       cmp-nvim-lsp
+      cmp-cmdline
+      cmp-git
 
       {
         plugin = luasnip;

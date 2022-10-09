@@ -133,7 +133,7 @@ local function lsp_attach(client, bufnr)
 
 	require("lsp_signature").on_attach()
 
-	require("notify")(string.format("[lsp] %s", client.name), "info", { title = "[lsp] Active" })
+	require("notify")(string.format("[lsp] %s", client.name), "info", { render = "minimal", timeout = 2000 })
 
 	if client.server_capabilities.codeLensProvider then
 		vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
