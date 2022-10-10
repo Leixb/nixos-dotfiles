@@ -57,7 +57,8 @@ in
       ## LSP
       ltex-ls
       ripgrep
-      rnix-lsp
+      # rnix-lsp
+      nil
       sumneko-lua-language-server
       gopls
       texlab
@@ -175,9 +176,9 @@ in
       #   plugin = noice-nvim;
       #   type = "lua";
       #   config = ''
-      #     require("noice").setup()
-      #     require("telescope").load_extension("noice")
-      #   '';
+      #     require("noice").setup({ popupmenu = { enabled = false }})
+      #     -- require("telescope").load_extension("noice")
+      #   ''; # TODO: enable telescope extension once it hits master
       # }
 
       {
@@ -321,12 +322,6 @@ in
         config = ''
           require'zen-mode'.setup()
         '';
-      }
-
-      {
-        plugin = auto-session;
-        type = "lua";
-        config = builtins.readFile ./neovim/auto-session.lua;
       }
     ];
 
