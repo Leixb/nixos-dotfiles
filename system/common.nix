@@ -179,6 +179,7 @@ in
       "libvirtd"
       "audio"
       "video"
+      "input"
     ]; # Enable ‘sudo’ for the user.
     shell = pkgs.fish;
     openssh.authorizedKeys.keys = [
