@@ -135,7 +135,7 @@
       common-modules = [
         ({ ... }: {
           imports = [{
-            nix.nixPath = [ "nixpkgs=${nixpkgs}" ];
+            nix.nixPath = [ "nixpkgs=${nixpkgs}" "home-manager=${home-manager}" ];
             environment.sessionVariables.NIXPKGS = "${nixpkgs}";
           }
             inputs.nix-minecraft.nixosModules.minecraft-servers];
