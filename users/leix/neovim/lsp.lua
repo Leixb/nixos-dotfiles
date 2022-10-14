@@ -176,7 +176,6 @@ local lsp_list = {
 	"julials",
 	-- 'kotlin_language_server',
 	-- "rnix",
-	"nil_ls",
 	"r_language_server",
 	-- 'rls',
 	"svelte",
@@ -192,6 +191,16 @@ for _, val in pairs(lsp_list) do
 		capabilities = capabilities,
 	})
 end
+
+lspconfig.nil_ls.setup({
+	on_attach = lsp_attach,
+	capabilities = capabilities,
+	settings = {
+		formatting = {
+			command = "nixpkgs-fmt",
+		},
+	},
+})
 
 -- Fix clangd warning on mixed encoding
 local capabilities_16 = capabilities
