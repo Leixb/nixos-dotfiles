@@ -69,6 +69,15 @@ in
     gtk3.bookmarks = [ "file:///home/leix/Documents/UPC" ];
   };
 
+  qt = {
+    enable = true;
+    platformTheme = "gnome";
+    style = {
+      name = "Catppuccin-Teal-Dark";
+      package = pkgs.catppuccin-gtk;
+    };
+  };
+
   home.sessionVariables = {
     EDITOR = "nvim";
     TERMINAL = "kitty";
@@ -133,6 +142,9 @@ in
     pcmanfm
     powertop
     gcr
+    manix
+    nix-tree
+    nx-libs
   ];
 
   home.sessionVariables.IPYTHONDIR = "${config.xdg.configHome}/ipython";
@@ -301,6 +313,7 @@ in
   };
 
   programs.zathura.enable = true;
+  programs.sioyek.enable = true;
 
   programs.nix-index.enable = true;
   home.file.".cache/nix-index/files".source = pkgs.nix-index-database;
