@@ -159,8 +159,7 @@ local function lsp_attach(client, bufnr)
 	end
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require("cmp_nvim_lsp").update_capabilities(capabilities)
+local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 local lsp_list = {
 	-- 'bashls', -- high CPU usage...
@@ -196,9 +195,7 @@ lspconfig.nil_ls.setup({
 	on_attach = lsp_attach,
 	capabilities = capabilities,
 	settings = {
-		formatting = {
-			command = "nixpkgs-fmt",
-		},
+		["formatting.command"] = "nixpkgs-fmt",
 	},
 })
 
