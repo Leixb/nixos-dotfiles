@@ -59,5 +59,5 @@ in
     );
   };
 
-  home.packages = with pkgs; [ lutris legendary polymc winetricks mangohud ];
+  home.packages = with pkgs; [ lutris legendary prismlauncher winetricks mangohud ];
 }
