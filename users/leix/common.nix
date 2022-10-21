@@ -313,7 +313,16 @@ in
   };
 
   programs.zathura.enable = true;
-  programs.sioyek.enable = true;
+  programs.sioyek = {
+    enable = true;
+    bindings = {
+      "reload" = "R";
+      "quit" = "q";
+    };
+    config = {
+      should_launch_new_window = "1";
+    };
+  };
 
   programs.nix-index.enable = true;
   home.file.".cache/nix-index/files".source = pkgs.nix-index-database;
