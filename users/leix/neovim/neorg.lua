@@ -1,3 +1,27 @@
+function TasksToday()
+	local neorg = require("neorg")
+	local gtd = neorg.modules.loaded_modules["core.gtd.ui"].real().public
+	local tasks = gtd.get_data_for_views()
+
+	local function cancelled(task)
+		return task.state ~= "cancelled"
+	end
+
+	tasks = vim.tbl_filter(cancelled, tasks)
+
+	local opts = {
+		exclude = {
+			"tv",
+			"read",
+			"weekly",
+		},
+	}
+
+	gtd.display_today_tasks(tasks, opts)
+end
+
+vim.api.nvim_create_user_command("TasksToday", TasksToday, {})
+
 require("neorg").setup({
 	load = {
 		["core.defaults"] = {},
