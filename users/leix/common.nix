@@ -97,7 +97,7 @@ in
 
   home.packages = with pkgs; [
     cachix
-    todoist-electron
+    # todoist-electron # electron 15 EOL
     plexamp
     ripcord
     bitwarden
