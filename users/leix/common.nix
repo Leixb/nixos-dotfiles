@@ -157,7 +157,7 @@ in
   };
   programs.sagemath = {
     enable = true;
-    package = pkgs.sageWithDoc;
+    package = pkgs.stable.sageWithDoc;
     initScript = ''
       %colors Linux
     '';
@@ -366,7 +366,7 @@ in
       refined-github
       ublock-origin
       sponsorblock
-      tree-style-tab
+      # tree-style-tab
     ];
 
     profiles.leix = {
