@@ -17,7 +17,7 @@ let
   '';
 in
 {
-  imports = [ ./mime-apps.nix ./neovim.nix ../modules/all.nix ];
+  imports = [ ./mime-apps.nix ./neovim.nix ../modules/all.nix ./firefox.nix ];
 
   # Let Home Manager install and manage itself.
   #programs.home-manager.enable = true;
@@ -346,116 +346,6 @@ in
       openasar = {
         setup = true;
         quickstart = true;
-      };
-    };
-  };
-
-  programs.firefox = {
-    enable = true;
-    # package = pkgs.stable.firefox;
-    extensions = with pkgs.firefox-addons; [
-      bitwarden
-      darkreader
-      https-everywhere
-      (languagetool.overrideAttrs (oldAttrs: {
-        meta.unfree = false;
-      })) # Dirty workaround since nixpkgs.config.allowUnfree does not work with firefox-addons flake
-      netflix-1080p
-      no-pdf-download
-      privacy-badger
-      refined-github
-      ublock-origin
-      sponsorblock
-      # tree-style-tab
-    ];
-
-    profiles.leix = {
-      settings = {
-        "media.ffmpeg.vaapi.enabled" = true;
-        "media.rdd-ffmpeg.enabled" = true;
-
-        "media.ffvpx.enabled" = false;
-        "gfx.x11-egl.force-enabled" = true;
-        "gfx.webrender.all" = true;
-
-        "browser.newtabpage.activity-stream.showSponsored" = false;
-        "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
-
-        "browser.uidensity" = 1;
-      };
-
-      bookmarks = {
-        wikipedia = {
-          keyword = "wiki";
-          url = "https://en.wikipedia.org/wiki/Special:Search?search=%s&go=Go";
-        };
-
-        "kernel.org".url = "https://www.kernel.org";
-        whatsapp.url = "https://web.whatsapp.com/";
-        github.url = "https://github.com";
-        gmail.url = "https://gmail.com";
-
-        # nix
-        nixos.url = "https://nixos.org";
-
-        nixos-packages = {
-          keyword = "pkgs";
-          url = "https://search.nixos.org/packages?query=%s";
-        };
-
-        nixos-options = {
-          keyword = "opts";
-          url = "https://search.nixos.org/options?query=%s";
-        };
-
-        home-manager.url = "https://rycee.gitlab.io/home-manager/options.html";
-
-        home-manager-options = {
-          keyword = "hmopts";
-          url = "https://mipmip.github.io/home-manager-option-search/?%s";
-        };
-
-        nix-pr-tracker = {
-          keyword = "nixpr";
-          url = "https://nixpk.gs/pr-tracker.html?pr=%s";
-        };
-
-        murder-bridge = {
-          keyword = "aram";
-          url = "https://www.murderbridge.com/champion/%s/";
-        };
-
-        mmr = {
-          keyword = "mmr";
-          url = "https://euw.whatismymmr.com/%s";
-        };
-
-        opgg = {
-          keyword = "opgg";
-          url = "https://euw.op.gg/summoners/euw/%s";
-        };
-
-        ugg = {
-          keyword = "ugg";
-          url = "https://u.gg/lol/champions/%s/build";
-        };
-
-        # streaming
-        disneyplus.url = "https://disneyplus.com";
-        netflix.url = "https://netflix.com";
-        plex.url = "https://app.plex.tv";
-        twitch = {
-          keyword = "twtv";
-          url = "https://twitch.tv/%s";
-        };
-        youtube.url = "https://youtube.com";
-
-        # upc
-        atenea.url = "https://atenea.upc.edu";
-        disc.url = "https://discos.fib.upc.edu";
-        learn.url = "https://learnsql2.fib.upc.edu";
-        ccbda.url = "https://ccbda-upc.github.io";
-        raco.url = "https://raco.fib.upc.edu";
       };
     };
   };
