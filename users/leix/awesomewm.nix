@@ -21,7 +21,6 @@
     picom = {
       enable = true;
       backend = "glx";
-      experimentalBackends = true;
       vSync = true;
       settings = {
         unredir-if-possible = true;
