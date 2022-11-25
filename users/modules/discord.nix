@@ -36,8 +36,8 @@ in {
         cfg.package)
     ];
 
-    xdg.configFile."discord/settings.json".text =
-      mkIf (cfg.options != null) (builtins.toJSON cfg.options);
+    # xdg.configFile."discord/settings.json".text =
+    #   mkIf (cfg.options != null) (builtins.toJSON cfg.options);
 
   };
 }

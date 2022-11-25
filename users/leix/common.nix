@@ -332,7 +332,7 @@ in
     enable = true;
     openASAR = true;
 
-    package = pkgs.discord-canary;
+    # package = pkgs.discord-canary;
 
     options = {
       SKIP_HOST_UPDATE = true;
