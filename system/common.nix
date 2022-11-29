@@ -75,12 +75,14 @@ in
   };
 
   hardware.opengl.extraPackages = with pkgs;
-    lib.mkForce [
+    [
       intel-media-driver
       vaapiIntel
       vaapiVdpau
       libvdpau-va-gl
-      # nvidia-vaapi-driver
+      nvidia-vaapi-driver
+      linuxPackages.nvidia_x11
+      mesa.drivers
     ];
 
   hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ vaapiIntel ];

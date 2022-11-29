@@ -50,8 +50,8 @@ in
   services.ddccontrol.enable = true;
 
   services.xserver.displayManager.setupCommands = ''
-    ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource NVIDIA-G0 modesetting
-    ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-1-0 --primary --auto --right-of eDP-1
+    # ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource NVIDIA-G0 modesetting
+    ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-0 --primary --auto --right-of eDP-1
   '';
 
   nix.sshServe.enable = true;
@@ -67,4 +67,7 @@ in
     '';
   };
   systemd.services.elasticsearch.wantedBy = lib.mkForce [ ];
+
+  hardware.video.hidpi.enable = true;
+
 }

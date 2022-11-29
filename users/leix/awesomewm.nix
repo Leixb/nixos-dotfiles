@@ -28,6 +28,7 @@
         detect-transient = true;
         detect-client-leader = true;
         xrender-sync-fence = true;
+        glx-no-rebind-pixmap = true;
 
         blur.method = "dual_kawase";
         blur-background = true;

@@ -19,16 +19,19 @@ in
 
     modesetting.enable = true;
 
-    prime = {
-      offload.enable = true;
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
-    };
+    # prime = {
+    #   offload.enable = true;
+    #   intelBusId = "PCI:0:2:0";
+    #   nvidiaBusId = "PCI:1:0:0";
+    # };
   };
 
   services.xserver.videoDrivers = [ "nvidia" ];
 
   # hardware.nvidia.powerManagement.finegrained = true;
 
-  environment.systemPackages = [ prime-run ];
+  # environment.systemPackages = [ prime-run ];
+  # environment.sessionVariables = {
+  # __EGL_VENDOR_LIBRARY_FILENAMES = "${pkgs.linuxPackages.nvidia_x11}/share/glvnd/egl_vendor.d/10_nvidia.json";
+  # };
 }
