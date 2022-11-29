@@ -109,7 +109,7 @@ in
       }
 
       {
-        plugin = nvim-treesitter.withPlugins (_: pkgs.tree-sitter.allGrammars);
+        plugin = nvim-treesitter.withAllGrammars;
         type = "lua";
         config = builtins.readFile ./neovim/nvim-treesitter.lua;
       }
