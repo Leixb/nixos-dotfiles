@@ -23,17 +23,22 @@ let
 
     symlinks = {
       mods = pkgs.linkFarmFromDrvs "mods" (map pkgs.fetchModrinthMod (builtins.attrValues {
-        Lithium = { id = "Zs3sdHjK"; hash = "8d567ba2cf781962812fdc82e71c0c53b298dfb1549729b971d8a9e1ed7fa527"; };
-        FabricAPI = { id = "RAzwgZkP"; hash = "sha256-C1CFyScewL2O1714onUyTI+1HwEqS03MTeQ1NsJQjz0="; };
+        Lithium = { id = "IQxlSIiw"; hash = "71d175672d53346826d371a86146eaa1231e016e2df1b05d6a8cb6b48db4fce0"; };
+        FabricAPI = { id = "BXfHW8Ww"; hash = "472ab867b3cef3e92d6c8e086ff0efb0076f33d5db0da1bb13a7258472ca6514"; };
         LazyDFU = { id = "4SHylIO9"; hash = "8c7993348a12d607950266e7aad1040ac99dd8fe35bb43a96cc7ff3404e77c5d"; };
-        Starlight = { id = "qH1xCwoC"; hash = "sha256-LQcQbprCZ+O4idrYoW7tNNdGoUih4HDbsuCvpO+XpXM="; };
+        Starlight = { id = "qH1xCwoC"; hash = "2d07106e9ac267e3b889dad8a16eed34d746a148a1e070dbb2e0afa4ef97a573"; };
         # Krypton = { id = "UJ6FlFnK"; hash = "2383b86960752fef9f97d67f3619f7f022d824f13676bb8888db7fea4ad1f76a"; };
-        FerriteCore = { id = "7epbwkFg"; hash = "58ab281bc8efdb1a56dff38d6f143d2e53df335656d589adff8f07d082dbea77"; };
-        C2ME = { id = "yU5A8Qx5"; hash = "sha256-bC1NOpx6D7ExPPZGl8nkUMt9V30Rn6ihLsrQyhWfXdw="; };
-        Collective = { id = "AdE5H8pu"; hash = "0426255b2699f216cfdf1502face14fc22074ace85caa9d8d8639739287c32cc"; };
-        JustMobHeads = { id = "Wdhxk4Pc"; hash = "1587c3c8c9e72aa7687ea2e65dc54eb3b8ac9fa61bd19dfce8ffffb29f6593ee"; };
-        InfiniteTrading = { id = "lZv1uEX9"; hash = "06aa6202b84972a56265c0a69e6784559e74212cfa6e9684872bcdd1acd4680c"; };
-        WoolTweaks = { id = "1edYtxOA"; hash = "9272c5d91c9292e1d1615e5cbe33726a68f914c6ee47b8f8b3cfdc499e15b16b"; };
+        FerriteCore = { id = "kwjHqfz7"; hash = "275d9371edf9580d3f19620469815f9051dedb8b47306f45aeda19ea43eb3d07"; };
+        C2ME = { id = "YaQCrYHB"; hash = "e33a8c379bbe14ffad074a76034eee9500a54dc7d00142138f26c2bac215914d"; };
+        Collective = { id = "Z5eRiXRf"; hash = "064f8e12a17fc459946cd0d9f9d59af1e7cef08178095f3dab3f38f8785e3e12"; };
+        JustMobHeads = { id = "kPzwZNnS"; hash = "49825c6ebba4a9604386c71bf60548d251251a2f546d2f3c69ccbcf762fdad8a"; };
+        # InfiniteTrading = { id = ""; hash = ""; };
+        WoolTweaks = { id = "SBui0t35"; hash = "b6cf1e27509a5ccb799e8141dddf27996d96263b18162e9428238557fc8df45a"; };
+        Create = { id = "ZOucvJwc"; hash = "557876b9cf2ee2b1df8f08aee00e56f9a6d6218ce0f6cdc1b39d575b26348e20"; };
+        GraveStones = { id = "DoolHsey"; hash = "0c214c65cbd1572f3782bdee232894432a3c5d10f79ec22c04c4d9b7702e0a27"; };
+        Terralith = { id = "Wd3Co0mZ"; hash = "d832487ce1def935fd91a094c7bc939efdb6f5ae444f16a36429c72cc1ecfb6c"; };
+        TradeCycling = { id = "qLOXh29y"; hash = "f3451880df28408d016b6ba0cd8e796c1e205edc42f07ee7483b150def33559c"; };
+        VillagersFollowEmeralds = { id = "8Qr46boW"; hash = "b3031235b893e647731da8587c1948fde77ed500c5fb2f2df22caa633af51526"; };
       }));
     };
   };
@@ -45,6 +50,7 @@ in
 
     servers = {
       main = base-config;
+      create = base-config;
       carla = lib.mkMerge [
         base-config
         {

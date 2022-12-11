@@ -260,6 +260,9 @@ in
     };
   };
 
+  # Put xserver log files in a proper location
+  services.xserver.logFile = "/var/log/Xorg.0.log";
+
   powerManagement.cpuFreqGovernor = "performance";
 
   nix = {
