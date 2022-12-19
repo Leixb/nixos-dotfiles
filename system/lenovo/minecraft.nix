@@ -4,7 +4,7 @@ let
   base-config = {
     enable = true;
     autoStart = false;
-    package = pkgs.fabricServers.fabric;
+    package = pkgs.fabricServers.fabric-1_19_2;
     serverProperties = {
       white-list = true;
       online-mode = false;
