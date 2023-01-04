@@ -63,7 +63,10 @@
       inputs.lain.follows = "lain";
     };
 
-    nix-index-database.url = "github:Mic92/nix-index-database";
+    nix-index-database = {
+      url = "github:Mic92/nix-index-database";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     # neorg = {
     #   url = "github:nvim-neorg/neorg";
