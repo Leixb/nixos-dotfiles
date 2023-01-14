@@ -6,7 +6,6 @@
     extensions = with pkgs.firefox-addons; [
       bitwarden
       darkreader
-      https-everywhere
       (languagetool.overrideAttrs (oldAttrs: {
         meta.unfree = false;
       })) # Dirty workaround since nixpkgs.config.allowUnfree does not work with firefox-addons flake

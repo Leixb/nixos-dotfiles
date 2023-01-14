@@ -87,7 +87,7 @@
     };
 
     nvim-R = {
-      url = "github:jalvesaq/Nvim-R";
+      url = "github:jalvesaq/Nvim-R/v0.9.17";
       flake = false;
     };
 
