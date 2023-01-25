@@ -218,8 +218,10 @@ in
 
   # Enable the OpenSSH daemon.
   services.openssh = {
-    passwordAuthentication = false;
-    permitRootLogin = "yes";
+    settings = {
+      # PermitRootLogin = "yes";
+      PasswordAuthentication = false;
+    };
     enable = true;
     ports = [ 22 2322 ];
     forwardX11 = true;

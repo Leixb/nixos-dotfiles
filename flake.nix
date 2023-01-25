@@ -22,6 +22,13 @@
       inputs.utils.follows = "flake-utils";
     };
 
+    devenv = {
+      url = "github:cachix/devenv/v0.5";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.pre-commit-hooks.follows = "pre-commit-hooks";
+      inputs.flake-compat.follows = "flake-compat";
+    };
+
     deploy-rs = {
       url = "github:serokell/deploy-rs";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -76,7 +83,9 @@
     # neovim-flake.follows = "neovim-nightly-overlay/neovim-flake";
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
-      inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.nixpkgs.follows = "nixpkgs";
+      # Pin to a nixpkgs revision that doesn't have NixOS/nixpkgs#208103 yet
+      inputs.nixpkgs.url = "github:nixos/nixpkgs?rev=fad51abd42ca17a60fc1d4cb9382e2d79ae31836";
       inputs.flake-compat.follows = "flake-compat";
       # inputs.neovim-flake.inputs.flake-utils.follows = "flake-utils";
     };
