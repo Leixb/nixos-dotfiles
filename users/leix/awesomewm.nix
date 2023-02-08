@@ -77,7 +77,7 @@
     };
   };
 
-  home.pointerCursor.x11.enable = true;
+  # home.pointerCursor.x11.enable = true;
 
   xsession = {
     enable = true;

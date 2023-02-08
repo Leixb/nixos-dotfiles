@@ -219,10 +219,9 @@ lspconfig.pylsp.setup({
 		pylsp = {
 			plugins = {
 				-- pylint = {args = {'--ignore=E501', '-'}, enabled=true, debounce=200},
-				pycodestyle = {
+				ruff = {
 					enabled = true,
-					ignore = { "E501" },
-					maxLineLength = 120,
+					lineLength = 120,
 				},
 				pyls_mypy = {
 					enabled = true,

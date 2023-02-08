@@ -23,11 +23,13 @@
     };
 
     devenv = {
-      url = "github:cachix/devenv/v0.5";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.pre-commit-hooks.follows = "pre-commit-hooks";
-      inputs.flake-compat.follows = "flake-compat";
+      url = "github:cachix/devenv/v0.5.1";
+      # inputs.nixpkgs.follows = "nixpkgs";
+      # inputs.pre-commit-hooks.follows = "pre-commit-hooks";
+      # inputs.flake-compat.follows = "flake-compat";
     };
+
+    hyprland.url = "github:hyprwm/Hyprland";
 
     deploy-rs = {
       url = "github:serokell/deploy-rs";
@@ -106,7 +108,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, agenix, pre-commit-hooks, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, agenix, pre-commit-hooks, devenv, hyprland, ... }:
     let
       system = "x86_64-linux";
 
@@ -193,6 +195,8 @@
           modules = common-modules ++ [
             ./system/lenovo/configuration.nix
             home-manager.nixosModules.home-manager
+            hyprland.nixosModules.default
+            { programs.hyprland.enable = true; }
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;

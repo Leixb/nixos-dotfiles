@@ -49,6 +49,16 @@ in
     enableLuakitTheme = true;
   };
 
+  # gtk = {
+  #   enable = true;
+  #   theme = {
+  #     package = pkgs.gnome.gnome-themes-extra;
+  #     name = "Adwaita-dark";
+  #   };
+  # };
+
+
+
   home.pointerCursor = {
     gtk.enable = true;
     package = pkgs.capitaine-cursors;
@@ -97,7 +107,7 @@ in
 
   home.packages = with pkgs; [
     cachix
-    inputs.devenv.packages.x86_64-linux.devenv
+    # inputs.devenv.packages.x86_64-linux.devenv
     # todoist-electron # electron 15 EOL
     plexamp
     ripcord

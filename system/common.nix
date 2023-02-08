@@ -15,7 +15,7 @@ let
   '';
 in
 {
-  imports = [ ./restic.nix ];
+  imports = [ ./restic.nix ../cachix.nix ];
 
   boot.kernel.sysctl = {
     "vm.swappiness" = lib.mkDefault 1;
@@ -262,6 +262,16 @@ in
     };
   };
 
+  xdg = {
+    portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-wlr
+        xdg-desktop-portal-gtk
+      ];
+    };
+  };
+
   # Put xserver log files in a proper location
   services.xserver.logFile = "/var/log/Xorg.0.log";
 
@@ -278,10 +288,17 @@ in
       trusted-users = [ "root" "leix" ];
       auto-optimise-store = true;
 
-      substituters = [ "https://nix-community.cachix.org" ];
+      substituters = [
+        "https://nix-community.cachix.org"
+        "https://cache.nixos.org/"
+        "https://devenv.cachix.org"
+        "https://hyprland.cachix.org"
+      ];
 
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
+        "devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw="
+        "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       ];
     };
     gc.automatic = true;
