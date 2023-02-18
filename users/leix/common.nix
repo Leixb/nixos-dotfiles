@@ -15,6 +15,14 @@ let
   vpn-connect = pkgs.writeShellScriptBin "vpn-connect" ''
     sudo ${pkgs.gof5}/bin/gof5 -server https://upclink.upc.edu -username aleix.bone "$@"
   '';
+
+  catppuccin-style = {
+    name = "Catppuccin-Macchiato-Standard-Peach-Dark";
+    package = pkgs.catppuccin-gtk.override {
+      accents = ["pink" "blue" "peach"];
+      variant = "macchiato";
+    };
+  };
 in
 {
   imports = [ ./mime-apps.nix ./neovim.nix ../modules/all.nix ./firefox.nix ];
@@ -68,10 +76,7 @@ in
 
   gtk = {
     enable = true;
-    theme = {
-      name = "Catppuccin-Teal-Dark";
-      package = pkgs.catppuccin-gtk;
-    };
+    theme = catppuccin-style;
     iconTheme = {
       name = "Arc";
       package = pkgs.arc-icon-theme;
@@ -82,10 +87,7 @@ in
   qt = {
     enable = true;
     platformTheme = "gnome";
-    style = {
-      name = "Catppuccin-Teal-Dark";
-      package = pkgs.catppuccin-gtk;
-    };
+    style = catppuccin-style;
   };
 
   home.sessionVariables = {
@@ -107,6 +109,7 @@ in
 
   home.packages = with pkgs; [
     cachix
+    waypipe
     # inputs.devenv.packages.x86_64-linux.devenv
     # todoist-electron # electron 15 EOL
     plexamp
@@ -252,9 +255,10 @@ in
       vim = "nvim";
       vi = "nvim";
       o = "xdg-open";
-      gtd = "nvim -c 'Neorg workspace gtd' -c 'Neorg gtd views'";
-      today = "nvim -c 'Neorg workspace gtd' -c 'lua TasksToday()'";
+      # gtd = "nvim -c 'Neorg workspace gtd' -c 'Neorg gtd views'";
+      # today = "nvim -c 'Neorg workspace gtd' -c 'lua TasksToday()'";
       notes = "nvim -c 'Neorg workspace notes'";
+      gtd = "nvim -c 'Neorg workspace tfm'";
       journal = "nvim -c 'Neorg journal'";
     };
     interactiveShellInit = ''

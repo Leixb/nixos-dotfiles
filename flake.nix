@@ -138,6 +138,11 @@
         inputs.neovim-nightly-overlay.overlay
         inputs.nix-minecraft.overlay
         inputs.nix-matlab.overlay
+        (self: super: {
+          waybar = super.waybar.overrideAttrs (oldAttrs: {
+            mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
+          });
+        })
       ];
 
       pin-flake-reg = with inputs; {

@@ -1,0 +1,129 @@
+(defwindow bar
+  :monitor 1
+  :hexpand false
+  :vexpand false
+  :windowtype "dock"
+  :stacking "bg"
+  :exclusive true
+  :geometry (geometry :anchor "top center" :x 0 :y 0 :width "98%")
+  :reserve (struts :distance "4%" :side "top")
+  (bar :screen 0))
+
+(defvar visible false)
+
+(defpoll volume_poll :interval "5s" "wpctl get-volume @DEFAULT_AUDIO_SINK@ | cut -f 2 -d ' ' ")
+
+(defwidget bar [screen]
+  (box :orientation "h"
+       :space-evenly true
+       :class "bar"
+    (box :halign "start"
+         :space-evenly false
+         :class "tab"
+      (workspaces)
+      ; (player)
+      )
+    (box :halign "center"
+         :space-evenly true
+         ; :class "tab"
+        (date)
+        (time)
+         )
+    (box :halign "end"
+         :spacing 12
+         :hexpand true
+         :space-evenly false
+         :class "tab"
+      ; (notifications)
+      ; (github)
+      ; (updates)
+      ; (trash)
+      ; (noisetorch)
+      ; (microphone)
+      ; (speaker)
+      ; (ping)
+      ; (network)
+      ; (disk)
+      ; (ram)
+      ; (nvidia)
+      ; (cpu)
+      (cpu)
+      (ram)
+      (temps)
+      (volume)
+      (battery)
+      ; (date)
+      ; (time)
+)))
+
+(defwidget icon-module [icon ?class ?visible]
+  (box :class "${class} icon-module"
+       :orientation "h"
+       :halign "end"
+       :space-evenly false
+       :visible {visible ?: true} ; because the argument is optional
+    (label :class "icon-module__icon" :text "${icon}")
+    (children)))
+
+(defwidget icon-module-small [icon ?class ?visible]
+  (box :class "${class} icon-module"
+       :orientation "h"
+       :halign "end"
+       :space-evenly false
+       :visible {visible ?: true} ; because the argument is optional
+    (label :class "icon-module__icon_small" :text "${icon}")
+    (children)))
+
+(defpoll time_poll :interval "1s" "date +%H:%M")
+
+(defwidget battery []
+  (icon-module :class "battery" :icon "󰁽"
+    (label :text "${EWW_BATTERY['BAT0']['capacity']}%")))
+
+(defwidget time []
+  (icon-module-small :class "time" :icon ""
+    (label :text time_poll)))
+
+(defpoll date_poll :interval "1m" "date +%d/%m/%y")
+
+(defwidget date []
+  (icon-module-small :class "date" :icon ""
+    (label :text date_poll)))
+
+(defwidget cpu []
+    (icon-module :class "cpu" :icon "󰻠"
+        (label :text "${round(EWW_CPU['avg'], 0)}%")))
+
+(defwidget ram []
+    (icon-module :class "ram" :icon "󰍛"
+        (label :text "${round(EWW_RAM['used_mem_perc'],0)}%")))
+
+(defwidget temps []
+    (icon-module :class "temps" :icon "󰔏"
+        (label :text "${EWW_TEMPS.CORETEMP_PACKAGE_ID_0}°C")))
+
+(defwidget volume []
+  (icon-module :class "volume" :icon "󰕾"
+    (label :text "${volume_poll*100}%")))
+
+(defwindow calendar
+  :monitor 1
+  :geometry (geometry :anchor "top center" :x 0 :y 10 :width 300)
+    (calendar)
+    )
+
+(deflisten workspaces :initial "[]" "bash ~/Documents/playground/eww-bar/get-workspaces.sh")
+(deflisten current_workspace :initial "1" "bash ~/Documents/playground/eww-bar/get-active-workspace.sh 1")
+(defwidget workspaces []
+  (eventbox :onscroll "bash ~/Documents/playground/eww-bar/change-workspace.sh {} ${current_workspace}" :class "workspaces-widget"
+    (box :space-evenly true
+      (for workspace in workspaces
+        (eventbox :onclick "hyprctl dispatch workspace ${workspace.id}"
+          (box :class "workspace-entry ${workspace.id == current_workspace ? "current" : ""} ${workspace.windows > 0 ? "occupied" : "empty"}"
+            (label :text "${workspace.id}")
+            )
+          )
+        )
+      )
+    )
+  )

@@ -55,7 +55,8 @@
     };
     enable = true;
     settings = [{
-      modules-left = [ "sway/workspaces" "sway/mode" "wlr/taskbar" ];
+      layer = "top";
+      modules-left = [ "wlr/workspaces" "sway/mode" "wlr/taskbar" ];
       modules-center = [ "sway/window" ];
       modules-right = [
         "tray"

@@ -3,20 +3,6 @@
   programs.firefox = {
     enable = true;
     # package = pkgs.stable.firefox;
-    extensions = with pkgs.firefox-addons; [
-      bitwarden
-      darkreader
-      (languagetool.overrideAttrs (oldAttrs: {
-        meta.unfree = false;
-      })) # Dirty workaround since nixpkgs.config.allowUnfree does not work with firefox-addons flake
-      netflix-1080p
-      no-pdf-download
-      privacy-badger
-      refined-github
-      ublock-origin
-      sponsorblock
-      # tree-style-tab
-    ];
 
     profiles.leix = {
       settings = {
@@ -32,6 +18,21 @@
 
         "browser.uidensity" = 1;
       };
+
+      extensions = with pkgs.firefox-addons; [
+        bitwarden
+        darkreader
+        (languagetool.overrideAttrs (oldAttrs: {
+          meta.unfree = false;
+        })) # Dirty workaround since nixpkgs.config.allowUnfree does not work with firefox-addons flake
+        netflix-1080p
+        no-pdf-download
+        privacy-badger
+        refined-github
+        ublock-origin
+        sponsorblock
+        # tree-style-tab
+      ];
 
       bookmarks =
         [

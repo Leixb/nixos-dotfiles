@@ -1,0 +1,56 @@
+$surface-darkgrey: #20252b;
+$surface-fg: #949494;
+$surface-lightgrey: #3d464e;
+$surface-grey: #2b3238;
+$surface-red: #f87070;
+$catppuccin-blue: #82aaff;
+$catppuccin-green: #98c379;
+$catppuccin-yellow: #e5c07b;
+$catppuccin-orange: #d19a66;
+
+* {
+    font-family: "FiraCode";
+    font-size: 18px;
+    padding: 0;
+    margin: 0;
+}
+
+.icon-module__icon {
+    // color: $catppuccin-orange;
+    font-size: 2em;
+    margin-right: 0.2em;
+}
+
+.icon-module__icon_small {
+    // color: $surface-red;
+    font-size: 1.5em;
+    margin-right: 0.3em;
+}
+
+// .time {
+//     color: #949494;
+// }
+
+// .tab {
+    // border-radius: 0 0 0.5em 0.5em;
+    // background-color: $surface-darkgrey;
+// }
+
+.empty {
+    color: $surface-grey;
+}
+
+.current {
+    color: $catppuccin-orange;
+}
+
+
+.bar {
+    color: $surface-fg;
+    padding-top: 0;
+    background: rgba(0, 0, 0, 0.0);
+    // background: $theme_selected_bg_color;
+    padding-bottom: 0;
+    margin-bottom: 0;
+    border-bottom: 0;
+}

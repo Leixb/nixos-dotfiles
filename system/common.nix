@@ -221,10 +221,10 @@ in
     settings = {
       # PermitRootLogin = "yes";
       PasswordAuthentication = false;
+      X11Forwarding = true;
     };
     enable = true;
     ports = [ 22 2322 ];
-    forwardX11 = true;
   };
 
   # Open ports in the firewall.
@@ -265,8 +265,9 @@ in
   xdg = {
     portal = {
       enable = true;
+      # wlr.enable = true;
       extraPortals = with pkgs; [
-        xdg-desktop-portal-wlr
+        # xdg-desktop-portal-wlr
         xdg-desktop-portal-gtk
       ];
     };
