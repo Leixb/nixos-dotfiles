@@ -59,7 +59,7 @@ in
       ripgrep
       # rnix-lsp
       nil
-      sumneko-lua-language-server
+      lua-language-server
       gopls
       texlab
       clang-tools
@@ -145,10 +145,7 @@ in
       {
         plugin = catppuccin-nvim;
         type = "lua";
-        config = ''
-          vim.g.catppuccin_flavour = "macchiato" -- latte, frappe, macchiato, mocha
-          vim.cmd.colorscheme("catppuccin")
-        '';
+        config = builtins.readFile ./neovim/catppuccin.lua;
       }
 
       {
