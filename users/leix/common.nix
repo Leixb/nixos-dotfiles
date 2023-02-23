@@ -19,7 +19,7 @@ let
   catppuccin-style = {
     name = "Catppuccin-Macchiato-Standard-Peach-Dark";
     package = pkgs.catppuccin-gtk.override {
-      accents = ["pink" "blue" "peach"];
+      accents = [ "pink" "blue" "peach" ];
       variant = "macchiato";
     };
   };
@@ -108,6 +108,7 @@ in
   };
 
   home.packages = with pkgs; [
+    webcord
     cachix
     waypipe
     # inputs.devenv.packages.x86_64-linux.devenv
@@ -122,7 +123,12 @@ in
     bottom
     beekeeper-studio
     ripgrep
-    zotero
+    (zotero.overrideAttrs (final: old: {
+      postInstall = ''
+        wrapProgram "$out/bin/zotero" --set GTK_THEME "Adwaita:light"
+      '';
+    }))
+    zotero7
     zip
     unzip
     file
@@ -160,6 +166,10 @@ in
     nix-tree
     nx-libs
   ];
+
+  xdg.configFile."WebCord/Themes/catppuccin.theme.css".text = ''
+    @import url("https://catppuccin.github.io/discord/dist/catppuccin-macchiato.theme.css");
+  '';
 
   home.sessionVariables.IPYTHONDIR = "${config.xdg.configHome}/ipython";
   xdg.configFile."ipython/profile_default/ipython_config.py" = {

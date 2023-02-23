@@ -122,6 +122,8 @@
       extra-packages = final: prev: {
         eduroam = prev.callPackage ./packages/eduroam/default.nix { };
 
+        zotero7 = prev.callPackage ./packages/zotero/default.nix { };
+
         vimPlugins = prev.vimPlugins // {
           gitsigns-nvim-fixed = prev.callPackage ./packages/gitsigns-nvim-fixed { };
         };
