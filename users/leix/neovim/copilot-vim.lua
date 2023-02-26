@@ -4,7 +4,9 @@ vim.g.copilot_filetypes = {
 }
 vim.keymap.set(
 	"i",
-	"<Plug>(vimrc:copilot-dummy-map)",
-	'copilot#Accept("")',
-	{ silent = true, expr = true, desc = "Copilot dummy accept" }
+	"<M-;>",
+	"copilot#Accept('')",
+	{ noremap = true, silent = true, expr = true, replace_keycodes = false, desc = "Copilot accept" }
 )
+
+local map = vim.keymap.set

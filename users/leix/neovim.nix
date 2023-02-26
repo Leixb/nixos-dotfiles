@@ -153,13 +153,6 @@ in
         type = "lua";
         config = builtins.readFile ./neovim/lualine-nvim.lua;
       }
-      {
-        plugin = fidget-nvim;
-        type = "lua";
-        config = ''
-          require'fidget'.setup()
-        '';
-      }
 
       {
         plugin = barbar-nvim;
@@ -324,6 +317,14 @@ in
         type = "lua";
         config = ''
           require'zen-mode'.setup()
+        '';
+      }
+      {
+        # Load after other plugins that use register_progress (e.g. lsp-status)
+        plugin = fidget-nvim;
+        type = "lua";
+        config = ''
+          require'fidget'.setup()
         '';
       }
     ];
