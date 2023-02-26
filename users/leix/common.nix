@@ -35,7 +35,7 @@ in
   home.username = username;
   home.homeDirectory = "/home/${username}";
 
-  home.file.".gof5/config.yaml".text = ''
+  home.file.".gof5/config.yaml".text = /* yaml */ ''
     dns:
     - .upc.edu.
     - .upc.
@@ -123,7 +123,15 @@ in
     bottom
     beekeeper-studio
     ripgrep
-    (zotero.overrideAttrs (final: old: {
+    (zotero.overrideAttrs (final: old: rec {
+      # TODO: remove this when 6.0.22 is in nixpkgs
+      version = "6.0.22";
+
+      src = fetchurl {
+        url = "https://download.zotero.org/client/release/${version}/Zotero-${version}_linux-x86_64.tar.bz2";
+        sha256 = "sha256-OXlX4E5C6UEDR3+fDYB3O5isO8vABpd6hvrq+4kZ1iA=";
+      };
+
       postInstall = ''
         wrapProgram "$out/bin/zotero" --set GTK_THEME "Adwaita:light"
       '';
