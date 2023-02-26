@@ -153,7 +153,13 @@ in
         type = "lua";
         config = builtins.readFile ./neovim/lualine-nvim.lua;
       }
-      lualine-lsp-progress
+      {
+        plugin = fidget-nvim;
+        type = "lua";
+        config = ''
+          require'fidget'.setup()
+        '';
+      }
 
       {
         plugin = barbar-nvim;
