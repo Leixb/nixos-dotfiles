@@ -29,7 +29,10 @@
       # inputs.flake-compat.follows = "flake-compat";
     };
 
-    hyprland.url = "github:hyprwm/Hyprland";
+    hyprland = {
+      url = "github:hyprwm/Hyprland";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
     deploy-rs = {
       url = "github:serokell/deploy-rs";
@@ -85,15 +88,16 @@
     # neovim-flake.follows = "neovim-nightly-overlay/neovim-flake";
     neovim-nightly-overlay = {
       url = "github:nix-community/neovim-nightly-overlay";
-      # inputs.nixpkgs.follows = "nixpkgs";
+      inputs.nixpkgs.follows = "nixpkgs";
       # Pin to a nixpkgs revision that doesn't have NixOS/nixpkgs#208103 yet
-      inputs.nixpkgs.url = "github:nixos/nixpkgs?rev=fad51abd42ca17a60fc1d4cb9382e2d79ae31836";
+      # inputs.nixpkgs.url = "github:nixos/nixpkgs?rev=fad51abd42ca17a60fc1d4cb9382e2d79ae31836";
       inputs.flake-compat.follows = "flake-compat";
       # inputs.neovim-flake.inputs.flake-utils.follows = "flake-utils";
     };
 
     nix-minecraft = {
       url = "github:Infinidoge/nix-minecraft";
+      inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
     };
 
