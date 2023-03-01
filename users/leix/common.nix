@@ -25,7 +25,7 @@ let
   };
 in
 {
-  imports = [ ./mime-apps.nix ./neovim.nix ../modules/all.nix ./firefox.nix ];
+  imports = [ ./mime-apps.nix ./neovim.nix ../modules/all.nix ./firefox.nix ./taskwarrior.nix ];
 
   # Let Home Manager install and manage itself.
   #programs.home-manager.enable = true;
@@ -107,14 +107,7 @@ in
     KERAS_HOME = "${config.xdg.stateHome}/keras";
   };
 
-  programs.taskwarrior.enable = true;
-  xdg.dataFile."task/hooks/on-modify.timewarrior" = {
-    executable = true;
-    source = "${pkgs.timewarrior}/share/doc/timew/ext/on-modify.timewarrior";
-  };
-
   home.packages = with pkgs; [
-    timewarrior
     webcord
     cachix
     waypipe
