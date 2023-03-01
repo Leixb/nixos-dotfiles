@@ -107,7 +107,14 @@ in
     KERAS_HOME = "${config.xdg.stateHome}/keras";
   };
 
+  programs.taskwarrior.enable = true;
+  xdg.dataFile."task/hooks/on-modify.timewarrior" = {
+    executable = true;
+    source = "${pkgs.timewarrior}/share/doc/timew/ext/on-modify.timewarrior";
+  };
+
   home.packages = with pkgs; [
+    timewarrior
     webcord
     cachix
     waypipe
