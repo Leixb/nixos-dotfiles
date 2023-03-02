@@ -177,6 +177,8 @@ in
       #   ''; # TODO: enable telescope extension once it hits master
       # }
 
+      nvim-bqf
+
       {
         plugin = nvim-notify;
         type = "lua";
