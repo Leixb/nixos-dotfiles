@@ -25,6 +25,7 @@ in
 {
   _module.args.location = location;
   imports = [
+    ../../cachix.nix
     ../common.nix
     ./minecraft.nix
     ./synology-mounts.nix

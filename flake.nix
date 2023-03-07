@@ -23,7 +23,7 @@
     };
 
     devenv = {
-      url = "github:cachix/devenv/v0.5.1";
+      url = "github:cachix/devenv/v0.6";
       # inputs.nixpkgs.follows = "nixpkgs";
       # inputs.pre-commit-hooks.follows = "pre-commit-hooks";
       # inputs.flake-compat.follows = "flake-compat";
@@ -131,6 +131,8 @@
         vimPlugins = prev.vimPlugins // {
           gitsigns-nvim-fixed = prev.callPackage ./packages/gitsigns-nvim-fixed { };
         };
+
+        devenv = devenv.packages.${system}.devenv;
 
         nix-index-database =
           inputs.nix-index-database.outputs.legacyPackages.${system}.database;

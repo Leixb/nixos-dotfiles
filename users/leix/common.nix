@@ -108,6 +108,7 @@ in
   };
 
   home.packages = with pkgs; [
+    # devenv
     webcord
     cachix
     waypipe
