@@ -21,6 +21,7 @@ let
     "video/*" = "mpv.desktop";
     "image/*" = "imv.desktop";
     "text/*" = "nvim.desktop";
+    "inode/directory" = "pcmanfm.desktop";
 
     "x-scheme-handler/tg" = "userapp-Telegram Desktop-S07QK1.desktop";
   };
