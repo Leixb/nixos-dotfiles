@@ -25,7 +25,6 @@
         (languagetool.overrideAttrs (oldAttrs: {
           meta.unfree = false;
         })) # Dirty workaround since nixpkgs.config.allowUnfree does not work with firefox-addons flake
-        netflix-1080p
         no-pdf-download
         privacy-badger
         refined-github
