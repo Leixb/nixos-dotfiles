@@ -233,7 +233,7 @@ in
     enable = true;
     userEmail = "abone9999@gmail.com";
     userName = "LeixB";
-    signing.key = "FC035BB2BB28E15D";
+    signing.key = "~/.ssh/id_ed25519.pub";
     signing.signByDefault = true;
 
     ignores = [ "*~" "*.swp" "/.direnv/" ];
@@ -252,6 +252,7 @@ in
     extraConfig = {
       init = { defaultBranch = "master"; };
       pull = { rebase = true; };
+      gpg = { format = "ssh"; };
     };
   };
 
