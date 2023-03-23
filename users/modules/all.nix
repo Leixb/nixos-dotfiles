@@ -1,1 +1,1 @@
-{ ... }: { imports = [ ./discord.nix ./theme/theme.nix ]; }
+{ ... }: { imports = [ ./theme/theme.nix ]; }

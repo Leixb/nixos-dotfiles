@@ -113,8 +113,6 @@ in {
           line-numbers-plus-style = green;
         };
 
-        programs.discord.options.BACKGROUND_COLOR = cfg.palette.black;
-
         programs.rofi.font =
           "${cfg.font.family} ${builtins.toString cfg.font.size}";
         programs.rofi.theme = builtins.toFile "theme.rasi" (with cfg.palette;

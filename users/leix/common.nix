@@ -109,13 +109,12 @@ in
 
   home.packages = with pkgs; [
     # devenv
-    webcord
+    webcord # discord
     cachix
     waypipe
     # inputs.devenv.packages.x86_64-linux.devenv
     # todoist-electron # electron 15 EOL
     plexamp
-    ripcord
     bitwarden
     bitwarden-cli
     tdesktop # telegram desktop
@@ -357,28 +356,6 @@ in
 
   programs.nix-index.enable = true;
   home.file.".cache/nix-index/files".source = pkgs.nix-index-database;
-
-  programs.discord = {
-    enable = true;
-    openASAR = true;
-
-    # package = pkgs.discord-canary;
-
-    options = {
-      SKIP_HOST_UPDATE = true;
-
-      IS_MAXIMIZED = false;
-      IS_MINIMIZED = false;
-
-      MIN_WIDTH = 0;
-      MIN_HEIGHT = 0;
-
-      openasar = {
-        setup = true;
-        quickstart = true;
-      };
-    };
-  };
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage
