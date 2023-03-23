@@ -221,6 +221,8 @@
           modules = common-modules ++ [
             ./system/pavilion/configuration.nix
             home-manager.nixosModules.home-manager
+            hyprland.nixosModules.default
+            { programs.hyprland.enable = true; }
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
