@@ -26,6 +26,11 @@ in
     # };
   };
 
+  hardware.opengl.extraPackages = with pkgs; [
+      nvidia-vaapi-driver
+      linuxPackages.nvidia_x11
+  ];
+
   services.xserver.videoDrivers = [ "nvidia" ];
 
   # hardware.nvidia.powerManagement.finegrained = true;

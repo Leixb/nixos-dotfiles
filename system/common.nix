@@ -76,8 +76,6 @@ in
       vaapiIntel
       vaapiVdpau
       libvdpau-va-gl
-      nvidia-vaapi-driver
-      linuxPackages.nvidia_x11
       mesa.drivers
     ];
 
