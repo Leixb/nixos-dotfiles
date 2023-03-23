@@ -5,8 +5,8 @@
   imports = [
     ../common.nix
     ./hardware-configuration.nix
-    ../lenovo/awesomewm.nix
-    # ./gnome.nix
+    # ../lenovo/awesomewm.nix
+    ./gnome.nix
   ];
 
   # Configuration for low ram and zswap
@@ -19,13 +19,6 @@
   zramSwap.enable = true;
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
-  boot.extraModprobeConfig = ''
-    options rtl8723be fwlps=0 ips=0 swlps=0 swenc=1 disable_watchdog=1 ant_sel=1
-  '';
-
-  services.journald.extraConfig = ''
-    Storage=volatile
-  '';
 
   hardware.sensor.iio.enable = true;
 
