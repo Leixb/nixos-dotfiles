@@ -33,6 +33,8 @@ in
     ./virtualization.nix
     ./gaming.nix
     ./awesomewm.nix
+    ./ssd.nix
+    ./btrfs.nix
     ./hardware-configuration.nix
   ];
 
