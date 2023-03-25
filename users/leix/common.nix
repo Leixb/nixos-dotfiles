@@ -71,7 +71,6 @@ in
     gtk.enable = true;
     package = pkgs.capitaine-cursors;
     name = "capitaine-cursors";
-    size = 32;
   };
 
   gtk = {
