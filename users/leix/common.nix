@@ -224,6 +224,10 @@ in
       confirm_os_window_close = 0;
 
       enable_audio_bell = "no";
+
+      remember_window_size = "no";
+      initial_window_width = 1920;
+      initial_window_height = 1080;
     };
   };
 
