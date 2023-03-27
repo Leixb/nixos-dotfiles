@@ -205,7 +205,10 @@
             ./system/lenovo/configuration.nix
             home-manager.nixosModules.home-manager
             hyprland.nixosModules.default
-            { programs.hyprland.enable = true; }
+            {
+              programs.hyprland.enable = true;
+              programs.hyprland.nvidiaPatches = true;
+            }
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
