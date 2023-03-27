@@ -71,7 +71,6 @@ in
   };
   systemd.services.elasticsearch.wantedBy = lib.mkForce [ ];
 
-  fonts.optimizeForVeryHighDPI = false;
   services.xserver.dpi = 192;
 
 }
