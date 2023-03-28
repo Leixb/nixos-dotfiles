@@ -142,11 +142,7 @@
         inputs.neovim-nightly-overlay.overlay
         inputs.nix-minecraft.overlay
         inputs.nix-matlab.overlay
-        (self: super: {
-          waybar = super.waybar.overrideAttrs (oldAttrs: {
-            mesonFlags = oldAttrs.mesonFlags ++ [ "-Dexperimental=true" ];
-          });
-        })
+        inputs.hyprland.overlays.default
       ];
 
       pin-flake-reg = with inputs; {
@@ -206,8 +202,11 @@
             home-manager.nixosModules.home-manager
             hyprland.nixosModules.default
             {
-              programs.hyprland.enable = true;
-              programs.hyprland.nvidiaPatches = true;
+              programs.hyprland = {
+                enable = true;
+                nvidiaPatches = true;
+                xwayland.hidpi = true;
+              };
             }
             {
               home-manager.useGlobalPkgs = true;

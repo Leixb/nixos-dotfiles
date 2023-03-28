@@ -22,6 +22,8 @@
     imv
   ];
 
+  programs.waybar.package = pkgs.waybar-hyprland;
+
   programs.eww = {
     enable = true;
     configDir = ./eww;
