@@ -76,7 +76,6 @@ in
       vaapiIntel
       vaapiVdpau
       libvdpau-va-gl
-      mesa.drivers
     ];
 
   hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ vaapiIntel ];
@@ -161,9 +160,10 @@ in
 
     pulse.enable = true;
 
-    media-session.enable = false;
     wireplumber.enable = true;
   };
+
+  security.pam.services.swaylock = {};
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   programs.fish.enable = true;
