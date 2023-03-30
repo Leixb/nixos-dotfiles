@@ -17,6 +17,8 @@
         "browser.newtabpage.activity-stream.showSponsoredTopSites" = false;
 
         "browser.uidensity" = 1;
+
+        # "privacy.webrtc.legacyGlobalIndicator" = false;
       };
 
       extensions = with pkgs.firefox-addons; [
