@@ -183,7 +183,7 @@ in
   };
   programs.sagemath = {
     enable = true;
-    package = pkgs.stable.sageWithDoc;
+    package = pkgs.sageWithDoc;
     initScript = ''
       %colors Linux
     '';
