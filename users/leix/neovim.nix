@@ -127,6 +127,15 @@ in
       telescope-fzf-native-nvim
 
       {
+        plugin = todo-comments-nvim;
+        type = "lua";
+        config = ''
+          require'todo-comments'.setup()
+          vim.keymap.set('n', '<leader>t' , '<cmd>TodoTelescope<CR>' , { noremap = true , silent = true, desc = "List code with TODO annotations with telescope" })
+        '';
+      }
+
+      {
         plugin = nvim-autopairs;
         type = "lua";
         config = ''
@@ -176,6 +185,13 @@ in
       #     -- require("telescope").load_extension("noice")
       #   ''; # TODO: enable telescope extension once it hits master
       # }
+      {
+        plugin = which-key-nvim;
+        type = "lua";
+        config = ''
+          require'which-key'.setup()
+        '';
+      }
 
       nvim-bqf
 
