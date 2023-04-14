@@ -45,6 +45,7 @@ in
   programs.neovim = {
     enable = true;
     package = pkgs.neovim-nightly;
+    defaultEditor = true;
 
     extraPackages = with pkgs; [
       gcc
@@ -87,7 +88,8 @@ in
         plugin = impatient-nvim;
         type = "lua";
         config = ''
-          require'impatient'
+          vim.loader.enable()
+          -- require'impatient'
         '';
       }
 
@@ -99,14 +101,6 @@ in
       vim-fugitive
 
       vim-easy-align
-
-      {
-        plugin = editorconfig-nvim;
-        type = "lua";
-        config = ''
-          vim.g.EditorConfig_exclude_patterns = {'fugitive://.*'},
-        '';
-      }
 
       {
         plugin = nvim-treesitter.withAllGrammars;
@@ -177,14 +171,6 @@ in
       }
       nvim-web-devicons
 
-      # {
-      #   plugin = noice-nvim;
-      #   type = "lua";
-      #   config = ''
-      #     require("noice").setup({ popupmenu = { enabled = false }})
-      #     -- require("telescope").load_extension("noice")
-      #   ''; # TODO: enable telescope extension once it hits master
-      # }
       {
         plugin = which-key-nvim;
         type = "lua";
@@ -251,6 +237,16 @@ in
         config = builtins.readFile ./neovim/nvim-metals.lua;
       }
       direnv-vim
+
+      {
+        plugin = sniprun;
+        type = "lua";
+        config = ''
+          require'sniprun'.setup({             
+              repl_enable = {'Julia_original'},
+          })                                   
+        '';
+      }
 
       {
         plugin = pkgs.vimPlugins.gitsigns-nvim;

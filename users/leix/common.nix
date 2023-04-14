@@ -90,7 +90,6 @@ in
   };
 
   home.sessionVariables = {
-    EDITOR = "nvim";
     TERMINAL = "kitty";
     WINEDLLOVERRIDES =
       "winemenubuilder.exe=d"; # Prevent wine from making file associations
@@ -109,6 +108,7 @@ in
   home.packages = with pkgs; [
     # devenv
     webcord # discord
+    gamescope
     cachix
     waypipe
     # inputs.devenv.packages.x86_64-linux.devenv

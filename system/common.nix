@@ -51,9 +51,9 @@ in
     enable = true;
 
     # package = pkgs.ananicy-cpp;
-
+    # settings.loglevel = "info";
     extraRules = ''
-      { "name" : ".Discord-wrapped", "type" : "Chat" }
+      { "name": "League of Legends.exe", "type": "game" }
     '';
   };
   services.acpid.enable = true;
@@ -297,6 +297,9 @@ in
     };
     gc.automatic = true;
   };
+
+  # TODO: Maybe don't use hyprland flake?
+  disabledModules = ["programs/hyprland.nix"];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

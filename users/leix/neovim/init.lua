@@ -26,7 +26,6 @@ local opts = {
 	updatetime = 300,
 	ttimeoutlen = 10,
 	timeoutlen = 500,
-	lazyredraw = true,
 
 	title = true,
 
