@@ -107,6 +107,8 @@ in
 
   home.packages = with pkgs; [
     # devenv
+    playerctl
+    ungoogled-chromium # sadly webgl in wayland with nvidia does not work on firefox
     webcord # discord
     gamescope
     cachix

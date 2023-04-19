@@ -243,7 +243,8 @@ in
         type = "lua";
         config = ''
           require'sniprun'.setup({             
-              repl_enable = {'Julia_original'},
+            repl_enable = {'Julia_original'},
+            display = { "TerminalWithCode" },
           })                                   
         '';
       }
