@@ -138,6 +138,15 @@ in
       }
 
       {
+        plugin = whitespace-nvim;
+        type = "lua";
+        config = ''
+          require'whitespace-nvim'.setup()
+          vim.api.nvim_create_user_command("Trim", require('whitespace-nvim').trim, { desc = "Trim trailing whitespace" })
+        '';
+      }
+
+      {
         plugin = nvim-colorizer-lua;
         type = "lua";
         config = ''
