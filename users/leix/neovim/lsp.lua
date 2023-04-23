@@ -181,7 +181,6 @@ local lsp_list = {
 	"texlab",
 	"tsserver",
 	-- "vimls",
-	"yamlls",
 }
 
 for _, val in pairs(lsp_list) do
@@ -190,6 +189,16 @@ for _, val in pairs(lsp_list) do
 		capabilities = capabilities,
 	})
 end
+
+lspconfig.yamlls.setup({
+    on_attach = lsp_attach,
+    capabilities = capabilities,
+    settings = {
+        yaml = {
+            keyOrdering = false,
+        }
+    }
+})
 
 lspconfig.nil_ls.setup({
 	on_attach = lsp_attach,
