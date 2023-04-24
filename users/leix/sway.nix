@@ -6,7 +6,7 @@
     glib # gsettings
     dracula-theme # gtk theme
     gnome3.adwaita-icon-theme # default gnome cursors
-    swaylock
+    swaylock-effects
     vulkan-validation-layers
     vulkan-loader
     vulkan-tools
@@ -46,33 +46,5 @@
     extraConfig = ''
       output "*" background ${pkgs.nixos-artwork.wallpapers.simple-dark-gray}/share/backgrounds/nixos/nix-wallpaper-simple-dark-gray.png fill
     '';
-  };
-
-  programs.waybar = {
-    systemd = {
-      enable = true;
-      target = "sway-session.target";
-    };
-    enable = true;
-    settings = [{
-      layer = "top";
-      modules-left = [ "wlr/workspaces" "sway/mode" "wlr/taskbar" ];
-      modules-center = [ "sway/window" ];
-      modules-right = [
-        "tray"
-        "idle_inhibitor"
-        "backlight"
-        "pulseaudio"
-        "bluetooth"
-        "network"
-        "memory"
-        "cpu"
-        "temperature"
-        "disk"
-        "sway/language"
-        "battery"
-        "clock"
-      ];
-    }];
   };
 }
