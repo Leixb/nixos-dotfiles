@@ -6,7 +6,7 @@ require("neorg").setup({
 				neorg_leader = "<leader>",
 			},
 		},
-		["core.norg.dirman"] = {
+		["core.dirman"] = {
 			config = {
 				workspaces = {
 					root = "~/Documents/neorg",
@@ -16,15 +16,15 @@ require("neorg").setup({
 				},
 			},
 		},
-		["core.norg.completion"] = { config = { engine = "nvim-cmp" } },
-		["core.norg.qol.toc"] = {},
+		["core.completion"] = { config = { engine = "nvim-cmp" } },
+		["core.qol.toc"] = {},
 		["core.export"] = {},
-		["core.norg.journal"] = {
+		["core.journal"] = {
 			config = {
 				workspace = "root",
 			},
 		},
-		["core.norg.concealer"] = {},
+		["core.concealer"] = {},
 		["core.export.markdown"] = {
 			config = {
 				extensions = "all",
