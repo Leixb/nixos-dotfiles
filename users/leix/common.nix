@@ -52,6 +52,7 @@ in
       size = 13;
     };
     enableKittyTheme = true;
+    enableAlacrittyTheme = true;
     enableBatTheme = true;
     enableZathuraTheme = true;
     enableLuakitTheme = true;
@@ -90,7 +91,7 @@ in
   };
 
   home.sessionVariables = {
-    TERMINAL = "kitty";
+    TERMINAL = "alacritty";
     WINEDLLOVERRIDES =
       "winemenubuilder.exe=d"; # Prevent wine from making file associations
     WEBKIT_DISABLE_COMPOSITING_MODE =
@@ -230,6 +231,17 @@ in
       remember_window_size = "no";
       initial_window_width = 1920;
       initial_window_height = 1080;
+
+      update_check_interval = 0;
+    };
+  };
+
+  programs.alacritty = {
+    enable = true;
+    settings = {
+      window = {
+        opacity = 0.75;
+      };
     };
   };
 
@@ -299,25 +311,50 @@ in
   programs.tmux = {
     enable = true;
 
-    terminal = "xterm-kitty";
+    terminal = "alacritty";
     keyMode = "vi";
+    escapeTime = 0;
     mouse = true;
-    newSession = true;
     clock24 = true;
+    baseIndex = 1;
 
     plugins = with pkgs.tmuxPlugins; [
-      vim-tmux-navigator
+      {
+        plugin = vim-tmux-navigator;
+        extraConfig = ''
+          # Use prefix ctrl+l to clear screen
+          bind C-l send-keys C-l
+        '';
+      }
+      {
+        plugin = catppuccin;
+        extraConfig = ''
+          set -g @catppuccin_flavour 'macchiato'
+          set -g @catppuccin_window_tabs_enabled on
+        '';
+      }
       yank
-      catppuccin
+      open
+      {
+        plugin = resurrect;
+        extraConfig = ''
+          set -g @resurrect-strategy-nvim 'session'
+        '';
+      }
+      {
+        plugin = continuum;
+        extraConfig = ''
+          set -g @continuum-restore 'on'
+        '';
+      }
+      tmux-thumbs
+      tmux-fzf
     ];
 
     extraConfig = ''
       set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'  # undercurl support
       set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours - needs tmux-3.0
 
-      set -g base-index 1
-      set -g pane-base-index 1
-      setw -g base-pane-index 1
       set-option -g renumber-windows on
 
       bind-key -T copy-mode-vi v send-keys -X begin-selection
@@ -325,6 +362,7 @@ in
       bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
       bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
 
+      # Split panes in current path
       bind '"' split-window -v -c "#{pane_current_path}"
       bind % split-window -h -c "#{pane_current_path}"
     '';

@@ -51,6 +51,7 @@ in {
       };
 
       enableKittyTheme = mkEnableOption "enableKittyTheme";
+      enableAlacrittyTheme = mkEnableOption "enableAlacrittyTheme";
       enableBatTheme = mkEnableOption "enableBatTheme";
       enableZathuraTheme = mkEnableOption "enableZathuraTheme";
       enableLuakitTheme = mkEnableOption "enableLuakitTheme";
@@ -172,6 +173,30 @@ in {
 
       }
 
+      (mkIf cfg.enableAlacrittyTheme {
+        programs.alacritty.settings = with cfg.palette;
+          {
+            font.normal.family = cfg.font.family;
+            font.size = cfg.font.size;
+
+            colors = {
+              primary = {
+                foreground = white;
+                background = black;
+                dim_foreground = white;
+                bright_foreground = black;
+              };
+              cursor = {
+                text = black;
+                cursor = flamingo;
+              };
+
+              normal = { inherit black red green yellow blue magenta cyan white; };
+              dim = { inherit black red green yellow blue magenta cyan white; };
+              bright = { inherit black red green yellow blue magenta cyan white; };
+            };
+          };
+      })
       (mkIf cfg.enableKittyTheme {
         programs.kitty.settings = with cfg.palette;
           {
