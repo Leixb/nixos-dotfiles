@@ -152,6 +152,17 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 	group = group_id,
 })
 
+-- TODO: This is a hack to fix the issue with telescope and insert mode
+-- (When opening a file in telescope, it opens in insert mode)
+vim.api.nvim_create_autocmd("WinLeave", {
+    callback = function()
+		if vim.bo.ft == "TelescopePrompt" and vim.fn.mode() == "i" then
+			vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false)
+		end
+	end,
+    group = group_id,
+})
+
 --------------------------------------------------------------------------------
 -- commands
 --------------------------------------------------------------------------------
