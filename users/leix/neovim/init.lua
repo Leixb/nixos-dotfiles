@@ -81,11 +81,6 @@ end
 
 vim.g.mapleader = " "
 
-vim.keymap.set("n", "<C-j>", "<C-w><C-j>", { noremap = true })
-vim.keymap.set("n", "<C-k>", "<C-w><C-k>", { noremap = true })
-vim.keymap.set("n", "<C-l>", "<C-w><C-l>", { noremap = true })
-vim.keymap.set("n", "<C-h>", "<C-w><C-h>", { noremap = true })
-
 vim.keymap.set("n", "<F12>", "magg=G`a", { noremap = true, silent = true, desc = "Reindent" })
 
 vim.keymap.set("n", "Y", "y$", { desc = "Yank till eol", noremap = true })

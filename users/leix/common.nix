@@ -298,15 +298,38 @@ in
 
   programs.tmux = {
     enable = true;
+
     terminal = "xterm-kitty";
     keyMode = "vi";
-    extraConfig = ''
-      set -g mouse on
-      setw -g mode-keys vi
+    mouse = true;
+    newSession = true;
+    clock24 = true;
 
+    plugins = with pkgs.tmuxPlugins; [
+      vim-tmux-navigator
+      yank
+      catppuccin
+    ];
+
+    extraConfig = ''
       set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'  # undercurl support
       set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours - needs tmux-3.0
+
+      set -g base-index 1
+      set -g pane-base-index 1
+      setw -g base-pane-index 1
+      set-option -g renumber-windows on
+
+      bind-key -T copy-mode-vi v send-keys -X begin-selection
+      bind-key -T copy-mode-vi V send-keys -X select-line
+      bind-key -T copy-mode-vi C-v send-keys -X rectangle-toggle
+      bind-key -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+
+      bind '"' split-window -v -c "#{pane_current_path}"
+      bind % split-window -h -c "#{pane_current_path}"
     '';
+
+    tmuxp.enable = true;
   };
 
   programs.fzf = {

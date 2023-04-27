@@ -120,6 +120,8 @@ in
       }
       telescope-fzf-native-nvim
 
+      vim-tmux-navigator
+
       {
         plugin = todo-comments-nvim;
         type = "lua";
