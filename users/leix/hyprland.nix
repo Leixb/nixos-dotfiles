@@ -5,6 +5,10 @@ let swaylock-blur = pkgs.writeScriptBin "swaylock-blur" ''
 in
 {
 
+  imports = [
+    ./waybar.nix
+  ];
+
   home.packages = with pkgs; [
     wayland
     hyprpaper
@@ -59,35 +63,6 @@ in
       { timeout = 300; command = "/run/current-system/sw/bin/hyprctl dispatcher dpms off"; }
       { timeout = 315; command = "${swaylock-blur}/bin/swaylock-blur"; }
     ];
-  };
-
-  programs.waybar = {
-    enable = true;
-    package = pkgs.waybar-hyprland;
-    systemd = {
-      enable = false;
-      target = "hyprland-session.target";
-    };
-
-    settings = [{
-      layer = "top";
-      modules-left = [ "wlr/workspaces" "wlr/taskbar" ];
-      modules-center = [ ];
-      modules-right = [
-        "tray"
-        "idle_inhibitor"
-        "backlight"
-        "pulseaudio"
-        "bluetooth"
-        "network"
-        "memory"
-        "cpu"
-        "temperature"
-        "disk"
-        "battery"
-        "clock"
-      ];
-    }];
   };
 
   programs.eww = {

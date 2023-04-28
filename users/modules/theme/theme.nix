@@ -52,6 +52,7 @@ in {
 
       enableKittyTheme = mkEnableOption "enableKittyTheme";
       enableAlacrittyTheme = mkEnableOption "enableAlacrittyTheme";
+      enableFootTheme = mkEnableOption "enableFootTheme";
       enableBatTheme = mkEnableOption "enableBatTheme";
       enableZathuraTheme = mkEnableOption "enableZathuraTheme";
       enableLuakitTheme = mkEnableOption "enableLuakitTheme";
@@ -85,7 +86,12 @@ in {
         # white";
         color7 = lightgray1;
         color15 = lightgray2;
+
+        # special
+        background = black;
+        foreground = white;
       };
+      base16nohash = mapAttrs (name: color: builtins.replaceStrings ["#"] [""] color) base16;
     in
     mkIf cfg.enable (mkMerge [
       {
@@ -135,8 +141,8 @@ in {
           *.font_family: ${cfg.font.family}
           *.font_size: ${builtins.toString cfg.font.size}
 
-          *.background: ${cfg.palette.black}
-          *.foreground: ${cfg.palette.white}
+          *.background: ${cfg.palette.background}
+          *.foreground: ${cfg.palette.text}
 
           !black
           *color0: ${color0}
@@ -191,20 +197,48 @@ in {
                 cursor = flamingo;
               };
 
-              normal = { inherit black red green yellow blue magenta cyan white; };
-              dim = { inherit black red green yellow blue magenta cyan white; };
-              bright = { inherit black red green yellow blue magenta cyan white; };
+              normal = { inherit red green yellow blue magenta cyan white; black = gray; };
+              bright = { inherit red green yellow blue magenta cyan white; black = gray; };
             };
           };
       })
+      (mkIf cfg.enableFootTheme {
+        programs.foot.settings = {
+          main.font = "${cfg.font.family}:size=${builtins.toString cfg.font.size}";
+          main.dpi-aware = "yes";
+          colors = with base16nohash; {
+            background=background;
+            foreground=foreground;
+
+            # Normal/regular colors (color palette 0-7)
+            regular0=color0;
+            regular1=color1;
+            regular2=color2;
+            regular3=color3;
+            regular4=color4;
+            regular5=color5;
+            regular6=color6;
+            regular7=color7;
+
+            # Bright colors (color palette 8-15)
+            bright0=color8;
+            bright1=color9;
+            bright2=color10;
+            bright3=color11;
+            bright4=color12;
+            bright5=color13;
+            bright6=color14;
+            bright7=color15;
+          };
+        };
+      })
+
       (mkIf cfg.enableKittyTheme {
         programs.kitty.settings = with cfg.palette;
           {
             font_family = cfg.font.family;
             font_size = builtins.toString cfg.font.size;
 
-            foreground = white;
-            background = black;
             selection_foreground = black;
             selection_background = flamingo;
             # Cursor colors";

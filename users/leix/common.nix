@@ -53,6 +53,7 @@ in
     };
     enableKittyTheme = true;
     enableAlacrittyTheme = true;
+    enableFootTheme = true;
     enableBatTheme = true;
     enableZathuraTheme = true;
     enableLuakitTheme = true;
@@ -91,7 +92,7 @@ in
   };
 
   home.sessionVariables = {
-    TERMINAL = "alacritty";
+    TERMINAL = "kitty";
     WINEDLLOVERRIDES =
       "winemenubuilder.exe=d"; # Prevent wine from making file associations
     WEBKIT_DISABLE_COMPOSITING_MODE =
@@ -245,6 +246,14 @@ in
     };
   };
 
+  programs.foot = {
+    enable = true;
+    server.enable = true;
+    settings = {
+      colors.alpha = 0.75;
+    };
+  };
+
   programs.git = {
     enable = true;
     userEmail = "abone9999@gmail.com";
@@ -352,6 +361,7 @@ in
     ];
 
     extraConfig = ''
+      set -ag terminal-overrides ",*:Tc" # true color support
       set -as terminal-overrides ',*:Smulx=\E[4::%p1%dm'  # undercurl support
       set -as terminal-overrides ',*:Setulc=\E[58::2::%p1%{65536}%/%d::%p1%{256}%/%{255}%&%d::%p1%{255}%&%d%;m'  # underscore colours - needs tmux-3.0
 
@@ -365,6 +375,8 @@ in
       # Split panes in current path
       bind '"' split-window -v -c "#{pane_current_path}"
       bind % split-window -h -c "#{pane_current_path}"
+
+      set -g default-terminal "tmux-256color"
     '';
 
     tmuxp.enable = true;
