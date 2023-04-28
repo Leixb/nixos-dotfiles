@@ -92,7 +92,7 @@ in
   };
 
   home.sessionVariables = {
-    TERMINAL = "kitty";
+    TERMINAL = lib.mkDefault "kitty";
     WINEDLLOVERRIDES =
       "winemenubuilder.exe=d"; # Prevent wine from making file associations
     WEBKIT_DISABLE_COMPOSITING_MODE =
@@ -248,7 +248,6 @@ in
 
   programs.foot = {
     enable = true;
-    server.enable = true;
     settings = {
       colors.alpha = 0.75;
     };
