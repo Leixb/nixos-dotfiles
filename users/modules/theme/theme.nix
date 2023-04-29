@@ -205,7 +205,6 @@ in {
       (mkIf cfg.enableFootTheme {
         programs.foot.settings = {
           main.font = "${cfg.font.family}:size=${builtins.toString cfg.font.size}";
-          main.dpi-aware = "yes";
           colors = with base16nohash; {
             background=background;
             foreground=foreground;

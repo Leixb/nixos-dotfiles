@@ -6,7 +6,7 @@
     ../common.nix
     ./hardware-configuration.nix
     # ../lenovo/awesomewm.nix
-    ./gnome.nix
+    # ./gnome.nix
   ];
 
   boot.kernel.sysctl = {

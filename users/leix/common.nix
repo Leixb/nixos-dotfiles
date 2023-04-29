@@ -250,6 +250,7 @@ in
     enable = true;
     settings = {
       colors.alpha = 0.75;
+      main.dpi-aware = "no";
     };
   };
 
