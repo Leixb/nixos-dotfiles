@@ -143,7 +143,9 @@ in
         plugin = whitespace-nvim;
         type = "lua";
         config = ''
-          require'whitespace-nvim'.setup()
+          require'whitespace-nvim'.setup({
+            ignored_filetypes = { 'TelescopePrompt', 'Trouble', 'help', 'lspinfo' },
+          })
           vim.api.nvim_create_user_command("Trim", require('whitespace-nvim').trim, { desc = "Trim trailing whitespace" })
         '';
       }
