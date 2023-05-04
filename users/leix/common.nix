@@ -109,6 +109,7 @@ in
 
   home.packages = with pkgs; [
     # devenv
+    notify
     playerctl
     ungoogled-chromium # sadly webgl in wayland with nvidia does not work on firefox
     webcord # discord
