@@ -241,8 +241,8 @@ in {
             selection_foreground = black;
             selection_background = flamingo;
             # Cursor colors";
-            cursor = flamingo;
-            cursor_text_color = black;
+            cursor = "none";
+            # cursor_text_color = black;
             # URL underline color when hovering with mouse";
             url_color = flamingo;
             # Kitty window border colors";
