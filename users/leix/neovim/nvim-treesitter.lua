@@ -5,6 +5,7 @@ require("nvim-treesitter.configs").setup({
 	rainbow = { enable = true },
 	autotag = { enable = true },
 	context_commentstring = { enable = true },
+    endwise = { enable = true },
 })
 vim.g.foldmethod = "expr"
 vim.g.foldexpr = "nvim_treesitter#foldexpr()"

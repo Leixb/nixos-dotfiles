@@ -112,6 +112,14 @@ in
       nvim-ts-autotag
       nvim-ts-context-commentstring
       nvim-treesitter-refactor
+      nvim-treesitter-endwise
+      {
+        plugin = nvim-treesitter-context;
+        type = "lua";
+        config = ''
+          require('treesitter-context').setup { enable = true }
+        '';
+      }
 
       {
         plugin = telescope-nvim;
