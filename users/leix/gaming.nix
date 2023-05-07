@@ -59,8 +59,5 @@ in
     );
   };
 
-  home.packages = with pkgs; [ lutris legendary
-  # WARN: put this back once tomlplusplus is fixed
-  # prismlauncher
-  winetricks ];
+  home.packages = with pkgs; [ lutris legendary prismlauncher winetricks ];
 }
