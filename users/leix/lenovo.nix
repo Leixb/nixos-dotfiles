@@ -9,10 +9,10 @@ let
     current="$($pactl info | grep 'Default Sink' | cut -d':' -f 2 | tr -d ' ')"
 
     if [[ "$current" == "$speakers" ]]; then
-        echo "   headset"
+        echo " 󰋎 headset"
         $pactl set-default-sink "$headset"
     elif [[ "$current" == "$headset" ]]; then
-        echo " 蓼 speakers"
+        echo " 󰓃 speakers"
         $pactl set-default-sink "$speakers"
     else
         echo "Unknown sink: $current"

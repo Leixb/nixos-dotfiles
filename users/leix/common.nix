@@ -403,13 +403,23 @@ in
     config.map-syntax = [ "flake.lock:JSON" ];
   };
 
-  programs.starship = {
+  programs.starship = let
+    starship_nerdfonts_toml = pkgs.runCommand "starship_nerdfonts" {} ''
+      ${pkgs.starship}/bin/starship preset nerd-font-symbols -o $out
+    '';
+    starship_nerdfonts = builtins.fromTOML (builtins.readFile starship_nerdfonts_toml);
+  in {
     enable = true;
     enableFishIntegration = true;
 
-    settings = {
-      nix_shell = { symbol = "❄️ "; };
-      rlang = { detect_files = [ ]; };
+    settings =  starship_nerdfonts // {
+      nix_shell.symbol = "❄️ ";
+      directory.read_only = " ";
+      memory_usage.symbol = "󰍛 ";
+      package.symbol = " ";
+      meson.symbol = "🧰 ";
+      nim.symbol = "👾 ";
+      rlang = { detect_files = [ ]; symbol = "📊 "; };
     };
   };
 
