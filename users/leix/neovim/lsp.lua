@@ -1,5 +1,9 @@
 local lspconfig = require("lspconfig")
 
+-- disable autostart on pavilion
+-- since resources are limited there
+local autostart = vim.fn.hostname() ~= "nixos-pav"
+
 vim.keymap.set(
 	"n",
 	"<leader>e",
@@ -186,12 +190,14 @@ local lsp_list = {
 for _, val in pairs(lsp_list) do
 	lspconfig[val].setup({
 		on_attach = lsp_attach,
+        autostart = autostart,
 		capabilities = capabilities,
 	})
 end
 
 lspconfig.yamlls.setup({
     on_attach = lsp_attach,
+    autostart = autostart,
     capabilities = capabilities,
     settings = {
         yaml = {
@@ -202,6 +208,7 @@ lspconfig.yamlls.setup({
 
 lspconfig.nil_ls.setup({
 	on_attach = lsp_attach,
+    autostart = autostart,
 	capabilities = capabilities,
 	settings = {
 		["formatting.command"] = "nixpkgs-fmt",
@@ -213,6 +220,7 @@ local capabilities_16 = capabilities
 capabilities_16.offsetEncoding = { "utf-16" }
 lspconfig.clangd.setup({
 	on_attach = lsp_attach,
+    autostart = autostart,
 	capabilities = capabilities_16,
 })
 
@@ -222,6 +230,7 @@ table.insert(runtime_path, "lua/?/init.lua")
 
 lspconfig.pylsp.setup({
 	on_attach = lsp_attach,
+    autostart = autostart,
 	capabilities = capabilities,
 	settings = {
 		formatCommand = { "black" },
@@ -241,6 +250,7 @@ lspconfig.pylsp.setup({
 })
 
 lspconfig.lua_ls.setup({
+    autostart = autostart,
 	settings = {
 		Lua = {
 			runtime = {
