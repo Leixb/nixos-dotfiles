@@ -15,4 +15,8 @@ local sources = {
 }
 
 -- lsp_attach from lsp_config file
-null_ls.setup({ sources = sources, on_attach = lsp_attach })
+null_ls.setup({
+    sources = sources,
+    on_attach = lsp_attach,
+    autostart = autostart,
+})

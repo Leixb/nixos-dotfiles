@@ -2,6 +2,7 @@ require("grammar-guard").init()
 
 require("lspconfig").grammar_guard.setup({
 	cmd = { "ltex-ls" },
+    autostart = autostart,
 	settings = {
 		ltex = {
 			enabled = { "latex", "tex", "bib", "markdown", "norg", "neorg" },

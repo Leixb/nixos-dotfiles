@@ -277,6 +277,12 @@ in
       }
       gv-vim
 
+      { # Must go before copilot, grammar-guard, null-ls and other lsp things
+        plugin = nvim-lspconfig;
+        type = "lua";
+        config = builtins.readFile ./neovim/lsp.lua;
+      }
+
       vim-grammarous
       {
         plugin = grammar-guard-nvim;
@@ -290,11 +296,6 @@ in
         config = builtins.readFile ./neovim/copilot-vim.lua;
       }
 
-      {
-        plugin = nvim-lspconfig;
-        type = "lua";
-        config = builtins.readFile ./neovim/lsp.lua;
-      }
       nvim-lsp-ts-utils
       lsp_signature-nvim
       lspkind-nvim
