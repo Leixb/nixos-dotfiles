@@ -99,6 +99,7 @@
       url = "github:Infinidoge/nix-minecraft";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
+      inputs.flake-compat.follows = "flake-compat";
     };
 
     nvim-R = {
@@ -129,6 +130,8 @@
         zotero7 = prev.callPackage ./packages/zotero/default.nix { };
 
         devenv = devenv.packages.${system}.devenv;
+
+        modrinth_server_modpack = prev.callPackage ./packages/modrinth_server_modpack/default.nix { };
 
         nix-index-database =
           inputs.nix-index-database.outputs.legacyPackages.${system}.database;
