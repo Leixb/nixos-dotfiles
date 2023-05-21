@@ -111,7 +111,6 @@ in
     # devenv
     notify
     playerctl
-    ungoogled-chromium # sadly webgl in wayland with nvidia does not work on firefox
     webcord # discord
     gamescope
     cachix
@@ -119,8 +118,6 @@ in
     # inputs.devenv.packages.x86_64-linux.devenv
     # todoist-electron # electron 15 EOL
     plexamp
-    bitwarden
-    bitwarden-cli
     tdesktop # telegram desktop
     element-desktop
     fd
