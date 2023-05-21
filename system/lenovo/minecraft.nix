@@ -11,17 +11,19 @@ let
   };
   cobblemon_files = pkgs.modrinth_server_modpack.override {
       modpack = cobblemon_modpack;
-      extra_mods = let
-        waystones = pkgs.fetchurl {
-          url = "https://cdn.modrinth.com/data/LOpKHB2A/versions/kA4IuZjx/waystones-fabric-1.19.2-11.4.0.jar";
-          sha512 = "01a73bbb8a321b87bb744693f9cafaf7ac64a02f2b8ffdf6ef13c452e493abff580152e1e9ff4483326b30af4ba3f8c81cf4c2a3947112e0503fa53bb8983ba8";
+      extra_mods = lib.mapAttrsToList (name: value:
+        let mod = pkgs.fetchurl { inherit (value) url sha512; }; in
+          (pkgs.runCommand name {} ''
+            mkdir -p $out/mods
+            ln -s ${mod} $out/mods
+          '')
+        )
+        {
+          waystones = { url = "https://cdn.modrinth.com/data/LOpKHB2A/versions/kA4IuZjx/waystones-fabric-1.19.2-11.4.0.jar"; sha512 = "01a73bbb8a321b87bb744693f9cafaf7ac64a02f2b8ffdf6ef13c452e493abff580152e1e9ff4483326b30af4ba3f8c81cf4c2a3947112e0503fa53bb8983ba8"; };
+          create = { url = "https://cdn.modrinth.com/data/Xbc0uyRg/versions/EkeMb3jA/create-fabric-0.5.0.i-1017%2B1.19.2.jar"; sha512 = "1912185fbb3150ec7fcc860c64144656c92f5b52c706387a1f0e27e6074051ae316f4463e25a692ad591ea7a3c28fc4ce3bca5bfc34411ad6e19df927da033f4"; };
+          gravestones = { url = "https://cdn.modrinth.com/data/ssUbhMkL/versions/DoolHsey/gravestones-v1.13.jar"; sha512 = "1000cacb000b5acd2e5a4c513f4b945f786476236dcd226f837fd6801cc52b5b2170307c2681f8dc1dbeb392744199ca645a89e34ac493a1da9d3f946fb8ccd5"; };
+          trade-cycling = { url = "https://cdn.modrinth.com/data/qpPoAL6m/versions/qLOXh29y/trade-cycling-fabric-1.19.2-1.0.5.jar"; sha512 = "aeee22b9b2e860902eaededa250ec2f69e0496cc177b864f3033688c4aaa3b423d8353cdd3906977a86a58c202931300acdd5e64a8b60d048335cfcea90f5b92"; };
         };
-      in [
-        (pkgs.runCommand "waystones" {} ''
-          mkdir -p $out/mods
-          ln -s ${waystones} $out/mods
-        '')
-      ];
   };
 
   base-config = {
