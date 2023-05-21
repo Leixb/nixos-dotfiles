@@ -71,7 +71,8 @@ in
       nodePackages.vscode-langservers-extracted
       nodePackages.yaml-language-server
 
-      nodejs-16_x # copilot 14-17
+      # nodejs-16_x # copilot 14-17
+      nodejs
 
       ## null-ls
       actionlint
@@ -179,9 +180,9 @@ in
       }
 
       {
-        plugin = barbar-nvim;
+        plugin = bufferline-nvim;
         type = "lua";
-        config = builtins.readFile ./neovim/barbar-nvim.lua;
+        config = builtins.readFile ./neovim/bufferline-nvim.lua;
       }
       {
         plugin = bufresize-nvim;
