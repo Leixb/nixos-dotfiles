@@ -1,5 +1,5 @@
 rec {
-  color0  = "#24273A"; # base
+  color0  = "#25273A"; # base
   color1  = "#1E2030"; # mantle
   color2  = "#363A4F"; # surface0
   color3  = "#494D64"; # surface1
