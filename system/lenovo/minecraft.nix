@@ -1,6 +1,29 @@
 { pkgs, lib, ... }:
 
 let
+  cobblemon_modpack = pkgs.fetchzip {
+    pname = "Cobblemon";
+    version = "1.3.2";
+    url = "https://cdn.modrinth.com/data/5FFgwNNP/versions/nvrqJg44/Cobblemon%20%5BFabric%5D%201.3.2.mrpack";
+    sha256 = "sha256-F56AwHGoUN3HbDqvj+bFeFc9Z8jGJhGn5K73MzMsn8E=";
+    extension = "zip";
+    stripRoot = false;
+  };
+  cobblemon_files = pkgs.modrinth_server_modpack.override {
+      modpack = cobblemon_modpack;
+      extra_mods = let
+        waystones = pkgs.fetchurl {
+          url = "https://cdn.modrinth.com/data/LOpKHB2A/versions/kA4IuZjx/waystones-fabric-1.19.2-11.4.0.jar";
+          sha512 = "01a73bbb8a321b87bb744693f9cafaf7ac64a02f2b8ffdf6ef13c452e493abff580152e1e9ff4483326b30af4ba3f8c81cf4c2a3947112e0503fa53bb8983ba8";
+        };
+      in [
+        (pkgs.runCommand "waystones" {} ''
+          mkdir -p $out/mods
+          ln -s ${waystones} $out/mods
+        '')
+      ];
+  };
+
   base-config = {
     enable = true;
     autoStart = false;
@@ -55,6 +78,35 @@ in
           serverProperties.server-port = 19090;
         }
       ];
+      cobblemon = {
+        enable = true;
+        autoStart = false;
+        package = pkgs.fabricServers.fabric-1_19_2;
+        serverProperties = {
+          white-list = true;
+          online-mode = false;
+          hide-online-players = true;
+          max-players = 3;
+          motd = "Cozy home";
+          snooper-enabled = false;
+          difficulty = "hard";
+        };
+        whitelist = {
+          leixb = "3346ef95-ab68-409a-a25a-168f0eebce67";
+          LeixB = "6d991b35-3140-3e0f-80f9-10a32d26150c";
+          SpiderQueen = "1b743142-e762-3a42-84e8-204f7530985b";
+          uctagusta = "e12cfc19-b45b-36c8-86b4-bf5b73c23898";
+        };
+        symlinks = {
+          mods = "${cobblemon_files}/mods";
+          fancymenu_data = "${cobblemon_files}/fancymenu_data";
+          global_packs = "${cobblemon_files}/global_packs";
+          "icon.png" = "${cobblemon_files}/icon.png";
+          "instance.png" = "${cobblemon_files}/instance.png";
+          resourcepacks = "${cobblemon_files}/resourcepacks";
+          shaderpacks = "${cobblemon_files}/shaderpacks";
+        };
+      };
     };
   };
 }
