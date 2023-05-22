@@ -13,7 +13,11 @@ bufferline.setup {
             s = s .. n .. sym
           end
           return s
-        end
+        end,
+        custom_filter = function(buf, buf_nums)
+            -- filter out qf and help buffers
+            return not vim.tbl_contains({ 'qf', 'help' }, vim.bo[buf].filetype)
+        end,
     }
 }
 
