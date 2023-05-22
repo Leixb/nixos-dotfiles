@@ -42,6 +42,8 @@ in
     options(browser = "xdg-open")
   '';
 
+  home.file.".vale.ini".text = "";
+
   programs.neovim = {
     enable = true;
     package = pkgs.neovim-nightly;
