@@ -23,6 +23,7 @@ let
           create = { url = "https://cdn.modrinth.com/data/Xbc0uyRg/versions/EkeMb3jA/create-fabric-0.5.0.i-1017%2B1.19.2.jar"; sha512 = "1912185fbb3150ec7fcc860c64144656c92f5b52c706387a1f0e27e6074051ae316f4463e25a692ad591ea7a3c28fc4ce3bca5bfc34411ad6e19df927da033f4"; };
           gravestones = { url = "https://cdn.modrinth.com/data/ssUbhMkL/versions/DoolHsey/gravestones-v1.13.jar"; sha512 = "1000cacb000b5acd2e5a4c513f4b945f786476236dcd226f837fd6801cc52b5b2170307c2681f8dc1dbeb392744199ca645a89e34ac493a1da9d3f946fb8ccd5"; };
           trade-cycling = { url = "https://cdn.modrinth.com/data/qpPoAL6m/versions/qLOXh29y/trade-cycling-fabric-1.19.2-1.0.5.jar"; sha512 = "aeee22b9b2e860902eaededa250ec2f69e0496cc177b864f3033688c4aaa3b423d8353cdd3906977a86a58c202931300acdd5e64a8b60d048335cfcea90f5b92"; };
+          cobblemon-extras = { url = "https://cdn.modrinth.com/data/TXoSDUCh/versions/TQyYS6Wi/CobblemonExtras-fabric-1.0.4%2B1.19.2.jar"; sha512 = "6a7c1ef2e4c6c2b5f2a8c2d410127c9decc2a8b0d5a98a1a1b296c54dcf358d0d0a8f5a1bdb1139271a5098867945c4a9b1b49a4f43701db3833a1e22ceab55a"; };
         };
   };
 
