@@ -90,7 +90,7 @@ in
           online-mode = false;
           hide-online-players = true;
           max-players = 3;
-          motd = "Cozy home";
+          motd = "Cobblemon + create";
           snooper-enabled = false;
           difficulty = "hard";
         };
@@ -100,15 +100,7 @@ in
           SpiderQueen = "1b743142-e762-3a42-84e8-204f7530985b";
           uctagusta = "e12cfc19-b45b-36c8-86b4-bf5b73c23898";
         };
-        symlinks = {
-          mods = "${cobblemon_files}/mods";
-          fancymenu_data = "${cobblemon_files}/fancymenu_data";
-          global_packs = "${cobblemon_files}/global_packs";
-          "icon.png" = "${cobblemon_files}/icon.png";
-          "instance.png" = "${cobblemon_files}/instance.png";
-          resourcepacks = "${cobblemon_files}/resourcepacks";
-          shaderpacks = "${cobblemon_files}/shaderpacks";
-        };
+        symlinks = lib.genAttrs ["mods" "fancymenu_data" "global_packs" "icon.png" "instance.png" "resourcepacks" "shaderpacks"] (name: "${cobblemon_files}/${name}");
       };
     };
   };
