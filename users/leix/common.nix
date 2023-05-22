@@ -108,7 +108,7 @@ in
   };
 
   home.packages = with pkgs; [
-    # devenv
+    devenv
     notify
     playerctl
     webcord # discord

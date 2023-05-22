@@ -22,7 +22,7 @@
     };
 
     devenv = {
-      url = "github:cachix/devenv/v0.6";
+      url = "github:cachix/devenv/latest";
       # inputs.nixpkgs.follows = "nixpkgs";
       # inputs.pre-commit-hooks.follows = "pre-commit-hooks";
       # inputs.flake-compat.follows = "flake-compat";
