@@ -24,6 +24,11 @@ let
           gravestones = { url = "https://cdn.modrinth.com/data/ssUbhMkL/versions/DoolHsey/gravestones-v1.13.jar"; sha512 = "1000cacb000b5acd2e5a4c513f4b945f786476236dcd226f837fd6801cc52b5b2170307c2681f8dc1dbeb392744199ca645a89e34ac493a1da9d3f946fb8ccd5"; };
           trade-cycling = { url = "https://cdn.modrinth.com/data/qpPoAL6m/versions/qLOXh29y/trade-cycling-fabric-1.19.2-1.0.5.jar"; sha512 = "aeee22b9b2e860902eaededa250ec2f69e0496cc177b864f3033688c4aaa3b423d8353cdd3906977a86a58c202931300acdd5e64a8b60d048335cfcea90f5b92"; };
           cobblemon-extras = { url = "https://cdn.modrinth.com/data/TXoSDUCh/versions/TQyYS6Wi/CobblemonExtras-fabric-1.0.4%2B1.19.2.jar"; sha512 = "6a7c1ef2e4c6c2b5f2a8c2d410127c9decc2a8b0d5a98a1a1b296c54dcf358d0d0a8f5a1bdb1139271a5098867945c4a9b1b49a4f43701db3833a1e22ceab55a"; };
+          oh-the-biomes-youll-go = { url = "https://cdn.modrinth.com/data/uE1WpIAk/versions/9MInWvhi/Oh_The_Biomes_You%27ll_Go-fabric-1.19.2-2.0.1.1.jar"; sha512 = "003e21ff9c6f15685cc7a8e1869ce88627538b48e7620e77ee13b32c4321a6185de960e5eb5c41dc1a615178a89db1f94bb1d99f562f66b87d76b0775f141fb9"; };
+          terrablender = { url = "https://cdn.modrinth.com/data/kkmrDlKT/versions/nZwFn2MJ/TerraBlender-fabric-1.19.2-2.0.1.136.jar"; sha512 = "b44ce4000ef7c425754231147ea0e45315f5018c7833eec998e6a6e258304558f1fcfad87851bdda8db7627abb6d496910a2b21953e22a2b6d02812b78598008"; };
+          gekolib = { url = "https://cdn.modrinth.com/data/8BmcQJ2H/versions/ATPZfRS1/geckolib-fabric-1.19-3.1.40.jar"; sha512 = "43a0e6da036b14ad288de5727b69209c09dec40144a8b0b4a2f2970c10679f6095f1db0f5e15fcf9e80e41b5bf276a574a5971118b3c3b4ac5d2b4517d330a2b"; };
+          corgilib = { url = "https://cdn.modrinth.com/data/ziOp6EO8/versions/HaZfKDxj/CorgiLib-fabric-1.19.2-1.0.0.34.jar"; sha512 = "58e465fd2fb8587fc2a147faff2e568d40b248b9e34e887f2a9185c80c06b880f35201a83343447d0ff7c59a4b8d6c3752dc3478c4e1d19236c9b5c4339b4a1d"; };
+          polymorph = { url = "https://cdn.modrinth.com/data/tagwiZkJ/versions/cnPRpn78/polymorph-fabric-0.46.1%2B1.19.2.jar"; sha512 = "02b24d3f56a7f47248c1f6da672a74c0e2e1221c238fe00bcb8860f9925138095c524a5823ec36fbae7c88beede13be14e4d27d2e18fd15142a7b31df64f7827"; };
         };
   };
 
