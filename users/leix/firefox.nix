@@ -18,6 +18,8 @@
 
         "browser.uidensity" = 1;
 
+        "network.proxy.allow_hijacking_localhost" = true;
+
         # "privacy.webrtc.legacyGlobalIndicator" = false;
       };
 
