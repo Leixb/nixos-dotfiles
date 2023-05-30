@@ -29,6 +29,8 @@ let
           gekolib = { url = "https://cdn.modrinth.com/data/8BmcQJ2H/versions/ATPZfRS1/geckolib-fabric-1.19-3.1.40.jar"; sha512 = "43a0e6da036b14ad288de5727b69209c09dec40144a8b0b4a2f2970c10679f6095f1db0f5e15fcf9e80e41b5bf276a574a5971118b3c3b4ac5d2b4517d330a2b"; };
           corgilib = { url = "https://cdn.modrinth.com/data/ziOp6EO8/versions/HaZfKDxj/CorgiLib-fabric-1.19.2-1.0.0.34.jar"; sha512 = "58e465fd2fb8587fc2a147faff2e568d40b248b9e34e887f2a9185c80c06b880f35201a83343447d0ff7c59a4b8d6c3752dc3478c4e1d19236c9b5c4339b4a1d"; };
           polymorph = { url = "https://cdn.modrinth.com/data/tagwiZkJ/versions/cnPRpn78/polymorph-fabric-0.46.1%2B1.19.2.jar"; sha512 = "02b24d3f56a7f47248c1f6da672a74c0e2e1221c238fe00bcb8860f9925138095c524a5823ec36fbae7c88beede13be14e4d27d2e18fd15142a7b31df64f7827"; };
+          dungeonsarise = { url = "https://cdn.modrinth.com/data/8DfbfASn/versions/tKxOjh70/DungeonsArise-1.19.2-2.1.54-fabric.jar"; sha512 = "32bc53d2a584a9abb9e1e09444e9ee99925933f34effee72e6c052588f55b0051639d2811f4d771380d0480b6e1bdf634d6aa96b54a486733342440cad9dae12"; };
+          farmersdelight = { url = "https://cdn.modrinth.com/data/4EakbH8e/versions/baQ9tohQ/farmers-delight-fabric-1.19.X-1.3.9.jar"; sha512 = "d86eb4c2da455c1afc8221de889ae9fd2a8c1e3fccb7da97dbe32331a116f0e0ae1fd7010761afc132449d5776665c3b65bbf95631ed120ef67dac4fcf4744d3"; };
         };
   };
 
@@ -90,6 +92,7 @@ in
         enable = true;
         autoStart = false;
         package = pkgs.fabricServers.fabric-1_19_2;
+        jvmOpts = "-Xmx8G -Xms4G";
         serverProperties = {
           white-list = true;
           online-mode = false;
