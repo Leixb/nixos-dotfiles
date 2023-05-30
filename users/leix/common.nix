@@ -111,6 +111,7 @@ in
     devenv
     notify
     playerctl
+    miniupnpc
     webcord # discord
     gamescope
     cachix
