@@ -203,14 +203,14 @@
           modules = common-modules ++ [
             ./system/lenovo/configuration.nix
             home-manager.nixosModules.home-manager
-            hyprland.nixosModules.default
-            {
-              programs.hyprland = {
-                enable = true;
-                nvidiaPatches = true;
-                xwayland.hidpi = true;
-              };
-            }
+            # hyprland.nixosModules.default
+            # {
+            #   programs.hyprland = {
+            #     enable = true;
+            #     nvidiaPatches = true;
+            #     xwayland.hidpi = true;
+            #   };
+            # }
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;

@@ -200,7 +200,7 @@ in
     logitech-udev-rules
     headsetcontrol
   ];
-  services.dbus.packages = with pkgs; [ gcr ];
+  services.dbus.packages = with pkgs; [ gcr at-spi2-core ];
 
   # Mout MTP and other network shares
   services.gvfs.enable = true;
@@ -261,7 +261,7 @@ in
       # wlr.enable = true;
       extraPortals = with pkgs; [
         # xdg-desktop-portal-wlr
-#        xdg-desktop-portal-gtk
+       xdg-desktop-portal-gtk
       ];
     };
   };

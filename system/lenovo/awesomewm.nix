@@ -12,6 +12,8 @@ in {
       EndSection
     '';
 
+    # videoDrivers = ["nvidia"];
+
     displayManager = {
       autoLogin.enable = false;
       autoLogin.user = "leix";
@@ -31,6 +33,11 @@ in {
           '';
         in
         "${pkgs.xorg.xmodmap}/bin/xmodmap ${xmodmap_config}";
+
+      # gdm = {
+      #   enable = true;
+      #   wayland = true;
+      # };
 
       lightdm.enable = true;
       lightdm.greeters.mini = {

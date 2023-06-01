@@ -44,6 +44,8 @@ in
 
   home.file.".vale.ini".text = "";
 
+  home.sessionVariables.EDITOR = "nvim";
+
   programs.neovim = {
     enable = true;
     package = pkgs.neovim-nightly;
