@@ -31,6 +31,9 @@ let
           polymorph = { url = "https://cdn.modrinth.com/data/tagwiZkJ/versions/cnPRpn78/polymorph-fabric-0.46.1%2B1.19.2.jar"; sha512 = "02b24d3f56a7f47248c1f6da672a74c0e2e1221c238fe00bcb8860f9925138095c524a5823ec36fbae7c88beede13be14e4d27d2e18fd15142a7b31df64f7827"; };
           dungeonsarise = { url = "https://cdn.modrinth.com/data/8DfbfASn/versions/tKxOjh70/DungeonsArise-1.19.2-2.1.54-fabric.jar"; sha512 = "32bc53d2a584a9abb9e1e09444e9ee99925933f34effee72e6c052588f55b0051639d2811f4d771380d0480b6e1bdf634d6aa96b54a486733342440cad9dae12"; };
           farmersdelight = { url = "https://cdn.modrinth.com/data/4EakbH8e/versions/baQ9tohQ/farmers-delight-fabric-1.19.X-1.3.9.jar"; sha512 = "d86eb4c2da455c1afc8221de889ae9fd2a8c1e3fccb7da97dbe32331a116f0e0ae1fd7010761afc132449d5776665c3b65bbf95631ed120ef67dac4fcf4744d3"; };
+          packitup = { url = "https://cdn.modrinth.com/data/czWH0F4i/versions/BXhMkYzT/pack_it_up-0.3.0%2B1.19.jar"; sha512 = "718e5f7e8365c5fd7c4deeabf9b52854074d008623c61326eec5138044ffd2c39a2dd904da310af326b1ffd01357631e955581b06c498db3601900498e699dec"; };
+          comforts = { url = "https://cdn.modrinth.com/data/SaCpeal4/versions/CeY7jdWr/comforts-fabric-6.0.4%2B1.19.2.jar"; sha512 = "a383358aed152ffdf673115b9a1e83d572d6e3d92ed4dd5559ec9526d0ca3abb4be1badab87d3a275a5008753e7d1d3679ffc279236893e4ee9838042042c587"; };
+          paladinfurniture = { url = "https://cdn.modrinth.com/data/SISz7Qd3/versions/v4hDp1AI/paladin-furniture-mod-1.1.1-fabric-mc1.19.jar"; sha512 = "1d6871a4b9eb092c5904455bcb3b7bbd46434df6362c839696ab98b38a1147ef8b969092c7b7d787ffacfff4956901c9563d734d5759cfbecd91dcc11dc98287"; };
         };
   };
 
