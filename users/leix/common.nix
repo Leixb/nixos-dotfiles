@@ -27,6 +27,7 @@ in
 {
   imports = [ ./hyprland.nix ./mime-apps.nix ./neovim.nix ../modules/all.nix ./firefox.nix ./taskwarrior.nix ];
 
+
   # Let Home Manager install and manage itself.
   #programs.home-manager.enable = true;
 

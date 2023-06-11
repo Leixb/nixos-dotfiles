@@ -12,7 +12,7 @@ let
   cobblemon_files = pkgs.modrinth_server_modpack.override {
       modpack = cobblemon_modpack;
       extra_mods = lib.mapAttrsToList (name: value:
-        let mod = pkgs.fetchurl { inherit (value) url sha512; }; in
+        let mod = pkgs.fetchurl value; in
           (pkgs.runCommand name {} ''
             mkdir -p $out/mods
             ln -s ${mod} $out/mods
@@ -34,6 +34,10 @@ let
           packitup = { url = "https://cdn.modrinth.com/data/czWH0F4i/versions/BXhMkYzT/pack_it_up-0.3.0%2B1.19.jar"; sha512 = "718e5f7e8365c5fd7c4deeabf9b52854074d008623c61326eec5138044ffd2c39a2dd904da310af326b1ffd01357631e955581b06c498db3601900498e699dec"; };
           comforts = { url = "https://cdn.modrinth.com/data/SaCpeal4/versions/CeY7jdWr/comforts-fabric-6.0.4%2B1.19.2.jar"; sha512 = "a383358aed152ffdf673115b9a1e83d572d6e3d92ed4dd5559ec9526d0ca3abb4be1badab87d3a275a5008753e7d1d3679ffc279236893e4ee9838042042c587"; };
           paladinfurniture = { url = "https://cdn.modrinth.com/data/SISz7Qd3/versions/v4hDp1AI/paladin-furniture-mod-1.1.1-fabric-mc1.19.jar"; sha512 = "1d6871a4b9eb092c5904455bcb3b7bbd46434df6362c839696ab98b38a1147ef8b969092c7b7d787ffacfff4956901c9563d734d5759cfbecd91dcc11dc98287"; };
+          zenith = { url = "https://mediafilez.forgecdn.net/files/4555/655/zenith-0.6.2%2B1.19.2.jar"; sha256 = "ce1d40d663cc859e6023c95b956de8e41a1c7ca9d4d973c8bfa102a25ba11000"; };
+          patchouli = { url = "https://cdn.modrinth.com/data/nU0bVIaL/versions/NorgAU8F/Patchouli-1.19.2-77-FABRIC.jar"; sha512 = "499e5d558964c482aef0cd29affa12749c494b13859bf6471fc8d691b3e97f5ce3b5defc83f4ea9161f0532ec88da6049748136d60b44428a5cc8312d8cee066"; };
+          more-slabs = { url = "https://cdn.modrinth.com/data/bdBzXqbS/versions/KFoS6drW/mssw-fabric-2.4.0%2B1.19.2.jar"; sha512 = "0a935d8287a32f30f5da3b9c81c581b19fe2b878178aab95eafc1ce7713bab929b330fa73f3a1b5d9905170757e1c2c9ec921834252399a737d69a7544652199"; };
+          extended-drawers = { url = "https://cdn.modrinth.com/data/AhtxbnpG/versions/M5cLmAFm/ExtendedDrawers-1.4.1%2Bmc.1.19.2.jar"; sha512 = "16d609f18423c559a26f1335276ab556541a4c452119ebe28cb56d91e3543eb7c9010bb88719504869ac45b79732cd7cc0f581b9f94ec0d750207a2d77e6a277"; };
         };
   };
 

@@ -44,6 +44,7 @@ in
   home.packages = with pkgs; [
     switch-audio
     open-arch-home
+    hyprland-nvidia
     close-arch-home
     geogebra
     obs-studio
