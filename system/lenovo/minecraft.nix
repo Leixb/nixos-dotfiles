@@ -38,6 +38,8 @@ let
           patchouli = { url = "https://cdn.modrinth.com/data/nU0bVIaL/versions/NorgAU8F/Patchouli-1.19.2-77-FABRIC.jar"; sha512 = "499e5d558964c482aef0cd29affa12749c494b13859bf6471fc8d691b3e97f5ce3b5defc83f4ea9161f0532ec88da6049748136d60b44428a5cc8312d8cee066"; };
           more-slabs = { url = "https://cdn.modrinth.com/data/bdBzXqbS/versions/KFoS6drW/mssw-fabric-2.4.0%2B1.19.2.jar"; sha512 = "0a935d8287a32f30f5da3b9c81c581b19fe2b878178aab95eafc1ce7713bab929b330fa73f3a1b5d9905170757e1c2c9ec921834252399a737d69a7544652199"; };
           extended-drawers = { url = "https://cdn.modrinth.com/data/AhtxbnpG/versions/M5cLmAFm/ExtendedDrawers-1.4.1%2Bmc.1.19.2.jar"; sha512 = "16d609f18423c559a26f1335276ab556541a4c452119ebe28cb56d91e3543eb7c9010bb88719504869ac45b79732cd7cc0f581b9f94ec0d750207a2d77e6a277"; };
+          ae2 = { url = "https://cdn.modrinth.com/data/XxWD5pD3/versions/Xc1WEGPd/appliedenergistics2-fabric-12.9.5.jar"; sha512 = "63c8936d845018d125e35954219b6a35969f4d00db798788e7c747cb6568881f3de7a7f5461fea1d709203b1a8e106466b097b206c898a524794e7f804b2212b"; };
+          wthit = { url = "https://cdn.modrinth.com/data/6AQIaxuO/versions/Lv3CXyzs/wthit-fabric-5.16.2.jar"; sha512 = "80282b7dc33ba2e496b20dd6f81602d06b4759b9b9ccfa14321d84975565da2786bf9a0cd0710cf4a356c6c3181c640c236fbf3e3cde4d9b19cb4eb8f158ddd0"; };
         };
   };
 
