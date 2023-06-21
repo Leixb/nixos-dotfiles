@@ -40,6 +40,8 @@ let
           extended-drawers = { url = "https://cdn.modrinth.com/data/AhtxbnpG/versions/M5cLmAFm/ExtendedDrawers-1.4.1%2Bmc.1.19.2.jar"; sha512 = "16d609f18423c559a26f1335276ab556541a4c452119ebe28cb56d91e3543eb7c9010bb88719504869ac45b79732cd7cc0f581b9f94ec0d750207a2d77e6a277"; };
           ae2 = { url = "https://cdn.modrinth.com/data/XxWD5pD3/versions/Xc1WEGPd/appliedenergistics2-fabric-12.9.5.jar"; sha512 = "63c8936d845018d125e35954219b6a35969f4d00db798788e7c747cb6568881f3de7a7f5461fea1d709203b1a8e106466b097b206c898a524794e7f804b2212b"; };
           wthit = { url = "https://cdn.modrinth.com/data/6AQIaxuO/versions/Lv3CXyzs/wthit-fabric-5.16.2.jar"; sha512 = "80282b7dc33ba2e496b20dd6f81602d06b4759b9b9ccfa14321d84975565da2786bf9a0cd0710cf4a356c6c3181c640c236fbf3e3cde4d9b19cb4eb8f158ddd0"; };
+          badpackets = { url = "https://cdn.modrinth.com/data/ftdbN0KK/versions/AifWRdyF/badpackets-fabric-0.2.1.jar"; sha512 = "f41e5aa02662c6d4f70084b1c604b806414776a18b90ed31432daa98123504c5bb403fece55b1350d85a91c40673c3cc0ec6497a7f65f5c1c55f7881304d0329"; };
+          emi = { url = "https://cdn.modrinth.com/data/fRiHVvU7/versions/ZYREdR8e/emi-1.0.4%2B1.19.2%2Bfabric.jar"; sha512 = "eeeb79db645415646f4aa6ac476ac694a62aa7201bc9c8a7fc00bac69ccb1ef52f7b46da259406129eb9aa1a7bbd6c5c340125e353469b93e4c64a1b10febf89"; };
         };
   };
 
