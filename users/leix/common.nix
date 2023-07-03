@@ -17,7 +17,7 @@ let
   '';
 
   catppuccin-style = {
-    name = "Catppuccin-Macchiato-Standard-Peach-Dark";
+    name = "Catppuccin-Macchiato-Standard-Peach-dark";
     package = pkgs.catppuccin-gtk.override {
       accents = [ "pink" "blue" "peach" ];
       variant = "macchiato";
@@ -139,7 +139,7 @@ in
     unzip
     file
     flameshot
-    gimp
+    gimp-with-plugins
     inkscape
     krita
     libreoffice
