@@ -8,16 +8,16 @@
 let
   modrinth_index = builtins.fromJSON (builtins.readFile "${modpack}/modrinth.index.json");
 
-  files = builtins.filter (file: file.env.server != "unsupported") modrinth_index.files;
+  files = builtins.filter (file: !(file ? env) || file.env.server != "unsupported") modrinth_index.files;
 
   downloads = builtins.map (file:
     fetchurl {
-      url = builtins.head file.downloads;
+      urls = file.downloads;
       inherit (file.hashes) sha512;
     }
   ) files;
 
-  paths = builtins.map (file: file.path) files;
+  paths = builtins.map (builtins.getAttr "path") files;
 
   derivations = lib.zipListsWith (path: download:
     let folder_name = builtins.match "(.*)/(.*$)" path;
