@@ -50,11 +50,11 @@ in
   services.ananicy = {
     enable = true;
 
-    # package = pkgs.ananicy-cpp;
+    package = pkgs.ananicy-cpp;
     # settings.loglevel = "info";
-    extraRules = ''
-      { "name": "League of Legends.exe", "type": "game" }
-    '';
+    extraRules = [
+      { name = "League of Legends.exe"; type= "game"; }
+    ];
   };
   services.acpid.enable = true;
 
