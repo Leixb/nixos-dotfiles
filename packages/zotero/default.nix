@@ -45,11 +45,11 @@
 
 stdenv.mkDerivation rec {
   pname = "zotero";
-  version = "7.0.0-dev.7";
+  version = "7.0.0-beta.23";
 
   src = fetchurl {
-    url = "https://download.zotero.org/client/dev/7.0.0-dev.7%2B827298917/Zotero-7.0.0-dev.7%2B827298917_linux-x86_64.tar.bz2";
-    sha256 = "sha256-89ucG40QhaBTfTiK9xJ14jydqIPHJUEbPCq6rZMJMQI=";
+    url = "https://download.zotero.org/client/beta/7.0.0-beta.23%2Bfb5934563/Zotero-7.0.0-beta.23%2Bfb5934563_linux-x86_64.tar.bz2";
+    sha256 = "sha256-Y9YqIjIY4Nwa6b2HVYlQDYh70M0BKOeBXfO+s4ebJzg=";
   };
 
   nativeBuildInputs = [
