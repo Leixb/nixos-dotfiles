@@ -15,7 +15,7 @@ let
   '';
 in
 {
-  imports = [ ./restic.nix ../cachix.nix ];
+  imports = [ ./restic.nix ../cachix.nix ./hass.nix ];
 
   boot.kernel.sysctl = {
     "vm.swappiness" = lib.mkDefault 1;
@@ -53,7 +53,7 @@ in
     package = pkgs.ananicy-cpp;
     # settings.loglevel = "info";
     extraRules = [
-      { name = "League of Legends.exe"; type= "game"; }
+      { name = "League of Legends.exe"; type = "game"; }
     ];
   };
   services.acpid.enable = true;
@@ -163,7 +163,7 @@ in
     wireplumber.enable = true;
   };
 
-  security.pam.services.swaylock = {};
+  security.pam.services.swaylock = { };
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   programs.fish.enable = true;
@@ -227,8 +227,8 @@ in
   networking.firewall.enable = false;
 
   fonts = {
-    enableDefaultFonts = true;
-    fonts = with pkgs; [
+    enableDefaultPackages = true;
+    packages = with pkgs; [
       dejavu_fonts
       fira
       fira-code
@@ -261,7 +261,7 @@ in
       # wlr.enable = true;
       extraPortals = with pkgs; [
         # xdg-desktop-portal-wlr
-       xdg-desktop-portal-gtk
+        xdg-desktop-portal-gtk
       ];
     };
   };
@@ -299,7 +299,7 @@ in
   };
 
   # TODO: Maybe don't use hyprland flake?
-  disabledModules = ["programs/hyprland.nix"];
+  disabledModules = [ "programs/hyprland.nix" ];
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
