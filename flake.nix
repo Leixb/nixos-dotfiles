@@ -191,6 +191,7 @@
 
         buildInputs = with pkgs; [
           nixpkgs-fmt
+          sops
         ];
 
         inherit (self.checks.${system}.pre-commit-check) shellHook;
@@ -216,6 +217,9 @@
               home-manager.useUserPackages = true;
               home-manager.users.leix = import ./users/leix/lenovo.nix;
               home-manager.extraSpecialArgs = specialArgs;
+              home-manager.sharedModules = [
+                sops-nix.homeManagerModules.sops
+              ];
             }
           ];
         };

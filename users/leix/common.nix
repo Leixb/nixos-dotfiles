@@ -1,7 +1,7 @@
 # vim: sw=2 ts=2:
-{ config, lib, pkgs, system, inputs, ... }:
+{ config, lib, pkgs, osConfig, system, inputs, ... }:
 let
-  username = "leix";
+  username = osConfig.users.users.leix.name;
 
   dbeaver-adawaita = pkgs.symlinkJoin {
     name = "dbeaver";
@@ -26,7 +26,6 @@ let
 in
 {
   imports = [ ./hyprland.nix ./mime-apps.nix ./neovim.nix ../modules/all.nix ./firefox.nix ./taskwarrior.nix ];
-
 
   # Let Home Manager install and manage itself.
   #programs.home-manager.enable = true;
@@ -402,25 +401,27 @@ in
     config.map-syntax = [ "flake.lock:JSON" ];
   };
 
-  programs.starship = let
-    starship_nerdfonts_toml = pkgs.runCommand "starship_nerdfonts" {} ''
-      ${pkgs.starship}/bin/starship preset nerd-font-symbols -o $out
-    '';
-    starship_nerdfonts = builtins.fromTOML (builtins.readFile starship_nerdfonts_toml);
-  in {
-    enable = true;
-    enableFishIntegration = true;
+  programs.starship =
+    let
+      starship_nerdfonts_toml = pkgs.runCommand "starship_nerdfonts" { } ''
+        ${pkgs.starship}/bin/starship preset nerd-font-symbols -o $out
+      '';
+      starship_nerdfonts = builtins.fromTOML (builtins.readFile starship_nerdfonts_toml);
+    in
+    {
+      enable = true;
+      enableFishIntegration = true;
 
-    settings =  starship_nerdfonts // {
-      nix_shell.symbol = "❄️ ";
-      directory.read_only = " ";
-      memory_usage.symbol = "󰍛 ";
-      package.symbol = " ";
-      meson.symbol = "🧰 ";
-      nim.symbol = "👾 ";
-      rlang = { detect_files = [ ]; symbol = "📊 "; };
+      settings = starship_nerdfonts // {
+        nix_shell.symbol = "❄️ ";
+        directory.read_only = " ";
+        memory_usage.symbol = "󰍛 ";
+        package.symbol = " ";
+        meson.symbol = "🧰 ";
+        nim.symbol = "👾 ";
+        rlang = { detect_files = [ ]; symbol = "📊 "; };
+      };
     };
-  };
 
   programs.vscode = {
     enable = true;

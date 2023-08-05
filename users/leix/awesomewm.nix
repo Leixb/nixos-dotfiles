@@ -1,5 +1,8 @@
-{ config, lib, pkgs, system, inputs, ... }:
+{ config, osConfig, lib, pkgs, system, inputs, ... }:
 
+let
+  username = osConfig.users.users.leix.name;
+in
 {
   xdg.configFile = {
     "awesome" = {
@@ -8,10 +11,30 @@
     };
   };
 
+  sops.age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
+  sops.secrets.hass_env.sopsFile = ../../system/secrets/hass.yaml;
+  sops.secrets.hass_env.path = "$XDG_RUNTIME_DIR/secrets/hass_env";
+
   home.packages = with pkgs; [
     (i3lock-fancy-rapid.override {
       i3lock = pkgs.writeShellScriptBin "i3lock" ''
-        ${pkgs.i3lock-color}/bin/i3lock-color "$@"
+        . ${config.sops.secrets.hass_env.path}
+
+        ${pkgs.curl}/bin/curl -X POST \
+            -H "Authorization: Bearer $HASS_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"hostname" : "${osConfig.networking.hostName}"}' \
+            $HASS_SERVER/api/events/nixos.lock &
+
+        ${pkgs.i3lock-color}/bin/i3lock-color --nofork "$@"
+
+        wait
+
+        ${pkgs.curl}/bin/curl -X POST \
+            -H "Authorization: Bearer $HASS_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{"hostname" : "${osConfig.networking.hostName}"}' \
+            $HASS_SERVER/api/events/nixos.unlock
       '';
     })
     xsel
