@@ -45,11 +45,11 @@
 
 stdenv.mkDerivation rec {
   pname = "zotero";
-  version = "7.0.0-beta.23";
+  version = "7.0.0-beta.36";
 
   src = fetchurl {
-    url = "https://download.zotero.org/client/beta/7.0.0-beta.23%2Bfb5934563/Zotero-7.0.0-beta.23%2Bfb5934563_linux-x86_64.tar.bz2";
-    sha256 = "sha256-Y9YqIjIY4Nwa6b2HVYlQDYh70M0BKOeBXfO+s4ebJzg=";
+    url = "https://download.zotero.org/client/beta/7.0.0-beta.36%2B3ef1f0992/Zotero-7.0.0-beta.36%2B3ef1f0992_linux-x86_64.tar.bz2";
+    sha256 = "sha256-aif+wBn9jcdHkZ/HpSej6qsGe5NLtgc/vA3hLSA406w=";
   };
 
   nativeBuildInputs = [
@@ -105,7 +105,7 @@ stdenv.mkDerivation rec {
 
   desktopItem = makeDesktopItem {
     name = "zotero-${version}";
-    exec = "zotero -url %U";
+    exec = "zotero7 -url %U";
     icon = "zotero";
     comment = meta.description;
     desktopName = "Zotero 7";
