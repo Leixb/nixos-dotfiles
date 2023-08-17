@@ -193,7 +193,7 @@
           "Nix Home Manager Options" = {
             urls = [{
               template =
-                "https://mipmip.github.io/home-manager-option-search/?{searchTerms}";
+                "https://mipmip.github.io/home-manager-option-search/?query={searchTerms}";
             }];
             icon =
               "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
@@ -204,8 +204,8 @@
               template =
                 "https://nixos.wiki/index.php?search={searchTerms}";
             }];
-            iconUpdateURL = "https://nixos.wiki/favicon.png";
-            updateInterval = 24 * 60 * 60 * 1000;
+            icon =
+              "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
             definedAliases = [ "@nxw" ];
           };
         };
