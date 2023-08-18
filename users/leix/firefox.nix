@@ -70,6 +70,7 @@
         ublock-origin
         sponsorblock
         vimium
+        duckduckgo-privacy-essentials
         # tree-style-tab
       ];
 
