@@ -28,8 +28,8 @@
         "browser.ctrlTab.recentlyUsedOrder" = false;
         "browser.discovery.enabled" = false;
         "browser.laterrun.enabled" = false;
-        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" =
-          false;
+        "browser.newtabpage.activity-stream.enabled" = false;
+        "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
         "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" =
           false;
         "browser.newtabpage.activity-stream.feeds.snippets" = false;
