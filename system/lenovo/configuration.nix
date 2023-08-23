@@ -54,8 +54,9 @@ in
 
   services.xserver.displayManager.setupCommands = ''
     # ${pkgs.xorg.xrandr}/bin/xrandr --setprovideroutputsource NVIDIA-G0 modesetting
+    ${pkgs.xorg.xrandr}/bin/xrandr --output DP-2 --right-of DP-2 --scale 1.25x1.25
     ${pkgs.xorg.xrandr}/bin/xrandr --output DP-3 --primary --auto --right-of DP-2
-    ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-0 --auto --right-of DP-3
+    ${pkgs.xorg.xrandr}/bin/xrandr --output HDMI-0 --auto --right-of DP-3 --scale 1.5x1.5
   '';
 
   nix.sshServe.enable = true;

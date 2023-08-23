@@ -47,6 +47,7 @@ local opts = {
 
 	cursorline = true,
 	number = true,
+	relativenumber = true,
 	signcolumn = "yes",
 	foldenable = false,
 
@@ -95,9 +96,11 @@ vim.keymap.set(
 	{ desc = "Close location, qf and help windows" }
 )
 
-vim.keymap.set({ "i", "c" }, "jk", "<ESC>")
+vim.keymap.set({ "i", "c" }, "jk", "<ESC>", { desc = "jk to escape" })
 
 vim.keymap.set("t", "<ESC>", "<C-\\><C-n>", { desc = "Terminal ESC" })
+
+vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { desc = "Copy to system clipboard" })
 
 --------------------------------------------------------------------------------
 -- NETRW
@@ -155,12 +158,12 @@ vim.api.nvim_create_autocmd("TextYankPost", {
 -- TODO: This is a hack to fix the issue with telescope and insert mode
 -- (When opening a file in telescope, it opens in insert mode)
 vim.api.nvim_create_autocmd("WinLeave", {
-    callback = function()
+	callback = function()
 		if vim.bo.ft == "TelescopePrompt" and vim.fn.mode() == "i" then
 			vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "i", false)
 		end
 	end,
-    group = group_id,
+	group = group_id,
 })
 
 --------------------------------------------------------------------------------
