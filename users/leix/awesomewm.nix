@@ -13,7 +13,7 @@ in
 
   sops.age.keyFile = "/home/${username}/.config/sops/age/keys.txt";
   sops.secrets.hass_env.sopsFile = ../../system/secrets/hass.yaml;
-  sops.secrets.hass_env.path = "$XDG_RUNTIME_DIR/secrets/hass_env";
+  sops.secrets.hass_env.path = "/home/${username}/.local/state/hass_env";
 
   home.packages = with pkgs; [
     (i3lock-fancy-rapid.override {
