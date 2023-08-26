@@ -80,7 +80,7 @@ in
 
       ## null-ls
       actionlint
-      hadolint
+      # hadolint -- WARN: broken by haskellPackages.ilist, remmember to set back null-ls-nvim once fixed
       shellcheck
       stylua
       vale
@@ -282,7 +282,8 @@ in
       }
       gv-vim
 
-      { # Must go before copilot, grammar-guard, null-ls and other lsp things
+      {
+        # Must go before copilot, grammar-guard, null-ls and other lsp things
         plugin = nvim-lspconfig;
         type = "lua";
         config = builtins.readFile ./neovim/lsp.lua;
