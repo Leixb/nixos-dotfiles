@@ -98,6 +98,7 @@
           "Nix Home Manager Options"
           "NixOS Wiki"
           "Nixpkgs PR Tracker"
+          "Noogle"
         ];
 
         engines = {
@@ -244,6 +245,15 @@
             icon =
               "${pkgs.nixos-icons}/share/icons/hicolor/scalable/apps/nix-snowflake.svg";
             definedAliases = [ "@nxw" ];
+          };
+          "Noogle" = {
+            urls = [{
+              template =
+                "https://noogle.dev/?term={searchTerms}";
+            }];
+            iconUpdateURL = "https://noogle.dev/_next/static/media/white.dc624142.svg";
+            updateInterval = 24 * 60 * 60 * 1000;
+            definedAliases = [ "@nxf" ];
           };
         };
       };
