@@ -7,6 +7,16 @@ in
 {
   boot.blacklistedKernelModules = [ "i2c_nvidia_gpu" ];
 
+  boot.extraModprobeConfig =
+    "options nvidia "
+    + lib.concatStringsSep " " [
+      # nvidia assume that by default your CPU does not support PAT,
+      # but this is effectively never the case in 2023
+      "NVreg_UsePageAttributeTable=1"
+      # This may be a noop, but it's somewhat uncertain
+      "NVreg_EnablePCIeGen3=1"
+    ];
+
   hardware.nvidia = {
     # Use latest driver version
     package =
@@ -27,8 +37,8 @@ in
   };
 
   hardware.opengl.extraPackages = with pkgs; [
-      nvidia-vaapi-driver
-      linuxPackages.nvidia_x11
+    nvidia-vaapi-driver
+    linuxPackages.nvidia_x11
   ];
 
   services.xserver.videoDrivers = [ "nvidia" ];
