@@ -23,9 +23,9 @@ local opts = {
 
 	cmdheight = 1,
 
-	updatetime = 300,
+	updatetime = 250,
 	ttimeoutlen = 10,
-	timeoutlen = 500,
+	timeoutlen = 300,
 
 	title = true,
 
@@ -53,6 +53,7 @@ local opts = {
 
 	autoindent = true,
 	smartindent = true,
+	breakindent = true,
 
 	infercase = true,
 
@@ -81,6 +82,12 @@ end
 --------------------------------------------------------------------------------
 
 vim.g.mapleader = " "
+vim.g.maplocalleader = " "
+vim.keymap.set({ "n", "v" }, "<Space>", "<Nop>", { silent = true, desc = "Disable space since it is the leader" })
+
+-- Word wrap aware navigation
+vim.keymap.set("n", "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
+vim.keymap.set("n", "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
 
 vim.keymap.set("n", "<F12>", "magg=G`a", { noremap = true, silent = true, desc = "Reindent" })
 

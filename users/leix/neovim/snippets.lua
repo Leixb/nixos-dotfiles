@@ -51,3 +51,5 @@ require("luasnip/loaders/from_vscode").lazy_load() -- You can pass { paths = './
 
 vim.keymap.set({ "i", "s" }, "<F13>", "<Plug>luasnip-next-choice", { silent = true, desc = "Luasnip next choice" })
 vim.keymap.set({ "i", "s" }, "", "<Plug>luasnip-next-choice", { silent = true, desc = "Luasnip next choice" })
+
+ls.config.setup()

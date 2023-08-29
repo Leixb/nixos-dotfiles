@@ -100,12 +100,36 @@ in
 
       vim-surround
       vim-repeat
+
+      # Automatic detection of indentation settings
       vim-eunuch
-      vim-commentary
+
+      # Git plugins
       vim-rhubarb
       vim-fugitive
 
       vim-easy-align
+
+      # Comment and uncomment lines
+      {
+        plugin = comment-nvim;
+        type = "lua";
+        config = ''
+          require'Comment'.setup()
+        '';
+      }
+
+      {
+        plugin = indent-blankline-nvim-lua;
+        type = "lua";
+        config = ''
+          require'indent_blankline'.setup{
+            show_current_context = true,
+            show_trailing_blankline_indent = false,
+            show_first_indent_level = false,
+          }
+        '';
+      }
 
       {
         plugin = nvim-treesitter.withAllGrammars;
@@ -118,6 +142,7 @@ in
       nvim-ts-context-commentstring
       nvim-treesitter-refactor
       nvim-treesitter-endwise
+      nvim-treesitter-textobjects
       {
         plugin = nvim-treesitter-context;
         type = "lua";
@@ -305,7 +330,6 @@ in
       nvim-lsp-ts-utils
       lsp_signature-nvim
       lspkind-nvim
-      nvim-code-action-menu
       {
         plugin = rust-tools-nvim;
         type = "lua";
