@@ -1,15 +1,15 @@
 local actions = require("telescope.actions")
 
 require("telescope").setup({
-	defaults = {
-		initial_mode = "insert",
-		mappings = {
-			i = {
-				["<c-k>"] = actions.move_selection_previous,
-				["<c-j>"] = actions.move_selection_next,
-			},
-		},
-	},
+    defaults = {
+        initial_mode = "insert",
+        mappings = {
+            i = {
+                ["<c-k>"] = actions.move_selection_previous,
+                ["<c-j>"] = actions.move_selection_next,
+            },
+        },
+    },
 })
 require("telescope").load_extension("notify")
 require("telescope").load_extension("fzf")
@@ -24,19 +24,19 @@ vim.keymap.set("n", "<Bs>", require("telescope.builtin").live_grep, { desc = "Te
 vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
 
 vim.keymap.set("n", "<CR>", function()
-	if vim.bo.buftype == "" then
-		require("telescope.builtin").builtin()
-	else
-		vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, true, true), "n")
-	end
+    if vim.bo.buftype == "" then
+        require("telescope.builtin").builtin()
+    else
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, true, true), "n")
+    end
 end, { desc = "Telescope" })
 
 vim.keymap.set("n", "<leader>/", function()
-	-- You can pass additional configuration to telescope to change theme, layout, etc.
-	require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
-		winblend = 10,
-		previewer = false,
-	}))
+    -- You can pass additional configuration to telescope to change theme, layout, etc.
+    require("telescope.builtin").current_buffer_fuzzy_find(require("telescope.themes").get_dropdown({
+        winblend = 10,
+        previewer = false,
+    }))
 end, { desc = "[/] Fuzzily search in current buffer" })
 
 vim.keymap.set("n", "<leader>sf", require("telescope.builtin").find_files, { desc = "[S]earch [F]iles" })
