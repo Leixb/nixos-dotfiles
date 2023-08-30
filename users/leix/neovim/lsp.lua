@@ -70,12 +70,9 @@ local function lsp_attach(client, bufnr)
     nmap("<leader>fo", vim.lsp.buf.outgoing_calls, "[F]unction [O]utgoing calls")
 
     nmap("<leader>f", vim.lsp.buf.format, "[F]ormat buffer")
-    -- Create a command `:Format` local to the LSP buffer
-    vim.api.nvim_buf_create_user_command(bufnr, "Format", function(_)
-        vim.lsp.buf.format()
-    end, { desc = "Format current buffer with LSP" })
 
-    require("lsp_signature").on_attach()
+    require("lsp-format").on_attach(client)
+    require("lsp_signature").on_attach({}, bufnr)
 
     require("notify")(string.format("[LSP] %s", client.name), "info", { render = "minimal", timeout = 2000 })
 

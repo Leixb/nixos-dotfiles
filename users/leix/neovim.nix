@@ -330,6 +330,7 @@ in
       nvim-lsp-ts-utils
       lsp_signature-nvim
       lspkind-nvim
+      lsp-format-nvim
       {
         plugin = rust-tools-nvim;
         type = "lua";
