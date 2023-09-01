@@ -1,5 +1,5 @@
 # vim: sw=2 ts=2:
-{ config, lib, pkgs, osConfig, sops, system, inputs, ... }:
+{ config, lib, pkgs, osConfig, system, inputs, ... }:
 let
   username = osConfig.users.users.leix.name;
 
@@ -12,7 +12,7 @@ let
   };
 in
 {
-  imports = [ ./upc.nix ./hyprland.nix ./mime-apps.nix ./neovim.nix ../modules/all.nix ./firefox.nix ./taskwarrior.nix ./ssh.nix ];
+  imports = [ ./sops.nix ./upc.nix ./hyprland.nix ./mime-apps.nix ./neovim.nix ../modules/all.nix ./firefox.nix ./taskwarrior.nix ./ssh.nix ];
 
   # Let Home Manager install and manage itself.
   #programs.home-manager.enable = true;
