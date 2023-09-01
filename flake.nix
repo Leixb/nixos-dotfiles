@@ -243,6 +243,27 @@
             }
           ];
         };
+
+        asus = lib.nixosSystem {
+          inherit system;
+
+          modules = common-modules ++ [
+            ./system/asus/configuration.nix
+            home-manager.nixosModules.home-manager
+            hyprland.nixosModules.default
+            { programs.hyprland.enable = true; }
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.leix = import ./users/leix/asus.nix;
+              home-manager.users.marc = import ./users/marc.nix;
+              home-manager.extraSpecialArgs = specialArgs;
+              home-manager.sharedModules = [
+                sops-nix.homeManagerModules.sops
+              ];
+            }
+          ];
+        };
       };
 
       colmena = {
