@@ -1,5 +1,5 @@
 { config, lib, pkgs, inputs, ... }: {
-  imports = [ ./common.nix ./sway.nix ];
+  imports = [ ./leix.nix ./home.nix ./sway.nix ];
   programs.foot.server.enable = true;
   home.sessionVariables.TERMINAL = lib.mkForce "footclient";
 

@@ -1,7 +1,9 @@
 # vim: sw=2 ts=2:
 { config, lib, pkgs, osConfig, system, inputs, ... }:
 let
-  username = osConfig.users.users.leix.name;
+  # username = osConfig.users.users.leix.name;
+
+  username = config.home.username;
 
   catppuccin-style = {
     name = "Catppuccin-Macchiato-Standard-Peach-dark";
@@ -232,11 +234,11 @@ in
 
   programs.git = {
     enable = true;
-    userName = "LeixB";
     signing.key = "~/.ssh/id_ed25519.pub";
     signing.signByDefault = true;
 
-    includes = [{ path = config.sops.secrets.git_config.path; }];
+    userName = if username == "leix" then "LeixB" else username;
+    includes = lib.optional (username == "leix") [{ path = config.sops.secrets.git_config.path; }];
 
     ignores = [ "*~" "*.swp" "/.direnv/" ];
 
