@@ -168,6 +168,8 @@ in
   # Define a user account. Don't forget to set a password with ‘passwd’.
   programs.fish.enable = true;
   users.users.leix = {
+    description = "Aleix";
+    uid = 1000;
     isNormalUser = true;
     extraGroups = [
       "wheel"

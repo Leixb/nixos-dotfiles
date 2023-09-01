@@ -1,7 +1,8 @@
-{ lib, pkgs, ... }:
-let swaylock-blur = pkgs.writeScriptBin "swaylock-blur" ''
-  ${pkgs.swaylock-effects}/bin/swaylock -S --effect-scale 0.6 --effect-blur 7x2 -F --clock
-'';
+{ lib, pkgs, config, ... }:
+let
+  swaylock-blur = pkgs.writeScriptBin "swaylock-blur" ''
+    ${pkgs.swaylock-effects}/bin/swaylock -S --effect-scale 0.6 --effect-blur 7x2 -F --clock
+  '';
 in
 {
 
@@ -49,7 +50,7 @@ in
     };
     Service = {
       Type = "simple";
-      ExecStart = "${pkgs.swaybg}/bin/swaybg -i /home/leix/Pictures/owl.png";
+      ExecStart = "${pkgs.swaybg}/bin/swaybg -i ${config.home.homeDirectory}/Pictures/owl.png";
     };
     Install = {
       WantedBy = [ "hyprland-session.target" ];

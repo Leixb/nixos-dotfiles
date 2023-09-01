@@ -1,5 +1,5 @@
 # vim: sw=2 ts=2:
-{ config, lib, pkgs, osConfig, system, inputs, ... }:
+{ config, lib, pkgs, osConfig, sops, system, inputs, ... }:
 let
   username = osConfig.users.users.leix.name;
 
@@ -12,10 +12,6 @@ let
     '';
   };
 
-  vpn-connect = pkgs.writeShellScriptBin "vpn-connect" ''
-    sudo ${pkgs.gof5}/bin/gof5 -server https://upclink.upc.edu -username aleix.bone "$@"
-  '';
-
   catppuccin-style = {
     name = "Catppuccin-Macchiato-Standard-Peach-dark";
     package = pkgs.catppuccin-gtk.override {
@@ -25,7 +21,7 @@ let
   };
 in
 {
-  imports = [ ./hyprland.nix ./mime-apps.nix ./neovim.nix ../modules/all.nix ./firefox.nix ./taskwarrior.nix ];
+  imports = [ ./upc.nix ./hyprland.nix ./mime-apps.nix ./neovim.nix ../modules/all.nix ./firefox.nix ./taskwarrior.nix ./ssh.nix ];
 
   # Let Home Manager install and manage itself.
   #programs.home-manager.enable = true;
@@ -34,16 +30,6 @@ in
   # paths it should manage.
   home.username = username;
   home.homeDirectory = "/home/${username}";
-
-  home.file.".gof5/config.yaml".text = /* yaml */ ''
-    dns:
-    - .upc.edu.
-    - .upc.
-
-    routes:
-    - 10.0.0.0/8
-    - 147.83.0.0/16
-  '';
 
   theme = {
     enable = true;
@@ -82,7 +68,6 @@ in
       name = "Arc";
       package = pkgs.arc-icon-theme;
     };
-    gtk3.bookmarks = [ "file:///home/leix/Documents/UPC" ];
   };
 
   qt = {
@@ -108,6 +93,7 @@ in
   };
 
   home.packages = with pkgs; [
+    nix-output-monitor
     devenv
     notify
     playerctl
@@ -149,8 +135,6 @@ in
     solaar
     headsetcontrol
     pavucontrol
-    vpn-connect
-    eduroam
     alsa-utils
     libnotify
     gh
@@ -253,12 +237,15 @@ in
     };
   };
 
+  sops.secrets.git_config.path = "${config.xdg.configHome}/git/config.d/secret.inc";
+
   programs.git = {
     enable = true;
-    userEmail = "abone9999@gmail.com";
     userName = "LeixB";
     signing.key = "~/.ssh/id_ed25519.pub";
     signing.signByDefault = true;
+
+    includes = [{ path = config.sops.secrets.git_config.path; }];
 
     ignores = [ "*~" "*.swp" "/.direnv/" ];
 
