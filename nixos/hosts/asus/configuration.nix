@@ -9,11 +9,6 @@
     [
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
-      ../common.nix
-      ../../cachix.nix
-      ../lenovo/nvidia.nix
-      ../lenovo/awesomewm.nix
-      ../pavilion/gnome.nix
     ];
 
   # Bootloader.

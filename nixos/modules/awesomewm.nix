@@ -1,6 +1,6 @@
 { pkgs, ... }:
 
-let palette = import ../../users/modules/theme/palette.nix;
+let palette = import ../../home-manager/modules/theme/palette.nix;
 in {
   services.xserver = {
     enable = true;
@@ -39,7 +39,7 @@ in {
           show-password-label = false
           password-alignment = center
           [greeter-theme]
-          background-image = "${./../../users/leix/wallpapers/keyboards.png}"
+          background-image = "${../../home-manager/modules/wallpapers/keyboards.png}"
           font = "DejaVu Sans Mono"
           text-color = "${white}"
           error-color = "${red}"

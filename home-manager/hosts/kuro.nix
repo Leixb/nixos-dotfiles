@@ -1,4 +1,4 @@
-{ config, lib, pkgs, system, inputs, ... }:
+{ pkgs, ... }:
 let
   switch-audio = pkgs.writers.writeBashBin "switch-audio" ''
     headset="alsa_output.usb-Logitech_G733_Gaming_Headset-00.iec958-stereo"
@@ -39,7 +39,7 @@ let
   '';
 in
 {
-  imports = [ ./leix.nix ./home.nix ./sway.nix ./gaming.nix ./awesomewm.nix ./mpd.nix ./autorandr.nix ];
+  imports = [ ../modules/sway.nix ../modules/gaming.nix ../modules/awesomewm.nix ../modules/mpd.nix ../modules/autorandr.nix ];
 
   home.packages = with pkgs; [
     switch-audio
@@ -51,4 +51,6 @@ in
     kdenlive
     matlab
   ];
+
+  home.stateVersion = "21.11";
 }

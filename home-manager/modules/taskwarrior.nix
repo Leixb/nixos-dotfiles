@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 
-let taskwarrior = pkgs.symlinkJoin {
+let
+  taskwarrior = pkgs.symlinkJoin {
     name = "taskwarrior-wrapped";
     paths = [ pkgs.taskwarrior ];
     nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
@@ -8,9 +9,10 @@ let taskwarrior = pkgs.symlinkJoin {
       wrapProgram $out/bin/task \
         --prefix PATH : ${pkgs.python3}/bin
     '';
-};
+  };
 
-in {
+in
+{
   # programs.taskwarrior = {
   #   enable = true;
   #   package = taskwarrior;

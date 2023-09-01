@@ -37,7 +37,7 @@ in
 
   gtk.gtk3.bookmarks = [ "file://${config.home.homeDirectory}/Documents/UPC" ];
 
-  programs.firefox.profiles.leix.bookmarks = [
+  programs.firefox.profiles.${config.home.username}.bookmarks = [
 
     {
       name = "UPC";

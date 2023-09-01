@@ -1,8 +1,6 @@
 # vim: sw=2 ts=2:
 { config, lib, pkgs, osConfig, system, inputs, ... }:
 let
-  # username = osConfig.users.users.leix.name;
-
   username = config.home.username;
 
   catppuccin-style = {
@@ -14,7 +12,7 @@ let
   };
 in
 {
-  imports = [ ./sops.nix ./upc.nix ./hyprland.nix ./mime-apps.nix ./neovim.nix ../modules/all.nix ./firefox.nix ./taskwarrior.nix ./ssh.nix ];
+  imports = [ ../modules/all.nix ./sops.nix ./hyprland.nix ./mime-apps.nix ./neovim.nix ./firefox.nix ./ssh.nix ];
 
   # Let Home Manager install and manage itself.
   #programs.home-manager.enable = true;
@@ -36,16 +34,6 @@ in
     enableZathuraTheme = true;
     enableLuakitTheme = true;
   };
-
-  # gtk = {
-  #   enable = true;
-  #   theme = {
-  #     package = pkgs.gnome.gnome-themes-extra;
-  #     name = "Adwaita-dark";
-  #   };
-  # };
-
-
 
   home.pointerCursor = {
     gtk.enable = true;
@@ -85,7 +73,6 @@ in
   };
 
   home.packages = with pkgs; [
-    nix-output-monitor
     devenv
     notify
     playerctl
@@ -94,24 +81,9 @@ in
     gamescope
     cachix
     waypipe
-    # inputs.devenv.packages.x86_64-linux.devenv
-    # todoist-electron # electron 15 EOL
-    plexamp
-    tdesktop # telegram desktop
-    element-desktop
     fd
     bottom
-    beekeeper-studio
     ripgrep
-    (pkgs.symlinkJoin {
-      name = "zotero";
-      paths = [ pkgs.zotero ];
-      buildInputs = [ pkgs.makeWrapper ];
-      postBuild = ''
-        wrapProgram "$out/bin/zotero" --set GTK_THEME "Adwaita:light"
-      '';
-    })
-    zotero7
     zip
     unzip
     file
@@ -124,8 +96,6 @@ in
     vlc
     feh
     git-extras
-    solaar
-    headsetcontrol
     pavucontrol
     alsa-utils
     libnotify
@@ -137,15 +107,10 @@ in
     acpi
     miniserve
     sshfs
-    home-assistant-cli
-    luakit
     neofetch
     pcmanfm
     powertop
     gcr
-    manix
-    nix-tree
-    nx-libs
   ];
 
   xdg.configFile."WebCord/Themes/catppuccin.theme.css".text = ''
@@ -229,15 +194,13 @@ in
     };
   };
 
-  sops.secrets.git_config.path = "${config.xdg.configHome}/git/config.d/secret.inc";
 
   programs.git = {
     enable = true;
     signing.key = "~/.ssh/id_ed25519.pub";
     signing.signByDefault = true;
 
-    userName = if username == "leix" then "LeixB" else username;
-    includes = lib.optional (username == "leix") { path = config.sops.secrets.git_config.path; };
+    userName = lib.mkDefault username;
 
     ignores = [ "*~" "*.swp" "/.direnv/" ];
 
@@ -427,14 +390,4 @@ in
 
   programs.nix-index.enable = true;
   home.file.".cache/nix-index/files".source = pkgs.nix-index-database;
-
-  # This value determines the Home Manager release that your
-  # configuration is compatible with. This helps avoid breakage
-  # when a new Home Manager release introduces backwards
-  # incompatible changes.
-  #
-  # You can update Home Manager without changing this value. See
-  # the Home Manager release notes for a list of state version
-  # changes in each release.
-  home.stateVersion = "21.11";
 }

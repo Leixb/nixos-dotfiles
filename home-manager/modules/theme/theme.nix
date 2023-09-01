@@ -36,7 +36,7 @@ in {
 
       wallpaper = mkOption {
         type = types.path;
-        default = ./leix/wallpaper/keyboards.png;
+        default = ../wallpapers/keyboards.png;
         description = ''
           Wallpaper
         '';
@@ -91,7 +91,7 @@ in {
         background = black;
         foreground = white;
       };
-      base16nohash = mapAttrs (name: color: builtins.replaceStrings ["#"] [""] color) base16;
+      base16nohash = mapAttrs (name: color: builtins.replaceStrings [ "#" ] [ "" ] color) base16;
     in
     mkIf cfg.enable (mkMerge [
       {
@@ -133,7 +133,7 @@ in {
               urgent: ${red};
               urgent-alt: ${red};
             }
-          '' + builtins.readFile ../../leix/rofi_theme.rasi);
+          '' + builtins.readFile ../../../home-manager/modules/rofi_theme.rasi);
 
         xresources.extraConfig = with base16; ''
           ! ${cfg.name}
@@ -206,28 +206,28 @@ in {
         programs.foot.settings = {
           main.font = "${cfg.font.family}:size=${builtins.toString cfg.font.size}";
           colors = with base16nohash; {
-            background=background;
-            foreground=foreground;
+            background = background;
+            foreground = foreground;
 
             # Normal/regular colors (color palette 0-7)
-            regular0=color0;
-            regular1=color1;
-            regular2=color2;
-            regular3=color3;
-            regular4=color4;
-            regular5=color5;
-            regular6=color6;
-            regular7=color7;
+            regular0 = color0;
+            regular1 = color1;
+            regular2 = color2;
+            regular3 = color3;
+            regular4 = color4;
+            regular5 = color5;
+            regular6 = color6;
+            regular7 = color7;
 
             # Bright colors (color palette 8-15)
-            bright0=color8;
-            bright1=color9;
-            bright2=color10;
-            bright3=color11;
-            bright4=color12;
-            bright5=color13;
-            bright6=color14;
-            bright7=color15;
+            bright0 = color8;
+            bright1 = color9;
+            bright2 = color10;
+            bright3 = color11;
+            bright4 = color12;
+            bright5 = color13;
+            bright6 = color14;
+            bright7 = color15;
           };
         };
       })

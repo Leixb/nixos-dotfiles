@@ -1,10 +1,11 @@
-{ pkgs, ... }:
-{
+{ pkgs, config, ... }:
+let username = config.home.username;
+in {
   programs.firefox = {
     enable = true;
     # package = pkgs.stable.firefox;
 
-    profiles.leix = {
+    profiles.${username} = {
       isDefault = true;
       settings = {
         "media.ffmpeg.vaapi.enabled" = true;

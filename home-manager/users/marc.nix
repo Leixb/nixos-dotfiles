@@ -11,6 +11,7 @@ in
   # paths it should manage.
   home.username = username;
   home.homeDirectory = "/home/${username}";
+  home.packages = with pkgs; [ ];
 
-  home.stateVersion = "22.05";
+  home.stateVersion = "22.05"; # DO NOT CHANGE THIS VALUE!
 }

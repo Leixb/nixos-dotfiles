@@ -1,9 +1,8 @@
-{
-  config,
-  pkgs,
-  lib,
-  inputs,
-  ...
+{ config
+, pkgs
+, lib
+, inputs
+, ...
 }: {
   programs.waybar = {
     # enable = true;
@@ -16,21 +15,21 @@
       mainBar = {
         layer = "top";
         position = "top";
-        modules-left = ["wlr/workspaces"];
-        modules-center = [];
-        modules-right = ["cpu" "memory" "pulseaudio" "network" "backlight" "battery" "clock" "tray" ];
+        modules-left = [ "wlr/workspaces" ];
+        modules-center = [ ];
+        modules-right = [ "cpu" "memory" "pulseaudio" "network" "backlight" "battery" "clock" "tray" ];
 
         "wlr/workspaces" = {
           disable-scroll = true;
           sort-by-name = true;
           format = "{icon}";
-          format-icons = {default = "";};
+          format-icons = { default = ""; };
         };
 
         pulseaudio = {
           format = " {icon} ";
           format-muted = "󰝟";
-          format-icons = ["󰕿" "󰖀" "󰕾"];
+          format-icons = [ "󰕿" "󰖀" "󰕾" ];
           tooltip = true;
           tooltip-format = "{volume}%";
           on-click-right = "switch-audio";
@@ -51,7 +50,7 @@
         backlight = {
           device = "nvidia_0";
           format = "{icon}";
-          format-icons = ["" "" "" "" "" "" "" "" ""];
+          format-icons = [ "" "" "" "" "" "" "" "" "" ];
           tooltip = true;
           tooltip-format = "{percent}%";
         };
@@ -64,7 +63,7 @@
           format = "{icon}";
           format-charging = "󰂄";
           format-plugged = "󰚥";
-          format-icons = ["󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹"];
+          format-icons = [ "󰂎" "󰁺" "󰁻" "󰁼" "󰁽" "󰁾" "󰁿" "󰂀" "󰂁" "󰂂" "󰁹" ];
           tooltip = true;
           tooltip-format = "{capacity}%";
         };

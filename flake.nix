@@ -219,9 +219,11 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.leix = import ./users/leix/lenovo.nix;
+              home-manager.users.leix = import ./home-manager/users/leix.nix;
               home-manager.extraSpecialArgs = specialArgs;
               home-manager.sharedModules = [
+                ./home-manager/modules/home.nix
+                ./home-manager/hosts/kuro.nix
                 sops-nix.homeManagerModules.sops
               ];
             }
@@ -239,9 +241,11 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.leix = import ./users/leix/pavilion.nix;
+              home-manager.users.leix = import ./home-manager/users/leix.nix;
               home-manager.extraSpecialArgs = specialArgs;
               home-manager.sharedModules = [
+                ./home-manager/hosts/pavilion.nix
+                ./home-manager/modules/home.nix
                 sops-nix.homeManagerModules.sops
               ];
             }
@@ -262,10 +266,12 @@
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
-              home-manager.users.leix = import ./users/leix/asus.nix;
-              home-manager.users.marc = import ./users/marc.nix;
+              home-manager.users.leix = import ./home-manager/users/leix.nix;
+              home-manager.users.marc = import ./home-manager/users/marc.nix;
               home-manager.extraSpecialArgs = specialArgs;
               home-manager.sharedModules = [
+                ./home-manager/modules/home.nix
+                ./home-manager/hosts/asus.nix
                 sops-nix.homeManagerModules.sops
               ];
             }
