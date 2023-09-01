@@ -38,6 +38,12 @@ in
     ./hardware-configuration.nix
   ];
 
+  services.xserver.displayManager = {
+    lightdm.enable = true;
+    autoLogin.user = "leix";
+    defaultSession = "xsession";
+  };
+
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];

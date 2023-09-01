@@ -1,4 +1,4 @@
 { config, lib, pkgs, system, inputs, ... }:
 {
-  imports = [ ./common.nix ./sway.nix ./gaming.nix ./awesomewm.nix ];
+  imports = [ ./leix.nix ./home.nix ./sway.nix ./gaming.nix ./awesomewm.nix ];
 }

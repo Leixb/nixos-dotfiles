@@ -12,11 +12,8 @@ in {
       EndSection
     '';
 
-    # videoDrivers = ["nvidia"];
-
     displayManager = {
       autoLogin.enable = false;
-      # autoLogin.user = "leix";
 
       defaultSession = "xsession";
       session = [{
@@ -34,33 +31,27 @@ in {
         in
         "${pkgs.xorg.xmodmap}/bin/xmodmap ${xmodmap_config}";
 
-      # gdm = {
-      #   enable = true;
-      #   wayland = true;
-      # };
-
-      #   lightdm.enable = true;
-      #   lightdm.greeters.mini = {
-      #     enable = true;
-      #     user = "leix";
-      #     extraConfig = with palette; ''
-      #       [greeter]
-      #       show-password-label = false
-      #       password-alignment = center
-      #       [greeter-theme]
-      #       background-image = "${./../../users/leix/wallpapers/keyboards.png}"
-      #       font = "DejaVu Sans Mono"
-      #       text-color = "${white}"
-      #       error-color = "${red}"
-      #       background-color = "${black}"
-      #       window-color = "${black}"
-      #       border-color = "${black}"
-      #       password-color = "${blue}"
-      #       password-background-color = "${darkgray1}"
-      #       password-border-color = "${black}"
-      #       sys-info-color = "${blue}"
-      #     '';
-      #   };
+      lightdm.greeters.mini = {
+        enable = true;
+        user = "leix";
+        extraConfig = with palette; ''
+          [greeter]
+          show-password-label = false
+          password-alignment = center
+          [greeter-theme]
+          background-image = "${./../../users/leix/wallpapers/keyboards.png}"
+          font = "DejaVu Sans Mono"
+          text-color = "${white}"
+          error-color = "${red}"
+          background-color = "${black}"
+          window-color = "${black}"
+          border-color = "${black}"
+          password-color = "${blue}"
+          password-background-color = "${darkgray1}"
+          password-border-color = "${black}"
+          sys-info-color = "${blue}"
+        '';
+      };
     };
 
     # Configure keymap in X11
