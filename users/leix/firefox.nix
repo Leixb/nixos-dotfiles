@@ -443,32 +443,6 @@
             ];
           }
 
-          {
-            name = "UPC";
-            bookmarks = [
-              {
-                name = "Raco";
-                url = "https://raco.fib.upc.edu";
-              }
-              {
-                name = "Atenea";
-                url = "https://atenea.upc.edu";
-              }
-              {
-                name = "Discos";
-                url = "https://discos.fib.upc.edu";
-              }
-              {
-                name = "LearnSQL";
-                url = "https://learnsql2.fib.upc.edu";
-              }
-              {
-                name = "CCBDA";
-                url = "https://ccbda-upc.github.io";
-              }
-            ];
-          }
-
         ];
     };
   };

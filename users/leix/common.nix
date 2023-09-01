@@ -3,15 +3,6 @@
 let
   username = osConfig.users.users.leix.name;
 
-  dbeaver-adawaita = pkgs.symlinkJoin {
-    name = "dbeaver";
-    paths = [ pkgs.dbeaver ];
-    buildInputs = [ pkgs.makeWrapper ];
-    postBuild = ''
-      wrapProgram "$out/bin/dbeaver" --set GTK_THEME "Adwaita:light"
-    '';
-  };
-
   catppuccin-style = {
     name = "Catppuccin-Macchiato-Standard-Peach-dark";
     package = pkgs.catppuccin-gtk.override {
