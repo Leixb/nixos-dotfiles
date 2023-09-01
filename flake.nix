@@ -237,6 +237,9 @@
               home-manager.useUserPackages = true;
               home-manager.users.leix = import ./users/leix/pavilion.nix;
               home-manager.extraSpecialArgs = specialArgs;
+              home-manager.sharedModules = [
+                sops-nix.homeManagerModules.sops
+              ];
             }
           ];
         };
