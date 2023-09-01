@@ -2,12 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 { config, pkgs, lib, inputs, ... }: {
-  imports = [
-    ../common.nix
-    ./hardware-configuration.nix
-    # ../lenovo/awesomewm.nix
-    # ./gnome.nix
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
   boot.kernel.sysctl = {
     "vm.swappiness" = 10; # slow disk io

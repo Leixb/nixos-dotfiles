@@ -21,7 +21,6 @@ in
 
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  home.username = username;
   home.homeDirectory = "/home/${username}";
 
   theme = {
@@ -238,7 +237,7 @@ in
     signing.signByDefault = true;
 
     userName = if username == "leix" then "LeixB" else username;
-    includes = lib.optional (username == "leix") [{ path = config.sops.secrets.git_config.path; }];
+    includes = lib.optional (username == "leix") { path = config.sops.secrets.git_config.path; };
 
     ignores = [ "*~" "*.swp" "/.direnv/" ];
 

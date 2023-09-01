@@ -1,7 +1,7 @@
 { config, pkgs, ... }:
 
 {
-  sops.secrets.hass_env.sopsFile = ./secrets/hass.yaml;
+  sops.secrets.hass_env.sopsFile = ../secrets/hass.yaml;
 
   systemd.services = {
     hass-online = {

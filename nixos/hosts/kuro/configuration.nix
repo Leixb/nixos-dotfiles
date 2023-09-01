@@ -24,19 +24,7 @@ let
 in
 {
   _module.args.location = location;
-  imports = [
-    ../../cachix.nix
-    ../common.nix
-    ./minecraft.nix
-    ./synology-mounts.nix
-    ./nvidia.nix
-    ./virtualization.nix
-    ./gaming.nix
-    ./awesomewm.nix
-    ./ssd.nix
-    ./btrfs.nix
-    ./hardware-configuration.nix
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
   services.xserver.displayManager = {
     lightdm.enable = true;

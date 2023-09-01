@@ -5,7 +5,7 @@ let
 in
 {
   sops.secrets.restic_password = {
-    sopsFile = ./secrets/restic.yaml;
+    sopsFile = ../secrets/restic.yaml;
     owner = user.name;
   };
   sops.age.sshKeyPaths = [ "/etc/ssh/ssh_host_ed25519_key" ];

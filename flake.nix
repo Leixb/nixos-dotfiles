@@ -162,6 +162,8 @@
           }
             inputs.nix-minecraft.nixosModules.minecraft-servers];
         })
+        ./cachix.nix
+        ./nixos/modules/common.nix
         { nixpkgs.overlays = overlays; }
         pin-flake-reg
         sops-nix.nixosModules.sops
@@ -202,16 +204,18 @@
           inherit system;
 
           modules = common-modules ++ [
-            ./system/lenovo/configuration.nix
+            ./nixos/hosts/kuro/configuration.nix
+            ./nixos/modules/awesomewm.nix
+            ./nixos/modules/btrfs.nix
+            ./nixos/modules/gaming.nix
+            ./nixos/modules/hass.nix
+            ./nixos/modules/minecraft.nix
+            ./nixos/modules/nvidia.nix
+            ./nixos/modules/restic.nix
+            ./nixos/modules/ssd.nix
+            ./nixos/modules/synology-mounts.nix
+            ./nixos/modules/virtualization.nix
             home-manager.nixosModules.home-manager
-            # hyprland.nixosModules.default
-            # {
-            #   programs.hyprland = {
-            #     enable = true;
-            #     nvidiaPatches = true;
-            #     xwayland.hidpi = true;
-            #   };
-            # }
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
@@ -228,7 +232,7 @@
           inherit system;
 
           modules = common-modules ++ [
-            ./system/pavilion/configuration.nix
+            ./nixos/hosts/pavilion/configuration.nix
             home-manager.nixosModules.home-manager
             hyprland.nixosModules.default
             { programs.hyprland.enable = true; }
@@ -248,7 +252,10 @@
           inherit system;
 
           modules = common-modules ++ [
-            ./system/asus/configuration.nix
+            ./nixos/hosts/asus/configuration.nix
+            ./nixos/modules/nvidia.nix
+            ./nixos/modules/awesomewm.nix
+            ./nixos/modules/gnome.nix
             home-manager.nixosModules.home-manager
             hyprland.nixosModules.default
             { programs.hyprland.enable = true; }

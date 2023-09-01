@@ -11,7 +11,7 @@ in
     };
   };
 
-  sops.secrets.hass_env.sopsFile = ../../system/secrets/hass.yaml;
+  sops.secrets.hass_env.sopsFile = ../../nixos/secrets/hass.yaml;
   sops.secrets.hass_env.path = "${config.xdg.stateHome}/.hass_env";
 
   home.packages = with pkgs; [

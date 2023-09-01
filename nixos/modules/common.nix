@@ -15,8 +15,6 @@ let
   '';
 in
 {
-  imports = [ ./restic.nix ../cachix.nix ./hass.nix ];
-
   boot.kernel.sysctl = {
     "vm.swappiness" = lib.mkDefault 1;
     "vm.vfs_cache_pressure" = lib.mkDefault 50;
