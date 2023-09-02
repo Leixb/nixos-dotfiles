@@ -1,7 +1,11 @@
 # vim: sw=2 ts=2:
 { config, lib, pkgs, osConfig, system, inputs, ... }:
 {
-  services.autorandr.enable = true;
+  # Autorandr flickers a lot when changing with multiple monitors on startup.
+  # A single xrandr call from the display manager setup phase is enough to set
+  # things properly, we save the configuration but do not use the autorandr
+  # service since it is not needed.
+  services.autorandr.enable = false;
   programs.autorandr =
     let
       fingerprints = {
