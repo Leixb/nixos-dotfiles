@@ -7,7 +7,7 @@ in
   xdg.configFile = {
     "awesome" = {
       source = pkgs.awesome-config;
-      onChange = "awesome-client 'awesome.restart()'";
+      onChange = "${pkgs.awesome}/bin/awesome-client 'awesome.restart()'";
     };
   };
 
