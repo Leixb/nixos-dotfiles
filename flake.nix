@@ -80,19 +80,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    # neorg = {
-    #   url = "github:nvim-neorg/neorg";
-    #   flake = false;
-    # };
-
-    # neovim-flake.follows = "neovim-nightly-overlay/neovim-flake";
     neovim-nightly-overlay = {
-      url = "github:nix-community/neovim-nightly-overlay";
+      # TODO: Remove rev once https://github.com/nvim-telescope/telescope.nvim/issues/2667 is fixed
+      url = "github:nix-community/neovim-nightly-overlay?rev=83d68ba72f3308b5c90b12fb40044c870903e6ee";
       inputs.nixpkgs.follows = "nixpkgs";
-      # Pin to a nixpkgs revision that doesn't have NixOS/nixpkgs#208103 yet
-      # inputs.nixpkgs.url = "github:nixos/nixpkgs?rev=fad51abd42ca17a60fc1d4cb9382e2d79ae31836";
       inputs.flake-compat.follows = "flake-compat";
-      # inputs.neovim-flake.inputs.flake-utils.follows = "flake-utils";
     };
 
     nix-minecraft = {
