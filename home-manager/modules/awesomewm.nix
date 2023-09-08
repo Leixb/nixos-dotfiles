@@ -96,6 +96,10 @@ in
       combi-modi = "window,drun";
       combi-hide-mode-prefix = true;
       display-combi = "";
+      kb-row-up = "Up,Control+k,Control+p";
+      kb-row-down = "Down,Control+j,Control+n";
+      kb-accept-entry = "Return,KP_Enter"; # Control + j
+      kb-remove-to-eol = "Control+m"; # Control + k
     };
   };
 
