@@ -57,7 +57,6 @@ in
   };
 
   home.sessionVariables = {
-    TERMINAL = lib.mkDefault "kitty";
     WINEDLLOVERRIDES =
       "winemenubuilder.exe=d"; # Prevent wine from making file associations
     WEBKIT_DISABLE_COMPOSITING_MODE =

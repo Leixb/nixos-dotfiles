@@ -1,1 +1,1 @@
-{ ... }: { imports = [ ./theme/theme.nix ]; }
+{ ... }: { imports = [ ./theme/theme.nix ./terminal.nix ]; }

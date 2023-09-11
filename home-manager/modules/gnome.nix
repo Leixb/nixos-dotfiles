@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ config, lib, pkgs, ... }: {
   dconf.settings = {
     "org/gnome/settings-daemon/plugins/media-keys" = {
       custom-keybindings = [
@@ -6,10 +6,11 @@
       ];
     };
     "org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0" =
-      {
+      let terminal = config.terminal.package;
+      in {
         binding = "<Super>Return";
-        command = "${pkgs.kitty}/bin/kitty";
-        name = "kitty";
+        command = lib.getExe terminal;
+        name = lib.getName terminal;
       };
     "org/gnome/shell" = {
       favorite-apps =
