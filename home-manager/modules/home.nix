@@ -72,44 +72,45 @@ in
   };
 
   home.packages = with pkgs; [
-    devenv
-    notify
-    playerctl
-    miniupnpc
-    webcord # discord
-    gamescope
-    cachix
-    waypipe
-    fd
+    acpi
+    alsa-utils
     bottom
-    ripgrep
-    zip
-    unzip
+    cachix
+    calibre
+    comma
+    devenv
+    fd
+    feh
     file
     flameshot
+    gamescope
+    gcr
+    gh
     gimp-with-plugins
+    git-extras
+    gnome.simple-scan
     inkscape
     krita
-    libreoffice
-    mpv
-    vlc
-    feh
-    git-extras
-    pavucontrol
-    alsa-utils
     libnotify
-    gh
-    gnome.simple-scan
     libqalculate
-    qalculate-gtk
-    comma
-    acpi
+    libreoffice
     miniserve
-    sshfs
+    miniupnpc
+    mpv
     neofetch
+    notify
+    pavucontrol
     pcmanfm
+    playerctl
     powertop
-    gcr
+    qalculate-gtk
+    ripgrep
+    sshfs
+    unzip
+    vlc
+    waypipe
+    webcord # discord
+    zip
   ];
 
   xdg.configFile."WebCord/Themes/catppuccin.theme.css".text = ''
@@ -161,6 +162,7 @@ in
 
   programs.kitty = {
     enable = true;
+    shellIntegration.enableFishIntegration = true;
     settings = {
       disable_ligatures = "cursor";
       background_opacity = "0.75";
