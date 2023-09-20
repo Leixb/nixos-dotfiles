@@ -89,6 +89,7 @@ in
     gimp-with-plugins # image editor
     git-extras # git extensions
     gnome.simple-scan # scanner
+    kitty-imgdiff # image diff
     inkscape # vector graphics editor
     krita # image editor
     libnotify # notification daemon

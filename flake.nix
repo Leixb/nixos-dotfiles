@@ -124,6 +124,8 @@
 
         modrinth_server_modpack = prev.callPackage ./packages/modrinth_server_modpack/default.nix { };
 
+        kitty-imgdiff = prev.callPackage ./packages/kitty-imgdiff/default.nix { };
+
         nix-index-database =
           inputs.nix-index-database.outputs.legacyPackages.${system}.database;
         firefox-addons = inputs.firefox-addons.packages.${system};
