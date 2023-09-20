@@ -72,45 +72,46 @@ in
   };
 
   home.packages = with pkgs; [
-    acpi
-    alsa-utils
-    bottom
-    cachix
-    calibre
-    comma
-    devenv
-    fd
-    feh
-    file
-    flameshot
-    gamescope
-    gcr
-    gh
-    gimp-with-plugins
-    git-extras
-    gnome.simple-scan
-    inkscape
-    krita
-    libnotify
-    libqalculate
-    libreoffice
-    miniserve
-    miniupnpc
-    mpv
-    neofetch
-    notify
-    pavucontrol
-    pcmanfm
-    playerctl
-    powertop
-    qalculate-gtk
-    ripgrep
-    sshfs
-    unzip
-    vlc
-    waypipe
-    webcord # discord
-    zip
+    acpi # battery info
+    alsa-utils # sound
+    bottom # system monitor
+    cachix # nix binary cache manager
+    calibre # ebook manager
+    comma # run programs without installing them (nix)
+    devenv # Reproducible development environment
+    fd # find alternative
+    feh # image viewer
+    file # file type detection
+    flameshot # screenshot tool
+    gamescope # game window capture
+    gcr # gnome keyring
+    gh # github cli
+    gimp-with-plugins # image editor
+    git-extras # git extensions
+    gnome.simple-scan # scanner
+    inkscape # vector graphics editor
+    krita # image editor
+    libnotify # notification daemon
+    libqalculate # calculator
+    libreoffice # office suite
+    miniserve # file server
+    miniupnpc # upnp client
+    mpv # video player
+    neofetch # system info
+    notify # notification daemon
+    pavucontrol # pulseaudio volume control
+    pcmanfm # file manager
+    playerctl # media player control
+    powertop # power usage monitor
+    qalculate-gtk # calculator (GUI)
+    ripgrep # grep alternative
+    sshfs # ssh filesystem mount
+    tealdeer # simple help pages for commands
+    unzip # zip file extraction
+    vlc # video player
+    waypipe # wayland remote desktop
+    webcord # discord client
+    zip # zip file creation
   ];
 
   xdg.configFile."WebCord/Themes/catppuccin.theme.css".text = ''
