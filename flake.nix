@@ -81,8 +81,7 @@
     };
 
     neovim-nightly-overlay = {
-      # TODO: Remove rev once https://github.com/nvim-telescope/telescope.nvim/issues/2667 is fixed
-      url = "github:nix-community/neovim-nightly-overlay?rev=83d68ba72f3308b5c90b12fb40044c870903e6ee";
+      url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-compat.follows = "flake-compat";
     };
