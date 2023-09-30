@@ -68,7 +68,7 @@ local function lsp_attach(client, bufnr)
     nmap("<leader>fi", vim.lsp.buf.incoming_calls, "[F]unction [I]ncoming calls")
     nmap("<leader>fo", vim.lsp.buf.outgoing_calls, "[F]unction [O]utgoing calls")
 
-    nmap("<leader>f", vim.lsp.buf.format, "[F]ormat buffer")
+    nmap("<leader>F", vim.lsp.buf.format, "[F]ormat buffer")
 
     require("lsp-format").on_attach(client)
     require("lsp_signature").on_attach({}, bufnr)
