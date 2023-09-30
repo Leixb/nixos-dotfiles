@@ -57,7 +57,7 @@ writeShellApplication {
     export REMOVE_FILE_LIST_FILE
 
     function cleanup() {
-      xargs rm < "$REMOVE_FILE_LIST_FILE"
+      xargs -ra "$REMOVE_FILE_LIST_FILE" rm
       rm "$REMOVE_FILE_LIST_FILE"
     }
 
