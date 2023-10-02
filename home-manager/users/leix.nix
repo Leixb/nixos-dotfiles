@@ -8,6 +8,7 @@
   sops.secrets.git_config.path = "${config.xdg.configHome}/git/config.d/secret.inc";
 
   home.packages = with pkgs; [
+    jutge
     miniupnpc
     plexamp
     tdesktop

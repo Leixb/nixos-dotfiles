@@ -118,6 +118,8 @@
       extra-packages = final: prev: {
         eduroam = prev.callPackage ./packages/eduroam/default.nix { };
 
+        jutge = prev.callPackage ./packages/jutge/default.nix { };
+
         zotero7 = prev.callPackage ./packages/zotero/default.nix { };
 
         devenv = devenv.packages.${system}.devenv;
