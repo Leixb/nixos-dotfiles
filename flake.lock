@@ -56,11 +56,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1693493013,
-        "narHash": "sha256-/dVpEvh1uduGIhv4RS14UqnKUgVBzb5phqeyVi+uOKU=",
+        "lastModified": 1696271463,
+        "narHash": "sha256-C0NWDGQzKA3kQRP5AxBnjF+8DowOIc18mZ9clyRSWgo=",
         "owner": "leixb",
         "repo": "awesome-copycats",
-        "rev": "acf3b4bd9eb5cb260c7d08f235822ff0f3446a2c",
+        "rev": "ede03a09c5745928629b9bff6e1b79682932674f",
         "type": "github"
       },
       "original": {
