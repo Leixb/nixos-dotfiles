@@ -123,11 +123,7 @@ in
         plugin = indent-blankline-nvim-lua;
         type = "lua";
         config = ''
-          require'indent_blankline'.setup{
-            show_current_context = true,
-            show_trailing_blankline_indent = false,
-            show_first_indent_level = false,
-          }
+          require'ibl'.setup()
         '';
       }
 
