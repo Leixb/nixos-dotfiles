@@ -49,7 +49,8 @@ in
     geogebra
     obs-studio
     kdenlive
-    matlab
+    # matlab
+    ungoogled-chromium
   ];
 
   home.stateVersion = "21.11";

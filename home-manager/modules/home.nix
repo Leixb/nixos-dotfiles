@@ -4,7 +4,7 @@ let
   username = config.home.username;
 
   catppuccin-style = {
-    name = "Catppuccin-Macchiato-Standard-Peach-dark";
+    name = "Catppuccin-Macchiato-Standard-Peach-Dark";
     package = pkgs.catppuccin-gtk.override {
       accents = [ "pink" "blue" "peach" ];
       variant = "macchiato";
@@ -37,8 +37,10 @@ in
 
   home.pointerCursor = {
     gtk.enable = true;
-    package = pkgs.capitaine-cursors;
-    name = "capitaine-cursors";
+    package = pkgs.capitaine-cursors-themed;
+    name = "Capitaine Cursors (Nord)";
+    x11.enable = true;
+    size = 48;
   };
 
   gtk = {

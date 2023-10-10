@@ -36,6 +36,7 @@ in
     enable = true;
     extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
   };
+  services.gnome.at-spi2-core.enable = true; # Fix warning on xdg-portal start
 
   networking.hostName = "kuro";
 
