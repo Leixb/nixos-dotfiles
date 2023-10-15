@@ -39,7 +39,7 @@ let
   '';
 in
 {
-  imports = [ ../modules/sway.nix ../modules/gaming.nix ../modules/awesomewm.nix ../modules/mpd.nix ../modules/autorandr.nix ];
+  imports = [ ../modules/sway.nix ../modules/gaming.nix ../modules/xmonad.nix ../modules/mpd.nix ../modules/autorandr.nix ];
 
   home.packages = with pkgs; [
     switch-audio
