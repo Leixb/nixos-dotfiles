@@ -14,8 +14,40 @@ in
   sops.secrets.hass_env.sopsFile = ../../nixos/secrets/hass.yaml;
   sops.secrets.hass_env.path = "${config.xdg.stateHome}/.hass_env";
 
+  programs.xmobar = {
+    enable = true;
+    package = pkgs.symlinkJoin {
+      name = "xmobar-wrapped";
+      paths = [ pkgs.xmobar ];
+      nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
+      postBuild = let ghcEnv = pkgs.haskellPackages.ghcWithPackages (p: with p; [ xmonad xmonad-contrib xmobar ]); in ''
+        wrapProgram $out/bin/xmobar \
+          --prefix PATH : ${ghcEnv}/bin
+      '';
+    };
+  };
+
+  services.trayer = {
+    enable = true;
+    settings = {
+      edge = "top";
+      align = "right";
+      widthtype = "request";
+      expand = true;
+      SetDockType = true;
+      SetPartialStrut = true;
+      monitor = "primary";
+      height = 40;
+      transparent = true;
+      alpha = 0;
+      tint = "0x25273A";
+      padding = 1;
+      distance = 1;
+      distancefrom = "right";
+    };
+  };
+
   home.packages = with pkgs; [
-    xmobar
     (i3lock-fancy-rapid.override {
       i3lock = pkgs.writeShellScriptBin "i3lock" ''
         . ${config.sops.secrets.hass_env.path}
