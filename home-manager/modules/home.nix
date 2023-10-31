@@ -323,6 +323,8 @@ in
       bind % split-window -h -c "#{pane_current_path}"
 
       set -g default-terminal "tmux-256color"
+
+      set -g set-titles on
     '';
 
     tmuxp.enable = true;
