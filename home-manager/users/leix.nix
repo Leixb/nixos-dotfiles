@@ -15,14 +15,6 @@
     element-desktop
     beekeeper-studio
     zotero7
-    (symlinkJoin {
-      name = "zotero";
-      paths = [ zotero ];
-      buildInputs = [ makeWrapper ];
-      postBuild = ''
-        wrapProgram "$out/bin/zotero" --set GTK_THEME "Adwaita:light"
-      '';
-    })
     solaar
     headsetcontrol
     home-assistant-cli
