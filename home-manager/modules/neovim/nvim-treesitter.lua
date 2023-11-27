@@ -4,7 +4,6 @@ require("nvim-treesitter.configs").setup({
     autopairs = { enable = true },
     rainbow = { enable = true },
     autotag = { enable = true },
-    context_commentstring = { enable = true },
     endwise = { enable = true },
     incremental_selection = {
         enable = true,

@@ -135,7 +135,13 @@ in
 
       nvim-ts-rainbow
       nvim-ts-autotag
-      nvim-ts-context-commentstring
+      {
+        plugin = nvim-ts-context-commentstring;
+        type = "lua";
+        config = ''
+          require('nvim-treesitter.configs').setup {}
+        '';
+      }
       nvim-treesitter-refactor
       nvim-treesitter-endwise
       nvim-treesitter-textobjects
