@@ -11,6 +11,7 @@ require("neorg").setup({
                 workspaces = {
                     root = "~/Documents/neorg",
                     tfm = "~/Documents/neorg/TFM",
+                    gtd = "~/Documents/neorg/gtd",
                     notes = "~/Documents/neorg/notes",
                     blog = "~/Documents/neorg/blog",
                 },
