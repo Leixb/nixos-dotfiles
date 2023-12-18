@@ -133,7 +133,7 @@ in
         config = builtins.readFile ./neovim/nvim-treesitter.lua;
       }
 
-      nvim-ts-rainbow
+      rainbow-delimiters-nvim
       nvim-ts-autotag
       {
         plugin = nvim-ts-context-commentstring;
