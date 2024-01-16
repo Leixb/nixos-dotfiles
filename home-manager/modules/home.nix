@@ -114,6 +114,7 @@ in
     vlc # video player
     waypipe # wayland remote desktop
     webcord # discord client
+    discord
     zip # zip file creation
   ];
 
@@ -148,7 +149,7 @@ in
     enableSshSupport = true;
     defaultCacheTtl = 3600;
     defaultCacheTtlSsh = 3600;
-    pinentryFlavor = "gtk2";
+    pinentryFlavor = "gnome3";
   };
 
   services = {
