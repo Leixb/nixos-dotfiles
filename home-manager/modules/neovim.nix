@@ -11,6 +11,17 @@ let
     };
   };
 
+  unimpaired-nvim = pkgs.vimUtils.buildVimPlugin {
+    pname = "unimpaired-nvim";
+    version = "2023-10-17";
+    src = pkgs.fetchFromGitHub {
+      owner = "tummetott";
+      repo = "unimpaired.nvim";
+      rev = "792404dc39a754ef17c4aca964762fa7cb880baa";
+      sha256 = "sha256-CyoGs5DZGQU/mOoY8D/jlr3iv4JzeJNpZc3uwcwL3WA=";
+    };
+  };
+
   nvim-R = pkgs.vimUtils.buildVimPlugin {
     pname = "nvim-R";
     version = "master";
@@ -100,6 +111,13 @@ in
 
       vim-surround
       vim-repeat
+      {
+        plugin = unimpaired-nvim;
+        type = "lua";
+        config = ''
+          require('unimpaired').setup()
+        '';
+      }
 
       # Automatic detection of indentation settings
       vim-eunuch
