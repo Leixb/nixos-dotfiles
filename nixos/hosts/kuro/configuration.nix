@@ -42,7 +42,10 @@ in
 
   boot.kernel.sysctl = { "dev.i915.perf_stream_paranoid" = 0; };
 
-  boot.kernelParams = [ "acpi_backlight=intel" ];
+  boot.kernelParams = [
+    "acpi_backlight=intel"
+    "clearcpuid=304" # disable AVX512 (The finals game crashes with AVX512)
+  ];
 
   programs.droidcam.enable = true;
   programs.noisetorch.enable = true;
