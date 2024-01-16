@@ -10,6 +10,9 @@
   home.packages = with pkgs; [
     jutge
     miniupnpc
+    (mcaselector.overrideAttrs (oldAttrs: {
+      nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ pkgs.wrapGAppsHook ];
+    }))
     plexamp
     tdesktop
     element-desktop
