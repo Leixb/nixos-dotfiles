@@ -3,50 +3,46 @@ let
   prime-run = pkgs.writeShellScriptBin "prime-run" ''
     __NV_PRIME_RENDER_OFFLOAD=1 __NV_PRIME_RENDER_OFFLOAD_PROVIDER=NVIDIA-G0 __VK_LAYER_NV_optimus=NVIDIA_only __GLX_VENDOR_LIBRARY_NAME=nvidia "$@"
   '';
+  intelBusId = "PCI:0:2:0";
+  nvidiaBusId = "PCI:1:0:0";
 in
 {
-  boot.blacklistedKernelModules = [ "i2c_nvidia_gpu" ];
-
-  boot.extraModprobeConfig =
-    "options nvidia "
-    + lib.concatStringsSep " " [
-      # nvidia assume that by default your CPU does not support PAT,
-      # but this is effectively never the case in 2023
-      "NVreg_UsePageAttributeTable=1"
-      # This may be a noop, but it's somewhat uncertain
-      "NVreg_EnablePCIeGen3=1"
+  boot = {
+    loader.grub.configurationName = lib.mkForce "nvidia-vulkan";
+    blacklistedKernelModules = [ "i2c_nvidia_gpu" "nouveau" "rivafb" "nvidiafb" "rivatv" "nv" "uvcvideo" ];
+    kernelModules = [
+      "clearcpuid=514" # Fixes certain wine games crash on launch
+      "nvidia"
+      "nvidia_modeset"
+      "nvidia_uvm"
+      "nvidia_drm"
     ];
-
-  hardware.nvidia = {
-    # Use latest driver version
-    package =
-      let nPkgs = config.boot.kernelPackages.nvidiaPackages;
-      in lib.mkForce
-        (if (lib.versionOlder nPkgs.beta.version nPkgs.stable.version) then
-          nPkgs.stable
-        else
-          nPkgs.beta);
-
-    modesetting.enable = true;
-
-    # prime = {
-    #   offload.enable = true;
-    #   intelBusId = "PCI:0:2:0";
-    #   nvidiaBusId = "PCI:1:0:0";
-    # };
+    kernelParams = [ "nouveau.modeset=0" ];
+    extraModprobeConfig = ''
+      options nvidia NVreg_UsePageAttributeTable=1
+      options nvidia NVreg_RegistryDwords="OverrideMaxPerf=0x1"
+      options nvidia NVreg_PreserveVideoMemoryAllocations=1
+      NVreg_TemporaryFilePath=/var/tmp
+    '';
   };
-
-  hardware.opengl.extraPackages = with pkgs; [
-    nvidia-vaapi-driver
-    linuxPackages.nvidia_x11
-  ];
-
-  services.xserver.videoDrivers = [ "nvidia" ];
-
-  # hardware.nvidia.powerManagement.finegrained = true;
-
-  # environment.systemPackages = [ prime-run ];
-  # environment.sessionVariables = {
-  # __EGL_VENDOR_LIBRARY_FILENAMES = "${pkgs.linuxPackages.nvidia_x11}/share/glvnd/egl_vendor.d/10_nvidia.json";
-  # };
+  hardware = {
+    nvidia = {
+      package = config.boot.kernelPackages.nvidiaPackages.vulkan_beta;
+      prime = { inherit intelBusId; inherit nvidiaBusId; sync.enable = true; };
+      modesetting.enable = true;
+      nvidiaPersistenced = true;
+      forceFullCompositionPipeline = true;
+    };
+  };
+  environment = {
+    variables = {
+      "VK_ICD_FILENAMES" = "/run/opengl-driver/share/vulkan/icd.d/intel_icd.x86_64.json:/run/opengl-driver-32/share/vulkan/icd.d/intel_icd.i686.json:/run/opengl-driver/share/vulkan/icd.d/nvidia_icd.x86_64.json";
+      GBM_BACKEND = "nvidia-drm";
+      LIBVA_DRIVER_NAME = "nvidia";
+      __GLX_VENDOR_LIBRARY_NAME = "nvidia";
+      NVD_BACKEND = "direct";
+    };
+    systemPackages = with pkgs; [ prime-run vulkan-loader vulkan-validation-layers vulkan-tools glxinfo inxi ];
+  };
+  services.xserver = { videoDrivers = [ "nvidia" ]; };
 }
