@@ -12,7 +12,7 @@ let
   };
 in
 {
-  imports = [ ../modules/all.nix ./sops.nix ./hyprland.nix ./mime-apps.nix ./neovim.nix ./firefox.nix ./ssh.nix ];
+  imports = [ ../modules/all.nix ./sops.nix ./mime-apps.nix ./neovim.nix ./firefox.nix ./ssh.nix ];
 
   # Let Home Manager install and manage itself.
   #programs.home-manager.enable = true;
@@ -327,7 +327,7 @@ in
       set -g set-titles on
     '';
 
-    tmuxp.enable = true;
+    # tmuxp.enable = true;
   };
 
   programs.fzf = {

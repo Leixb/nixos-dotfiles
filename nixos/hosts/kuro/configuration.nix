@@ -34,7 +34,10 @@ in
 
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+    extraPortals = with pkgs; [ xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr ];
+    config = {
+      common.default = [ "gtk" "wlr" ];
+    };
   };
   services.gnome.at-spi2-core.enable = true; # Fix warning on xdg-portal start
 
@@ -56,10 +59,10 @@ in
   services.ddccontrol.enable = true;
 
   services.xserver.displayManager.setupCommands = ''
+    ${pkgs.xorg.xrandr}/bin/xrandr --auto
     ${pkgs.xorg.xrandr}/bin/xrandr \
-      --output DP-2   --pos 0x810    --scale 1.25x1.25           \
-      --output DP-3   --pos 2400x0   --scale 1x1       --primary \
-      --output HDMI-0 --pos 6240x540 --scale 1.5x1.5
+      --output eDP-1-1 --right-of DP-2
+      --output HDMI-0 --left-of DP-2
   '';
 
   nix.sshServe.enable = true;

@@ -55,6 +55,7 @@ in
             RiseoftheTombRaider = "f7cc1c999ac146f39b356f53e3489514";
             ShadowoftheTombRaider = "890d9cf396d04922a1559333df419fed";
             FallGuys = "0a2d9f6403244d12969e11da6713137b";
+            AmongUs = "963137e4c29d4c79a81323b8fab03a40";
           }))
     );
   };

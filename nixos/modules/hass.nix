@@ -12,7 +12,7 @@
       after = [ "network-online.target" ];
 
       script = ''
-        ${pkgs.home-assistant-cli}/bin/hass-cli event fire nixos.online --json '{ "hostname": "${config.networking.hostName}"}'
+        ${pkgs.home-assistant-cli}/bin/hass-cli event fire nixos.online --json '{ "hostname": "${config.networking.hostName}"}' || true
       '';
 
       serviceConfig = {
@@ -24,7 +24,7 @@
           UPTIME="$(cut -d' ' -f1 /proc/uptime)"
           IDLETIME="$(cut -d' ' -f2 /proc/uptime)"
           NPROC="$(nproc --all)"
-          ${pkgs.home-assistant-cli}/bin/hass-cli event fire nixos.shutdown --json "{ \"hostname\": \"${config.networking.hostName}\", \"cores\": $NPROC, \"uptime\": $UPTIME, \"idletime\": $IDLETIME }"
+          ${pkgs.home-assistant-cli}/bin/hass-cli event fire nixos.shutdown --json "{ \"hostname\": \"${config.networking.hostName}\", \"cores\": $NPROC, \"uptime\": $UPTIME, \"idletime\": $IDLETIME }" || true
         '';
       };
     };
