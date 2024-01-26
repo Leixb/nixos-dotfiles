@@ -60,5 +60,5 @@ in
     );
   };
 
-  home.packages = with pkgs; [ lutris wine legendary prismlauncher winetricks ];
+  home.packages = with pkgs; [ lutris wine legendary prismlauncher winetricks r2modman ];
 }
