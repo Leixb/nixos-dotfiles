@@ -86,7 +86,6 @@ in
     file # file type detection
     flameshot # screenshot tool
     gamescope # game window capture
-    gcr # gnome keyring
     gh # github cli
     gimp-with-plugins # image editor
     git-extras # git extensions
@@ -114,7 +113,6 @@ in
     vlc # video player
     waypipe # wayland remote desktop
     webcord # discord client
-    discord
     zip # zip file creation
   ];
 
@@ -138,8 +136,6 @@ in
     '';
   };
 
-  systemd.user.services.gammastep.Install.WantedBy = lib.mkForce [ ];
-
   programs.gpg = {
     enable = true;
     homedir = "${config.xdg.dataHome}/gnupg";
@@ -151,6 +147,10 @@ in
     defaultCacheTtlSsh = 3600;
     pinentryFlavor = "gnome3";
   };
+
+  home.file.".profile".text = ''
+    . "${config.home.profileDirectory}/etc/profile.d/hm-session-vars.sh"
+  '';
 
   services = {
     caffeine.enable = true;
@@ -164,6 +164,8 @@ in
     network-manager-applet.enable = true;
     blueman-applet.enable = true;
   };
+
+  systemd.user.services.gammastep.Install.WantedBy = lib.mkForce [ ];
 
   programs.kitty = {
     enable = true;

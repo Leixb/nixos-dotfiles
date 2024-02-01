@@ -70,15 +70,6 @@ in
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKOO1MTb4NP9qgI8P/8feqFXReeLCiB79R6YLPlXQaRQ leix@nixos-pav"
   ];
 
-  services.elasticsearch = {
-    enable = true;
-    package = pkgs.elasticsearch7;
-    extraConf = ''
-      xpack.security.enabled: false
-    '';
-  };
-  systemd.services.elasticsearch.wantedBy = lib.mkForce [ ];
-
   services.xserver.dpi = 192;
 
   # This value determines the NixOS release from which the default

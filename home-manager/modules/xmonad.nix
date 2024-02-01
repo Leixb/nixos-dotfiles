@@ -146,6 +146,10 @@ in
     windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
+      extraPackages = haskellPackages: [
+        haskellPackages.xmobar
+      ];
+      config = ./xmonad.hs;
     };
   };
 
