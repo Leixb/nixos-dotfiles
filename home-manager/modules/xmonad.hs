@@ -57,7 +57,7 @@ myLayout =
     . mouseResize
     . windowArrange
     . windowNavigation
-    . subLayout [] (smartBorders Simplest)
+    . subLayout [] (Simplest)
     . boringWindows
     $ tiled ||| spiral (6 / 7) ||| Grid False ||| threeCols ||| Accordion ||| Full
   where
