@@ -189,6 +189,12 @@
         buildInputs = with pkgs; [
           nixpkgs-fmt
           sops
+          haskell-language-server
+          (haskellPackages.ghcWithPackages (hpkgs: with hpkgs; [
+            xmobar
+            xmonad
+            xmonad-contrib
+          ]))
         ];
 
         inherit (self.checks.${system}.pre-commit-check) shellHook;
