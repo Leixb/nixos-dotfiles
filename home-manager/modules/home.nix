@@ -145,7 +145,7 @@ in
     enableSshSupport = true;
     defaultCacheTtl = 3600;
     defaultCacheTtlSsh = 3600;
-    pinentryFlavor = "gnome3";
+    pinentryFlavor = "qt";
   };
 
   home.file.".profile".text = ''
