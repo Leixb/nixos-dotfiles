@@ -22,7 +22,7 @@
         primary = true;
         atomic = true;
         execute_after = [
-          "${pkgs.xorg.xrandr}/bin/xrandr --dpi 96"
+          "${pkgs.xorg.xrandr}/bin/xrandr --dpi 120"
           "${pkgs.xmonad-with-packages}/bin/xmonad --restart"
         ];
       }
