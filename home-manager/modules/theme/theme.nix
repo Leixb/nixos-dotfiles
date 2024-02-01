@@ -281,13 +281,15 @@ in {
         programs.bat = {
           config.theme = "catppuccin";
           themes = {
-            catppuccin = builtins.readFile (pkgs.fetchFromGitHub
-              {
+            catppuccin = {
+              src = pkgs.fetchFromGitHub {
                 owner = "catppuccin";
                 repo = "sublime-text"; # Bat uses sublime syntax for its themes
-                rev = "95c5f44d8f75dc7e5cb7d20180e991aac3841440";
-                sha256 = "sha256-RQCo35Gi8M0Xonkvd6EBPNeid1OLStIXIIHq4x5nM/U=";
-              } + "/Catppuccin.tmTheme");
+                rev = "5529a1c0dea6d137b64314dba44db0bf268fe12b";
+                sha256 = "sha256-5p0yagS3d32e7RxD+u3DbPs9HiY2eEMqPomi9hNPxj4=";
+              };
+              file = "Macchiato.tmTheme";
+            };
           };
         };
       })
