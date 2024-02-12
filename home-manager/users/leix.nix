@@ -25,6 +25,9 @@
     manix
     nix-tree
     nx-libs
-    nix-output-monitor
+    nix-output-monitor # nom
+    picard
+    nicotine-plus
+    logseq
   ];
 }

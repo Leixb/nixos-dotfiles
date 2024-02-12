@@ -111,6 +111,7 @@ local lsp_list = {
     "gopls",
     -- 'hls',
     "html",
+    "marksman",
     "jdtls",
     "jsonls",
     "julials",

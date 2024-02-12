@@ -79,6 +79,7 @@ in
       gopls
       texlab
       clang-tools
+      marksman
 
       nodePackages.dockerfile-language-server-nodejs
       nodePackages.typescript

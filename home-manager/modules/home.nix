@@ -215,6 +215,9 @@ in
     aliases = {
       lg =
         "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
+      wd = "diff --word-diff";
+      wdiff = "diff --word-diff";
+      blamec = "blame -w -C -C -C";
     };
 
     delta = {
@@ -227,6 +230,11 @@ in
       init = { defaultBranch = "master"; };
       pull = { rebase = true; };
       gpg = { format = "ssh"; };
+      rerere = { enabled = true; }; # reuse recorded resolution of conflicted merges
+      column = { ui = "auto"; };
+      branch = { sort = "-committerdate"; };
+      fetch = { writeCommitGraph = true; };
+      core = { fsmonitor = true; };
     };
   };
 
