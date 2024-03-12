@@ -87,7 +87,7 @@ in
     flameshot # screenshot tool
     gamescope # game window capture
     gh # github cli
-    gimp-with-plugins # image editor
+    gimp # gimp-with-plugins # image editor # TODO: add back plugins
     git-extras # git extensions
     gnome.simple-scan # scanner
     kitty-imgdiff # image diff
