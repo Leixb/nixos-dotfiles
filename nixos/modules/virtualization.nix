@@ -4,9 +4,10 @@
   virtualisation.libvirtd.enable = true;
   virtualisation.spiceUSBRedirection.enable = true;
 
+  virtualisation.containers.cdi.dynamic.nvidia.enable = true;
+
   virtualisation.podman = {
     enable = true;
-    enableNvidia = true;
     dockerCompat = true;
     dockerSocket.enable = true;
   };
