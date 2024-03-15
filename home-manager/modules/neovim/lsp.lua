@@ -75,12 +75,12 @@ local function lsp_attach(client, bufnr)
 
     require("notify")(string.format("[LSP] %s", client.name), "info", { render = "minimal", timeout = 2000 })
 
-    if client.server_capabilities.codeLensProvider then
-        vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
-            buffer = bufnr,
-            callback = vim.lsp.codelens.refresh,
-        })
-    end
+    -- if client.server_capabilities.codeLensProvider then
+    --     vim.api.nvim_create_autocmd({ "BufEnter", "CursorHold", "InsertLeave" }, {
+    --         buffer = bufnr,
+    --         callback = vim.lsp.codelens.refresh,
+    --     })
+    -- end
 
     if client.server_capabilities.documentHightlightProvider then
         local group_id = vim.api.nvim_create_augroup("lsp-highlight", { clear = true })
@@ -133,12 +133,31 @@ for _, val in pairs(lsp_list) do
     })
 end
 
-lspconfig.hls.setup({
-    filetypes = { "haskell", "lhaskell", "cabal" },
-    on_attach = lsp_attach,
-    autostart = autostart,
-    capabilities = capabilities,
-})
+-- lspconfig.hls.setup({
+--     filetypes = { "haskell", "lhaskell", "cabal" },
+--     on_attach = lsp_attach,
+--     autostart = autostart,
+--     capabilities = capabilities,
+-- })
+
+vim.g.haskell_tools = {
+    ---@type ToolsOpts
+    tools = {
+        -- ...
+    },
+    ---@type HaskellLspClientOpts
+    hls = {
+        ---@param client number The LSP client ID.
+        ---@param bufnr number The buffer number
+        ---@param ht HaskellTools = require('haskell-tools')
+        on_attach = lsp_attach,
+        -- ...
+    },
+    ---@type HTDapOpts
+    dap = {
+        -- ...
+    },
+}
 
 lspconfig.yamlls.setup({
     on_attach = lsp_attach,

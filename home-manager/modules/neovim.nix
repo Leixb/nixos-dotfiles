@@ -290,6 +290,7 @@ in
 
       # dart-vim-plugin
       # julia-vim
+      haskell-tools-nvim
       nvim-luapad
       vim-fish
       vim-nix
@@ -365,7 +366,7 @@ in
       }
 
       {
-        plugin = null-ls-nvim;
+        plugin = none-ls-nvim;
         type = "lua";
         config = builtins.readFile ./neovim/null-ls-nvim.lua;
       }
