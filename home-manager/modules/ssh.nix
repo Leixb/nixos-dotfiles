@@ -6,8 +6,12 @@
   sops.secrets.ssh_config_router.path = "${config.home.homeDirectory}/.ssh/config.d/router";
   sops.secrets.ssh_config_mc.path = "${config.home.homeDirectory}/.ssh/config.d/mc";
 
+  # services.ssh-agent.enable = true;
+
   programs.ssh = {
     enable = true;
+
+    addKeysToAgent = "yes";
 
     includes = [
       config.sops.secrets.ssh_config_home.path

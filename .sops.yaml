@@ -1,6 +1,6 @@
 keys:
   - &admin_leix age1wtzrvpnqc806yzvhkx9lfapnm6ck65p76j5u47u9p87ynq0hze7smwsume
-  - &server_kuro age1svwxndx8uue2n0jkxgnsdjcqa9c4x6vujqygufrkxn28f27dxekqy4qqfg
+  - &server_kuro age1huq8akz67aulzufyel2dch7g8z0gxtlgtv5fq2n502czzk8p4e9qdmqyu7
 creation_rules:
   - path_regex: secrets/[^/]+\.yaml$
     key_groups:

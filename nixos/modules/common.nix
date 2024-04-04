@@ -83,11 +83,11 @@ in
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot = {
-    enable = true;
+    # enable = true;
     editor = false;
     configurationLimit = 50;
   };
-  boot.loader.efi.canTouchEfiVariables = true;
+  # boot.loader.efi.canTouchEfiVariables = true;
   boot.loader.timeout = 0;
 
   networking.wireless.enable =

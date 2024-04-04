@@ -143,9 +143,9 @@ in
   services.gpg-agent = {
     enable = true;
     enableSshSupport = true;
+    pinentryPackage = pkgs.pinentry-qt;
     defaultCacheTtl = 3600;
     defaultCacheTtlSsh = 3600;
-    pinentryFlavor = "qt";
   };
 
   home.file.".profile".text = ''
@@ -352,7 +352,6 @@ in
 
   programs.eza = {
     enable = true;
-    enableAliases = true;
   };
 
   programs.bat = {

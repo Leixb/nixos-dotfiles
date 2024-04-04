@@ -2,8 +2,8 @@
   description = "System Configuration using Flakes";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
-    nixpkgs_stable.url = "github:nixos/nixpkgs/nixos-22.05";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable-small";
+    nixpkgs_stable.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs_trunk.url = "github:nixos/nixpkgs";
 
     flake-utils.url = "github:numtide/flake-utils";
@@ -17,7 +17,7 @@
     };
 
     home-manager = {
-      url = "github:nix-community/home-manager/master";
+      url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -207,7 +207,6 @@
           modules = common-modules ++ [
             ./nixos/hosts/kuro/configuration.nix
             ./nixos/modules/awesomewm.nix
-            ./nixos/modules/btrfs.nix
             ./nixos/modules/gaming.nix
             ./nixos/modules/hass.nix
             ./nixos/modules/minecraft.nix

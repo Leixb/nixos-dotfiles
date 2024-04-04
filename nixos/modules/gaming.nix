@@ -1,6 +1,6 @@
 { pkgs, ... }: {
 
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
+  # boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
   programs.steam.enable = true;
   programs.steam.gamescopeSession.enable = true;

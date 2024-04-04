@@ -27,6 +27,8 @@ in
     };
   };
 
+  services.dunst.enable = true;
+
   services.trayer = {
     enable = true;
     settings = {
@@ -58,6 +60,8 @@ in
             -d '{"hostname" : "${osConfig.networking.hostName}"}' \
             $HASS_SERVER/api/events/nixos.lock &
 
+        ${pkgs.dunst}/bin/dunstctl set-paused true
+
         ${pkgs.i3lock-color}/bin/i3lock-color --nofork "$@"
 
         wait
@@ -66,7 +70,9 @@ in
             -H "Authorization: Bearer $HASS_TOKEN" \
             -H "Content-Type: application/json" \
             -d '{"hostname" : "${osConfig.networking.hostName}"}' \
-            $HASS_SERVER/api/events/nixos.unlock
+            $HASS_SERVER/api/events/nixos.unlock &
+
+        ${pkgs.dunst}/bin/dunstctl set-paused false
       '';
     })
     xsel
