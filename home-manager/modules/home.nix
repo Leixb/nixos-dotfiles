@@ -33,6 +33,7 @@ in
     enableBatTheme = true;
     enableZathuraTheme = true;
     enableLuakitTheme = true;
+    enableDunstTheme = true;
   };
 
   home.pointerCursor = {

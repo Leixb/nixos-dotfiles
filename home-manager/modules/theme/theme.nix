@@ -56,6 +56,7 @@ in {
       enableBatTheme = mkEnableOption "enableBatTheme";
       enableZathuraTheme = mkEnableOption "enableZathuraTheme";
       enableLuakitTheme = mkEnableOption "enableLuakitTheme";
+      enableDunstTheme = mkEnableOption "enableDunstTheme";
     };
   };
 
@@ -437,6 +438,29 @@ in {
 
           return theme
         '';
+      })
+
+      (mkIf cfg.enableDunstTheme {
+        services.dunst.settings = with cfg.palette; let foreground = text; in {
+          global = {
+            frame_color = blue;
+            separator_color = "frame";
+            font = "${cfg.font.family} ${builtins.toString cfg.font.size}";
+            transparency = 10;
+            offset = "5x25";
+          };
+          urgency_low = {
+            inherit background foreground;
+            frame_color = foreground;
+          };
+          urgency_normal = {
+            inherit background foreground;
+          };
+          urgency_critical = {
+            inherit background foreground;
+            frame_color = red;
+          };
+        };
       })
 
     ]);
