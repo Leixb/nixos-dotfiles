@@ -131,6 +131,8 @@
         nix-index-database =
           inputs.nix-index-database.outputs.legacyPackages.${system}.database;
         firefox-addons = inputs.firefox-addons.packages.${system};
+
+        mpris-notifier = prev.callPackage ./packages/mpris-notifier/default.nix { };
       };
 
       overlays = [
@@ -214,7 +216,7 @@
             ./nixos/modules/restic.nix
             ./nixos/modules/ssd.nix
             ./nixos/modules/synology-mounts.nix
-            ./nixos/modules/virtualization.nix
+            # ./nixos/modules/virtualization.nix
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;

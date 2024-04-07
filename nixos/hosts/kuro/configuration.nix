@@ -26,6 +26,10 @@ in
   _module.args.location = location;
   imports = [ ./hardware-configuration.nix ];
 
+  boot.extraModprobeConfig = ''
+    options usbcore use_both_schemes=y
+  '';
+
   services.xserver.displayManager = {
     lightdm.enable = true;
     autoLogin.user = "leix";
@@ -48,6 +52,8 @@ in
   boot.kernelParams = [
     "acpi_backlight=intel"
     "clearcpuid=304" # disable AVX512 (The finals game crashes with AVX512)
+    "intel_iommu=off"
+    "usbcore.autosuspend=-1"
   ];
 
   programs.droidcam.enable = true;

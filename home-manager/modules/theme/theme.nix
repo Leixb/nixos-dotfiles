@@ -445,9 +445,12 @@ in {
           global = {
             frame_color = blue;
             separator_color = "frame";
-            font = "${cfg.font.family} ${builtins.toString cfg.font.size}";
+            # font = "${cfg.font.family} ${builtins.toString cfg.font.size}";
+            font = "${cfg.font.family} 9";
             transparency = 10;
             offset = "5x25";
+            width = "(0, 720)";
+            max_icon_size = 512;
           };
           urgency_low = {
             inherit background foreground;
