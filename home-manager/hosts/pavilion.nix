@@ -1,6 +1,6 @@
 { pkgs, lib, ... }:
 {
-  imports = [ ../modules/sway.nix ];
+  imports = [ ../modules/sway.nix ../modules/xmonad.nix ];
 
   programs.foot.server.enable = true;
   home.sessionVariables.TERMINAL = lib.mkForce "footclient";

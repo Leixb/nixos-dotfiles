@@ -237,6 +237,7 @@
 
           modules = common-modules ++ [
             ./nixos/hosts/pavilion/configuration.nix
+            ./nixos/modules/awesomewm.nix
             home-manager.nixosModules.home-manager
             hyprland.nixosModules.default
             { programs.hyprland.enable = true; }
