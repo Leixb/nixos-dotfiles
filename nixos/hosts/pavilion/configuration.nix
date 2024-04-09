@@ -13,6 +13,12 @@
 
   hardware.sensor.iio.enable = true;
 
+  services.xserver.displayManager = {
+    lightdm.enable = true;
+    autoLogin.user = "leix";
+    defaultSession = "xsession";
+  };
+
   networking.hostName = "nixos-pav"; # Define your hostname.
 
   environment.sessionVariables = { MOZ_ENABLE_WAYLAND = "1"; };
