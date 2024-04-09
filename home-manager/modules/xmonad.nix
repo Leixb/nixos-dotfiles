@@ -39,7 +39,7 @@ in
       SetDockType = true;
       SetPartialStrut = true;
       monitor = "primary";
-      height = 40;
+      height = lib.mkDefault 40;
       transparent = true;
       alpha = 0;
       tint = "0x25273A";

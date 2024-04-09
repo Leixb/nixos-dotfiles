@@ -7,5 +7,7 @@
 
   home.packages = with pkgs; [ hyprland ];
 
+  services.trayer.settings.height = 30;
+
   home.stateVersion = "21.11";
 }
