@@ -9,5 +9,13 @@
 
   services.trayer.settings.height = 30;
 
+  services.dunst.settings.global = {
+    offset = "10x40";
+    width = "(0, 512)";
+    max_icon_size = "128";
+  };
+
+  theme.font.size = 9;
+
   home.stateVersion = "21.11";
 }

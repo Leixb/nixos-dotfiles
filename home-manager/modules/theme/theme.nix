@@ -237,7 +237,7 @@ in {
         programs.kitty.settings = with cfg.palette;
           {
             font_family = cfg.font.family;
-            font_size = builtins.toString cfg.font.size;
+            font_size = lib.mkDefault (builtins.toString cfg.font.size);
 
             selection_foreground = black;
             selection_background = flamingo;
@@ -448,9 +448,9 @@ in {
             # font = "${cfg.font.family} ${builtins.toString cfg.font.size}";
             font = "${cfg.font.family} 9";
             transparency = 10;
-            offset = "5x25";
-            width = "(0, 720)";
-            max_icon_size = 512;
+            offset = lib.mkDefault "5x25";
+            width = lib.mkDefault "(0, 720)";
+            max_icon_size = lib.mkDefault 512;
           };
           urgency_low = {
             inherit background foreground;

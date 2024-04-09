@@ -25,7 +25,7 @@ in
     enable = true;
     font = {
       family = "JetBrainsMono Nerd Font Mono";
-      size = 13;
+      size = lib.mkDefault 13;
     };
     enableKittyTheme = true;
     enableAlacrittyTheme = true;
