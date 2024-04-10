@@ -245,10 +245,12 @@ myXmobarPP = do
     yellow <- getColorOrDefault "color3" "#EED49F"
     blue <- getColorOrDefault "color4" "#8AADF4"
     magenta <- getColorOrDefault "color5" "#C6A0F6"
-    white <- getColorOrDefault "color7" "#CAD3F5"
+    white <- getColorOrDefault "color7" "#B8C0E0"
+    cyan' <- liftIO $ fromMaybe "#8BD5CA" <$> xrdbGet "color6"
+    foreground <- getColorOrDefault "foreground" "#CAD3F5"
     lowWhite <- getColorOrDefault "color8" "#5B6078"
 
-    let formatFocused = wrap (white "[") (white "]") . magenta . ppWindow
+    let formatFocused = wrap (foreground "[") (foreground "]") . magenta . ppWindow
     let formatUnfocused = wrap (lowWhite "[") (lowWhite "]") . blue . ppWindow
 
     click <-
@@ -256,7 +258,7 @@ myXmobarPP = do
             def
                 { ppSep = magenta " | "
                 , ppTitleSanitize = xmobarStrip
-                , ppCurrent = pad . xmobarBorder "Top" "#8BD5CA" 2
+                , ppCurrent = pad . xmobarBorder "Top" cyan' 2
                 , ppVisible = wrap "(" ")"
                 , ppHidden = pad
                 , ppHiddenNoWindows = lowWhite . pad
@@ -335,9 +337,9 @@ myConfig = do
 -- xrdbGet :: (MonadIO m) => String -> m (Maybe String)
 xrdbGet :: String -> IO (Maybe String)
 xrdbGet value = do
-    res <- runProcessWithInput "xrdb" ["-get", value] ""
+    res <- lines <$> runProcessWithInput "xrdb" ["-get", value] ""
     return $ case res of
-        "" -> Nothing
-        _ -> Just res
+        [] -> Nothing
+        a : _ -> Just a
 
 -- `additionalKeysP` myKeymap

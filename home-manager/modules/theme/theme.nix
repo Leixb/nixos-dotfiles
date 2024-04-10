@@ -139,11 +139,21 @@ in {
         xresources.extraConfig = with base16; ''
           ! ${cfg.name}
 
-          *.font_family: ${cfg.font.family}
-          *.font_size: ${builtins.toString cfg.font.size}
+          *font_family: ${cfg.font.family}
+          *font_size: ${builtins.toString cfg.font.size}
 
-          *.background: ${cfg.palette.background}
-          *.foreground: ${cfg.palette.text}
+          ! xterm
+          *faceName: ${cfg.font.family}
+          *faceSize: ${builtins.toString cfg.font.size}
+
+          URxvt.font:     xft:${cfg.font.family}:size=${builtins.toString cfg.font.size}:antialias=true
+          URxvt.boldFont: xft:${cfg.font.family}:bold:size=${builtins.toString cfg.font.size}:antialias=true
+          urxvt*scrollBar: false
+          URxvt*depth:      32
+          URxvt.background: [85]${background}
+
+          *background: ${cfg.palette.background}
+          *foreground: ${cfg.palette.text}
 
           !black
           *color0: ${color0}
