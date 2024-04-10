@@ -41,7 +41,7 @@ in
     package = pkgs.capitaine-cursors-themed;
     name = "Capitaine Cursors (Nord)";
     x11.enable = true;
-    size = 48;
+    size = lib.mkDefault 48;
   };
 
   gtk = {

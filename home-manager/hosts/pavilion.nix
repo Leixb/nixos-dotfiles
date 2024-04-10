@@ -17,5 +17,7 @@
 
   theme.font.size = 9;
 
+  home.pointerCursor.size = 24;
+
   home.stateVersion = "21.11";
 }
