@@ -46,6 +46,7 @@ import XMonad.Util.Hacks
 import XMonad.Util.Loggers (logTitles)
 import XMonad.Util.NamedActions
 import XMonad.Util.NamedScratchpad
+import XMonad.Util.Run (runProcessWithInput)
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.Ungrab
 
@@ -96,8 +97,6 @@ myHandleEventHook =
           trayerAboveXmobarEventHook
         , trayerPaddingXmobarEventHook
         ]
-
-term = XMonad.terminal myConfig
 
 scratchpads =
     [ NS "scratchpad" (term ++ " --name scratchpad --class scratchpad") (className =? "scratchpad") defaultFloating
@@ -234,8 +233,6 @@ myKeys c =
                 , ("M-C-.", addName "" $ onGroup W.focusUp')
                 , ("M-C-,", addName "" $ onGroup W.focusDown')
                 ]
-  where
-    term = XMonad.terminal myConfig
 
 myWorkspaces = ["web", "code"] ++ map show [3 .. 9]
 
@@ -243,6 +240,17 @@ myLogHook = dynamicLogWithPP . filterOutWsPP [scratchpadWorkspaceTag] $ def
 
 myXmobarPP :: X PP
 myXmobarPP = do
+    red <- getColorOrDefault "color1" "#ED8796"
+    green <- getColorOrDefault "color2" "#A6DA95"
+    yellow <- getColorOrDefault "color3" "#EED49F"
+    blue <- getColorOrDefault "color4" "#8AADF4"
+    magenta <- getColorOrDefault "color5" "#C6A0F6"
+    white <- getColorOrDefault "color7" "#CAD3F5"
+    lowWhite <- getColorOrDefault "color8" "#5B6078"
+
+    let formatFocused = wrap (white "[") (white "]") . magenta . ppWindow
+    let formatUnfocused = wrap (lowWhite "[") (lowWhite "]") . blue . ppWindow
+
     click <-
         clickablePP . filterOutWsPP [scratchpadWorkspaceTag] $
             def
@@ -259,40 +267,15 @@ myXmobarPP = do
                 }
     copiesPP (pad . green) click
   where
-    formatFocused = wrap (white "[") (white "]") . magenta . ppWindow
-    formatUnfocused = wrap (lowWhite "[") (lowWhite "]") . blue . ppWindow
-
     -- \| Windows should have *some* title, which should not not exceed a
     -- sane length.
     ppWindow :: String -> String
     ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
 
-    blue, lowWhite, magenta, red, white, yellow :: String -> String
-    magenta = xmobarColor "#C6A0F6" ""
-    blue = xmobarColor "#8AADF4" ""
-    white = xmobarColor "#CAD3F5" ""
-    yellow = xmobarColor "#EED49F" ""
-    red = xmobarColor "#ED8796" ""
-    green = xmobarColor "#A6DA95" ""
-    lowWhite = xmobarColor "#5B6078" ""
+    fgColor = flip xmobarColor ""
 
--- isFullscreen --> doFullFloat
--- color0 = "#25273A"; # base
--- color1 = "#1E2030"; # mantle
--- color2 = "#363A4F"; # surface0
--- color3 = "#494D64"; # surface1
--- color4 = "#5B6078"; # surface2
--- color5 = "#CAD3F5"; # text
--- color6 = "#F4DBD6"; # rosewater
--- color7 = "#B7BDF8"; # lavender
--- color8 = "#ED8796"; # red
--- color9 = "#F5A97F"; # peach
--- color10 = "#EED49F"; # yellow
--- color11 = "#A6DA95"; # green
--- color12 = "#8BD5CA"; # teal
--- color13 = "#8AADF4"; # blue
--- color14 = "#C6A0F6"; # mauve
--- color15 = "#F0C6C6"; # flamingo
+    getColorOrDefault :: String -> String -> X (String -> String)
+    getColorOrDefault color def = liftIO $ fmap (fgColor . fromMaybe def) . xrdbGet $ color
 
 -- For some reason, the league clients do not work with ewmh fullscreen,
 -- despite being floating, they get back into tiling mode when some action
@@ -313,35 +296,48 @@ myEwmhFullscreen c =
     fullscreenEventHookNoLeagueClient ev = fullscreenEventHook ev
 
 main =
-    xmonad
-        . docks
-        . myEwmhFullscreen
-        . ewmh
-        . withSB (statusBarProp "xmobar" myXmobarPP)
-        . addDescrKeys ((mod4Mask, xK_F1), xMessage) myKeys
-        $ myConfig
+    myConfig
+        >>= xmonad
+            . docks
+            . myEwmhFullscreen
+            . ewmh
+            . withSB (statusBarProp "xmobar" myXmobarPP)
+            . addDescrKeys ((mod4Mask, xK_F1), xMessage) myKeys
 
-myConfig =
-    def
-        { terminal = "kitty"
-        , modMask = mod4Mask
-        , borderWidth = 3
-        , focusedBorderColor = "#CAD3F5"
-        , normalBorderColor = "#25273A"
-        , layoutHook = myLayout
-        , logHook =
-            showWNameLogHook $
-                def
-                    { swn_font = "xft:JetBrainsMono Nerd Font:size=21"
-                    , swn_bgcolor = "#25273A"
-                    , swn_color = "#CAD3F5"
-                    }
-        , handleEventHook = myHandleEventHook
-        , manageHook = myManageHook
-        , startupHook = do
-            -- return () >> checkKeymap myConfig myKeymap -- WARN: return needed to avoid infinite recursion
-            myStartupHook
-        , workspaces = myWorkspaces
-        }
+term = "kitty"
+
+myConfig = do
+    fg <- fromMaybe "#CAD3F5" <$> xrdbGet "foreground"
+    bg <- fromMaybe "#25273A" <$> xrdbGet "background"
+    return $
+        def
+            { terminal = term
+            , modMask = mod4Mask
+            , borderWidth = 3
+            , focusedBorderColor = fg
+            , normalBorderColor = bg
+            , layoutHook = myLayout
+            , logHook =
+                showWNameLogHook $
+                    def
+                        { swn_font = "xft:JetBrainsMono Nerd Font:size=21"
+                        , swn_bgcolor = bg
+                        , swn_color = fg
+                        }
+            , handleEventHook = myHandleEventHook
+            , manageHook = myManageHook
+            , startupHook = do
+                -- return () >> checkKeymap myConfig myKeymap -- WARN: return needed to avoid infinite recursion
+                myStartupHook
+            , workspaces = myWorkspaces
+            }
+
+-- xrdbGet :: (MonadIO m) => String -> m (Maybe String)
+xrdbGet :: String -> IO (Maybe String)
+xrdbGet value = do
+    res <- runProcessWithInput "xrdb" ["-get", value] ""
+    return $ case res of
+        "" -> Nothing
+        _ -> Just res
 
 -- `additionalKeysP` myKeymap
