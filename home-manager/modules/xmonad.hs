@@ -69,25 +69,28 @@ myLayout =
     threeCols = magnifiercz' 1.3 $ ThreeColMid nmaster delta ratio
     spacer = spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
 
-myLayoutPrinter :: String -> String
-myLayoutPrinter "Full" = "<icon=full.xbm/>"
-myLayoutPrinter "Tall" = "<icon=tall.xbm/>"
-myLayoutPrinter "Mirror Tall" = "<icon=mtall.xbm/>"
-myLayoutPrinter "Spiral" = "<icon=spiral.xbm/>"
-myLayoutPrinter "Magnifier NoMaster ThreeCol" = "<icon=threeCol.xbm/>"
-myLayoutPrinter "Accordion" = "<icon=accordion.xbm/>"
-myLayoutPrinter "Grid False" = "<icon=grid.xbm/>"
-myLayoutPrinter "Grid" = "<icon=grid.xbm/>"
-myLayoutPrinter x
-    | "Spacing" `isPrefixOf` x = myLayoutPrinter $ stripPrefix "Spacing " x
-    | "Hinted" `isPrefixOf` x = myLayoutPrinter $ stripPrefix "Hinted " x
-    | "Tabbed" `isPrefixOf` x = myLayoutPrinter $ stripPrefix "Tabbed " x
-    | otherwise = x
+myLayoutPrinter x = "<icon=" ++ getIconName x ++ ".xbm/>"
   where
     stripPrefix :: String -> String -> String
     stripPrefix [] s = s
     stripPrefix _ [] = []
     stripPrefix (p : ps) (s : ss) = if p == s then stripPrefix ps ss else s : ss
+
+    getIconName :: String -> String
+    getIconName "Full" = "full"
+    getIconName "Tall" = "tall"
+    getIconName "Mirror Tall" = "mtall"
+    getIconName "Spiral" = "spiral"
+    getIconName "Magnifier NoMaster ThreeCol" = "threeCol"
+    getIconName "Accordion" = "accordion"
+    getIconName "Grid False" = "grid"
+    getIconName "Grid" = "grid"
+    getIconName x
+        | "Spacing" `isPrefixOf` x = getIconName $ stripPrefix "Spacing " x
+        | "Hinted" `isPrefixOf` x = getIconName $ stripPrefix "Hinted " x
+        | "Tabbed" `isPrefixOf` x = getIconName $ stripPrefix "Tabbed " x
+        | "Mirror" `isPrefixOf` x = ("mirror_" ++) . getIconName $ stripPrefix "Mirror " x
+        | otherwise = x
 
 myHandleEventHook =
     composeAll
