@@ -52,7 +52,7 @@ in
     switch-audio
     open-arch-home
     close-arch-home
-    geogebra
+    geogebra6
     obs-studio
     kdenlive
     # matlab
