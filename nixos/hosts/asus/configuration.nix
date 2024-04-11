@@ -80,7 +80,6 @@
     packages = with pkgs; [
       firefox
       neovim
-      vscode
     ];
   };
 
