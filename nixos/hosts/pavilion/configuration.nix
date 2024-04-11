@@ -15,6 +15,8 @@
 
   hardware.sensor.iio.enable = true;
 
+  services.preload.enable = true;
+
   services.xserver.displayManager = {
     lightdm.enable = true;
     autoLogin.user = "leix";
