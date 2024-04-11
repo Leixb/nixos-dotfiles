@@ -198,10 +198,10 @@ myKeys c =
             , ("M-S-b", addName "run or copy firefox" $ runOrCopy "firefox" (className =? "firefox"))
             , ("M-v", addName "Terminal" $ runOrRaiseNext term (className =? term))
             , ("M-u", addName "Focus urgent" focusUrgent)
-            , ("M-,", addName "Minimize" $ withFocused minimizeWindow)
-            , ("M-S-,", addName "UnMinimize" $ withLastMinimized maximizeWindowAndFocus)
-            , ("M-.", addName "Mark Boring" $ markBoringEverywhere)
-            , ("M-S-.", addName "Clear Boring" $ clearBoring)
+            , ("M-;", addName "Minimize" $ withFocused minimizeWindow)
+            , ("M-S-;", addName "UnMinimize" $ withLastMinimized maximizeWindowAndFocus)
+            , ("M-'", addName "Mark Boring" $ markBoringEverywhere)
+            , ("M-S-'", addName "Clear Boring" $ clearBoring)
             ]
             ^++^ subKeys
                 "Volume"
