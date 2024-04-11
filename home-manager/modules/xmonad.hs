@@ -10,6 +10,7 @@ import System.Exit (exitSuccess)
 import XMonad
 import XMonad.Actions.CopyWindow
 import XMonad.Actions.DwmPromote (dwmpromote)
+import XMonad.Actions.Minimize
 import XMonad.Actions.MouseResize (mouseResize)
 import XMonad.Actions.WindowGo
 import XMonad.Actions.WithAll (killAll)
@@ -18,6 +19,7 @@ import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
+import XMonad.Hooks.Minimize
 import XMonad.Hooks.ShowWName
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
@@ -29,6 +31,7 @@ import XMonad.Layout.CenteredMaster (centerMaster)
 import XMonad.Layout.HintedGrid
 import XMonad.Layout.LayoutHints
 import XMonad.Layout.Magnifier (magnifiercz')
+import XMonad.Layout.Minimize
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances (StdTransformers (..))
 import XMonad.Layout.NoBorders
@@ -61,6 +64,7 @@ myLayout =
         . windowNavigation
         . subLayout [] Simplest
         . boringWindows
+        . minimize
         $ tiled ||| spiral (6 / 7) ||| Grid False ||| threeCols ||| Accordion ||| Full
   where
     tiled = Tall nmaster delta ratio
@@ -70,35 +74,38 @@ myLayout =
     threeCols = magnifiercz' 1.3 $ ThreeColMid nmaster delta ratio
     spacer = spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
 
-myLayoutPrinter x = "<icon=" ++ getIconName x ++ ".xbm/>"
+myLayoutPrinter x = let iconstr = icon x in fromMaybe x iconstr
   where
+    icon = fmap asIcon . getIconName
+    asIcon x = "<icon=" ++ x ++ ".xbm/>"
     stripPrefix :: String -> String -> String
     stripPrefix [] s = s
     stripPrefix _ [] = []
     stripPrefix (p : ps) (s : ss) = if p == s then stripPrefix ps ss else s : ss
 
-    getIconName :: String -> String
-    getIconName "Full" = "full"
-    getIconName "Tall" = "tall"
-    getIconName "Mirror Tall" = "mtall"
-    getIconName "Spiral" = "spiral"
-    getIconName "Magnifier NoMaster ThreeCol" = "threeCol"
-    getIconName "Accordion" = "accordion"
-    getIconName "Grid False" = "grid"
-    getIconName "Grid" = "grid"
+    getIconName :: String -> Maybe String
+    getIconName "Full" = Just "full"
+    getIconName "Tall" = Just "tall"
+    getIconName "Spiral" = Just "spiral"
+    getIconName "Magnifier NoMaster ThreeCol" = Just "threeCol"
+    getIconName "Accordion" = Just "accordion"
+    getIconName "Grid False" = Just "grid"
+    getIconName "Grid" = Just "grid"
     getIconName x
         | "Spacing" `isPrefixOf` x = getIconName $ stripPrefix "Spacing " x
         | "Hinted" `isPrefixOf` x = getIconName $ stripPrefix "Hinted " x
         | "Tabbed" `isPrefixOf` x = getIconName $ stripPrefix "Tabbed " x
-        | "Mirror" `isPrefixOf` x = ("mirror_" ++) . getIconName $ stripPrefix "Mirror " x
-        | otherwise = x
+        | "Minimize" `isPrefixOf` x = getIconName $ stripPrefix "Minimize " x
+        | "Mirror" `isPrefixOf` x = fmap ("mirror_" ++) . getIconName $ stripPrefix "Mirror " x
+        | otherwise = Nothing
 
 myHandleEventHook =
     composeAll
         [ handleEventHook def
         , windowedFullscreenFixEventHook
-        , -- swallowEventHook (className =? term <||> className =? "Alacritty") (return True),
-          trayerAboveXmobarEventHook
+        , -- , -- swallowEventHook (className =? term <||> className =? "Alacritty") (return True),
+          minimizeEventHook
+        , trayerAboveXmobarEventHook
         , trayerPaddingXmobarEventHook
         ]
 
@@ -169,6 +176,8 @@ myKeys c =
             "Base"
             [ ("M-S-q", addName "Quit Xmonad" $ io exitSuccess)
             , ("M-d", addName "Open rofi" $ spawn "rofi -show")
+            , ("M-k", addName "Focus Up" $ focusUp)
+            , ("M-j", addName "Focus Down" $ focusDown)
             , ("M-w", addName "Remove window from workspace" $ kill1)
             , ("M-S-w", addName "Kill window" $ kill)
             , ("M-C-S-w", addName "Remove Window from all workspaces" $ killAll)
@@ -189,6 +198,10 @@ myKeys c =
             , ("M-S-b", addName "run or copy firefox" $ runOrCopy "firefox" (className =? "firefox"))
             , ("M-v", addName "Terminal" $ runOrRaiseNext term (className =? term))
             , ("M-u", addName "Focus urgent" focusUrgent)
+            , ("M-,", addName "Minimize" $ withFocused minimizeWindow)
+            , ("M-S-,", addName "UnMinimize" $ withLastMinimized maximizeWindowAndFocus)
+            , ("M-.", addName "Mark Boring" $ markBoringEverywhere)
+            , ("M-S-.", addName "Clear Boring" $ clearBoring)
             ]
             ^++^ subKeys
                 "Volume"
