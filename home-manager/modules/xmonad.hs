@@ -5,6 +5,7 @@
 {-# HLINT ignore "Redundant return" #-}
 
 import Graphics.X11.ExtraTypes.XF86
+import System.Environment (lookupEnv)
 import System.Exit (exitSuccess)
 import XMonad
 import XMonad.Actions.CopyWindow
@@ -58,7 +59,7 @@ myLayout =
         . mouseResize
         . windowArrange
         . windowNavigation
-        . subLayout [] (Simplest)
+        . subLayout [] Simplest
         . boringWindows
         $ tiled ||| spiral (6 / 7) ||| Grid False ||| threeCols ||| Accordion ||| Full
   where
@@ -314,6 +315,9 @@ term = "kitty"
 myConfig = do
     fg <- fromMaybe "#CAD3F5" <$> xrdbGet "foreground"
     bg <- fromMaybe "#25273A" <$> xrdbGet "background"
+
+    term <- fromMaybe "kitty" <$> lookupEnv "TERMINAL"
+
     return $
         def
             { terminal = term
