@@ -331,6 +331,8 @@ myConfig = do
 
     term <- fromMaybe "kitty" <$> lookupEnv "TERMINAL"
 
+    font <- fromMaybe "JetBrainsMono Nerd Font" <$> xrdbGet "font_family"
+
     return $
         def
             { terminal = term
@@ -342,7 +344,7 @@ myConfig = do
             , logHook =
                 showWNameLogHook $
                     def
-                        { swn_font = "xft:JetBrainsMono Nerd Font:size=21"
+                        { swn_font = "xft:" ++ font ++ ":size=21"
                         , swn_bgcolor = bg
                         , swn_color = fg
                         }
