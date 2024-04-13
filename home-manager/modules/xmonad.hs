@@ -143,8 +143,8 @@ myHandleEventHook =
     composeAll
         [ handleEventHook def
         , windowedFullscreenFixEventHook
-        , -- , -- swallowEventHook (className =? term <||> className =? "Alacritty") (return True),
-          minimizeEventHook
+        , swallowEventHookSub (className =? myTerm <||> className =? "Alacritty") (return True)
+        , minimizeEventHook
         , trayerAboveXmobarEventHook
         , trayerPaddingXmobarEventHook
         ]
