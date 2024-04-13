@@ -54,6 +54,46 @@ import XMonad.Util.Run (runProcessWithInput)
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.Ungrab
 
+data Settings = Settings
+    { term :: String
+    , theme :: Theme
+    }
+
+data Theme = Theme
+    { background :: String
+    , foreground :: String
+    , font :: String
+    }
+
+defaultSettings =
+    Settings
+        { term = "kitty"
+        , theme =
+            Theme
+                { background = "#25273A"
+                , foreground = "#CAD3F5"
+                , font = "JetBrainsMono Nerd Font"
+                }
+        }
+
+getTheme :: IO Theme
+getTheme = do
+    fg <- fromMaybe (foreground defaultTheme) <$> xrdbGet "foreground"
+    bg <- fromMaybe (background defaultTheme) <$> xrdbGet "background"
+
+    font <- fromMaybe (font defaultTheme) <$> xrdbGet "font_family"
+
+    return $ Theme{background = bg, foreground = fg}
+  where
+    defaultTheme = theme defaultSettings
+
+getSettings :: IO Settings
+getSettings = do
+    theme <- getTheme
+    term <- fromMaybe (term defaultSettings) <$> lookupEnv "TERMINAL"
+
+    return $ Settings{term = term, theme = theme}
+
 myLayout =
     avoidStruts
         . mkToggle (MIRROR ?? NBFULL ?? NOBORDERS ?? EOT)
@@ -110,8 +150,8 @@ myHandleEventHook =
         ]
 
 scratchpads =
-    [ NS "scratchpad" (term ++ " --name scratchpad --class scratchpad") (className =? "scratchpad") defaultFloating
-    , NS "taskwarrior" (term ++ " --name taskwarrior --class taskwarrior vit") (className =? "taskwarrior") defaultFloating
+    [ NS "scratchpad" (myTerm ++ " --name scratchpad --class scratchpad") (className =? "scratchpad") defaultFloating
+    , NS "taskwarrior" (myTerm ++ " --name taskwarrior --class taskwarrior vit") (className =? "taskwarrior") defaultFloating
     , NS "qalc" "qalculate-gtk" (className =? "Qalculate-gtk") defaultFloating
     ]
 
@@ -185,7 +225,7 @@ myKeys c =
             , -- ("M-b", sendMessage ToggleStruts),
               ("M-f", addName "Toggle fullscreen" $ sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts)
             , ("M-x", addName "Toggle mirror" $ sendMessage $ Toggle MIRROR)
-            , ("M-<Return>", addName "Open terminal" $ spawn term)
+            , ("M-<Return>", addName "Open terminal" $ spawn myTerm)
             , ("M-S-<Return>", addName "Promote to master" $ dwmpromote)
             , ("M-C-t", addName "Sink" $ withFocused $ windows . W.sink)
             , ("M-s", addName "Sticky" $ windows copyToAll)
@@ -193,10 +233,10 @@ myKeys c =
             , ("M-z", addName "Toggle Scratchpad" $ namedScratchpadAction scratchpads "scratchpad")
             , ("M-S-z", addName "Toggle vit" $ namedScratchpadAction scratchpads "taskwarrior")
             , ("M-c", addName "Toggle qalc" $ namedScratchpadAction scratchpads "qalc")
-            , ("M-n", addName "Nvim" $ runOrRaiseNext (term ++ " nvim") (isSuffixOf "NVIM" <$> title <||> isSuffixOf "- NVIM\" " <$> title))
+            , ("M-n", addName "Nvim" $ runOrRaiseNext (myTerm ++ " nvim") (isSuffixOf "NVIM" <$> title <||> isSuffixOf "- NVIM\" " <$> title))
             , ("M-b", addName "firefox" $ runOrRaiseNext "firefox" (className =? "firefox"))
             , ("M-S-b", addName "run or copy firefox" $ runOrCopy "firefox" (className =? "firefox"))
-            , ("M-v", addName "Terminal" $ runOrRaiseNext term (className =? term))
+            , ("M-v", addName "Terminal" $ runOrRaiseNext myTerm (className =? myTerm))
             , ("M-u", addName "Focus urgent" focusUrgent)
             , ("M-;", addName "Minimize" $ withFocused minimizeWindow)
             , ("M-S-;", addName "UnMinimize" $ withLastMinimized maximizeWindowAndFocus)
@@ -323,30 +363,25 @@ main =
             . withSB (statusBarProp "xmobar" myXmobarPP)
             . addDescrKeys ((mod4Mask, xK_F1), xMessage) myKeys
 
-term = "kitty"
+myTerm = "kitty"
 
 myConfig = do
-    fg <- fromMaybe "#CAD3F5" <$> xrdbGet "foreground"
-    bg <- fromMaybe "#25273A" <$> xrdbGet "background"
-
-    term <- fromMaybe "kitty" <$> lookupEnv "TERMINAL"
-
-    font <- fromMaybe "JetBrainsMono Nerd Font" <$> xrdbGet "font_family"
+    settings <- getSettings
 
     return $
         def
-            { terminal = term
+            { terminal = term settings
             , modMask = mod4Mask
             , borderWidth = 3
-            , focusedBorderColor = fg
-            , normalBorderColor = bg
+            , focusedBorderColor = foreground . theme $ settings
+            , normalBorderColor = background . theme $ settings
             , layoutHook = myLayout
             , logHook =
                 showWNameLogHook $
                     def
-                        { swn_font = "xft:" ++ font ++ ":size=21"
-                        , swn_bgcolor = bg
-                        , swn_color = fg
+                        { swn_font = "xft:" ++ (font . theme $ settings) ++ ":size=21"
+                        , swn_bgcolor = background . theme $ settings
+                        , swn_color = foreground . theme $ settings
                         }
             , handleEventHook = myHandleEventHook
             , manageHook = myManageHook
