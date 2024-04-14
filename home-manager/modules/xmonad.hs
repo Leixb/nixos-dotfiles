@@ -83,7 +83,7 @@ getTheme = do
 
     font <- fromMaybe (font defaultTheme) <$> xrdbGet "font_family"
 
-    return $ Theme{background = bg, foreground = fg}
+    return $ Theme{font = font, background = bg, foreground = fg}
   where
     defaultTheme = theme defaultSettings
 
