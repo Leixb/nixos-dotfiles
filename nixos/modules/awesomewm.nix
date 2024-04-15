@@ -2,6 +2,12 @@
 
 let palette = import ../../home-manager/modules/theme/palette.nix;
 in {
+
+  services.displayManager = {
+    defaultSession = "xsession";
+    autoLogin.enable = false;
+  };
+
   services.xserver = {
     enable = true;
     exportConfiguration = true;
@@ -13,9 +19,6 @@ in {
     '';
 
     displayManager = {
-      autoLogin.enable = false;
-
-      defaultSession = "xsession";
       session = [{
         manage = "desktop";
         name = "xsession";
