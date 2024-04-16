@@ -360,6 +360,7 @@ main =
             . docks
             . myEwmhFullscreen
             . ewmh
+            . javaHack
             . withSB (statusBarProp "xmobar" myXmobarPP)
             . addDescrKeys ((mod4Mask, xK_F1), xMessage) myKeys
 
