@@ -28,6 +28,7 @@ in
   };
 
   services.dunst.enable = true;
+  services.batsignal.enable = true;
 
   services.trayer = {
     enable = true;
