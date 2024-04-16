@@ -104,7 +104,7 @@
     };
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, agenix, pre-commit-hooks, devenv, hyprland, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, agenix, pre-commit-hooks, devenv, hyprland, deploy-rs, ... }:
     let
       system = "x86_64-linux";
 
@@ -138,6 +138,8 @@
       overlays = [
         pkg-sets
         extra-packages
+        inputs.deploy-rs.overlays.default
+        (self: super: { deploy-rs = { inherit (pkgs) deploy-rs; lib = super.deploy-rs.lib; }; })
         inputs.awesome-config.overlay
         inputs.neovim-nightly-overlay.overlay
         inputs.nix-minecraft.overlay
@@ -169,19 +171,23 @@
 
       inherit (nixpkgs) lib;
       pkgs = import nixpkgs { inherit system; };
+
+      deploy-rs-checks = builtins.mapAttrs (system: deployLib: deployLib.deployChecks self.deploy) deploy-rs.lib;
     in
     {
 
-      checks.${system}.pre-commit-check = pre-commit-hooks.lib.${system}.run {
-        src = ./.;
-        hooks = {
-          nixpkgs-fmt.enable = true;
-          shfmt.enable = true;
-          shellcheck = {
-            enable = true;
-            types_or = pkgs.lib.mkForce [ ];
+      checks = lib.recursiveUpdate deploy-rs-checks {
+        ${system}.pre-commit-check = pre-commit-hooks.lib.${system}.run {
+          src = ./.;
+          hooks = {
+            nixpkgs-fmt.enable = true;
+            shfmt.enable = true;
+            shellcheck = {
+              enable = true;
+              types_or = pkgs.lib.mkForce [ ];
+            };
+            stylua.enable = true;
           };
-          stylua.enable = true;
         };
       };
 
@@ -282,29 +288,16 @@
         };
       };
 
-      colmena = {
-        meta = {
-          description = "My personal machines";
-          nixpkgs = import nixpkgs { inherit system; };
+      deploy.nodes = {
+        kuro.profiles.system = {
+          user = "leix";
+          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.kuro;
         };
-
-      } // builtins.mapAttrs
-        (name: value: {
-          nixpkgs.system = value.config.nixpkgs.system;
-          imports = value._module.args.modules;
-          deployment.allowLocalDeployment = true;
-        })
-        self.nixosConfigurations;
-
-      # deploy.nodes.kuro = {
-      #   hostname = "localhost";
-      #   fastConnection = true;
-      #   sshOpts = [ "-t" ];
-      #   profiles.system = {
-      #     user = "root";
-      #     path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.kuro;
-      #   };
-      # };
+        nixos-pav.profiles.system = {
+          user = "leix";
+          path = deploy-rs.lib.x86_64-linux.activate.nixos self.nixosConfigurations.nixos-pav;
+        };
+      };
 
     };
 }

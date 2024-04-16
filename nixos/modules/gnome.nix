@@ -22,7 +22,6 @@
     gnome.yelp
     gnome.gnome-music
     gnome.gnome-terminal
-    gnome.gedit
     epiphany
     gnome.totem
     gnome.tali
