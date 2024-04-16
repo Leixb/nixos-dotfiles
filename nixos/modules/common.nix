@@ -261,6 +261,8 @@ in
   # Put xserver log files in a proper location
   services.xserver.logFile = "/var/log/Xorg.0.log";
 
+  security.polkit.enable = true;
+
   powerManagement.cpuFreqGovernor = "performance";
 
   nix = {
