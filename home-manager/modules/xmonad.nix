@@ -51,6 +51,12 @@ in
   };
 
   home.packages = with pkgs; [
+    # (pkgs.writeShellScriptBin "dmenu" ''
+    #   ${pkgs.rofi}/bin/rofi -dmenu "$@"
+    # '')
+    dmenu-rs
+    gmrun
+
     (i3lock-fancy-rapid.override {
       i3lock = pkgs.writeShellScriptBin "i3lock" ''
         . ${config.sops.secrets.hass_env.path}

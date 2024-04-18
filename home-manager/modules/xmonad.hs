@@ -10,6 +10,7 @@ import System.Exit (exitSuccess)
 import XMonad
 import XMonad.Actions.CopyWindow
 import XMonad.Actions.DwmPromote (dwmpromote)
+import XMonad.Actions.DynamicProjects
 import XMonad.Actions.Minimize
 import XMonad.Actions.MouseResize (mouseResize)
 import XMonad.Actions.WindowGo
@@ -28,6 +29,8 @@ import XMonad.Hooks.WindowSwallowing
 import XMonad.Layout.Accordion
 import XMonad.Layout.BoringWindows
 import XMonad.Layout.CenteredMaster (centerMaster)
+import XMonad.Layout.Decoration
+import XMonad.Layout.Groups.Examples (TiledTabsConfig (tabsTheme))
 import XMonad.Layout.HintedGrid
 import XMonad.Layout.LayoutHints
 import XMonad.Layout.Magnifier (magnifiercz')
@@ -39,10 +42,12 @@ import XMonad.Layout.Simplest (Simplest (Simplest))
 import XMonad.Layout.Spacing
 import XMonad.Layout.Spiral (spiral)
 import XMonad.Layout.SubLayouts
+import XMonad.Layout.Tabbed (addTabs)
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.WindowArranger (windowArrange)
 import XMonad.Layout.WindowNavigation
 import XMonad.Prelude
+import XMonad.Prompt (amberXPConfig)
 import XMonad.StackSet qualified as W
 import XMonad.Util.ClickableWorkspaces (clickablePP)
 import XMonad.Util.EZConfig
@@ -52,14 +57,15 @@ import XMonad.Util.NamedActions
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (runProcessWithInput)
 import XMonad.Util.SpawnOnce (spawnOnce)
+import XMonad.Util.Themes (xmonadTheme)
 import XMonad.Util.Ungrab
 
 data Settings = Settings
     { term :: String
-    , theme :: Theme
+    , theme :: MyTheme
     }
 
-data Theme = Theme
+data MyTheme = MyTheme
     { background :: String
     , foreground :: String
     , font :: String
@@ -69,21 +75,21 @@ defaultSettings =
     Settings
         { term = "kitty"
         , theme =
-            Theme
+            MyTheme
                 { background = "#25273A"
                 , foreground = "#CAD3F5"
                 , font = "JetBrainsMono Nerd Font"
                 }
         }
 
-getTheme :: IO Theme
+getTheme :: IO MyTheme
 getTheme = do
     fg <- fromMaybe (foreground defaultTheme) <$> xrdbGet "foreground"
     bg <- fromMaybe (background defaultTheme) <$> xrdbGet "background"
 
     font <- fromMaybe (font defaultTheme) <$> xrdbGet "font_family"
 
-    return $ Theme{font = font, background = bg, foreground = fg}
+    return $ MyTheme{font = font, background = bg, foreground = fg}
   where
     defaultTheme = theme defaultSettings
 
@@ -94,15 +100,29 @@ getSettings = do
 
     return $ Settings{term = term, theme = theme}
 
+projects :: [Project]
+projects =
+    [ Project
+        { projectName = "scratch"
+        , projectDirectory = "~/"
+        , projectStartHook = Nothing
+        }
+    , Project
+        { projectName = "browser"
+        , projectDirectory = "~/Downloads"
+        , projectStartHook = Just $ spawn "firefox"
+        }
+    ]
+
 myLayout =
     avoidStruts
         . mkToggle (MIRROR ?? NBFULL ?? NOBORDERS ?? EOT)
+        . mySubTabbed
         . smartBorders
         . spacer
         . mouseResize
         . windowArrange
         . windowNavigation
-        . subLayout [] Simplest
         . boringWindows
         . minimize
         $ tiled ||| spiral (6 / 7) ||| Grid False ||| threeCols ||| Accordion ||| Full
@@ -113,6 +133,25 @@ myLayout =
     delta = 3 / 100 -- Percent of screen to increment by when resizing panes
     threeCols = magnifiercz' 1.3 $ ThreeColMid nmaster delta ratio
     spacer = spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
+
+    mySubTabbed = addTabs shrinkText myTabTheme . subLayout [] Simplest
+    myTabTheme =
+        def
+            { activeColor = "#8AADF4"
+            , urgentColor = "#ED8796"
+            , inactiveColor = "#25273A"
+            , activeTextColor = "#25273A"
+            , urgentTextColor = "#25273A"
+            , inactiveTextColor = "#CAD3F5"
+            , activeBorderColor = "#CAD3F5"
+            , inactiveBorderColor = "#676B84"
+            , urgentBorderColor = "#676B84"
+            , decoHeight = 40
+            , fontName = "xft:JetBrainsMono Nerd Font:size=8"
+            , activeBorderWidth = 3
+            , inactiveBorderWidth = 3
+            , urgentBorderWidth = 3
+            }
 
 myLayoutPrinter x = let iconstr = icon x in fromMaybe x iconstr
   where
@@ -150,52 +189,43 @@ myHandleEventHook =
         ]
 
 scratchpads =
-    [ NS "scratchpad" (myTerm ++ " --name scratchpad --class scratchpad") (className =? "scratchpad") defaultFloating
-    , NS "taskwarrior" (myTerm ++ " --name taskwarrior --class taskwarrior vit") (className =? "taskwarrior") defaultFloating
-    , NS "qalc" "qalculate-gtk" (className =? "Qalculate-gtk") defaultFloating
+    [ NS "scratchpad" (myTerm ++ " --name scratchpad --class scratchpad") (className =? "scratchpad") doCenterFloat
+    , NS "taskwarrior" (myTerm ++ " --name taskwarrior --class taskwarrior vit") (className =? "taskwarrior") doCenterFloat
+    , NS "qalc" "qalculate-gtk" (className =? "Qalculate-gtk") doCenterFloat
     ]
 
 myManageHook =
-    composeOne
-        [ className =? "confirm" -?> doFloat
-        , className =? "file_progress" -?> doFloat
-        , className =? "dialog" -?> doFloat
-        , className =? "download" -?> doFloat
-        , className =? "error" -?> doFloat
-        , className =? "notification" -?> doFloat
-        , className =? "pinentry-gtk-2" -?> doFloat
-        , className =? "splash" -?> doFloat
-        , className =? "toolbar" -?> doFloat
-        , -- manageDocks,
-          title =? "Mozilla Firefox" -?> doShift (myWorkspaces !! 0)
-        , (className =? "leagueclientux.exe") -?> (doCenterFloat <+> doShift (myWorkspaces !! 1))
-        , (className =? "riotclientux.exe") -?> (doCenterFloat <+> doShift (myWorkspaces !! 1))
-        , (className =? "ArmCord") -?> doShift (myWorkspaces !! 2)
-        , (className =? "Qalculate-gtk") -?> doCenterFloat
-        , (className =? "Pavucontrol") -?> doCenterFloat
-        , -- (className =? "league of legends.exe") --> doFullFloat,
-          isDialog -?> doCenterFloat
-        , isFullscreen -?> doFullFloat
-        , return True -?> insertPosition Below Newer
+    composeAll
+        [ composeOne
+            [ className =? "confirm" -?> doFloat
+            , className =? "file_progress" -?> doFloat
+            , className =? "dialog" -?> doFloat
+            , className =? "download" -?> doFloat
+            , className =? "error" -?> doFloat
+            , className =? "notification" -?> doFloat
+            , className =? "pinentry-gtk-2" -?> doFloat
+            , className =? "splash" -?> doFloat
+            , className =? "toolbar" -?> doFloat
+            , (className =? "leagueclientux.exe") -?> (doCenterFloat <+> doShift (myWorkspaces !! 1))
+            , (className =? "riotclientux.exe") -?> (doCenterFloat <+> doShift (myWorkspaces !! 1))
+            , (className =? "Qalculate-gtk") -?> doCenterFloat
+            , (className =? "Pavucontrol") -?> doCenterFloat
+            , isDialog -?> doCenterFloat
+            , isFullscreen -?> doFullFloat
+            , return True -?> insertPosition Below Newer
+            ]
+        , title =? "Mozilla Firefox" --> doShift (myWorkspaces !! 0)
+        , (className =? "ArmCord") --> doShift (myWorkspaces !! 2)
+        , namedScratchpadManageHook scratchpads
         ]
-        <+> namedScratchpadManageHook scratchpads
 
 myStartupHook =
     mconcat
         [ restoreBackground
-        , -- trayer
-          spawnHereNamedScratchpadAction scratchpads "taskwarrior"
+        , spawnHereNamedScratchpadAction scratchpads "taskwarrior"
         ]
   where
     restoreBackground = spawnOnce "~/.fehbg"
-
--- trayer =
---   spawnOnce $
---     "trayer --edge top --align right --widthtype request --expand true --SetDockType true --SetPartialStrut true --monitor primary --height "
---       ++ show trayerHeight
---       ++ " --transparent true --alpha 0 --tint 0x25273A --padding 1 --distance 1 --distancefrom right"
---   where
---     trayerHeight = 40
 
 subtitle' :: String -> ((KeyMask, KeySym), NamedAction)
 subtitle' x =
@@ -242,6 +272,8 @@ myKeys c =
             , ("M-S-;", addName "UnMinimize" $ withLastMinimized maximizeWindowAndFocus)
             , ("M-'", addName "Mark Boring" $ markBoringEverywhere)
             , ("M-S-'", addName "Clear Boring" $ clearBoring)
+            , ("M-P", addName "Switch Project" $ switchProjectPrompt amberXPConfig)
+            , ("M-S-P", addName "Switch Project" $ shiftToProjectPrompt amberXPConfig)
             ]
             ^++^ subKeys
                 "Volume"
@@ -361,6 +393,7 @@ main =
             . myEwmhFullscreen
             . ewmh
             . javaHack
+            . dynamicProjects projects
             . withSB (statusBarProp "xmobar" myXmobarPP)
             . addDescrKeys ((mod4Mask, xK_F1), xMessage) myKeys
 
@@ -399,5 +432,3 @@ xrdbGet value = do
     return $ case res of
         [] -> Nothing
         a : _ -> Just a
-
--- `additionalKeysP` myKeymap
