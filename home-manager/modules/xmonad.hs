@@ -21,6 +21,7 @@ import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.Minimize
+import XMonad.Hooks.RefocusLast (refocusLastLayoutHook)
 import XMonad.Hooks.ShowWName
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
@@ -44,6 +45,7 @@ import XMonad.Layout.Spiral (spiral)
 import XMonad.Layout.SubLayouts
 import XMonad.Layout.Tabbed (addTabs)
 import XMonad.Layout.ThreeColumns
+import XMonad.Layout.TrackFloating (trackFloating)
 import XMonad.Layout.WindowArranger (windowArrange)
 import XMonad.Layout.WindowNavigation
 import XMonad.Prelude
@@ -117,6 +119,7 @@ projects =
 myLayout =
     avoidStruts
         . mkToggle (MIRROR ?? NBFULL ?? NOBORDERS ?? EOT)
+        . trackFloating
         . mySubTabbed
         . smartBorders
         . spacer
@@ -409,7 +412,7 @@ myConfig = do
             , borderWidth = 3
             , focusedBorderColor = foreground . theme $ settings
             , normalBorderColor = background . theme $ settings
-            , layoutHook = myLayout
+            , layoutHook = refocusLastLayoutHook myLayout
             , logHook =
                 showWNameLogHook $
                     def
