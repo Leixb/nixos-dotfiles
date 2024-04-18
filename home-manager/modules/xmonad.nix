@@ -160,18 +160,20 @@ in
     };
   };
 
-  systemd.user.services.gnome-polkit-authentication-agent = {
+  systemd.user.services.lxqt-policykit-agent = {
     Unit = {
-      Description = "Gnome Polkit authentication agent";
+      Description = "LxQt Polkit authentication agent";
       Documentation = "https://gitlab.freedesktop.org/polkit/polkit/";
+      WantedBy = [ "graphical-session.target" ];
       After = [ "graphical-session-pre.target" ];
-      PartOf = [ "graphical-session.target" ];
+      Wants = [ "dbus.service" ];
     };
 
     Service = {
-      ExecStart = "${pkgs.polkit_gnome}/libexec/polkit-gnome-authentication-agent-1";
-      Restart = "always";
-      BusName = "org.freedesktop.PolicyKit1.Authority";
+      ExecStart = "${pkgs.lxqt.lxqt-policykit.out}/bin/lxqt-policykit-agent";
+      Restart = "on-failure";
+      RestartSec = 1;
+      TimeoutStopSec = 10;
     };
 
     Install.WantedBy = [ "graphical-session.target" ];
