@@ -119,9 +119,9 @@ projects =
 myLayout =
     avoidStruts
         . mkToggle (MIRROR ?? NBFULL ?? NOBORDERS ?? EOT)
+        . smartBorders
         . trackFloating
         . mySubTabbed
-        . smartBorders
         . spacer
         . mouseResize
         . windowArrange
