@@ -79,7 +79,7 @@ in
     alsa-utils # sound
     bottom # system monitor
     cachix # nix binary cache manager
-    calibre # ebook manager
+    # calibre # ebook manager # FIX: broken build
     comma # run programs without installing them (nix)
     devenv # Reproducible development environment
     fd # find alternative
