@@ -217,7 +217,7 @@
             ./nixos/modules/awesomewm.nix
             ./nixos/modules/gaming.nix
             ./nixos/modules/hass.nix
-            ./nixos/modules/minecraft.nix
+            # ./nixos/modules/minecraft.nix
             ./nixos/modules/nvidia.nix
             ./nixos/modules/restic.nix
             ./nixos/modules/ssd.nix
