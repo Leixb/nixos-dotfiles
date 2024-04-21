@@ -200,20 +200,20 @@ scratchpads =
 myManageHook =
     composeAll
         [ composeOne
-            [ className =? "confirm" -?> doFloat
-            , className =? "file_progress" -?> doFloat
-            , className =? "dialog" -?> doFloat
-            , className =? "download" -?> doFloat
-            , className =? "error" -?> doFloat
-            , className =? "notification" -?> doFloat
-            , className =? "pinentry-gtk-2" -?> doFloat
-            , className =? "splash" -?> doFloat
-            , className =? "toolbar" -?> doFloat
+            [ className =? "confirm" -?> doCenterFloatUp
+            , className =? "file_progress" -?> doCenterFloatUp
+            , className =? "dialog" -?> doCenterFloatUp
+            , className =? "download" -?> doCenterFloatUp
+            , className =? "error" -?> doCenterFloatUp
+            , className =? "notification" -?> doCenterFloatUp
+            , className =? "pinentry-gtk-2" -?> doCenterFloatUp
+            , className =? "splash" -?> doCenterFloatUp
+            , className =? "toolbar" -?> doCenterFloatUp
             , (className =? "leagueclientux.exe") -?> (doCenterFloat <+> doShift (myWorkspaces !! 1))
             , (className =? "riotclientux.exe") -?> (doCenterFloat <+> doShift (myWorkspaces !! 1))
-            , (className =? "Qalculate-gtk") -?> doCenterFloat
-            , (className =? "Pavucontrol") -?> doCenterFloat
-            , isDialog -?> doCenterFloat
+            , (className =? "Qalculate-gtk") -?> doCenterFloatUp
+            , (className =? "Pavucontrol") -?> doCenterFloatUp
+            , isDialog -?> doCenterFloatUp
             , isFullscreen -?> doFullFloat
             , return True -?> insertPosition Below Newer
             ]
@@ -221,6 +221,8 @@ myManageHook =
         , (className =? "ArmCord") --> doShift (myWorkspaces !! 2)
         , namedScratchpadManageHook scratchpads
         ]
+  where
+    doCenterFloatUp = doCenterFloat <+> doF W.swapUp
 
 myStartupHook =
     mconcat
