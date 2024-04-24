@@ -55,7 +55,7 @@ in
 
   qt = {
     enable = true;
-    platformTheme = "gnome";
+    platformTheme.name = "adwaita";
     style = catppuccin-style;
   };
 
@@ -405,6 +405,13 @@ in
     config = {
       should_launch_new_window = "1";
     };
+  };
+
+  programs.neomutt = {
+    enable = true;
+    editor = "nvim";
+    sidebar.enable = true;
+    sort = "reverse-threads";
   };
 
   programs.nix-index.enable = true;
