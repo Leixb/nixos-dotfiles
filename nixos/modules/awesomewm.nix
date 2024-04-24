@@ -43,6 +43,7 @@ in {
           password-alignment = center
           [greeter-theme]
           background-image = "${../../home-manager/modules/wallpapers/nix-wallpaper-nineish-macchiato.svg}"
+          background-image-size = cover
           font = "DejaVu Sans Mono"
           text-color = "${white}"
           error-color = "${red}"
