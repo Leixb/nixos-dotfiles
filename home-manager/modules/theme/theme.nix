@@ -36,7 +36,7 @@ in {
 
       wallpaper = mkOption {
         type = types.path;
-        default = ../wallpapers/keyboards.png;
+        default = ../wallpapers/nix-wallpaper-nineish-macchiato.svg;
         description = ''
           Wallpaper
         '';

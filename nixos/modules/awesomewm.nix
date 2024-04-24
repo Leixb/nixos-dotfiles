@@ -42,7 +42,7 @@ in {
           show-password-label = false
           password-alignment = center
           [greeter-theme]
-          background-image = "${../../home-manager/modules/wallpapers/keyboards.png}"
+          background-image = "${../../home-manager/modules/wallpapers/nix-wallpaper-nineish-macchiato.svg}"
           font = "DejaVu Sans Mono"
           text-color = "${white}"
           error-color = "${red}"
