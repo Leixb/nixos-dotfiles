@@ -71,6 +71,8 @@ in {
         ublock-origin
         sponsorblock
         vimium
+        stylus
+        firefox-color
         duckduckgo-privacy-essentials
         # tree-style-tab
       ];
