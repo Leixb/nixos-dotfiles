@@ -45,11 +45,11 @@
 
 stdenv.mkDerivation rec {
   pname = "zotero";
-  version = "7.0.0-beta.51";
+  version = "7.0.0-beta.75";
 
   src = fetchurl {
     url = "https://download.zotero.org/client/beta/7.0.0-beta.75%2Bf7dc68c7f/Zotero-7.0.0-beta.75%2Bf7dc68c7f_linux-x86_64.tar.bz2";
-    sha256 = "";
+    sha256 = "sha256-QhwMhcQVOXTMkgRuH1efj5jdWsDrABFUmtfCxhPYYE4=";
   };
 
   nativeBuildInputs = [
@@ -127,8 +127,8 @@ stdenv.mkDerivation rec {
     # install desktop file and icons.
     mkdir -p $out/share/applications
     cp ${desktopItem}/share/applications/* $out/share/applications/
-    for size in 16 32 48 256; do
-      install -Dm444 chrome/icons/default/default$size.png \
+    for size in 32 64 128; do
+      install -Dm444 icons/icon$size.png \
         $out/share/icons/hicolor/''${size}x''${size}/apps/zotero.png
     done
 
