@@ -2,7 +2,8 @@
   description = "System Configuration using Flakes";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    # nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nixpkgs.url = "github:nixos/nixpkgs/90f39f623a1a2be35d9a4944209aae21fbdd8add";
     nixpkgs_stable.url = "github:nixos/nixpkgs/nixos-23.11";
     nixpkgs_trunk.url = "github:nixos/nixpkgs";
 
