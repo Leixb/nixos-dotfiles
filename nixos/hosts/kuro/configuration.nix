@@ -60,7 +60,11 @@ in
   programs.noisetorch.enable = true;
 
   environment.systemPackages = [ battery_conservation_mode ];
-  boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call v4l2loopback ];
+
+  boot.kernelModules = [ "v4l2loopback" ];
+
+  programs.adb.enable = true; # enable android proper data tethering
 
   services.ddccontrol.enable = true;
 
