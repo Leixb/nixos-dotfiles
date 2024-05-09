@@ -112,6 +112,7 @@ in
     ripgrep # grep alternative
     sshfs # ssh filesystem mount
     tealdeer # simple help pages for commands
+    thunderbird
     unzip # zip file extraction
     vlc # video player
     waypipe # wayland remote desktop
