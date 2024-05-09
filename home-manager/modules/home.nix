@@ -75,6 +75,7 @@ in
   };
 
   home.packages = with pkgs; [
+    zoom-us
     acpi # battery info
     alsa-utils # sound
     bottom # system monitor
