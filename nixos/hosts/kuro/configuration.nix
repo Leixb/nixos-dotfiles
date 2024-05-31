@@ -26,12 +26,9 @@ in
   _module.args.location = location;
   imports = [ ./hardware-configuration.nix ];
 
-  boot.extraModprobeConfig = ''
-    options usbcore use_both_schemes=y
-  '';
+  services.xserver.displayManager.lightdm.enable = true;
 
-  services.xserver.displayManager = {
-    lightdm.enable = true;
+  services.displayManager = {
     autoLogin.user = "leix";
     defaultSession = "xsession";
   };
@@ -52,17 +49,13 @@ in
   boot.kernelParams = [
     "acpi_backlight=intel"
     "clearcpuid=304" # disable AVX512 (The finals game crashes with AVX512)
-    "intel_iommu=off"
-    "usbcore.autosuspend=-1"
   ];
 
   programs.droidcam.enable = true;
   programs.noisetorch.enable = true;
 
   environment.systemPackages = [ battery_conservation_mode ];
-  boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call v4l2loopback ];
-
-  boot.kernelModules = [ "v4l2loopback" ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
 
   programs.adb.enable = true; # enable android proper data tethering
 

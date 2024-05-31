@@ -56,6 +56,7 @@ in
             ShadowoftheTombRaider = "890d9cf396d04922a1559333df419fed";
             FallGuys = "0a2d9f6403244d12969e11da6713137b";
             AmongUs = "963137e4c29d4c79a81323b8fab03a40";
+            FarmingSim = "f452ea20ae1b43698209998b56c2cc1c";
           }))
     );
   };

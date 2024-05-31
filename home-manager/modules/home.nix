@@ -80,7 +80,7 @@ in
     alsa-utils # sound
     bottom # system monitor
     cachix # nix binary cache manager
-    # calibre # ebook manager # FIX: broken build
+    calibre # ebook manager
     comma # run programs without installing them (nix)
     devenv # Reproducible development environment
     fd # find alternative
@@ -89,7 +89,7 @@ in
     flameshot # screenshot tool
     gamescope # game window capture
     gh # github cli
-    gimp # gimp-with-plugins # image editor # TODO: add back plugins
+    gimp-with-plugins
     git-extras # git extensions
     gnome.simple-scan # scanner
     kitty-imgdiff # image diff
@@ -132,13 +132,13 @@ in
       c.InteractiveShell.colors = 'Linux'
     '';
   };
-  programs.sagemath = {
-    enable = true;
-    package = pkgs.stable.sageWithDoc;
-    initScript = ''
-      %colors Linux
-    '';
-  };
+  # programs.sagemath = {
+  #   enable = true;
+  #   package = pkgs.sageWithDoc;
+  #   initScript = ''
+  #     %colors Linux
+  #   '';
+  # };
 
   programs.gpg = {
     enable = true;
@@ -304,12 +304,12 @@ in
       }
       yank
       open
-      {
-        plugin = resurrect;
-        extraConfig = ''
-          set -g @resurrect-strategy-nvim 'session'
-        '';
-      }
+      # {
+      #   plugin = resurrect;
+      #   extraConfig = ''
+      #     set -g @resurrect-strategy-nvim 'session'
+      #   '';
+      # }
       {
         plugin = continuum;
         extraConfig = ''

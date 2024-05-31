@@ -22,17 +22,17 @@ let
     };
   };
 
-  nvim-R = pkgs.vimUtils.buildVimPlugin {
-    pname = "nvim-R";
-    version = "master";
-    src = inputs.nvim-R;
-  };
+  # nvim-R = pkgs.vimUtils.buildVimPlugin {
+  #   pname = "nvim-R";
+  #   version = "master";
+  #   src = inputs.nvim-R;
+  # };
 
-  nvimcom = pkgs.rPackages.buildRPackage
-    {
-      name = "nvimcom";
-      src = inputs.nvim-R + "/R/nvimcom";
-    } + "/library";
+  # nvimcom = pkgs.rPackages.buildRPackage
+  #   {
+  #     name = "nvimcom";
+  #     src = inputs.nvim-R + "/R/nvimcom";
+  #   } + "/library";
 
   # neorg_master = pkgs.vimUtils.buildVimPluginFrom2Nix {
   #   name = "neorg";
@@ -48,10 +48,10 @@ in
     pstree
   ];
 
-  home.file.".Rprofile".text = ''
-    .libPaths( c( .libPaths(), "${nvimcom}") )
-    options(browser = "xdg-open")
-  '';
+  # home.file.".Rprofile".text = ''
+  #   .libPaths( c( .libPaths(), "${nvimcom}") )
+  #   options(browser = "xdg-open")
+  # '';
 
   home.file.".vale.ini".text = "";
 
@@ -59,7 +59,6 @@ in
 
   programs.neovim = {
     enable = true;
-    package = pkgs.neovim-nightly;
     defaultEditor = true;
 
     extraPackages = with pkgs; [
@@ -99,7 +98,7 @@ in
     ];
 
     # plugins = with pkgs.vimPlugins; [
-    plugins = with pkgs.trunk.vimPlugins; [
+    plugins = with pkgs.vimPlugins; [
       {
         # This must be the first plugin to load
         plugin = impatient-nvim;
@@ -294,16 +293,16 @@ in
       nvim-luapad
       vim-fish
       vim-nix
-      {
-        plugin = nvim-R;
-        type = "lua";
-        config = ''
-          vim.g.R_assign = 0
-          vim.g.R_args = { "--no-save", "--quiet" }
-          vim.g.R_nvimcom_home = "${nvimcom}"
-          vim.g.R_openpdf = 1
-        '';
-      }
+      # {
+      #   plugin = nvim-R;
+      #   type = "lua";
+      #   config = ''
+      #     vim.g.R_assign = 0
+      #     vim.g.R_args = { "--no-save", "--quiet" }
+      #     vim.g.R_nvimcom_home = "${nvimcom}"
+      #     vim.g.R_openpdf = 1
+      #   '';
+      # }
       {
         plugin = nvim-metals;
         type = "lua";

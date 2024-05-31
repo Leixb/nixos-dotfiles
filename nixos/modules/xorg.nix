@@ -63,12 +63,12 @@ in {
     # xkb.variant = "altgr-intl";
     xkb.options = "lv3:caps_switch,shift:both_capslock";
 
-    # Enable touchpad support (enabled default in most desktopManager).
-    libinput = {
-      enable = true;
-      mouse.accelProfile = "flat";
-      mouse.accelSpeed = "0.7";
-      touchpad = { naturalScrolling = true; };
-    };
+  };
+  # Enable touchpad support (enabled default in most desktopManager).
+  services.libinput = {
+    enable = true;
+    mouse.accelProfile = "flat";
+    mouse.accelSpeed = "0.7";
+    touchpad = { naturalScrolling = true; };
   };
 }

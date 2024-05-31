@@ -266,7 +266,7 @@ in
   powerManagement.cpuFreqGovernor = "performance";
 
   nix = {
-    package = pkgs.nixVersions.unstable;
+    # package = pkgs.nixVersions.unstable;
     extraOptions = ''
       experimental-features = nix-command flakes
       keep-outputs = true
@@ -294,7 +294,7 @@ in
   };
 
   # TODO: Maybe don't use hyprland flake?
-  disabledModules = [ "programs/hyprland.nix" ];
+  # disabledModules = [ "programs/hyprland.nix" ];
 
   system.autoUpgrade.enable = true;
 

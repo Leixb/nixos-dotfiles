@@ -16,9 +16,9 @@
 
   networking.hostId = "dccd7371";
 
-  # boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
+  boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
   # FIXME: update back to correct kernel once freezes are fixed on 6.7+
-  boot.kernelPackages = pkgs.linuxPackages_6_6;
+  # boot.kernelPackages = pkgs.linuxPackages_6_6;
 
   boot.initrd.availableKernelModules =
     [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" "i915" ];
