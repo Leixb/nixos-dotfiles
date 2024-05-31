@@ -132,13 +132,13 @@ in
       c.InteractiveShell.colors = 'Linux'
     '';
   };
-  # programs.sagemath = {
-  #   enable = true;
-  #   package = pkgs.sageWithDoc;
-  #   initScript = ''
-  #     %colors Linux
-  #   '';
-  # };
+  programs.sagemath = {
+    enable = true;
+    package = pkgs.sageWithDoc;
+    initScript = ''
+      %colors Linux
+    '';
+  };
 
   programs.gpg = {
     enable = true;
@@ -304,12 +304,6 @@ in
       }
       yank
       open
-      # {
-      #   plugin = resurrect;
-      #   extraConfig = ''
-      #     set -g @resurrect-strategy-nvim 'session'
-      #   '';
-      # }
       {
         plugin = continuum;
         extraConfig = ''

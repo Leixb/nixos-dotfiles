@@ -17,8 +17,6 @@
   networking.hostId = "dccd7371";
 
   boot.kernelPackages = config.boot.zfs.package.latestCompatibleLinuxPackages;
-  # FIXME: update back to correct kernel once freezes are fixed on 6.7+
-  # boot.kernelPackages = pkgs.linuxPackages_6_6;
 
   boot.initrd.availableKernelModules =
     [ "xhci_pci" "ahci" "nvme" "usbhid" "usb_storage" "sd_mod" "i915" ];
@@ -57,11 +55,6 @@
       device = "/dev/disk/by-partuuid/8d5eff0a-a57b-4b36-bfdb-b507303be33e";
       fsType = "vfat";
     };
-
-  # swapDevices = [{
-  #   device = "/swap/swapfile";
-  #   size = (1024 * 16) + (1024 * 2); # RAM size + 2 GB
-  # }];
 
   swapDevices = [ ];
 

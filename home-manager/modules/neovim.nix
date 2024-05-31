@@ -22,22 +22,8 @@ let
     };
   };
 
-  # nvim-R = pkgs.vimUtils.buildVimPlugin {
-  #   pname = "nvim-R";
-  #   version = "master";
-  #   src = inputs.nvim-R;
-  # };
+  # TODO: nvim-R / repl support
 
-  # nvimcom = pkgs.rPackages.buildRPackage
-  #   {
-  #     name = "nvimcom";
-  #     src = inputs.nvim-R + "/R/nvimcom";
-  #   } + "/library";
-
-  # neorg_master = pkgs.vimUtils.buildVimPluginFrom2Nix {
-  #   name = "neorg";
-  #   src = inputs.neorg;
-  # };
 in
 {
 
@@ -97,7 +83,6 @@ in
       vale
     ];
 
-    # plugins = with pkgs.vimPlugins; [
     plugins = with pkgs.vimPlugins; [
       {
         # This must be the first plugin to load
@@ -293,16 +278,6 @@ in
       nvim-luapad
       vim-fish
       vim-nix
-      # {
-      #   plugin = nvim-R;
-      #   type = "lua";
-      #   config = ''
-      #     vim.g.R_assign = 0
-      #     vim.g.R_args = { "--no-save", "--quiet" }
-      #     vim.g.R_nvimcom_home = "${nvimcom}"
-      #     vim.g.R_openpdf = 1
-      #   '';
-      # }
       {
         plugin = nvim-metals;
         type = "lua";

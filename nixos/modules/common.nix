@@ -293,9 +293,6 @@ in
     gc.automatic = true;
   };
 
-  # TODO: Maybe don't use hyprland flake?
-  # disabledModules = [ "programs/hyprland.nix" ];
-
   system.autoUpgrade.enable = true;
 
   boot.supportedFilesystems = [ "ntfs" ];
