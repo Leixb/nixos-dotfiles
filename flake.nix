@@ -51,6 +51,8 @@
       url = "github:nix-community/neovim-nightly-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    bscpkgs.url = "git+https://pm.bsc.es/gitlab/rarias/bscpkgs";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, agenix, pre-commit-hooks, devenv, ... }:
@@ -84,6 +86,7 @@
       overlays = [
         extra-packages
         inputs.neovim-nightly-overlay.overlays.default
+        inputs.bscpkgs.overlays.default
       ];
 
       pin-flake-reg = with inputs; {

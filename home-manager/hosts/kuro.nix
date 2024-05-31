@@ -25,6 +25,7 @@ in
     ../modules/gaming.nix
     ../modules/xmonad.nix
     ../modules/mpd.nix
+    ../modules/bsc/bsc.nix
   ];
 
   home.packages = with pkgs; [

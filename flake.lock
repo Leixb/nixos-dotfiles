@@ -25,6 +25,24 @@
         "type": "github"
       }
     },
+    "bscpkgs": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1713974364,
+        "narHash": "sha256-ilZTVWSaNP1ibhQIIRXE+q9Lj2XOH+F9W3Co4QyY1eU=",
+        "ref": "refs/heads/master",
+        "rev": "de89197a4a7b162db7df9d41c9d07759d87c5709",
+        "revCount": 937,
+        "type": "git",
+        "url": "https://pm.bsc.es/gitlab/rarias/bscpkgs"
+      },
+      "original": {
+        "type": "git",
+        "url": "https://pm.bsc.es/gitlab/rarias/bscpkgs"
+      }
+    },
     "cachix": {
       "inputs": {
         "devenv": "devenv_2",
@@ -84,7 +102,7 @@
           "flake-compat"
         ],
         "nix": "nix_2",
-        "nixpkgs": "nixpkgs_2",
+        "nixpkgs": "nixpkgs_3",
         "pre-commit-hooks": [
           "pre-commit-hooks"
         ]
@@ -112,7 +130,7 @@
           "flake-compat"
         ],
         "nix": "nix",
-        "nixpkgs": "nixpkgs",
+        "nixpkgs": "nixpkgs_2",
         "poetry2nix": "poetry2nix",
         "pre-commit-hooks": [
           "devenv",
@@ -570,18 +588,15 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1692808169,
-        "narHash": "sha256-x9Opq06rIiwdwGeK2Ykj69dNc2IvUH1fY55Wm7atwrE=",
-        "owner": "NixOS",
-        "repo": "nixpkgs",
-        "rev": "9201b5ff357e781bf014d0330d18555695df7ba8",
-        "type": "github"
+        "lastModified": 1700390070,
+        "narHash": "sha256-de9KYi8rSJpqvBfNwscWdalIJXPo8NjdIZcEJum1mH0=",
+        "path": "/nix/store/z7y28qzhk7driiwcw78k0mb24laknm0f-source",
+        "rev": "e4ad989506ec7d71f7302cc3067abd82730a4beb",
+        "type": "path"
       },
       "original": {
-        "owner": "NixOS",
-        "ref": "nixpkgs-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
+        "id": "nixpkgs",
+        "type": "indirect"
       }
     },
     "nixpkgs-regression": {
@@ -650,6 +665,22 @@
     },
     "nixpkgs_2": {
       "locked": {
+        "lastModified": 1692808169,
+        "narHash": "sha256-x9Opq06rIiwdwGeK2Ykj69dNc2IvUH1fY55Wm7atwrE=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "9201b5ff357e781bf014d0330d18555695df7ba8",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixpkgs-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_3": {
+      "locked": {
         "lastModified": 1716977621,
         "narHash": "sha256-Q1UQzYcMJH4RscmpTkjlgqQDX5yi1tZL0O345Ri6vXQ=",
         "owner": "cachix",
@@ -664,7 +695,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1716948383,
         "narHash": "sha256-SzDKxseEcHR5KzPXLwsemyTR/kaM9whxeiJohbL04rs=",
@@ -731,6 +762,7 @@
     "root": {
       "inputs": {
         "agenix": "agenix",
+        "bscpkgs": "bscpkgs",
         "devenv": "devenv",
         "firefox-addons": "firefox-addons",
         "flake-compat": "flake-compat_2",
@@ -738,7 +770,7 @@
         "home-manager": "home-manager",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-index-database": "nix-index-database",
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_4",
         "pre-commit-hooks": "pre-commit-hooks",
         "sops-nix": "sops-nix"
       }
