@@ -27,7 +27,10 @@ let
   };
 in
 {
+  xdg.mime.enable = true;
   xdg.mimeApps.enable = true;
   xdg.mimeApps.associations.added = associations;
   xdg.mimeApps.defaultApplications = associations;
+
+  xdg.configFile."mimeapps.list".force = true;
 }
