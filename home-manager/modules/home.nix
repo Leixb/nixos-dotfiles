@@ -75,7 +75,6 @@ in
   };
 
   home.packages = with pkgs; [
-    zoom-us
     acpi # battery info
     alsa-utils # sound
     bottom # system monitor
@@ -118,6 +117,7 @@ in
     waypipe # wayland remote desktop
     armcord # discord client
     zip # zip file creation
+    josm # OpenStreetMap Java editor
   ];
 
   xdg.configFile."WebCord/Themes/catppuccin.theme.css".text = ''
