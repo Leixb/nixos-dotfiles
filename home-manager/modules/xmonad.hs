@@ -26,7 +26,6 @@ import XMonad.Hooks.ShowWName
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.UrgencyHook
-import XMonad.Hooks.WindowSwallowing
 import XMonad.Layout.Accordion
 import XMonad.Layout.BoringWindows
 import XMonad.Layout.CenteredMaster (centerMaster)
@@ -121,7 +120,6 @@ myLayout =
         . mkToggle (MIRROR ?? NBFULL ?? NOBORDERS ?? EOT)
         . smartBorders
         . trackFloating
-        . mySubTabbed
         . spacer
         . mouseResize
         . windowArrange
@@ -137,7 +135,6 @@ myLayout =
     threeCols = magnifiercz' 1.3 $ ThreeColMid nmaster delta ratio
     spacer = spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
 
-    mySubTabbed = addTabs shrinkText myTabTheme . subLayout [] Simplest
     myTabTheme =
         def
             { activeColor = "#8AADF4"
@@ -185,7 +182,6 @@ myHandleEventHook =
     composeAll
         [ handleEventHook def
         , windowedFullscreenFixEventHook
-        , swallowEventHookSub (className =? myTerm <||> className =? "Alacritty") (return True)
         , minimizeEventHook
         , trayerAboveXmobarEventHook
         , trayerPaddingXmobarEventHook
