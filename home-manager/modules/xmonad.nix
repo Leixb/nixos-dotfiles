@@ -1,4 +1,4 @@
-{ config, osConfig, lib, pkgs, system, inputs, ... }:
+{ config, osConfig, lib, pkgs, inputs, ... }:
 
 let
   username = osConfig.users.users.leix.name;
@@ -13,6 +13,9 @@ in
 
   sops.secrets.hass_env.sopsFile = ../../nixos/secrets/hass.yaml;
   sops.secrets.hass_env.path = "${config.xdg.stateHome}/.hass_env";
+
+  # force overwrite compiled xmonad binary
+  home.file.".xmonad/xmonad-${pkgs.system}".force = true;
 
   programs.xmobar = {
     enable = true;
@@ -56,6 +59,7 @@ in
     # '')
     dmenu-rs
     gmrun
+    autorandr
 
     (i3lock-fancy-rapid.override {
       i3lock = pkgs.writeShellScriptBin "i3lock" ''

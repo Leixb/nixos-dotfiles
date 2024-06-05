@@ -22,6 +22,7 @@ import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
 import XMonad.Hooks.Minimize
 import XMonad.Hooks.RefocusLast (refocusLastLayoutHook)
+import XMonad.Hooks.Rescreen
 import XMonad.Hooks.ShowWName
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
@@ -207,6 +208,8 @@ myManageHook =
             , className =? "toolbar" -?> doCenterFloatUp
             , (className =? "leagueclientux.exe") -?> (doCenterFloat <+> doShift (myWorkspaces !! 1))
             , className =? "Wxparaver" -?> doFloat
+            , className =? "thunderbird" -?> doShift (myWorkspaces !! 6)
+            , className =? "Slack" -?> doShift (myWorkspaces !! 5)
             , (className =? "riotclientux.exe") -?> (doCenterFloat <+> doShift (myWorkspaces !! 1))
             , (className =? "Qalculate-gtk") -?> doCenterFloatUp
             , (className =? "Pavucontrol") -?> doCenterFloatUp
@@ -225,6 +228,8 @@ myStartupHook =
     mconcat
         [ restoreBackground
         , spawnHereNamedScratchpadAction scratchpads "taskwarrior"
+        , spawnOnce "thunderbird"
+        , spawnOnce "slack -u"
         ]
   where
     restoreBackground = spawnOnce "~/.fehbg"
@@ -388,6 +393,13 @@ myEwmhFullscreen c =
             False -> fullscreenEventHook ev
     fullscreenEventHookNoLeagueClient ev = fullscreenEventHook ev
 
+rescreenCfg :: RescreenConfig
+rescreenCfg =
+    def
+        { afterRescreenHook = spawn "sleep 1; xmonad --restart"
+        , randrChangeHook = spawn "autorandr --change"
+        }
+
 main =
     myConfig
         >>= xmonad
@@ -395,6 +407,7 @@ main =
             . myEwmhFullscreen
             . ewmh
             . javaHack
+            . rescreenHook rescreenCfg
             . dynamicProjects projects
             . withSB (statusBarProp "xmobar" myXmobarPP)
             . addDescrKeys ((mod4Mask, xK_F1), xMessage) myKeys
