@@ -206,6 +206,7 @@ myManageHook =
             , className =? "splash" -?> doCenterFloatUp
             , className =? "toolbar" -?> doCenterFloatUp
             , (className =? "leagueclientux.exe") -?> (doCenterFloat <+> doShift (myWorkspaces !! 1))
+            , className =? "Wxparaver" -?> doFloat
             , (className =? "riotclientux.exe") -?> (doCenterFloat <+> doShift (myWorkspaces !! 1))
             , (className =? "Qalculate-gtk") -?> doCenterFloatUp
             , (className =? "Pavucontrol") -?> doCenterFloatUp
