@@ -275,16 +275,25 @@ in {
                 url = "https://mail.google.com/mail/u/0/";
               }
               {
-                name = "Gmail (UPC)";
-                url = "https://mail.google.com/mail/u/1/";
-              }
-              {
-                name = "Raco";
-                url = "https://raco.fib.upc.edu";
-              }
-              {
-                name = "Atenea";
-                url = "https://atenea.upc.edu";
+                name = "BSC";
+                bookmarks = [
+                  {
+                    name = "GiLab";
+                    url = "https://pm.bsc.es/gitlab";
+                  }
+                  {
+                    name = "jungle";
+                    url = "https://jungle.bsc.es/";
+                  }
+                  {
+                    name = "webmail";
+                    url = "https://webmail.bsc.es/";
+                  }
+                  {
+                    name = "intranet";
+                    url = "https://intranet.bsc.es";
+                  }
+                ];
               }
             ];
           }
