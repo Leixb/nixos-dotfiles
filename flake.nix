@@ -221,6 +221,29 @@
             }
           ];
         };
+
+        dell = lib.nixosSystem {
+          inherit system;
+
+          modules = common-modules ++ [
+            ./nixos/hosts/dell/configuration.nix
+            ./nixos/modules/xorg.nix
+            ./nixos/modules/ssd.nix
+            ./nixos/modules/sops.nix
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.users.leix = import ./home-manager/users/leix.nix;
+              home-manager.extraSpecialArgs = specialArgs;
+              home-manager.sharedModules = [
+                ./home-manager/modules/home.nix
+                ./home-manager/hosts/dell.nix
+                sops-nix.homeManagerModules.sops
+              ];
+            }
+          ];
+        };
       };
     };
 }
