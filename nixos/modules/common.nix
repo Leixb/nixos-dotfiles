@@ -183,6 +183,7 @@ in
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIPWmQFG8ogdMgYH0Ldi4gJK/PWBQBfnTXMwtqq4cHBCp leix@kuro"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIMz6YAvxivW35ndT4rH8jBBTHYSaCW/mn2y7+pOnIuq+ leix@nixos-pav"
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAILbUye0Ne66GM3CYtEAvAqOKd5+fyuxCVaq5ebtCgT62 leix@asus"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIIFiqXqt88VuUfyANkZyLJNiuroIITaGlOOTMhVDKjf abonerib@bsc-84885016"
     ];
   };
 
