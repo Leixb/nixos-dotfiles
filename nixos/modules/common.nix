@@ -68,15 +68,16 @@ in
     vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
   };
 
-  hardware.opengl.extraPackages = with pkgs;
-    [
-      intel-media-driver
-      vaapiIntel
-      vaapiVdpau
-      libvdpau-va-gl
-    ];
+  # hardware.opengl.extraPackages = with pkgs;
+  #   [
+  #     intel-media-driver
+  #     vaapiIntel
+  #     vaapiVdpau
+  #     libvdpau-va-gl
+  #   ];
 
-  hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ vaapiIntel ];
+  # TODO: put this in kuro and all other
+  # hardware.opengl.extraPackages32 = with pkgs.pkgsi686Linux; [ vaapiIntel ];
 
   programs.dconf.enable = true;
   programs.light.enable = true;

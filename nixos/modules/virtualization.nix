@@ -1,10 +1,10 @@
-{ pkgs, ... }: {
+{ ... }: {
   boot.kernelParams = [ "intel_iommu=on" "iommu=pt" ];
 
   virtualisation.libvirtd.enable = true;
-  virtualisation.spiceUSBRedirection.enable = true;
+  programs.virt-manager.enable = true;
 
-  hardware.nvidia-container-toolkit.enable = true;
+  virtualisation.spiceUSBRedirection.enable = true;
 
   virtualisation.podman = {
     enable = true;
@@ -13,6 +13,4 @@
   };
 
   users.extraUsers.leix.extraGroups = [ "podman" ];
-
-  environment.systemPackages = with pkgs; [ virt-manager ];
 }

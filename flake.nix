@@ -53,6 +53,11 @@
     };
 
     bscpkgs.url = "git+https://pm.bsc.es/gitlab/rarias/bscpkgs";
+
+    nixos-hardware = {
+      url = "github:NixOS/nixos-hardware";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, agenix, pre-commit-hooks, devenv, ... }:
@@ -227,9 +232,11 @@
 
           modules = common-modules ++ [
             ./nixos/hosts/dell/configuration.nix
+            ./nixos/modules/virtualization.nix
             ./nixos/modules/xorg.nix
             ./nixos/modules/ssd.nix
             ./nixos/modules/sops.nix
+            inputs.nixos-hardware.nixosModules.dell-latitude-7430
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;

@@ -1,15 +1,6 @@
-{ config, osConfig, lib, pkgs, inputs, ... }:
+{ config, osConfig, lib, pkgs, ... }:
 
-let
-  username = osConfig.users.users.leix.name;
-in
 {
-  # xdg.configFile = {
-  #   "awesome" = {
-  #     source = pkgs.awesome-config;
-  #     onChange = "${pkgs.awesome}/bin/awesome-client 'awesome.restart()'";
-  #   };
-  # };
 
   sops.secrets.hass_env.sopsFile = ../../nixos/secrets/hass.yaml;
   sops.secrets.hass_env.path = "${config.xdg.stateHome}/.hass_env";
@@ -54,9 +45,6 @@ in
   };
 
   home.packages = with pkgs; [
-    # (pkgs.writeShellScriptBin "dmenu" ''
-    #   ${pkgs.rofi}/bin/rofi -dmenu "$@"
-    # '')
     dmenu-rs
     gmrun
     autorandr

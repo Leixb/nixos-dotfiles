@@ -25,7 +25,7 @@ in
     ../modules/gaming.nix
     ../modules/xmonad.nix
     ../modules/mpd.nix
-    ../modules/bsc/bsc.nix
+    ../modules/personal_git.nix
   ];
 
   home.packages = with pkgs; [

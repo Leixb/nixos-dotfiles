@@ -368,12 +368,13 @@ in
         '';
       }
 
-      {
-        # plugin = neorg_master;
-        plugin = neorg;
-        type = "lua";
-        config = builtins.readFile ./neovim/neorg.lua;
-      }
+      # TODO: reenable once it works with nix
+      # {
+      #   # plugin = neorg_master;
+      #   plugin = neorg;
+      #   type = "lua";
+      #   config = builtins.readFile ./neovim/neorg.lua;
+      # }
 
       {
         plugin = twilight-nvim;

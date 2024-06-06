@@ -20,9 +20,14 @@ in
     wxparaver-adawaita
     slack
     openfortivpn
+    toolbox
   ];
 
   sops.secrets.ssh_config_bsc.path = "${config.home.homeDirectory}/.ssh/config.d/bsc";
+
+  programs.git.userName = "aleixbonerib";
+  programs.git.includes = [{ path = config.sops.secrets.git_config_bsc.path; }];
+  sops.secrets.git_config_bsc.path = "${config.xdg.configHome}/git/config.d/secret.inc";
 
   programs.ssh = {
     enable = true;
