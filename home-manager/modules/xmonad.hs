@@ -214,6 +214,7 @@ myManageHook =
             , className =? "Wxparaver" -?> doFloat
             , className =? "thunderbird" -?> doShift (myWorkspaces !! 6)
             , className =? "Slack" -?> doShift (myWorkspaces !! 5)
+            , (appName =? "Alert" <&&> className =? "Zotero") -?> doIgnore
             , (className =? "riotclientux.exe") -?> (doCenterFloat <+> doShift (myWorkspaces !! 1))
             , (className =? "Qalculate-gtk") -?> doCenterFloatUp
             , (className =? "Pavucontrol") -?> doCenterFloatUp
