@@ -190,7 +190,7 @@ myHandleEventHook =
         , trayerPaddingXmobarEventHook
         ]
 
-doCenterFloatFixed = doRectFloat (RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2))
+doCenterFloatFixed = doRectFloat (RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2)) <+> doF W.swapUp
 
 scratchpads =
     [ NS "scratchpad" (myTerm ++ " --name scratchpad --class scratchpad") (className =? "scratchpad") doCenterFloatFixed
