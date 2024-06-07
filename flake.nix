@@ -54,10 +54,7 @@
 
     bscpkgs.url = "git+https://pm.bsc.es/gitlab/rarias/bscpkgs";
 
-    nixos-hardware = {
-      url = "github:NixOS/nixos-hardware";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    nixos-hardware.url = "github:NixOS/nixos-hardware";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, agenix, pre-commit-hooks, devenv, ... }:
