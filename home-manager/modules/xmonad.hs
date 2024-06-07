@@ -4,6 +4,7 @@
 
 {-# HLINT ignore "Redundant return" #-}
 
+import Data.Ratio
 import Graphics.X11.ExtraTypes.XF86
 import System.Environment (lookupEnv)
 import System.Exit (exitSuccess)
@@ -50,6 +51,7 @@ import XMonad.Layout.WindowArranger (windowArrange)
 import XMonad.Layout.WindowNavigation
 import XMonad.Prelude
 import XMonad.Prompt (amberXPConfig)
+import XMonad.StackSet (RationalRect (RationalRect))
 import XMonad.StackSet qualified as W
 import XMonad.Util.ClickableWorkspaces (clickablePP)
 import XMonad.Util.EZConfig
@@ -188,10 +190,12 @@ myHandleEventHook =
         , trayerPaddingXmobarEventHook
         ]
 
+doCenterFloatFixed = doRectFloat (RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2))
+
 scratchpads =
-    [ NS "scratchpad" (myTerm ++ " --name scratchpad --class scratchpad") (className =? "scratchpad") doCenterFloat
-    , NS "taskwarrior" (myTerm ++ " --name taskwarrior --class taskwarrior vit") (className =? "taskwarrior") doCenterFloat
-    , NS "qalc" "qalculate-gtk" (className =? "Qalculate-gtk") doCenterFloat
+    [ NS "scratchpad" (myTerm ++ " --name scratchpad --class scratchpad") (className =? "scratchpad") doCenterFloatFixed
+    , NS "taskwarrior" (myTerm ++ " --name taskwarrior --class taskwarrior vit") (className =? "taskwarrior") doCenterFloatFixed
+    , NS "qalc" "qalculate-gtk" (className =? "Qalculate-gtk") doCenterFloatFixed
     ]
 
 myManageHook =
