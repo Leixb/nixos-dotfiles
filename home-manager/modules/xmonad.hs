@@ -18,6 +18,7 @@ import XMonad.Actions.WindowGo
 import XMonad.Actions.WithAll (killAll)
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.Focus
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
@@ -27,7 +28,7 @@ import XMonad.Hooks.Rescreen
 import XMonad.Hooks.ShowWName
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
-import XMonad.Hooks.UrgencyHook
+import XMonad.Hooks.UrgencyHook hiding (FocusHook)
 import XMonad.Layout.Accordion
 import XMonad.Layout.BoringWindows
 import XMonad.Layout.CenteredMaster (centerMaster)
@@ -44,7 +45,6 @@ import XMonad.Layout.Simplest (Simplest (Simplest))
 import XMonad.Layout.Spacing
 import XMonad.Layout.Spiral (spiral)
 import XMonad.Layout.SubLayouts
-import XMonad.Layout.Tabbed (addTabs)
 import XMonad.Layout.ThreeColumns
 import XMonad.Layout.TrackFloating (trackFloating)
 import XMonad.Layout.WindowArranger (windowArrange)
@@ -176,7 +176,6 @@ myLayoutPrinter x = let iconstr = icon x in fromMaybe x iconstr
     getIconName x
         | "Spacing" `isPrefixOf` x = getIconName $ stripPrefix "Spacing " x
         | "Hinted" `isPrefixOf` x = getIconName $ stripPrefix "Hinted " x
-        | "Tabbed" `isPrefixOf` x = getIconName $ stripPrefix "Tabbed " x
         | "Minimize" `isPrefixOf` x = getIconName $ stripPrefix "Minimize " x
         | "Mirror" `isPrefixOf` x = fmap ("mirror_" ++) . getIconName $ stripPrefix "Mirror " x
         | otherwise = Nothing
@@ -198,6 +197,9 @@ scratchpads =
     , NS "qalc" "qalculate-gtk" (className =? "Qalculate-gtk") doCenterFloatFixed
     ]
 
+myActivateFocusHook :: FocusHook
+myActivateFocusHook = composeAll [new (className =? "Wxparaver") --> keepFocus, return True --> switchWorkspace <> switchFocus]
+
 myManageHook =
     composeAll
         [ composeOne
@@ -211,7 +213,9 @@ myManageHook =
             , className =? "splash" -?> doCenterFloatUp
             , className =? "toolbar" -?> doCenterFloatUp
             , (className =? "leagueclientux.exe") -?> (doCenterFloat <+> doShift (myWorkspaces !! 1))
-            , className =? "Wxparaver" -?> doFloat
+            , className =? "Wxparaver" -?> title >>= \case
+                "Paraver" -> doF id -- We tile the main window, but float the rest (mainly popups and plots)
+                _ -> doFloat
             , className =? "thunderbird" -?> doShift (myWorkspaces !! 6)
             , className =? "Slack" -?> doShift (myWorkspaces !! 5)
             , (appName =? "Alert" <&&> className =? "Zotero") -?> doIgnore
@@ -269,7 +273,7 @@ myKeys c =
             , ("M-x", addName "Toggle mirror" $ sendMessage $ Toggle MIRROR)
             , ("M-<Return>", addName "Open terminal" $ spawn myTerm)
             , ("M-S-<Return>", addName "Promote to master" $ dwmpromote)
-            , ("M-C-t", addName "Sink" $ withFocused $ windows . W.sink)
+            , ("M-C-t", addName "Tile floating windows" $ withFocused $ windows . W.sink)
             , ("M-s", addName "Sticky" $ windows copyToAll)
             , ("M-S-s", addName "Unsticky" $ killAllOtherCopies)
             , ("M-z", addName "Toggle Scratchpad" $ namedScratchpadAction scratchpads "scratchpad")
@@ -409,6 +413,8 @@ main =
     myConfig
         >>= xmonad
             . docks
+            . withUrgencyHook NoUrgencyHook
+            . setEwmhActivateHook (manageFocus myActivateFocusHook)
             . myEwmhFullscreen
             . ewmh
             . javaHack
