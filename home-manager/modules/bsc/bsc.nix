@@ -2,16 +2,27 @@
 let
 
   paraver = pkgs.wxparaver.overrideAttrs (oldAttrs: {
-    nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ pkgs.copyDesktopItems ];
+    patches = [
+      (pkgs.fetchurl {
+        url = "https://patch-diff.githubusercontent.com/raw/bsc-performance-tools/wxparaver/pull/14.patch";
+        sha256 = "sha256-jJ/LTBxlsRfYvv4MFmXz/zMtPgP4piVUClf0Nxpg+Bk=";
+      })
+    ];
+    nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ pkgs.installShellFiles ];
+    postInstall = oldAttrs.postInstall + ''
+      install -Dm0644 icons/paraver.svg $out/share/icons/hicolor/scalable/apps/paraver.svg
+      install -Dm0644 paraver.desktop $out/share/applications/paraver.desktop
+
+      installManPage $out/share/doc/wxparaver_help_contents/man/*
+    '';
   });
 
   wxparaver-adawaita = pkgs.symlinkJoin {
     name = "wxparaver";
     paths = [ paraver ];
-    buildInputs = [ pkgs.makeWrapper pkgs.installShellFiles ];
+    nativeBuildInputs = with pkgs; [ makeWrapper ];
     postBuild = ''
       wrapProgram "$out/bin/wxparaver" --set GTK_THEME "Adwaita:dark"
-      installManPage $out/share/doc/wxparaver_help_contents/man/*
     '';
   };
 in
