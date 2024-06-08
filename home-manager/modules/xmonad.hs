@@ -405,7 +405,7 @@ myEwmhFullscreen c =
 rescreenCfg :: RescreenConfig
 rescreenCfg =
     def
-        { afterRescreenHook = spawn "sleep 1; xmonad --restart"
+        { afterRescreenHook = spawn "sleep 1; xmonad --restart; ~/.fehbg"
         , randrChangeHook = spawn "autorandr --change"
         }
 
@@ -413,12 +413,12 @@ main =
     myConfig
         >>= xmonad
             . docks
-            . withUrgencyHook NoUrgencyHook
-            . setEwmhActivateHook (manageFocus myActivateFocusHook)
+            -- . setEwmhActivateHook (manageFocus myActivateFocusHook)
             . myEwmhFullscreen
             . ewmh
             . javaHack
             . rescreenHook rescreenCfg
+            . withUrgencyHook NoUrgencyHook
             . dynamicProjects projects
             . withSB (statusBarProp "xmobar" myXmobarPP)
             . addDescrKeys ((mod4Mask, xK_F1), xMessage) myKeys
