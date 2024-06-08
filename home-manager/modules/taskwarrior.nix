@@ -3,7 +3,7 @@
 let
   taskwarrior = pkgs.symlinkJoin {
     name = "taskwarrior-wrapped";
-    paths = [ pkgs.taskwarrior ];
+    paths = [ pkgs.taskwarrior3 ];
     nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
     postBuild = ''
       wrapProgram $out/bin/task \
@@ -67,6 +67,7 @@ in
 
   home.packages = with pkgs; [
     timewarrior
+    python3.pkgs.bugwarrior
     vit
     tasksh
   ];
