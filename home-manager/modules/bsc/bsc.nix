@@ -34,6 +34,11 @@ in
     toolbox
   ];
 
+  services.nextcloud-client = {
+    enable = true;
+    startInBackground = true;
+  };
+
   sops.secrets.ssh_config_bsc.path = "${config.home.homeDirectory}/.ssh/config.d/bsc";
 
   programs.git.userName = "aleixbonerib";
