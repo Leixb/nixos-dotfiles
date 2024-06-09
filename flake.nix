@@ -172,6 +172,7 @@
               home-manager.extraSpecialArgs = specialArgs;
               home-manager.sharedModules = [
                 ./home-manager/modules/home.nix
+                ./home-manager/modules/common.nix
                 ./home-manager/hosts/kuro.nix
                 sops-nix.homeManagerModules.sops
               ];
@@ -194,6 +195,7 @@
               home-manager.sharedModules = [
                 ./home-manager/hosts/pavilion.nix
                 ./home-manager/modules/home.nix
+                ./home-manager/modules/common.nix
                 sops-nix.homeManagerModules.sops
               ];
             }
@@ -217,6 +219,7 @@
               home-manager.extraSpecialArgs = specialArgs;
               home-manager.sharedModules = [
                 ./home-manager/modules/home.nix
+                ./home-manager/modules/common.nix
                 ./home-manager/hosts/asus.nix
                 sops-nix.homeManagerModules.sops
               ];
@@ -241,7 +244,7 @@
               home-manager.users.leix = import ./home-manager/users/leix.nix;
               home-manager.extraSpecialArgs = specialArgs;
               home-manager.sharedModules = [
-                ./home-manager/modules/home.nix
+                ./home-manager/modules/common.nix
                 ./home-manager/hosts/dell.nix
                 sops-nix.homeManagerModules.sops
               ];
