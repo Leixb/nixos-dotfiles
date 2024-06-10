@@ -182,6 +182,8 @@ in
       initial_window_height = 1080;
 
       update_check_interval = 0;
+
+      notify_on_cmd_finish = "unfocused";
     };
   };
 
