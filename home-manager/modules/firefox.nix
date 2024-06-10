@@ -65,7 +65,6 @@ in {
         (languagetool.overrideAttrs (oldAttrs: {
           meta.unfree = false;
         })) # Dirty workaround since nixpkgs.config.allowUnfree does not work with firefox-addons flake
-        no-pdf-download
         privacy-badger
         refined-github
         ublock-origin
