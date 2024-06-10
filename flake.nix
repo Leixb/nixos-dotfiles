@@ -236,7 +236,7 @@
             ./nixos/modules/xorg.nix
             ./nixos/modules/ssd.nix
             ./nixos/modules/sops.nix
-            inputs.nixos-hardware.nixosModules.dell-latitude-7430
+            inputs.nixos-hardware.nixosModules.dell-latitude-7490
             home-manager.nixosModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
