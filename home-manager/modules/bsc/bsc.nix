@@ -1,7 +1,26 @@
 { config, lib, pkgs, ... }:
 let
 
-  paraver = pkgs.wxparaver.overrideAttrs (oldAttrs: {
+  paraverKernel = pkgs.paraverKernel.overrideAttrs (oldAttrs: {
+    version = "4.11.4";
+    src = pkgs.fetchFromGitHub {
+      owner = "bsc-performance-tools";
+      repo = "paraver-kernel";
+      rev = "v4.11.4";
+      sha256 = "sha256-1LiEyF2pBkSa4hf3hAz51wBMXsXYpNqHgIeYH1OHE9M=";
+    };
+  });
+
+  paraver = (pkgs.wxparaver.overrideAttrs (oldAttrs: {
+    version = "4.11.4";
+
+    src = pkgs.fetchFromGitHub {
+      owner = "bsc-performance-tools";
+      repo = "wxparaver";
+      rev = "v4.11.4";
+      sha256 = "sha256-0bsFnDnPwOa/dzSKqPJ91Zw23NYWTs0GcC6tv3WQqMs=";
+    };
+
     patches = [
       (pkgs.fetchurl {
         url = "https://patch-diff.githubusercontent.com/raw/bsc-performance-tools/wxparaver/pull/14.patch";
@@ -16,7 +35,7 @@ let
 
       installManPage $out/share/doc/wxparaver_help_contents/man/*
     '';
-  });
+  })).override { inherit paraverKernel; };
 
   wxparaver-adawaita = pkgs.symlinkJoin {
     name = "wxparaver";
