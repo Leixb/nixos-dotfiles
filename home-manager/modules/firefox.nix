@@ -1,4 +1,4 @@
-{ pkgs, config, ... }:
+{ lib, pkgs, config, ... }:
 let username = config.home.username;
 in {
   programs.firefox = {
@@ -264,40 +264,6 @@ in {
       bookmarks =
         [
           {
-            toolbar = true;
-            bookmarks = [
-              {
-                name = "GitHub";
-                url = "https://github.com";
-              }
-              {
-                name = "Gmail";
-                url = "https://mail.google.com/mail/u/0/";
-              }
-              {
-                name = "BSC";
-                bookmarks = [
-                  {
-                    name = "GiLab";
-                    url = "https://pm.bsc.es/gitlab";
-                  }
-                  {
-                    name = "jungle";
-                    url = "https://jungle.bsc.es/";
-                  }
-                  {
-                    name = "webmail";
-                    url = "https://webmail.bsc.es/";
-                  }
-                  {
-                    name = "intranet";
-                    url = "https://intranet.bsc.es";
-                  }
-                ];
-              }
-            ];
-          }
-          {
             name = "Wikipedia";
             keyword = "wiki";
             url = "https://en.wikipedia.org/wiki/Special:Search?search=%s&go=Go";
@@ -343,92 +309,6 @@ in {
               }
             ];
           }
-
-          {
-            name = "League";
-            bookmarks = [
-              {
-                name = "MurderBridge";
-                keyword = "aram";
-                url = "https://www.murderbridge.com/champion/%s/";
-              }
-
-              {
-                name = "MMR";
-                keyword = "mmr";
-                url = "https://euw.whatismymmr.com/%s";
-              }
-
-              {
-                name = "OP.GG";
-                keyword = "opgg";
-                url = "https://euw.op.gg/summoners/euw/%s";
-              }
-
-              {
-                name = "U.GG";
-                keyword = "ugg";
-                url = "https://u.gg/lol/champions/%s/build";
-              }
-            ];
-          }
-          {
-            name = "Entretainment";
-            bookmarks = [
-              {
-                name = "YouTube";
-                url = "https://www.youtube.com";
-              }
-              {
-                name = "Netflix";
-                url = "https://www.netflix.com";
-              }
-              {
-                name = "Spotify";
-                url = "https://open.spotify.com";
-              }
-              {
-                name = "Twitch";
-                keyword = "twtv";
-                url = "https://www.twitch.tv/%s";
-              }
-              {
-                name = "Disney+";
-                url = "https://www.disneyplus.com";
-              }
-              {
-                name = "PleX";
-                url = "https://app.plex.tv";
-              }
-            ];
-          }
-
-          {
-            name = "Social";
-            bookmarks = [
-              {
-                name = "Telegram";
-                url = "https://web.telegram.org";
-              }
-              {
-                name = "Discord";
-                url = "https://discord.com/app";
-              }
-              {
-                name = "Twitter";
-                url = "https://twitter.com";
-              }
-              {
-                name = "Instagram";
-                url = "https://www.instagram.com";
-              }
-              {
-                name = "WhatsApp";
-                url = "https://web.whatsapp.com";
-              }
-            ];
-          }
-
           {
             name = "Programming";
             bookmarks = [
@@ -451,6 +331,14 @@ in {
               {
                 name = "kernel.org";
                 url = "https://www.kernel.org";
+              }
+              {
+                name = "hoogle";
+                url = "https://hoogle.haskell.org";
+              }
+              {
+                name = "noogle";
+                url = "https://noogle.dev";
               }
             ];
           }

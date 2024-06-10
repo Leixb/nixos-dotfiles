@@ -54,4 +54,11 @@ in
       config.sops.secrets.ssh_config_bsc.path
     ];
   };
+
+  programs.firefox.profiles.${config.home.username}.bookmarks = [
+    {
+      toolbar = true;
+      bookmarks = import ./bookmarks.nix;
+    }
+  ];
 }
