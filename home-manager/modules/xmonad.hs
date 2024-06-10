@@ -18,7 +18,6 @@ import XMonad.Actions.WindowGo
 import XMonad.Actions.WithAll (killAll)
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
-import XMonad.Hooks.Focus
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
@@ -28,7 +27,7 @@ import XMonad.Hooks.Rescreen
 import XMonad.Hooks.ShowWName
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
-import XMonad.Hooks.UrgencyHook hiding (FocusHook)
+import XMonad.Hooks.UrgencyHook
 import XMonad.Layout.Accordion
 import XMonad.Layout.BoringWindows
 import XMonad.Layout.CenteredMaster (centerMaster)
@@ -196,9 +195,6 @@ scratchpads =
     , NS "taskwarrior" (myTerm ++ " --name taskwarrior --class taskwarrior vit") (className =? "taskwarrior") doCenterFloatFixed
     , NS "qalc" "qalculate-gtk" (className =? "Qalculate-gtk") doCenterFloatFixed
     ]
-
-myActivateFocusHook :: FocusHook
-myActivateFocusHook = composeAll [new (className =? "Wxparaver") --> keepFocus, return True --> switchWorkspace <> switchFocus]
 
 myManageHook =
     composeAll
@@ -413,7 +409,6 @@ main =
     myConfig
         >>= xmonad
             . docks
-            -- . setEwmhActivateHook (manageFocus myActivateFocusHook)
             . myEwmhFullscreen
             . ewmh
             . javaHack

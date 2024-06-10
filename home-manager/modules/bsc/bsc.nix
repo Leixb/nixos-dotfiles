@@ -7,6 +7,7 @@ let
         url = "https://patch-diff.githubusercontent.com/raw/bsc-performance-tools/wxparaver/pull/14.patch";
         sha256 = "sha256-jJ/LTBxlsRfYvv4MFmXz/zMtPgP4piVUClf0Nxpg+Bk=";
       })
+      ../../../packages/wxparaver/0001-fix-do-not-set-focus-on-redraw.patch
     ];
     nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ pkgs.installShellFiles ];
     postInstall = oldAttrs.postInstall + ''
