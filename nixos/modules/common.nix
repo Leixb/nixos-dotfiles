@@ -58,6 +58,8 @@ in
 
   services.xserver.wacom.enable = true;
 
+  services.gnome.gnome-keyring.enable = true;
+
   hardware.cpu.intel.updateMicrocode = true;
 
   hardware.opengl.driSupport32Bit = true;
@@ -187,6 +189,8 @@ in
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIIFiqXqt88VuUfyANkZyLJNiuroIITaGlOOTMhVDKjf abonerib@bsc-84885016"
     ];
   };
+
+  security.pam.services.leix.enableGnomeKeyring = true;
 
   environment.systemPackages = with pkgs; [ cntr vim wget openssl update_system ];
 
