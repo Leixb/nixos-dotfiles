@@ -76,8 +76,6 @@
 
         kitty-imgdiff = prev.callPackage ./packages/kitty-imgdiff/default.nix { };
 
-        nix-index-database =
-          inputs.nix-index-database.outputs.legacyPackages.${system}.database;
         firefox-addons = inputs.firefox-addons.packages.${system};
 
         mpris-notifier = prev.callPackage ./packages/mpris-notifier/default.nix { };
@@ -175,6 +173,8 @@
                 ./home-manager/modules/common.nix
                 ./home-manager/hosts/kuro.nix
                 sops-nix.homeManagerModules.sops
+                inputs.nix-index-database.hmModules.nix-index
+                { programs.nix-index-database.comma.enable = true; }
               ];
             }
           ];
@@ -197,6 +197,8 @@
                 ./home-manager/modules/home.nix
                 ./home-manager/modules/common.nix
                 sops-nix.homeManagerModules.sops
+                inputs.nix-index-database.hmModules.nix-index
+                { programs.nix-index-database.comma.enable = true; }
               ];
             }
           ];
@@ -222,6 +224,8 @@
                 ./home-manager/modules/common.nix
                 ./home-manager/hosts/asus.nix
                 sops-nix.homeManagerModules.sops
+                inputs.nix-index-database.hmModules.nix-index
+                { programs.nix-index-database.comma.enable = true; }
               ];
             }
           ];
@@ -247,6 +251,8 @@
                 ./home-manager/modules/common.nix
                 ./home-manager/hosts/dell.nix
                 sops-nix.homeManagerModules.sops
+                inputs.nix-index-database.hmModules.nix-index
+                { programs.nix-index-database.comma.enable = true; }
               ];
             }
           ];

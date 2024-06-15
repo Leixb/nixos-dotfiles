@@ -79,7 +79,6 @@ in
     alsa-utils # sound
     bottom # system monitor
     cachix # nix binary cache manager
-    comma # run programs without installing them (nix)
     devenv # Reproducible development environment
     fd # find alternative
     feh # image viewer
@@ -420,5 +419,4 @@ in
   };
 
   programs.nix-index.enable = true;
-  home.file.".cache/nix-index/files".source = pkgs.nix-index-database;
 }
