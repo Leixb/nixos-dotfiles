@@ -9,3 +9,8 @@ creation_rules:
       - *admin_leix
       - *server_kuro
       - *server_dell
+  - path_regex: secrets_work/[^/]+\.yaml$
+    key_groups:
+    - age:
+      - *admin_leix
+      - *server_dell
