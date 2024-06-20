@@ -52,6 +52,8 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    neorg-overlay.url = "github:nvim-neorg/nixpkgs-neorg-overlay";
+
     bscpkgs.url = "git+https://pm.bsc.es/gitlab/rarias/bscpkgs";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
@@ -86,6 +88,7 @@
       overlays = [
         extra-packages
         inputs.neovim-nightly-overlay.overlays.default
+        inputs.neorg-overlay.overlays.default
         inputs.bscpkgs.overlays.default
       ];
 

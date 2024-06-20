@@ -1,23 +1,25 @@
 { config, lib, pkgs, ... }:
 let
 
+  paraverVersion = "4.11.4";
+
   paraverKernel = pkgs.paraverKernel.overrideAttrs (oldAttrs: {
-    version = "4.11.4";
+    version = paraverVersion;
     src = pkgs.fetchFromGitHub {
       owner = "bsc-performance-tools";
       repo = "paraver-kernel";
-      rev = "v4.11.4";
+      rev = "v${paraverVersion}";
       sha256 = "sha256-1LiEyF2pBkSa4hf3hAz51wBMXsXYpNqHgIeYH1OHE9M=";
     };
   });
 
   paraver = (pkgs.wxparaver.overrideAttrs (oldAttrs: {
-    version = "4.11.4";
+    version = paraverVersion;
 
     src = pkgs.fetchFromGitHub {
       owner = "bsc-performance-tools";
       repo = "wxparaver";
-      rev = "v4.11.4";
+      rev = "v${paraverVersion}";
       sha256 = "sha256-0bsFnDnPwOa/dzSKqPJ91Zw23NYWTs0GcC6tv3WQqMs=";
     };
 
@@ -37,7 +39,7 @@ let
     '';
   })).override { inherit paraverKernel; };
 
-  wxparaver-adawaita = pkgs.symlinkJoin {
+  wxparaver-adwaita = pkgs.symlinkJoin {
     name = "wxparaver";
     paths = [ paraver ];
     nativeBuildInputs = with pkgs; [ makeWrapper ];
@@ -48,11 +50,17 @@ let
 in
 {
   home.packages = with pkgs; [
-    wxparaver-adawaita
+    wxparaver-adwaita
     slack
     openfortivpn
-    toolbox
+    distrobox
   ];
+
+  xdg.configFile."distrobox/distrobox.conf" = lib.mkForce {
+    text = ''
+      container_additional_volumes="/etc/profiles/per-user:/etc/profiles/per-user:ro /etc/static/profiles/per-user:/etc/static/profiles/per-user:ro /nix:/nix:ro"
+    '';
+  };
 
   services.nextcloud-client = {
     enable = true;
@@ -61,7 +69,7 @@ in
 
   sops.secrets.ssh_config_bsc.path = "${config.home.homeDirectory}/.ssh/config.d/bsc";
 
-  programs.git.userName = "aleixbonerib";
+  programs.git.userName = "Aleix Boné";
   programs.git.includes = [{ path = config.sops.secrets.git_config_bsc.path; }];
   sops.secrets.git_config_bsc.path = "${config.xdg.configHome}/git/config.d/secret.inc";
 

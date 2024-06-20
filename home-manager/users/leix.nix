@@ -13,6 +13,5 @@
     nix-tree
     nx-libs
     nix-output-monitor # nom
-    logseq
   ];
 }

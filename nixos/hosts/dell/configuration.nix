@@ -79,6 +79,18 @@
   services.gnome.at-spi2-core.enable = true; # Fix warning on xdg-portal start
 
   services.thermald.enable = true;
+  powerManagement.enable = true;
+
+  hardware.opengl.extraPackages = with pkgs; [ intel-ocl ];
+
+  hardware.sensor.iio.enable = true;
+
+  boot.kernel.sysctl."kernel.perf_event_paranoid" = 1;
+
+  services.xserver.displayManager.setupCommands = ''
+    ${pkgs.xorg.xrandr}/bin/xrandr --auto
+    ${pkgs.autorandr}/bin/autorandr --change
+  '';
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions

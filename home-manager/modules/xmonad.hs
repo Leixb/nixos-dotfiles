@@ -212,7 +212,7 @@ myManageHook =
             , className =? "Wxparaver" -?> title >>= \case
                 "Paraver" -> doF id -- We tile the main window, but float the rest (mainly popups and plots)
                 _ -> doFloat
-            , className =? "thunderbird" -?> doShift (myWorkspaces !! 6)
+            , (className =? "thunderbird" <&&> title /=? "Calendar") -?> doShift (myWorkspaces !! 6)
             , className =? "Slack" -?> doShift (myWorkspaces !! 5)
             , (appName =? "Alert" <&&> className =? "Zotero") -?> doIgnore
             , (className =? "riotclientux.exe") -?> (doCenterFloat <+> doShift (myWorkspaces !! 1))
@@ -222,6 +222,7 @@ myManageHook =
             , isFullscreen -?> doFullFloat
             , return True -?> insertPosition Below Newer
             ]
+        , title =? "Calendar" --> (doFocus *> doCenterFloatUp)
         , title =? "Mozilla Firefox" --> doShift (myWorkspaces !! 0)
         , (className =? "ArmCord") --> doShift (myWorkspaces !! 2)
         , namedScratchpadManageHook scratchpads

@@ -28,6 +28,10 @@
     url = "https://bsc.woffu.com/v2/personal/dashboard/user";
   }
   {
+    name = "Meetings";
+    url = "https://gitlab.bsc.es/vbeltran/management/-/wikis/";
+  }
+  {
     name = "Tenea";
     url = "https://bsc.tenea.com/Login-5.1/Inicio";
   }

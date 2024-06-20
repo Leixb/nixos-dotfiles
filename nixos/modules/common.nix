@@ -62,6 +62,8 @@ in
 
   hardware.cpu.intel.updateMicrocode = true;
 
+  hardware.enableRedistributableFirmware = true;
+
   hardware.opengl.driSupport32Bit = true;
   hardware.opengl.enable = true;
   hardware.pulseaudio.support32Bit = false;
