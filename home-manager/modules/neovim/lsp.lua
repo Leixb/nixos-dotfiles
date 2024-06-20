@@ -70,7 +70,7 @@ local function lsp_attach(client, bufnr)
 
     nmap("<leader>F", vim.lsp.buf.format, "[F]ormat buffer")
 
-    require("lsp-format").on_attach(client)
+    -- require("lsp-format").on_attach(client)
     require("lsp_signature").on_attach({}, bufnr)
 
     require("notify")(string.format("[LSP] %s", client.name), "info", { render = "minimal", timeout = 2000 })

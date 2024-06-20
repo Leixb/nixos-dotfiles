@@ -310,6 +310,14 @@ in
         config = builtins.readFile ./neovim/lsp.lua;
       }
 
+      {
+        plugin = guess-indent-nvim;
+        type = "lua";
+        config = ''
+          require'guess-indent'.setup()
+        '';
+      }
+
       vim-grammarous
       {
         plugin = grammar-guard-nvim;
@@ -326,13 +334,13 @@ in
       nvim-lsp-ts-utils
       lsp_signature-nvim
       lspkind-nvim
-      {
-        plugin = lsp-format-nvim;
-        type = "lua";
-        config = ''
-          require("lsp-format").setup({})
-        '';
-      }
+      # {
+      #   plugin = lsp-format-nvim;
+      #   type = "lua";
+      #   config = ''
+      #     require("lsp-format").setup({})
+      #   '';
+      # }
       {
         plugin = rust-tools-nvim;
         type = "lua";
@@ -369,12 +377,13 @@ in
       }
 
       # TODO: reenable once it works with nix
-      # {
-      #   # plugin = neorg_master;
-      #   plugin = neorg;
-      #   type = "lua";
-      #   config = builtins.readFile ./neovim/neorg.lua;
-      # }
+      {
+        # plugin = neorg_master;
+        plugin = neorg;
+        type = "lua";
+        config = builtins.readFile ./neovim/neorg.lua;
+      }
+      neorg-telescope
 
       {
         plugin = twilight-nvim;
