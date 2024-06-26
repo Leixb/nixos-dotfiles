@@ -54,6 +54,7 @@ in
     slack
     openfortivpn
     distrobox
+    hyperfine
   ];
 
   xdg.configFile."distrobox/distrobox.conf" = lib.mkForce {
