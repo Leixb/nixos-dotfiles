@@ -5,7 +5,7 @@
 
   home.packages = with pkgs; [
     miniupnpc
-    beekeeper-studio
+    # beekeeper-studio
     zotero7
     solaar
     luakit
@@ -13,5 +13,6 @@
     nix-tree
     nx-libs
     nix-output-monitor # nom
+    steam-run
   ];
 }
