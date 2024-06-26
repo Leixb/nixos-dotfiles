@@ -62,6 +62,7 @@ import XMonad.Util.Run (runProcessWithInput)
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.Themes (xmonadTheme)
 import XMonad.Util.Ungrab
+import XMonad.Layout.CenterMainFluid (CenterMainFluid(CenterMainFluid))
 
 data Settings = Settings
     { term :: String
@@ -134,7 +135,7 @@ myLayout =
     nmaster = 1 -- Default number of windows in the master pane
     ratio = 1 / 2 -- Default proportion of screen occupied by master pane
     delta = 3 / 100 -- Percent of screen to increment by when resizing panes
-    threeCols = magnifiercz' 1.3 $ ThreeColMid nmaster delta ratio
+    threeCols = magnifiercz' 1.3 $ CenterMainFluid nmaster delta ratio
     spacer = spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
 
     myTabTheme =
@@ -168,12 +169,15 @@ myLayoutPrinter x = let iconstr = icon x in fromMaybe x iconstr
     getIconName "Full" = Just "full"
     getIconName "Tall" = Just "tall"
     getIconName "Spiral" = Just "spiral"
-    getIconName "Magnifier NoMaster ThreeCol" = Just "threeCol"
+    getIconName "ThreeCol" = Just "threeCol"
+    getIconName "CenterMainFluid" = Just "threeCol"
     getIconName "Accordion" = Just "accordion"
     getIconName "Grid False" = Just "grid"
     getIconName "Grid" = Just "grid"
     getIconName x
         | "Spacing" `isPrefixOf` x = getIconName $ stripPrefix "Spacing " x
+        | "Magnifier" `isPrefixOf` x = getIconName $ stripPrefix "Magnifier " x
+        | "NoMaster" `isPrefixOf` x = getIconName $ stripPrefix "NoMaster " x
         | "Hinted" `isPrefixOf` x = getIconName $ stripPrefix "Hinted " x
         | "Minimize" `isPrefixOf` x = getIconName $ stripPrefix "Minimize " x
         | "Mirror" `isPrefixOf` x = fmap ("mirror_" ++) . getIconName $ stripPrefix "Mirror " x
