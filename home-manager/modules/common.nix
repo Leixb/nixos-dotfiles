@@ -4,10 +4,9 @@ let
   username = config.home.username;
 
   catppuccin-style = {
-    name = "Catppuccin-Macchiato-Standard-Peach-Dark";
-    package = pkgs.catppuccin-gtk.override {
-      accents = [ "pink" "blue" "peach" ];
-      variant = "macchiato";
+    name = "Colloid-Dark-Catppuccin";
+    package = pkgs.colloid-gtk-theme.override {
+      tweaks = [ "nord" "dracula" "gruvbox" "everforest" "catppuccin" "rimless" ];
     };
   };
 in
