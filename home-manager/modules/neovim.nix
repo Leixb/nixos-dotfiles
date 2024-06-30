@@ -72,7 +72,6 @@ in
       nodePackages.vscode-langservers-extracted
       nodePackages.yaml-language-server
 
-      # nodejs-16_x # copilot 14-17
       nodejs
 
       ## null-ls
@@ -304,7 +303,7 @@ in
       gv-vim
 
       {
-        # Must go before copilot, grammar-guard, null-ls and other lsp things
+        # Must go before grammar-guard, null-ls and other lsp things
         plugin = nvim-lspconfig;
         type = "lua";
         config = builtins.readFile ./neovim/lsp.lua;
@@ -323,12 +322,6 @@ in
         plugin = grammar-guard-nvim;
         type = "lua";
         config = builtins.readFile ./neovim/grammar-guard-nvim.lua;
-      }
-
-      {
-        plugin = copilot-vim;
-        type = "lua";
-        config = builtins.readFile ./neovim/copilot-vim.lua;
       }
 
       nvim-lsp-ts-utils
