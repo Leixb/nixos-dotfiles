@@ -369,9 +369,7 @@ in
         '';
       }
 
-      # TODO: reenable once it works with nix
       {
-        # plugin = neorg_master;
         plugin = neorg;
         type = "lua";
         config = builtins.readFile ./neovim/neorg.lua;
