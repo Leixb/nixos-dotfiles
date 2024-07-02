@@ -63,6 +63,10 @@ import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.Themes (xmonadTheme)
 import XMonad.Util.Ungrab
 import XMonad.Layout.CenterMainFluid (CenterMainFluid(CenterMainFluid))
+import XMonad.Layout.TwoPanePersistent (TwoPanePersistent(TwoPanePersistent))
+import XMonad.Layout.Tabbed (addTabs, simpleTabbed, tabbed)
+import XMonad.Layout.Master (mastered)
+import XMonad.Actions.GroupNavigation
 
 data Settings = Settings
     { term :: String
@@ -119,7 +123,7 @@ projects =
     ]
 
 myLayout =
-    avoidStruts
+        avoidStruts
         . mkToggle (MIRROR ?? NBFULL ?? NOBORDERS ?? EOT)
         . smartBorders
         . trackFloating
@@ -129,14 +133,18 @@ myLayout =
         . windowNavigation
         . boringWindows
         . minimize
-        $ tiled ||| spiral (6 / 7) ||| Grid False ||| threeCols ||| Accordion ||| Full
+        $ tiled ||| twoPane ||| twoPaneA ||| threeCols ||| spiral (6 / 7) ||| Grid False ||| threeColsMid ||| Accordion ||| Full
   where
     tiled = Tall nmaster delta ratio
     nmaster = 1 -- Default number of windows in the master pane
     ratio = 1 / 2 -- Default proportion of screen occupied by master pane
     delta = 3 / 100 -- Percent of screen to increment by when resizing panes
-    threeCols = magnifiercz' 1.3 $ CenterMainFluid nmaster delta ratio
+    threeColsMid = magnifiercz' 1.3 $ CenterMainFluid nmaster delta ratio
+    threeCols = ThreeCol nmaster delta ratio
+    twoPane = mastered delta ratio $ tabbed shrinkText myTabTheme
+    twoPaneA = mastered delta ratio Accordion
     spacer = spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
+    -- spacer = spacingRaw False (Border 10 10 10 10) True (Border 0 0 0 0) True
 
     myTabTheme =
         def
@@ -269,8 +277,8 @@ myKeys c =
             , ("M-S-w", addName "Kill window" $ kill)
             , ("M-C-S-w", addName "Remove Window from all workspaces" $ killAll)
             , ("C-M1-l", addName "Lock screen" $ spawn "i3lock-fancy-rapid 5 5")
-            , -- ("M-b", sendMessage ToggleStruts),
-              ("M-f", addName "Toggle fullscreen" $ sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts)
+            , ("M-S-m", addName "Focus previous" $ nextMatch History (return True))
+            , ("M-f", addName "Toggle fullscreen" $ sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts)
             , ("M-x", addName "Toggle mirror" $ sendMessage $ Toggle MIRROR)
             , ("M-<Return>", addName "Open terminal" $ spawn myTerm)
             , ("M-S-<Return>", addName "Promote to master" $ dwmpromote)
@@ -436,9 +444,7 @@ myConfig = do
             , focusedBorderColor = foreground . theme $ settings
             , normalBorderColor = background . theme $ settings
             , layoutHook = refocusLastLayoutHook myLayout
-            , logHook =
-                showWNameLogHook $
-                    def
+            , logHook = historyHook *> showWNameLogHook def
                         { swn_font = "xft:" ++ (font . theme $ settings) ++ ":size=21"
                         , swn_bgcolor = background . theme $ settings
                         , swn_color = foreground . theme $ settings
