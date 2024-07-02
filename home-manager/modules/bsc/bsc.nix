@@ -55,6 +55,7 @@ in
     openfortivpn
     distrobox
     hyperfine
+    jq
   ];
 
   xdg.configFile."distrobox/distrobox.conf" = lib.mkForce {
