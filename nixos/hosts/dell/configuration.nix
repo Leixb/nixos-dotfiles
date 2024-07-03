@@ -89,7 +89,7 @@
 
   services.xserver.displayManager.setupCommands = ''
     ${pkgs.xorg.xrandr}/bin/xrandr --auto
-    ${pkgs.autorandr}/bin/autorandr --change
+    ${pkgs.xorg.xrandr}/bin/xrandr --output DP-2-1 --primary --left-of eDP-1
   '';
 
   services.nixseparatedebuginfod.enable = true;
