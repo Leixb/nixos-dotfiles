@@ -56,6 +56,7 @@ in
     distrobox
     hyperfine
     jq
+    gdb
   ];
 
   xdg.configFile."distrobox/distrobox.conf" = lib.mkForce {
