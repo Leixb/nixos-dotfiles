@@ -33,7 +33,7 @@
 , libXrender
 , libXt
 , libnotify
-, gnome
+, adwaita-icon-theme
 , libGLU
 , libGL
 , nspr
@@ -66,7 +66,7 @@ stdenv.mkDerivation rec {
     gsettings-desktop-schemas
     glib
     gtk3
-    gnome.adwaita-icon-theme
+    adwaita-icon-theme
     dconf
     atk
     cairo

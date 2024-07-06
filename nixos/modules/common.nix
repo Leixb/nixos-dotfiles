@@ -64,8 +64,8 @@ in
 
   hardware.enableRedistributableFirmware = true;
 
-  hardware.opengl.driSupport32Bit = true;
-  hardware.opengl.enable = true;
+  hardware.graphics.enable = true;
+  hardware.graphics.enable32Bit = true;
   hardware.pulseaudio.support32Bit = false;
 
   nixpkgs.config.packageOverrides = pkgs: {
@@ -197,7 +197,7 @@ in
   environment.systemPackages = with pkgs; [ cntr vim wget openssl update_system ];
 
   system.activationScripts.diff = ''
-    [ -d /run/current-system ] && ${pkgs.nixUnstable}/bin/nix store \
+    [ -d /run/current-system ] && ${pkgs.nix}/bin/nix store \
         --experimental-features 'nix-command' \
         diff-closures /run/current-system "$systemConfig"
   '';

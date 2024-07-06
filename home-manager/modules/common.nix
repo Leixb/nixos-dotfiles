@@ -86,7 +86,7 @@ in
     gh # github cli
     gimp-with-plugins
     git-extras # git extensions
-    gnome.simple-scan # scanner
+    simple-scan # scanner
     kitty-imgdiff # image diff
     inkscape # vector graphics editor
     krita # image editor
