@@ -56,6 +56,13 @@
       fsType = "vfat";
     };
 
+  fileSystems."/media/harddrive" =
+    {
+      device = "/dev/disk/by-partuuid/e85d8fe4-0084-444d-9222-c92eb279172c";
+      fsType = "xfs";
+      options = [ "x-systemd.automount" "noauto" "x-systemd.idle-timeout=600" ];
+    };
+
   swapDevices = [ ];
 
   powerManagement.cpuFreqGovernor = "performance";
