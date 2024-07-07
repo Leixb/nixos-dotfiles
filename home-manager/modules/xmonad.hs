@@ -101,21 +101,25 @@ myLayout =
         avoidStruts
         . mkToggle (MIRROR ?? NBFULL ?? NOBORDERS ?? EOT)
         . smartBorders
-        . spacer
         . mouseResize
         . boringWindows
         . minimize
-        $ tiled ||| twoPane ||| twoPaneA ||| threeCols ||| spiral (6 / 7) ||| Grid False ||| threeColsMid ||| Full
+        $ tiled ||| twoPane ||| twoPaneA ||| threeCols ||| spir ||| grid ||| threeColsMid ||| Full
   where
-    tiled = Tall nmaster delta ratio
     nmaster = 1 -- Default number of windows in the master pane
     ratio = 1 / 2 -- Default proportion of screen occupied by master pane
     delta = 3 / 100 -- Percent of screen to increment by when resizing panes
-    threeColsMid = magnifiercz' 1.3 $ CenterMainFluid nmaster delta ratio
-    threeCols = ThreeCol nmaster delta ratio
-    twoPane = renamed [Replace "TwoPane Tab"] $ mastered delta ratio $ focusTracking $ tabbed shrinkText myTabTheme
-    twoPaneA = renamed [Replace "TwoPane Acc"] $ mastered delta ratio $ focusTracking Accordion
     spacer = spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
+    spacer' = spacingRaw False (Border 10 10 10 10) True (Border 0 0 0 0) True
+
+    grid = spacer $ Grid False
+    spir = spacer $ spiral (6 / 7)
+    tiled = spacer $ Tall nmaster delta ratio
+    threeColsMid = spacer $ magnifiercz' 1.3 $ CenterMainFluid nmaster delta ratio
+    threeCols = spacer $ ThreeCol nmaster delta ratio
+    twoPaneA = spacer $ renamed [Replace "TwoPane Acc"] $ mastered delta ratio $ focusTracking Accordion
+    twoPane = spacer' $ renamed [Replace "TwoPane Tab"] $ mastered delta ratio $ focusTracking $ tabbed shrinkText myTabTheme
+
 
     myTabTheme =
         def
