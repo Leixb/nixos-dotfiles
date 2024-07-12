@@ -66,23 +66,8 @@
       specialArgs = { inherit inputs; };
 
       extra-packages = final: prev: {
-        eduroam = prev.callPackage ./packages/eduroam/default.nix { };
-
-        jutge = prev.callPackage ./packages/jutge/default.nix { };
-
-        zotero7 = prev.callPackage ./packages/zotero/default.nix { };
-
         devenv = devenv.packages.${system}.devenv;
-
-        modrinth_server_modpack = prev.callPackage ./packages/modrinth_server_modpack/default.nix { };
-
-        kitty-imgdiff = prev.callPackage ./packages/kitty-imgdiff/default.nix { };
-
         firefox-addons = inputs.firefox-addons.packages.${system};
-
-        mpris-notifier = prev.callPackage ./packages/mpris-notifier/default.nix { };
-
-        nixVersions = prev.nixVersions // { unstable = prev.nixVersions.git; };
       };
 
       overlays = [
@@ -90,6 +75,9 @@
         inputs.neovim-nightly-overlay.overlays.default
         inputs.neorg-overlay.overlays.default
         inputs.bscpkgs.overlays.default
+        (import ./overlays/bsc.nix)
+        (import ./overlays/overlay.nix)
+        (import ./overlays/packages.nix)
       ];
 
       pin-flake-reg = with inputs; {
