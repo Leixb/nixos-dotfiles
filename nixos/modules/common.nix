@@ -194,7 +194,15 @@ in
 
   security.pam.services.leix.enableGnomeKeyring = true;
 
-  environment.systemPackages = with pkgs; [ cntr vim wget openssl update_system ];
+  environment.systemPackages = with pkgs; [
+    cntr
+    vim
+    wget
+    openssl
+    update_system
+    man-pages
+    man-pages-posix
+  ];
 
   system.activationScripts.diff = ''
     [ -d /run/current-system ] && ${pkgs.nix}/bin/nix store \
