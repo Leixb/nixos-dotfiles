@@ -3,6 +3,7 @@
   home.packages = with pkgs; [
     wxparaver-adwaita
     slack
+    rocketchat-desktop
     openfortivpn
     distrobox
     hyperfine
