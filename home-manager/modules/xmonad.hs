@@ -166,8 +166,9 @@ myLayoutPrinter x = let iconstr = icon x in fromMaybe x iconstr
         | "Mirror" `isPrefixOf` x = fmap ("mirror_" ++) . getIconName $ stripPrefix "Mirror " x
         | otherwise = Nothing
 
-endsWith :: Eq a => Query [a] -> [a] -> Query Bool
+endsWith, startsWith :: Eq a => Query [a] -> [a] -> Query Bool
 qa `endsWith` a = qa <&> isSuffixOf a
+qa `startsWith` a = qa <&> isPrefixOf a
 
 qNot :: Query Bool -> Query Bool
 qNot = fmap not
@@ -176,7 +177,8 @@ myHandleEventHook =
     composeAll
         [ handleEventHook def
         , windowedFullscreenFixEventHook
-        , swallowEventHook (className =? "kitty" <&&> qNot (title `endsWith` "NVIM")) (return True)
+        , swallowEventHook (className =? "kitty" <&&>
+            qNot ((title `endsWith` "NVIM") <||> (title `startsWith` "gdb")))  (return True)
         , refocusLastWhen refocusingIsActive
         , minimizeEventHook
         , trayerAboveXmobarEventHook
