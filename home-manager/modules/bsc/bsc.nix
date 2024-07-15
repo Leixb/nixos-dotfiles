@@ -10,6 +10,7 @@
     jq
     gdb
     bear # generate compile_commands.json from arbitrary Makefiles
+    ungoogled-chromium
   ];
 
   xdg.configFile."distrobox/distrobox.conf" = lib.mkForce {
