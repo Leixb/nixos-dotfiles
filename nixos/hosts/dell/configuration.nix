@@ -81,8 +81,6 @@
   services.thermald.enable = true;
   powerManagement.enable = true;
 
-  hardware.opengl.extraPackages = with pkgs; [ intel-ocl ];
-
   hardware.sensor.iio.enable = true;
 
   boot.kernel.sysctl."kernel.perf_event_paranoid" = 1;
