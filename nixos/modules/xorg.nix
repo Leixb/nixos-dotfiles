@@ -1,11 +1,11 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 let palette = import ../../home-manager/modules/theme/palette.nix;
 in {
 
   services.displayManager = {
     defaultSession = "xsession";
-    autoLogin.enable = false;
+    autoLogin.enable = lib.mkDefault false;
   };
 
   services.xserver = {
