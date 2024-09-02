@@ -8,6 +8,7 @@ import XMonad.Actions.Minimize
 import XMonad.Actions.MouseResize (mouseResize)
 import XMonad.Actions.WindowGo
 import XMonad.Actions.WithAll (killAll)
+import XMonad.Actions.WorkspaceNames
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.InsertPosition
@@ -283,6 +284,7 @@ myKeys c =
             , ("M-S-;", addName "UnMinimize" $ withLastMinimized maximizeWindowAndFocus)
             , ("M-'", addName "Mark Boring" $ markBoringEverywhere)
             , ("M-S-'", addName "Clear Boring" $ clearBoring)
+            , ("M-y", addName "Rename workspace" $ renameWorkspace def)
             ]
             ^++^ subKeys
                 "Volume"
@@ -332,7 +334,7 @@ myKeys c =
                 , ("M-C-,", addName "" $ onGroup W.focusDown')
                 ]
 
-myWorkspaces = ["web", "code"] ++ map show [3 .. 9]
+myWorkspaces = map show [1 .. 9]
 
 myLogHook = dynamicLogWithPP . filterOutWsPP [scratchpadWorkspaceTag] $ def
 
@@ -365,7 +367,7 @@ myXmobarPP = do
                 , ppOrder = \[ws, l, _, wins] -> [ws, l, wins]
                 , ppExtras = [logTitles formatFocused formatUnfocused]
                 }
-    copiesPP (pad . green) click
+    copiesPP (pad . green) click >>= workspaceNamesPP
   where
     -- \| Windows should have *some* title, which should not not exceed a
     -- sane length.
