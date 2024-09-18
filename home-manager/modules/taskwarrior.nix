@@ -1,21 +1,9 @@
 { config, lib, pkgs, ... }:
 
-let
-  taskwarrior = pkgs.symlinkJoin {
-    name = "taskwarrior-wrapped";
-    paths = [ pkgs.taskwarrior3 ];
-    nativeBuildInputs = [ pkgs.makeBinaryWrapper ];
-    postBuild = ''
-      wrapProgram $out/bin/task \
-        --prefix PATH : ${pkgs.python3}/bin
-    '';
-  };
-
-in
 {
   programs.taskwarrior = {
     enable = true;
-    package = taskwarrior;
+    package = pkgs.taskwarrior3;
     config = {
       report.next.filter = "status:pending -WAITING limit:10";
 
@@ -67,7 +55,6 @@ in
 
   home.packages = with pkgs; [
     timewarrior
-    python3.pkgs.bugwarrior
     vit
     tasksh
   ];

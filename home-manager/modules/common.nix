@@ -11,7 +11,15 @@ let
   };
 in
 {
-  imports = [ ../modules/all.nix ./sops.nix ./mime-apps.nix ./neovim.nix ./firefox.nix ./ssh.nix ./mpris.nix ];
+  imports = [
+    ../modules/all.nix
+    ./sops.nix
+    ./mime-apps.nix
+    ./neovim.nix
+    ./firefox.nix
+    ./ssh.nix
+    #./mpris.nix
+  ];
 
   # Let Home Manager install and manage itself.
   #programs.home-manager.enable = true;
@@ -95,7 +103,7 @@ in
     libreoffice # office suite
     miniserve # file server
     miniupnpc # upnp client
-    mpris-notifier # media change notification
+    # mpris-notifier # media change notification
     mpv # video player
     neofetch # system info
     notify # notification daemon
@@ -161,6 +169,8 @@ in
 
     network-manager-applet.enable = true;
     blueman-applet.enable = true;
+
+    kdeconnect.enable = true;
   };
 
   systemd.user.services.gammastep.Install.WantedBy = lib.mkForce [ ];

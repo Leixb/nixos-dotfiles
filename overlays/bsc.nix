@@ -6,6 +6,7 @@ in
 {
   paraverKernel = prev.paraverKernel.overrideAttrs (oldAttrs: {
     version = paraverVersion;
+    buildInputs = oldAttrs.buildInputs ++ [ final.zlib ];
     src = final.fetchFromGitHub {
       owner = "bsc-performance-tools";
       repo = "paraver-kernel";

@@ -32,7 +32,11 @@ in {
             keycode 66 = F13 F13 F13 F13
           '';
         in
-        "${pkgs.xorg.xmodmap}/bin/xmodmap ${xmodmap_config}";
+        ''
+          ${pkgs.xorg.xmodmap}/bin/xmodmap ${xmodmap_config}
+
+          ${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all
+        '';
 
       lightdm.greeters.mini = {
         enable = true;

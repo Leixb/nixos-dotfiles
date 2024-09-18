@@ -1,6 +1,7 @@
 { config, lib, pkgs, ... }:
 {
   home.packages = with pkgs; [
+    msmtp
     wxparaver-adwaita
     slack
     rocketchat-desktop

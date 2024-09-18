@@ -69,7 +69,7 @@ in
       nodePackages.dockerfile-language-server-nodejs
       nodePackages.typescript
       nodePackages.typescript-language-server
-      nodePackages.vscode-langservers-extracted
+      # nodePackages.vscode-langservers-extracted
       nodePackages.yaml-language-server
 
       nodejs

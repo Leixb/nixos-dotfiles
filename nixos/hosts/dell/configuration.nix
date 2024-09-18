@@ -16,6 +16,8 @@
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  services.grafana.settings.log.level = "warn";
+
   networking.hostName = "dell"; # Define your hostname.
 
   # Enable networking
@@ -71,9 +73,9 @@
 
   xdg.portal = {
     enable = true;
-    extraPortals = with pkgs; [ xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr ];
+    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
     config = {
-      common.default = [ "gtk" "wlr" ];
+      common.default = [ "gtk" ];
     };
   };
   services.gnome.at-spi2-core.enable = true; # Fix warning on xdg-portal start

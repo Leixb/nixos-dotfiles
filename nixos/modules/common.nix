@@ -140,8 +140,6 @@ in
   hardware.bluetooth.enable = true;
   services.blueman.enable = true;
 
-  systemd.enableUnifiedCgroupHierarchy = true;
-
   systemd.targets = {
     sleep.enable = true;
     suspend.enable = true;
@@ -153,7 +151,6 @@ in
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.brlaser ];
 
-  sound.enable = true;
   hardware.pulseaudio.enable = lib.mkForce false;
   security.rtkit.enable = true;
   services.pipewire = {
