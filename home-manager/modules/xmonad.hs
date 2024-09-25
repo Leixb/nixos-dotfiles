@@ -109,6 +109,7 @@ myLayout =
   where
     nmaster = 1 -- Default number of windows in the master pane
     ratio = 1 / 2 -- Default proportion of screen occupied by master pane
+    ratioTwoPane = 6 / 25 -- Proportion of screen occupied by master pane for Two Pane (for paraver)
     delta = 3 / 100 -- Percent of screen to increment by when resizing panes
     spacer = spacingRaw False (Border 10 0 10 0) True (Border 0 10 0 10) True
     spacer' = spacingRaw False (Border 10 10 10 10) True (Border 0 0 0 0) True
@@ -118,8 +119,8 @@ myLayout =
     tiled = spacer $ Tall nmaster delta ratio
     threeColsMid = spacer $ magnifiercz' 1.3 $ CenterMainFluid nmaster delta ratio
     threeCols = spacer $ ThreeCol nmaster delta ratio
-    twoPaneA = spacer $ renamed [Replace "TwoPane Acc"] $ mastered delta ratio $ focusTracking Accordion
-    twoPane = spacer' $ renamed [Replace "TwoPane Tab"] $ mastered delta ratio $ focusTracking $ tabbed shrinkText myTabTheme
+    twoPaneA = spacer $ renamed [Replace "TwoPane Acc"] $ mastered delta ratioTwoPane $ focusTracking Accordion
+    twoPane = spacer' $ renamed [Replace "TwoPane Tab"] $ mastered delta ratioTwoPane $ focusTracking $ tabbed shrinkText myTabTheme
 
 
     myTabTheme =
@@ -232,8 +233,9 @@ myManageHook =
 myStartupHook =
     mconcat
         [ restoreBackground
-        , spawnHereNamedScratchpadAction scratchpads "taskwarrior"
+        -- , spawnHereNamedScratchpadAction scratchpads "taskwarrior"
         , spawnOnce "thunderbird"
+        , spawnOnce "kdeconnect-indicator"
         , spawnOnce "slack -u"
         ]
   where
