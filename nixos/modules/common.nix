@@ -150,6 +150,7 @@ in
   # Enable CUPS to print documents.
   services.printing.enable = true;
   services.printing.drivers = [ pkgs.brlaser ];
+  services.printing.browsed.enable = lib.mkForce false;
 
   hardware.pulseaudio.enable = lib.mkForce false;
   security.rtkit.enable = true;
