@@ -23,11 +23,11 @@ vim.keymap.set("n", "<leader><leader>", require("telescope.builtin").buffers, { 
 vim.keymap.set("n", "<Bs>", require("telescope.builtin").live_grep, { desc = "Telescope live_grep" })
 vim.keymap.set("n", "<leader>sg", require("telescope.builtin").live_grep, { desc = "[S]earch by [G]rep" })
 
-vim.keymap.set("n", "<CR>", function()
+vim.keymap.set("n", "<C-CR>", function()
     if vim.bo.buftype == "" then
         require("telescope.builtin").builtin()
     else
-        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, true, true), "n")
+        vim.fn.feedkeys(vim.api.nvim_replace_termcodes("<C-CR>", true, true, true), "n")
     end
 end, { desc = "Telescope" })
 
