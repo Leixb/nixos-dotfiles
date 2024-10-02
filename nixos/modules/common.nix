@@ -257,6 +257,7 @@ in
       noto-fonts
       noto-fonts-cjk
       noto-fonts-emoji
+      montserrat
       (nerdfonts.override {
         fonts = [ "FiraCode" "DroidSansMono" "JetBrainsMono" ];
       })
