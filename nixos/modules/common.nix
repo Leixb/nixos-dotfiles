@@ -211,7 +211,7 @@ in
   services.systembus-notify.enable = true;
 
   services.udev.packages = with pkgs; [
-    gnome.gnome-settings-daemon
+    gnome-settings-daemon
     logitech-udev-rules
     headsetcontrol
   ];
