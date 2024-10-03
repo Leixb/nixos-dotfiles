@@ -121,7 +121,7 @@ local lsp_list = {
     -- 'rls',
     "svelte",
     "texlab",
-    "tsserver",
+    "ts_ls",
     -- "vimls",
 }
 
