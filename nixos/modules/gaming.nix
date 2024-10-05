@@ -7,6 +7,8 @@
     extraLibraries = (pkgs: [ pkgs.openssl ]);
   };
 
+  environment.systemPackages = [ pkgs.mangohud ];
+
   programs.gamemode = {
     enable = true;
     settings = {
