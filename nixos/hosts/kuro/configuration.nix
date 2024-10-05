@@ -61,6 +61,8 @@ in
 
   services.ddccontrol.enable = true;
 
+  hardware.xpadneo.enable = true;
+
   services.xserver.displayManager.setupCommands = ''
     ${pkgs.xorg.xrandr}/bin/xrandr --auto
     ${pkgs.xorg.xrandr}/bin/xrandr \

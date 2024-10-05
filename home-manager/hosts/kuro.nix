@@ -34,6 +34,8 @@ in
     obs-studio
     kdenlive
     ungoogled-chromium
+
+    wxparaver-adwaita
   ];
 
   home.stateVersion = "21.11";
