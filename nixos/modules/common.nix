@@ -157,7 +157,7 @@ in
   services.pipewire = {
     enable = true;
     alsa.enable = true;
-    alsa.support32Bit = false;
+    alsa.support32Bit = lib.mkDefault false;
 
     pulse.enable = true;
 
