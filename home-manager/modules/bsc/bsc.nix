@@ -7,13 +7,11 @@ let
     HOURS="''${1:-9}"
     QUEUE=gp_"''${2:-bsccs}"
 
-
-    old="$(tail -n1 ~/.ssh/known_hosts | cut -d' ' -f1)"
     queue="$(ssh mn5 squeue | tail -n1 | awk '{ print $8 }')"
 
-    if [ "$old" == "$queue" ]; then
-        echo "Reusing allocation $old" >&2
-        node="$old"
+    if [[ "$queue" =~ ^gs[0-9]{2}r[0-3]b[0-9]{2}$ ]]; then
+        echo "Reusing allocation $queue" >&2
+        node="$queue"
     else
         echo "Requesting $HOURS hours allocation @ $QUEUE" >&2
 
