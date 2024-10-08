@@ -56,6 +56,10 @@
     url = "https://webapps.bsc.es/places/area/40";
   }
   {
+    name = "HPC Portal";
+    url = "https://hpcportal.bsc.es/";
+  }
+  {
     name = "Users";
     url = "https://webapps.bsc.es/users/";
   }
