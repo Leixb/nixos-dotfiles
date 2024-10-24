@@ -25,18 +25,9 @@ in {
         start = "exec $HOME/.xsession";
       }];
 
-      sessionCommands =
-        let
-          xmodmap_config = pkgs.writeText "xkb-layout" ''
-            clear lock
-            keycode 66 = F13 F13 F13 F13
-          '';
-        in
-        ''
-          ${pkgs.xorg.xmodmap}/bin/xmodmap ${xmodmap_config}
-
-          ${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all
-        '';
+      sessionCommands = ''
+        ${lib.getBin pkgs.dbus}/bin/dbus-update-activation-environment --systemd --all
+      '';
 
       lightdm.greeters.mini = {
         enable = true;
@@ -65,7 +56,8 @@ in {
     # Configure keymap in X11
     xkb.layout = "eu";
     # xkb.variant = "altgr-intl";
-    xkb.options = "lv3:caps_switch,shift:both_capslock";
+    # xkb.options = "lv3:caps_switch,shift:both_capslock";
+    xkb.options = "shift:both_capslock,caps:escape,grp:win_space_toggle";
 
   };
   # Enable touchpad support (enabled default in most desktopManager).
