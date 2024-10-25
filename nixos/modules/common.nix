@@ -255,7 +255,7 @@ in
       libre-caslon
       libre-franklin
       noto-fonts
-      noto-fonts-cjk
+      noto-fonts-cjk-sans
       noto-fonts-emoji
       montserrat
       (nerdfonts.override {
