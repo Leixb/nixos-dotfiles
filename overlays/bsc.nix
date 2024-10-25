@@ -43,5 +43,7 @@ in
     meta.mainProgram = "wxparaver";
   });
 
+  wxGTK30 = final.wxGTK31;
+
   wxparaver-adwaita = final.wrapGTKTheme "Adwaita:dark" final.paraver;
 }
