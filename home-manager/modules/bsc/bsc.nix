@@ -76,6 +76,10 @@ in
     ];
   };
 
+  programs.fish.shellAliases = {
+    p = "ssh hut p";
+  };
+
   programs.firefox.profiles.${config.home.username}.bookmarks = [
     {
       toolbar = true;
