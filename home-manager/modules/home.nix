@@ -5,7 +5,7 @@
   home.packages = with pkgs; [
     home-assistant-cli
     jutge # jutge.org client
-    armcord # discord client
+    legcord # discord client
     calibre # ebook manager
     gamescope # game window capture
     josm # OpenStreetMap Java editor
