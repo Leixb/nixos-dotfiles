@@ -120,6 +120,7 @@ in
     vlc # video player
     waypipe # wayland remote desktop
     zip # zip file creation
+    tg # telegram terminal
   ];
 
   xdg.configFile."WebCord/Themes/catppuccin.theme.css".text = ''
