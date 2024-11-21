@@ -51,27 +51,30 @@
 
     (i3lock-fancy-rapid.override {
       i3lock = pkgs.writeShellScriptBin "i3lock" ''
+        systemctl --user stop picom
         . ${config.sops.secrets.hass_env.path}
 
-        ${pkgs.curl}/bin/curl -X POST \
+        ${pkgs.curl}/bin/curl --connect-timeout 5 -X POST \
             -H "Authorization: Bearer $HASS_TOKEN" \
             -H "Content-Type: application/json" \
             -d '{"hostname" : "${osConfig.networking.hostName}"}' \
             $HASS_SERVER/api/events/nixos.lock &
+        CURL_PID=$!
 
         ${pkgs.dunst}/bin/dunstctl set-paused true
 
         ${pkgs.i3lock-color}/bin/i3lock-color --nofork "$@"
 
-        wait
-
-        ${pkgs.curl}/bin/curl -X POST \
-            -H "Authorization: Bearer $HASS_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d '{"hostname" : "${osConfig.networking.hostName}"}' \
-            $HASS_SERVER/api/events/nixos.unlock &
-
+        systemctl --user start picom
         ${pkgs.dunst}/bin/dunstctl set-paused false
+
+        if ! kill $CURL_PID ; then
+          ${pkgs.curl}/bin/curl --connect-timeout 5 -X POST \
+              -H "Authorization: Bearer $HASS_TOKEN" \
+              -H "Content-Type: application/json" \
+              -d '{"hostname" : "${osConfig.networking.hostName}"}' \
+              $HASS_SERVER/api/events/nixos.unlock &
+        fi
       '';
     })
     xsel
