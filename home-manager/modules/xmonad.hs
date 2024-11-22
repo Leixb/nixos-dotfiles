@@ -4,12 +4,12 @@ import System.Exit (exitSuccess)
 import XMonad
 import XMonad.Actions.CopyWindow
 import XMonad.Actions.DwmPromote (dwmpromote)
+import XMonad.Actions.GroupNavigation
 import XMonad.Actions.Minimize
 import XMonad.Actions.MouseResize (mouseResize)
 import XMonad.Actions.WindowGo
 import XMonad.Actions.WithAll (killAll)
 import XMonad.Actions.WorkspaceNames
-import XMonad.Layout.PerWorkspace
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.InsertPosition
@@ -22,21 +22,29 @@ import XMonad.Hooks.ShowWName
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.UrgencyHook
+import XMonad.Hooks.WindowSwallowing (swallowEventHook)
 import XMonad.Layout.Accordion
-import XMonad.Layout.BoringWindows ( boringWindows, clearBoring, focusDown, focusUp, markBoringEverywhere )
+import XMonad.Layout.BoringWindows (boringWindows, clearBoring, focusDown, focusUp, markBoringEverywhere)
+import XMonad.Layout.CenterMainFluid (CenterMainFluid (CenterMainFluid))
 import XMonad.Layout.CenteredMaster (centerMaster)
 import XMonad.Layout.Decoration
+import XMonad.Layout.FocusTracking (focusTracking)
 import XMonad.Layout.Groups.Examples (TiledTabsConfig (tabsTheme))
 import XMonad.Layout.HintedGrid
 import XMonad.Layout.Magnifier (magnifiercz')
+import XMonad.Layout.Master (mastered)
 import XMonad.Layout.Minimize
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.NoBorders
+import XMonad.Layout.PerWorkspace
+import XMonad.Layout.Renamed
 import XMonad.Layout.Spacing
 import XMonad.Layout.Spiral (spiral)
 import XMonad.Layout.SubLayouts
+import XMonad.Layout.Tabbed (addTabs, simpleTabbed, tabbed)
 import XMonad.Layout.ThreeColumns
+import XMonad.Layout.TwoPanePersistent (TwoPanePersistent (TwoPanePersistent))
 import XMonad.Layout.WorkspaceDir
 import XMonad.Prelude
 import XMonad.Prompt (amberXPConfig)
@@ -51,14 +59,6 @@ import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run (runProcessWithInput)
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.Themes (xmonadTheme)
-import XMonad.Layout.CenterMainFluid (CenterMainFluid(CenterMainFluid))
-import XMonad.Layout.TwoPanePersistent (TwoPanePersistent(TwoPanePersistent))
-import XMonad.Layout.Tabbed (addTabs, simpleTabbed, tabbed)
-import XMonad.Layout.Master (mastered)
-import XMonad.Actions.GroupNavigation
-import XMonad.Layout.FocusTracking (focusTracking)
-import XMonad.Hooks.WindowSwallowing (swallowEventHook)
-import XMonad.Layout.Renamed
 
 data Settings = Settings
     { term :: String
@@ -101,7 +101,7 @@ getSettings = do
     return $ Settings{term = term, theme = theme}
 
 myLayout =
-        avoidStruts
+    avoidStruts
         . mkToggle (MIRROR ?? NBFULL ?? NOBORDERS ?? EOT)
         . smartBorders
         . mouseResize
@@ -124,7 +124,6 @@ myLayout =
     threeCols = spacer $ ThreeCol nmaster delta ratio
     twoPaneA = spacer $ renamed [Replace "TwoPane Acc"] $ mastered delta ratioTwoPane $ focusTracking Accordion
     twoPane = spacer' $ renamed [Replace "TwoPane Tab"] $ mastered delta ratioTwoPane $ focusTracking $ tabbed shrinkText myTabTheme
-
 
     myTabTheme =
         def
@@ -171,7 +170,7 @@ myLayoutPrinter x = let iconstr = icon x in fromMaybe x iconstr
         | "Mirror" `isPrefixOf` x = fmap ("mirror_" ++) . getIconName $ stripPrefix "Mirror " x
         | otherwise = Nothing
 
-endsWith, startsWith :: Eq a => Query [a] -> [a] -> Query Bool
+endsWith, startsWith :: (Eq a) => Query [a] -> [a] -> Query Bool
 qa `endsWith` a = qa <&> isSuffixOf a
 qa `startsWith` a = qa <&> isPrefixOf a
 
@@ -182,8 +181,12 @@ myHandleEventHook =
     composeAll
         [ handleEventHook def
         , windowedFullscreenFixEventHook
-        , swallowEventHook (className =? "kitty" <&&>
-            qNot ((title `endsWith` "NVIM") <||> (title `startsWith` "gdb")))  (return True)
+        , swallowEventHook
+            ( className
+                =? "kitty"
+                <&&> qNot ((title `endsWith` "NVIM") <||> (title `startsWith` "gdb"))
+            )
+            (return True)
         , refocusLastWhen refocusingIsActive
         , minimizeEventHook
         , trayerAboveXmobarEventHook
@@ -198,7 +201,6 @@ scratchpads =
     , NS "qalc" "qalculate-gtk" (className =? "Qalculate-gtk") doCenterFloatFixed
     ]
 
-
 myManageHook =
     composeAll
         [ composeOne
@@ -212,10 +214,10 @@ myManageHook =
             , className =? "splash" -?> doCenterFloatUp
             , className =? "toolbar" -?> doCenterFloatUp
             , (className =? "leagueclientux.exe") -?> (doCenterFloat <+> doShift (myWorkspaces !! 1))
-            -- , className =? "Wxparaver" -?> title >>= \case
-            --     "Paraver" -> doF id -- We tile the main window, but float the rest (mainly popups and plots)
-            --     _ -> doFloat
-            , (className =? "thunderbird" <&&> title /=? "Calendar") -?> doShift (myWorkspaces !! 6)
+            , -- , className =? "Wxparaver" -?> title >>= \case
+              --     "Paraver" -> doF id -- We tile the main window, but float the rest (mainly popups and plots)
+              --     _ -> doFloat
+              (className =? "thunderbird" <&&> title /=? "Calendar") -?> doShift (myWorkspaces !! 6)
             , className =? "Slack" -?> doShift (myWorkspaces !! 5)
             , (appName =? "Alert" <&&> className =? "Zotero") -?> doIgnore
             , (className =? "riotclientux.exe") -?> (doCenterFloat <+> doShift (myWorkspaces !! 1))
@@ -236,8 +238,8 @@ myManageHook =
 myStartupHook =
     mconcat
         [ restoreBackground
-        -- , spawnHereNamedScratchpadAction scratchpads "taskwarrior"
-        , spawnOnce "thunderbird"
+        , -- , spawnHereNamedScratchpadAction scratchpads "taskwarrior"
+          spawnOnce "thunderbird"
         , spawnOnce "kdeconnect-indicator"
         , spawnOnce "slack -u"
         ]
@@ -417,11 +419,15 @@ myConfig = do
             , focusedBorderColor = foreground . theme $ settings
             , normalBorderColor = background . theme $ settings
             , layoutHook = myLayout
-            , logHook = historyHook *> refocusLastLogHook *> showWNameLogHook def
-                        { swn_font = "xft:" ++ (font . theme $ settings) ++ ":size=21"
-                        , swn_bgcolor = background . theme $ settings
-                        , swn_color = foreground . theme $ settings
-                        }
+            , logHook =
+                historyHook
+                    *> refocusLastLogHook
+                    *> showWNameLogHook
+                        def
+                            { swn_font = "xft:" ++ (font . theme $ settings) ++ ":size=21"
+                            , swn_bgcolor = background . theme $ settings
+                            , swn_color = foreground . theme $ settings
+                            }
             , handleEventHook = myHandleEventHook
             , manageHook = myManageHook
             , startupHook = do
