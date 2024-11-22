@@ -9,6 +9,7 @@ import XMonad.Actions.MouseResize (mouseResize)
 import XMonad.Actions.WindowGo
 import XMonad.Actions.WithAll (killAll)
 import XMonad.Actions.WorkspaceNames
+import XMonad.Layout.PerWorkspace
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.InsertPosition
@@ -30,12 +31,13 @@ import XMonad.Layout.HintedGrid
 import XMonad.Layout.Magnifier (magnifiercz')
 import XMonad.Layout.Minimize
 import XMonad.Layout.MultiToggle
-import XMonad.Layout.MultiToggle.Instances 
+import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.NoBorders
 import XMonad.Layout.Spacing
 import XMonad.Layout.Spiral (spiral)
 import XMonad.Layout.SubLayouts
 import XMonad.Layout.ThreeColumns
+import XMonad.Layout.WorkspaceDir
 import XMonad.Prelude
 import XMonad.Prompt (amberXPConfig)
 import XMonad.StackSet (RationalRect (RationalRect))
@@ -105,6 +107,7 @@ myLayout =
         . mouseResize
         . boringWindows
         . minimize
+        . modWorkspaces myWorkspaces (workspaceDir "~")
         $ tiled ||| twoPane ||| twoPaneA ||| threeCols ||| spir ||| grid ||| threeColsMid ||| Full
   where
     nmaster = 1 -- Default number of windows in the master pane
@@ -287,6 +290,7 @@ myKeys c =
             , ("M-'", addName "Mark Boring" $ markBoringEverywhere)
             , ("M-S-'", addName "Clear Boring" $ clearBoring)
             , ("M-y", addName "Rename workspace" $ renameWorkspace def)
+            , ("M-S-y", addName "Change workspace dir" $ changeDir def)
             ]
             ^++^ subKeys
                 "Volume"
