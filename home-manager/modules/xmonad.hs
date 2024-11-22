@@ -47,7 +47,7 @@ import XMonad.Layout.ThreeColumns
 import XMonad.Layout.TwoPanePersistent (TwoPanePersistent (TwoPanePersistent))
 import XMonad.Layout.WorkspaceDir
 import XMonad.Prelude
-import XMonad.Prompt (amberXPConfig)
+import XMonad.Prompt (amberXPConfig, complCaseSensitivity, ComplCaseSensitivity (CaseInSensitive))
 import XMonad.StackSet (RationalRect (RationalRect))
 import XMonad.StackSet qualified as W
 import XMonad.Util.ClickableWorkspaces (clickablePP)
@@ -292,7 +292,7 @@ myKeys c =
             , ("M-'", addName "Mark Boring" $ markBoringEverywhere)
             , ("M-S-'", addName "Clear Boring" $ clearBoring)
             , ("M-y", addName "Rename workspace" $ renameWorkspace def)
-            , ("M-S-y", addName "Change workspace dir" $ changeDir def)
+            , ("M-S-y", addName "Change workspace dir" $ changeDir def {complCaseSensitivity = CaseInSensitive})
             ]
             ^++^ subKeys
                 "Volume"
