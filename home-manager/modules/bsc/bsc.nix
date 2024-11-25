@@ -47,6 +47,7 @@ in
     bear # generate compile_commands.json from arbitrary Makefiles
     ungoogled-chromium
     radare2
+    cling
   ];
 
   xdg.configFile."distrobox/distrobox.conf" = lib.mkForce {
