@@ -14,5 +14,6 @@
     nx-libs
     nix-output-monitor # nom
     steam-run
+    git-fire
   ];
 }
