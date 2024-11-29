@@ -23,6 +23,11 @@ let
     "text/*" = "nvim.desktop";
     "inode/directory" = "pcmanfm.desktop";
 
+    "message/rfc822" = "thunderbird.desktop";
+    "x-scheme-handler/mailto" = "thunderbird.desktop";
+    "text/calendar" = "thunderbird.desktop";
+    "text/x-vcard" = "thunderbird.desktop";
+
     "x-scheme-handler/tg" = "userapp-Telegram Desktop-S07QK1.desktop";
   };
 in
