@@ -258,9 +258,9 @@ in
       noto-fonts-cjk-sans
       noto-fonts-emoji
       montserrat
-      (nerdfonts.override {
-        fonts = [ "FiraCode" "DroidSansMono" "JetBrainsMono" ];
-      })
+      nerd-fonts.fira-code
+      nerd-fonts.droid-sans-mono
+      nerd-fonts.jetbrains-mono
     ];
     fontconfig = {
       defaultFonts = {

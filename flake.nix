@@ -73,7 +73,7 @@
       overlays = [
         extra-packages
         inputs.neovim-nightly-overlay.overlays.default
-        # inputs.neorg-overlay.overlays.default
+        inputs.neorg-overlay.overlays.default
         inputs.bscpkgs.overlays.default
         (import ./overlays/bsc.nix)
         (import ./overlays/overlay.nix)
