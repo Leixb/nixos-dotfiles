@@ -5,7 +5,7 @@
   }
   {
     name = "GitLab (PM)";
-    url = "https://pm.bsc.es/gitlab";
+    url = "https://gitlab.pm.bsc.es";
   }
   {
     name = "GitHub (PM)";
