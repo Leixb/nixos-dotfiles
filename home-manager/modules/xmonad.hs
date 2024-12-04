@@ -161,6 +161,8 @@ myLayoutPrinter x = let iconstr = icon x in fromMaybe x iconstr
     getIconName "Accordion" = Just "accordion"
     getIconName "Grid False" = Just "grid"
     getIconName "Grid" = Just "grid"
+    getIconName "TwoPane Tab" = Just "mastertab"
+    getIconName "TwoPane Acc" = Just "masteracc"
     getIconName x
         | "Spacing" `isPrefixOf` x = getIconName $ stripPrefix "Spacing " x
         | "Magnifier" `isPrefixOf` x = getIconName $ stripPrefix "Magnifier " x
