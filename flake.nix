@@ -54,7 +54,7 @@
 
     neorg-overlay.url = "github:nvim-neorg/nixpkgs-neorg-overlay";
 
-    bscpkgs.url = "git+https://pm.bsc.es/gitlab/rarias/bscpkgs";
+    bscpkgs.url = "gitlab:rarias/bscpkgs?host=gitlab.pm.bsc.es";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
   };

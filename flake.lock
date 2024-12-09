@@ -30,17 +30,19 @@
         "nixpkgs": "nixpkgs"
       },
       "locked": {
+        "host": "gitlab.pm.bsc.es",
         "lastModified": 1732720255,
         "narHash": "sha256-ihnI4ah/zl49szTa9ZsFml0s3aaEkzrrzGYT4/NW3aw=",
-        "ref": "refs/heads/master",
+        "owner": "rarias",
+        "repo": "bscpkgs",
         "rev": "5f85082553e24b4210d5ebb9e3ba3b6fb3f628a3",
-        "revCount": 948,
-        "type": "git",
-        "url": "https://pm.bsc.es/gitlab/rarias/bscpkgs"
+        "type": "gitlab"
       },
       "original": {
-        "type": "git",
-        "url": "https://pm.bsc.es/gitlab/rarias/bscpkgs"
+        "host": "gitlab.pm.bsc.es",
+        "owner": "rarias",
+        "repo": "bscpkgs",
+        "type": "gitlab"
       }
     },
     "cachix": {
