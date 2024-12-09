@@ -136,7 +136,7 @@ in
     '';
   };
   programs.sagemath = {
-    enable = true;
+    # enable = true;
     package = pkgs.sageWithDoc;
     initScript = ''
       %colors Linux
