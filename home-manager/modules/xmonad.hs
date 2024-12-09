@@ -225,6 +225,7 @@ myManageHook =
             , (className =? "riotclientux.exe") -?> (doCenterFloat <+> doShift (myWorkspaces !! 1))
             , (className =? "Qalculate-gtk") -?> doCenterFloatUp
             , (className =? "Pavucontrol") -?> doCenterFloatUp
+            , (stringProperty "WM_NAME" =? "Picture-in-Picture") -?> doFloat
             , isDialog -?> doCenterFloatUp
             , isFullscreen -?> doFullFloat
             , return True -?> insertPosition Below Newer
