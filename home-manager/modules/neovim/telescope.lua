@@ -9,6 +9,9 @@ require("telescope").setup({
                 ["<c-j>"] = actions.move_selection_next,
             },
         },
+        extensions = {
+            fzf = {},
+        },
     },
 })
 require("telescope").load_extension("notify")
