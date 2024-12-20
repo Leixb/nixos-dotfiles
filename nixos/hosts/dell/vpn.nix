@@ -12,7 +12,7 @@
 
     after = [ "network-online.target" ];
     wants = [ "network-online.target" "systemd-networkd-wait-online.service" ];
-    wantedBy = [ "multi-user.target" ];
+    wantedBy = lib.mkForce [ ];
 
     serviceConfig = {
       Type = "notify";
