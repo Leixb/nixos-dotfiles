@@ -107,7 +107,7 @@ myLayout =
         . mouseResize
         . boringWindows
         . minimize
-        . modWorkspaces myWorkspaces (workspaceDir "~")
+        . modWorkspaces myWorkspaces (workspaceDir ".")
         $ tiled ||| twoPane ||| twoPaneA ||| threeCols ||| spir ||| grid ||| threeColsMid ||| Full
   where
     nmaster = 1 -- Default number of windows in the master pane
