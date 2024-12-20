@@ -110,6 +110,9 @@ vim.keymap.set("t", "<ESC>", "<C-\\><C-n>", { desc = "Terminal ESC" })
 
 vim.keymap.set({ "n", "v" }, "<leader>y", '"+y', { desc = "Copy to system clipboard" })
 
+vim.keymap.set({ "n", "i" }, "<A-k>", vim.cmd.cprev, { desc = "Go to prev entry in quickfix list" })
+vim.keymap.set({ "n", "i" }, "<A-j>", vim.cmd.cnext, { desc = "Go to next entry in quickfix list" })
+
 --------------------------------------------------------------------------------
 -- NETRW
 --------------------------------------------------------------------------------
