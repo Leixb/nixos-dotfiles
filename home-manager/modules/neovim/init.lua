@@ -190,3 +190,9 @@ vim.api.nvim_create_user_command(
 vim.api.nvim_create_user_command("T", "split | terminal <args>", { nargs = "*" })
 
 vim.api.nvim_create_user_command("VT", "vsplit | terminal <args>", { nargs = "*" })
+
+vim.filetype.add({
+    extension = {
+        cl = "c", -- OpenCL kernels
+    },
+})
