@@ -364,8 +364,8 @@ myXmobarPP = do
     let formatFocused = wrap (foreground "[") (foreground "]") . magenta . ppWindow
     let formatUnfocused = wrap (lowWhite "[") (lowWhite "]") . blue . ppWindow
 
-    click <-
-        clickablePP . filterOutWsPP [scratchpadWorkspaceTag] $
+    (copiesPP (pad . green) >=> workspaceNamesPP >=> clickablePP) $
+        filterOutWsPP [scratchpadWorkspaceTag] $
             def
                 { ppSep = magenta " | "
                 , ppTitleSanitize = xmobarStrip
@@ -378,7 +378,6 @@ myXmobarPP = do
                 , ppOrder = \[ws, l, _, wins] -> [ws, l, wins]
                 , ppExtras = [logTitles formatFocused formatUnfocused]
                 }
-    copiesPP (pad . green) click >>= workspaceNamesPP
   where
     -- \| Windows should have *some* title, which should not not exceed a
     -- sane length.
