@@ -152,7 +152,7 @@ in
   services.printing.drivers = [ pkgs.brlaser ];
   services.printing.browsed.enable = lib.mkForce false;
 
-  hardware.pulseaudio.enable = lib.mkForce false;
+  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
