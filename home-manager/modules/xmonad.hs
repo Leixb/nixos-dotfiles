@@ -199,7 +199,6 @@ doCenterFloatFixed = doRectFloat (RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2)) 
 
 scratchpads =
     [ NS "scratchpad" (myTerm ++ " --name scratchpad --class scratchpad") (className =? "scratchpad") doCenterFloatFixed
-    , NS "taskwarrior" (myTerm ++ " --name taskwarrior --class taskwarrior vit") (className =? "taskwarrior") doCenterFloatFixed
     , NS "qalc" "qalculate-gtk" (className =? "Qalculate-gtk") doCenterFloatFixed
     ]
 
@@ -215,14 +214,9 @@ myManageHook =
             , className =? "pinentry-gtk-2" -?> doCenterFloatUp
             , className =? "splash" -?> doCenterFloatUp
             , className =? "toolbar" -?> doCenterFloatUp
-            , (className =? "leagueclientux.exe") -?> (doCenterFloat <+> doShift (myWorkspaces !! 1))
-            , -- , className =? "Wxparaver" -?> title >>= \case
-              --     "Paraver" -> doF id -- We tile the main window, but float the rest (mainly popups and plots)
-              --     _ -> doFloat
-              (className =? "thunderbird" <&&> title /=? "Calendar") -?> doShift (myWorkspaces !! 6)
+            , (className =? "thunderbird" <&&> title /=? "Calendar") -?> doShift (myWorkspaces !! 6)
             , className =? "Slack" -?> doShift (myWorkspaces !! 5)
             , (appName =? "Alert" <&&> className =? "Zotero") -?> doIgnore
-            , (className =? "riotclientux.exe") -?> (doCenterFloat <+> doShift (myWorkspaces !! 1))
             , (className =? "Qalculate-gtk") -?> doCenterFloatUp
             , (className =? "Pavucontrol") -?> doCenterFloatUp
             , (stringProperty "WM_NAME" =? "Picture-in-Picture") -?> doFloat
@@ -232,7 +226,6 @@ myManageHook =
             ]
         , title =? "Calendar" --> (doFocus *> doCenterFloatUp)
         , title =? "Mozilla Firefox" --> doShift (myWorkspaces !! 0)
-        , (className =? "ArmCord") --> doShift (myWorkspaces !! 2)
         , namedScratchpadManageHook scratchpads
         ]
   where
@@ -241,9 +234,7 @@ myManageHook =
 myStartupHook =
     mconcat
         [ restoreBackground
-        , -- , spawnHereNamedScratchpadAction scratchpads "taskwarrior"
-          spawnOnce "thunderbird"
-        , spawnOnce "kdeconnect-indicator"
+        , spawnOnce "thunderbird"
         , spawnOnce "slack -u"
         ]
   where
@@ -283,7 +274,6 @@ myKeys c =
             , ("M-s", addName "Sticky" $ windows copyToAll)
             , ("M-S-s", addName "Unsticky" $ killAllOtherCopies)
             , ("M-z", addName "Toggle Scratchpad" $ namedScratchpadAction scratchpads "scratchpad")
-            , ("M-S-z", addName "Toggle vit" $ namedScratchpadAction scratchpads "taskwarrior")
             , ("M-c", addName "Toggle qalc" $ namedScratchpadAction scratchpads "qalc")
             , ("M-n", addName "Nvim" $ runOrRaiseNext (myTerm ++ " nvim") (isSuffixOf "NVIM" <$> title <||> isSuffixOf "- NVIM\" " <$> title))
             , ("M-b", addName "firefox" $ runOrRaiseNext "firefox" (className =? "firefox"))
