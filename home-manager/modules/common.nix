@@ -171,8 +171,6 @@ in
 
     network-manager-applet.enable = true;
     blueman-applet.enable = true;
-
-    kdeconnect.enable = true;
   };
 
   systemd.user.services.gammastep.Install.WantedBy = lib.mkForce [ ];
