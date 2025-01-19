@@ -1,15 +1,33 @@
+{-# LANGUAGE BlockArguments #-}
+{-# LANGUAGE LambdaCase #-}
+
+module Main (main) where
+
+import Data.Map.Strict (Map)
 import Data.Ratio
+
+import XMonad.Actions.TopicSpace
+
 import System.Environment (lookupEnv)
 import System.Exit (exitSuccess)
+
+import XMonad.StackSet (RationalRect (RationalRect))
+import XMonad.StackSet qualified as W
+
 import XMonad
+import XMonad.Prelude
+
 import XMonad.Actions.CopyWindow
 import XMonad.Actions.DwmPromote (dwmpromote)
 import XMonad.Actions.GroupNavigation
 import XMonad.Actions.Minimize
 import XMonad.Actions.MouseResize (mouseResize)
+import XMonad.Actions.Prefix
+import XMonad.Actions.Search hiding (Query)
 import XMonad.Actions.WindowGo
 import XMonad.Actions.WithAll (killAll)
 import XMonad.Actions.WorkspaceNames
+
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
 import XMonad.Hooks.InsertPosition
@@ -23,6 +41,7 @@ import XMonad.Hooks.StatusBar
 import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.WindowSwallowing (swallowEventHook)
+
 import XMonad.Layout.Accordion
 import XMonad.Layout.BoringWindows (boringWindows, clearBoring, focusDown, focusUp, markBoringEverywhere)
 import XMonad.Layout.CenterMainFluid (CenterMainFluid (CenterMainFluid))
@@ -41,64 +60,226 @@ import XMonad.Layout.PerWorkspace
 import XMonad.Layout.Renamed
 import XMonad.Layout.Spacing
 import XMonad.Layout.Spiral (spiral)
-import XMonad.Layout.SubLayouts
-import XMonad.Layout.Tabbed (addTabs, simpleTabbed, tabbed)
+import XMonad.Layout.Tabbed (tabbed)
 import XMonad.Layout.ThreeColumns
-import XMonad.Layout.TwoPanePersistent (TwoPanePersistent (TwoPanePersistent))
 import XMonad.Layout.WorkspaceDir
-import XMonad.Prelude
-import XMonad.Prompt (ComplCaseSensitivity (CaseInSensitive), amberXPConfig, complCaseSensitivity)
-import XMonad.StackSet (RationalRect (RationalRect))
-import XMonad.StackSet qualified as W
+
+import XMonad.Prompt
+import XMonad.Prompt.FuzzyMatch (fuzzyMatch, fuzzySort)
+import XMonad.Prompt.Ssh
+import XMonad.Prompt.Workspace
+
 import XMonad.Util.ClickableWorkspaces (clickablePP)
 import XMonad.Util.EZConfig
 import XMonad.Util.Hacks
 import XMonad.Util.Loggers (logTitles)
 import XMonad.Util.NamedActions
 import XMonad.Util.NamedScratchpad
-import XMonad.Util.Run (runProcessWithInput)
+import XMonad.Util.Run
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.Themes (xmonadTheme)
 
-data Settings = Settings
-    { term :: String
-    , theme :: MyTheme
-    }
+--------------------------------------------------------------------------------
+-- MAIN
+--------------------------------------------------------------------------------
 
-data MyTheme = MyTheme
-    { background :: String
-    , foreground :: String
-    , font :: String
-    }
+main =
+    xmonad
+        . docks
+        . ewmhFullscreen
+        . ewmh
+        . javaHack
+        . rescreenHook rescreenCfg
+        . withUrgencyHook NoUrgencyHook
+        . withSB (statusBarProp "xmobar" myXmobarPP)
+        . spawnExternalProcess def
+        . addDescrKeys ((mod4Mask, xK_F1), xMessage) myKeys
+        $ myConfig
 
-defaultSettings =
-    Settings
-        { term = "kitty"
-        , theme =
-            MyTheme
-                { background = "#25273A"
-                , foreground = "#CAD3F5"
-                , font = "JetBrainsMono Nerd Font"
-                }
+myConfig =
+    def
+        { modMask = mod4Mask
+        , terminal = "kitty"
+        , borderWidth = 3
+        , focusedBorderColor = foreground
+        , normalBorderColor = background
+        , layoutHook = myLayout
+        , logHook =
+            historyHook
+                *> refocusLastLogHook
+                *> workspaceHistoryHookExclude [scratchpadWorkspaceTag]
+                *> showWNameLogHook
+                    def
+                        { swn_font = "xft:" ++ myFont ++ ":size=21"
+                        , swn_bgcolor = background
+                        , swn_color = foreground
+                        }
+        , handleEventHook = myHandleEventHook
+        , manageHook = myManageHook
+        , startupHook = do
+            -- return () >> checkKeymap myConfig myKeymap -- WARN: return needed to avoid infinite recursion
+            myStartupHook
+        , workspaces = topicNames topics
+        }
+  where
+    background = "#25273A"
+    foreground = "#CAD3F5"
+
+myFont = "FiraCode Nerd Font"
+
+browser :: Browser
+browser = "firefox"
+
+--------------------------------------------------------------------------------
+-- TOPICS
+--------------------------------------------------------------------------------
+
+topicConfig :: TopicConfig
+topicConfig =
+    def
+        { topicDirs = tiDirs topics
+        , topicActions = tiActions topics
+        , defaultTopicAction = const (pure ())
+        , defaultTopic = tHSK
         }
 
-getTheme :: IO MyTheme
-getTheme = do
-    fg <- fromMaybe (foreground defaultTheme) <$> xrdbGet "foreground"
-    bg <- fromMaybe (background defaultTheme) <$> xrdbGet "background"
+tHSK :: Topic = "`"
 
-    font <- fromMaybe (font defaultTheme) <$> xrdbGet "font_family"
-
-    return $ MyTheme{font = font, background = bg, foreground = fg}
+topics :: [TopicItem]
+topics =
+    [ noAction tHSK "Documents"
+    , inHome "1:WEB" $ spawn browser
+    , TI "2:SHELL" "Documents" spawnTermInTopic
+    , TI "3:EDITOR" "Documents" spawnEditorInTopic
+    , TI "4:PLAYGROUND" "Documents/Playground" spawnTermInTopic
+    , only "5"
+    , only "6"
+    , inHome "7:CAL" $ spawnInTerm "cal -y"
+    , inHome "8:IM" $ spawn "slack"
+    , TI "9:MEDIA" "Videos" spawnTermInTopic
+    , sshHost "mn5"
+    , sshHost "hut"
+    , sshHost "hca"
+    , TI "paraver" "Documents/traces" $ spawn "wxparaver" *> switchToLayout "TwoPane Tab"
+    , TI "zotero" "Zotero" $ spawn "zotero"
+    , inHome "monitor" $ spawnInTerm' "btm"
+    ]
+        ++ fmap
+            ($ spawnTermInTopic)
+            ( [ TI "dotfiles" ".dotfiles"
+              , TI "downloads" "Downloads"
+              ]
+                ++ [ TI name ("Documents/" ++ name)
+                   | name <-
+                        [ "nixpkgs"
+                        , "bscpkgs"
+                        , "nos-v"
+                        , "tampi"
+                        , "nodes"
+                        , "nanos6"
+                        , "pocl-v"
+                        , "hpccg"
+                        , "jungle"
+                        , "ovni"
+                        , "haskell/jutge"
+                        , "aoc-25"
+                        ]
+                   ]
+            )
   where
-    defaultTheme = theme defaultSettings
+    only :: Topic -> TopicItem
+    only n = noAction n "~/."
 
-getSettings :: IO Settings
-getSettings = do
-    theme <- getTheme
-    term <- fromMaybe (term defaultSettings) <$> lookupEnv "TERMINAL"
+switchToLayout = sendMessage . JumpToLayout
 
-    return $ Settings{term = term, theme = theme}
+sshHost host = inHome host $ spawnInTerm ("ssh " ++ host)
+
+-- | Go to a topic, shift a window to it, or do both at the same time.
+gotoWs, shiftWin, copyTo :: Topic -> X ()
+gotoWs = switchTopic topicConfig
+shiftWin = windows . W.shift
+copyTo = windows . copy
+
+{- | Prompt version of 'goto' for topics that are not available via
+direct keybindings.
+-}
+promptedGoto :: X ()
+promptedGoto = workspacePrompt topicPrompt gotoWs
+
+-- | Modify our standard prompt a bit.
+topicPrompt :: XPConfig
+topicPrompt =
+    prompt
+        { autoComplete = Just 3000 -- Time is in μs.
+        , historySize = 0 -- No history in the prompt.
+        }
+
+-- | Spawn terminal in topic directory.
+spawnTermInTopic :: X ()
+spawnTermInTopic = proc termInTopic
+
+termInTopic = termInDir >-$ currentTopicDir topicConfig
+
+spawnEditorInTopic = spawnInTerm "nvim ."
+spawnEditorInTopicOpen file = spawnInTerm $ "nvim " ++ file
+spawnInTerm prog = proc $ inTermHold >-> executeNoQuote prog
+spawnInTerm' prog = proc $ inTerm >-> executeNoQuote prog
+inTermHold = termInTopic >-$ pure " --hold"
+
+-- | Base colours to be used.
+colorBg :: String = "#1e1e2e"
+
+colorBlue :: String = "#b4befe"
+colorCyan :: String = "#89dceb"
+colorFg :: String = "#f8f8f2"
+colorLowWhite :: String = "#bbbbbb"
+colorMagenta :: String = "#eba0ac"
+colorRed :: String = "#f38ba8"
+colorText :: String = "#cdd6f4"
+colorYellow :: String = "#f9e2af"
+
+-------------------------------------------------------------------------
+-- PROMPT
+-------------------------------------------------------------------------
+
+-- | Create a graphical prompt for xmonad that functions can use.
+prompt :: XPConfig
+prompt =
+    def
+        { fgColor = colorFg
+        , fgHLight = colorBg
+        , bgColor = colorBg
+        , bgHLight = colorCyan
+        , font = "xft:" ++ myFont ++ ":size=11"
+        , alwaysHighlight = True -- Current best match
+        , height = 40
+        , position = Top
+        , promptBorderWidth = 0 -- Fit in with rest of config
+        , historySize = 50
+        , historyFilter = deleteAllDuplicates
+        , maxComplRows = Just 5 -- Max rows to show in completion window
+        , promptKeymap = myXPKeyMap
+        , searchPredicate = fuzzyMatch
+        , sorter = fuzzySort
+        , completionKey = (0, xK_Right)
+        , prevCompletionKey = (0, xK_Left)
+        }
+  where
+    myXPKeyMap :: Map (KeyMask, KeySym) (XP ())
+    myXPKeyMap =
+        mconcat
+            [ fromList [((controlMask, xK_w), killWord' isSpace Prev)]
+            , vimLikeXPKeymap
+            ]
+
+{- | I really don't want a history for some things; just clutters up the
+@promptHistory@ file.
+-}
+promptNoHist :: XPConfig
+promptNoHist = prompt{historySize = 0}
+
+setName :: String -> l a -> ModifiedLayout Rename l a
+setName n = renamed [Replace n]
 
 myLayout =
     avoidStruts
@@ -107,7 +288,6 @@ myLayout =
         . mouseResize
         . boringWindows
         . minimize
-        . modWorkspaces myWorkspaces (workspaceDir ".")
         $ tiled ||| twoPane ||| twoPaneA ||| threeCols ||| spir ||| grid ||| threeColsMid ||| Full
   where
     nmaster = 1 -- Default number of windows in the master pane
@@ -122,8 +302,8 @@ myLayout =
     tiled = spacer $ Tall nmaster delta ratio
     threeColsMid = spacer $ magnifiercz' 1.3 $ CenterMainFluid nmaster delta ratio
     threeCols = spacer $ ThreeCol nmaster delta ratio
-    twoPaneA = spacer $ renamed [Replace "TwoPane Acc"] $ mastered delta ratioTwoPane $ focusTracking Accordion
-    twoPane = spacer' $ renamed [Replace "TwoPane Tab"] $ mastered delta ratioTwoPane $ focusTracking $ tabbed shrinkText myTabTheme
+    twoPaneA = spacer $ setName "TwoPane Acc" $ mastered delta ratioTwoPane $ focusTracking Accordion
+    twoPane = spacer' $ setName "TwoPane Tab" $ mastered delta ratioTwoPane $ focusTracking $ tabbed shrinkText myTabTheme
 
     myTabTheme =
         def
@@ -225,7 +405,6 @@ myManageHook =
             , return True -?> insertPosition Below Newer
             ]
         , title =? "Calendar" --> (doFocus *> doCenterFloatUp)
-        , title =? "Mozilla Firefox" --> doShift (myWorkspaces !! 0)
         , namedScratchpadManageHook scratchpads
         ]
   where
@@ -250,6 +429,14 @@ subtitle' x =
   where
     sep = replicate (6 + length x) '-'
 
+-- | Toggle between the current and the last topic.
+toggleTopic :: X ()
+toggleTopic = switchNthLastFocusedByScreen topicConfig 1
+
+-- | Shift the currently focused window to the last visited topic.
+shiftToLastTopic :: X ()
+shiftToLastTopic = shiftNthLastFocused 1
+
 -- https://github.com/xmonad/xmonad/blob/master/src/XMonad/Config.hs
 myKeys c =
     let subKeys str ks = subtitle' str : mkNamedKeymap c ks
@@ -268,7 +455,7 @@ myKeys c =
             , ("M-S-m", addName "Focus previous" $ nextMatch History (return True))
             , ("M-f", addName "Toggle fullscreen" $ sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts)
             , ("M-x", addName "Toggle mirror" $ sendMessage $ Toggle MIRROR)
-            , ("M-<Return>", addName "Open terminal" $ spawn myTerm)
+            , ("M-<Return>", addName "Open terminal" $ spawnTermInTopic)
             , ("M-S-<Return>", addName "Promote to master" $ dwmpromote)
             , ("M-C-t", addName "Tile floating windows" $ withFocused $ windows . W.sink)
             , ("M-s", addName "Sticky" $ windows copyToAll)
@@ -284,8 +471,12 @@ myKeys c =
             , ("M-S-;", addName "UnMinimize" $ withLastMinimized maximizeWindowAndFocus)
             , ("M-'", addName "Mark Boring" $ markBoringEverywhere)
             , ("M-S-'", addName "Clear Boring" $ clearBoring)
-            , ("M-y", addName "Rename workspace" $ renameWorkspace def)
-            , ("M-S-y", addName "Change workspace dir" $ changeDir def{complCaseSensitivity = CaseInSensitive})
+            , ("M-g", addName "SSH" $ sshPrompt prompt)
+            , ("M-h", addName "Goto" $ workspacePrompt topicPrompt gotoWs)
+            , ("M-S-h", addName "Move to" $ workspacePrompt topicPrompt shiftWin)
+            , ("M-C-h", addName "Copy to" $ workspacePrompt topicPrompt copyTo)
+            , ("M-o", addName "toggletopic" $ toggleTopic)
+            , ("M-S-o", addName "move toggle topic" $ shiftToLastTopic)
             ]
             ^++^ subKeys
                 "Volume"
@@ -319,23 +510,15 @@ myKeys c =
             ^++^ subKeys
                 "Workspaces"
                 -- Copy client to other workspaces
-                [ ("M-S-C-" ++ ws, addName "" $ windows $ copy name)
-                | (ws, name) <- zip (map show [1 .. 9]) myWorkspaces
+                [ ("M-C-" ++ ws, addName "" $ windows $ copy name)
+                | (ws, name) <- zip wsKeys myWorkspaces
                 ]
             ^++^ subKeys
-                "Sublayouts"
-                [ ("M-C-h", addName "" $ sendMessage $ pullGroup L)
-                , ("M-C-l", addName "" $ sendMessage $ pullGroup R)
-                , ("M-C-k", addName "" $ sendMessage $ pullGroup U)
-                , ("M-C-j", addName "" $ sendMessage $ pullGroup D)
-                , ("M-C-m", addName "" $ withFocused (sendMessage . MergeAll))
-                , ("M-C-u", addName "" $ withFocused (sendMessage . UnMerge))
-                , ("M-C-S-u", addName "" $ withFocused (sendMessage . UnMergeAll))
-                , ("M-C-.", addName "" $ onGroup W.focusUp')
-                , ("M-C-,", addName "" $ onGroup W.focusDown')
-                ]
+                "Goto"
+                [("M-" <> m <> k, addName "" $ f i) | (i, k) <- zip (topicNames topics) wsKeys, (f, m) <- [(gotoWs, ""), (windows . W.shift, "S-")]]
 
-myWorkspaces = map show [1 .. 9]
+wsKeys = "`" : map (show @Int) [1 .. 9]
+myWorkspaces = topicNames topics
 
 myLogHook = dynamicLogWithPP . filterOutWsPP [scratchpadWorkspaceTag] $ def
 
@@ -362,8 +545,8 @@ myXmobarPP = do
                 , ppCurrent = pad . xmobarBorder "Top" cyan' 2
                 , ppVisible = wrap "(" ")"
                 , ppHidden = pad
-                , ppHiddenNoWindows = lowWhite . pad
-                , ppLayout = white . myLayoutPrinter
+                , -- , ppHiddenNoWindows = lowWhite . pad
+                  ppLayout = white . myLayoutPrinter
                 , ppUrgent = red . wrap (yellow "!") (yellow "!")
                 , ppOrder = \[ws, l, _, wins] -> [ws, l, wins]
                 , ppExtras = [logTitles formatFocused formatUnfocused]
@@ -386,47 +569,7 @@ rescreenCfg =
         , randrChangeHook = spawn "autorandr --change"
         }
 
-main =
-    myConfig
-        >>= xmonad
-            . docks
-            . ewmhFullscreen
-            . ewmh
-            . javaHack
-            . rescreenHook rescreenCfg
-            . withUrgencyHook NoUrgencyHook
-            . withSB (statusBarProp "xmobar" myXmobarPP)
-            . addDescrKeys ((mod4Mask, xK_F1), xMessage) myKeys
-
 myTerm = "kitty"
-
-myConfig = do
-    settings <- getSettings
-
-    return $
-        def
-            { terminal = term settings
-            , modMask = mod4Mask
-            , borderWidth = 3
-            , focusedBorderColor = foreground . theme $ settings
-            , normalBorderColor = background . theme $ settings
-            , layoutHook = myLayout
-            , logHook =
-                historyHook
-                    *> refocusLastLogHook
-                    *> showWNameLogHook
-                        def
-                            { swn_font = "xft:" ++ (font . theme $ settings) ++ ":size=21"
-                            , swn_bgcolor = background . theme $ settings
-                            , swn_color = foreground . theme $ settings
-                            }
-            , handleEventHook = myHandleEventHook
-            , manageHook = myManageHook
-            , startupHook = do
-                -- return () >> checkKeymap myConfig myKeymap -- WARN: return needed to avoid infinite recursion
-                myStartupHook
-            , workspaces = myWorkspaces
-            }
 
 -- xrdbGet :: (MonadIO m) => String -> m (Maybe String)
 xrdbGet :: String -> IO (Maybe String)
