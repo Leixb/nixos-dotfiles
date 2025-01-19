@@ -163,6 +163,9 @@ topics =
     , TI "paraver" "Documents/traces" $ spawn "wxparaver" *> switchToLayout "TwoPane Tab"
     , TI "zotero" "Zotero" $ spawn "zotero"
     , inHome "monitor" $ spawnInTerm' "btm"
+    , inHome "discord" $ spawn "legcord"
+    , TI "minecraft" ".local/share/PrismLauncher" $ spawn "prismlauncher"
+    , inHome "gaming" $ spawn "steam"
     ]
         ++ fmap
             ($ spawnTermInTopic)
@@ -302,8 +305,8 @@ myLayout =
     tiled = spacer $ Tall nmaster delta ratio
     threeColsMid = spacer $ magnifiercz' 1.3 $ CenterMainFluid nmaster delta ratio
     threeCols = spacer $ ThreeCol nmaster delta ratio
-    twoPaneA = spacer $ setName "TwoPane Acc" $ mastered delta ratioTwoPane $ focusTracking Accordion
-    twoPane = spacer' $ setName "TwoPane Tab" $ mastered delta ratioTwoPane $ focusTracking $ tabbed shrinkText myTabTheme
+    twoPaneA = setName "TwoPane Acc" $ spacer $ mastered delta ratioTwoPane $ focusTracking Accordion
+    twoPane = setName "TwoPane Tab" $ spacer' $ mastered delta ratioTwoPane $ focusTracking $ tabbed shrinkText myTabTheme
 
     myTabTheme =
         def
@@ -472,9 +475,9 @@ myKeys c =
             , ("M-'", addName "Mark Boring" $ markBoringEverywhere)
             , ("M-S-'", addName "Clear Boring" $ clearBoring)
             , ("M-g", addName "SSH" $ sshPrompt prompt)
-            , ("M-h", addName "Goto" $ workspacePrompt topicPrompt gotoWs)
-            , ("M-S-h", addName "Move to" $ workspacePrompt topicPrompt shiftWin)
-            , ("M-C-h", addName "Copy to" $ workspacePrompt topicPrompt copyTo)
+            , ("M-/", addName "Goto" $ workspacePrompt topicPrompt gotoWs)
+            , ("M-S-/", addName "Move to" $ workspacePrompt topicPrompt shiftWin)
+            , ("M-C-/", addName "Copy to" $ workspacePrompt topicPrompt copyTo)
             , ("M-o", addName "toggletopic" $ toggleTopic)
             , ("M-S-o", addName "move toggle topic" $ shiftToLastTopic)
             ]
