@@ -10,7 +10,6 @@
     enable = true;
     dockerCompat = true;
     dockerSocket.enable = true;
-    enableNvidia = true;
   };
 
   users.extraUsers.leix.extraGroups = [ "podman" ];

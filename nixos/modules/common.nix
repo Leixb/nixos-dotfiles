@@ -66,7 +66,6 @@ in
 
   hardware.graphics.enable = true;
   hardware.graphics.enable32Bit = true;
-  hardware.pulseaudio.support32Bit = false;
 
   nixpkgs.config.packageOverrides = pkgs: {
     vaapiIntel = pkgs.vaapiIntel.override { enableHybridCodec = true; };
@@ -152,7 +151,6 @@ in
   services.printing.drivers = [ pkgs.brlaser ];
   services.printing.browsed.enable = lib.mkForce false;
 
-  hardware.pulseaudio.enable = false;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
