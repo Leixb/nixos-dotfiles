@@ -18,6 +18,7 @@ import XMonad
 import XMonad.Prelude
 
 import XMonad.Actions.CopyWindow
+import XMonad.Actions.CycleWS
 import XMonad.Actions.DwmPromote (dwmpromote)
 import XMonad.Actions.GroupNavigation
 import XMonad.Actions.Minimize
@@ -480,6 +481,10 @@ myKeys c =
             , ("M-C-/", addName "Copy to" $ workspacePrompt topicPrompt copyTo)
             , ("M-o", addName "toggletopic" $ toggleTopic)
             , ("M-S-o", addName "move toggle topic" $ shiftToLastTopic)
+            , ("M-[", addName "prev topic" $ moveTo Prev $ hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
+            , ("M-]", addName "next topic" $ moveTo Next $ hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
+            , ("M-S-[", addName "shift prev topic" $ shiftTo Prev $ hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
+            , ("M-S-]", addName "shift next topic" $ shiftTo Next $ hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
             ]
             ^++^ subKeys
                 "Volume"
