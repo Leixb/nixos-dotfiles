@@ -269,7 +269,7 @@ prompt =
     myXPKeyMap =
         mconcat
             [ fromList [((controlMask, xK_w), killWord' isSpace Prev)]
-            , vimLikeXPKeymap
+            , emacsLikeXPKeymap
             ]
 
 {- | I really don't want a history for some things; just clutters up the
