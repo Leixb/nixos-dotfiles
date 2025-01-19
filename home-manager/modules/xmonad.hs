@@ -398,7 +398,7 @@ myManageHook =
             , className =? "splash" -?> doCenterFloatUp
             , className =? "toolbar" -?> doCenterFloatUp
             , (className =? "thunderbird" <&&> title /=? "Calendar") -?> doShift (myWorkspaces !! 6)
-            , className =? "Slack" -?> doShift (myWorkspaces !! 5)
+            , className =? "Slack" -?> doShift (myWorkspaces !! 8)
             , (appName =? "Alert" <&&> className =? "Zotero") -?> doIgnore
             , (className =? "Qalculate-gtk") -?> doCenterFloatUp
             , (className =? "Pavucontrol") -?> doCenterFloatUp
