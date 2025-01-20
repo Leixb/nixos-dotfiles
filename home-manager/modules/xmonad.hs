@@ -149,7 +149,7 @@ tHSK :: Topic = "`"
 topics :: [TopicItem]
 topics =
     [ noAction tHSK "Documents"
-    , inHome "1:WEB" $ spawn browser
+    , TI "1:WEB" "Downloads" $ spawn browser
     , TI "2:SHELL" "Documents" spawnTermInTopic
     , TI "3:EDITOR" "Documents" spawnEditorInTopic
     , TI "4:PLAYGROUND" "Documents/Playground" spawnTermInTopic
