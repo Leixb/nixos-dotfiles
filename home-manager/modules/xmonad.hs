@@ -163,7 +163,6 @@ topics =
     , sshHost "hca"
     , TI "paraver" "Documents/traces" $ spawn "wxparaver" *> switchToLayout "TwoPane Tab"
     , TI "zotero" "Zotero" $ spawn "zotero"
-    , inHome "monitor" $ spawnInTerm' "btm"
     , inHome "discord" $ spawn "legcord"
     , TI "minecraft" ".local/share/PrismLauncher" $ spawn "prismlauncher"
     , inHome "gaming" $ spawn "steam"
@@ -380,10 +379,13 @@ myHandleEventHook =
         ]
 
 doCenterFloatFixed = doRectFloat (RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2)) <+> doF W.swapUp
+doCenterFloatFixedBig = doRectFloat (RationalRect (1 % 8) (1 % 8) (3 % 4) (3 % 4)) <+> doF W.swapUp
 
 scratchpads =
     [ NS "scratchpad" (myTerm ++ " --name scratchpad --class scratchpad") (className =? "scratchpad") doCenterFloatFixed
     , NS "qalc" "qalculate-gtk" (className =? "Qalculate-gtk") doCenterFloatFixed
+    , NS "mail" "thunderbird" (className =? "thunderbird") doCenterFloatFixedBig
+    , NS "btm" (myTerm ++ " --name btm --class btm -e btm") (className =? "btm") doCenterFloatFixedBig
     ]
 
 myManageHook =
@@ -398,7 +400,6 @@ myManageHook =
             , className =? "pinentry-gtk-2" -?> doCenterFloatUp
             , className =? "splash" -?> doCenterFloatUp
             , className =? "toolbar" -?> doCenterFloatUp
-            , (className =? "thunderbird" <&&> title /=? "Calendar") -?> doShift (myWorkspaces !! 6)
             , className =? "Slack" -?> doShift (myWorkspaces !! 8)
             , (appName =? "Alert" <&&> className =? "Zotero") -?> doIgnore
             , (className =? "Qalculate-gtk") -?> doCenterFloatUp
@@ -464,8 +465,9 @@ myKeys c =
             , ("M-C-t", addName "Tile floating windows" $ withFocused $ windows . W.sink)
             , ("M-s", addName "Sticky" $ windows copyToAll)
             , ("M-S-s", addName "Unsticky" $ killAllOtherCopies)
-            , ("M-z", addName "Toggle Scratchpad" $ namedScratchpadAction scratchpads "scratchpad")
-            , ("M-c", addName "Toggle qalc" $ namedScratchpadAction scratchpads "qalc")
+            , ("M-z", addName "Toggle Scratchpad" $ namedScratchpadAction [] "scratchpad")
+            , ("M-c", addName "Toggle qalc" $ namedScratchpadAction [] "qalc")
+            , ("M-t", addName "Toggle btm" $ namedScratchpadAction [] "btm")
             , ("M-n", addName "Nvim" $ runOrRaiseNext (myTerm ++ " nvim") (isSuffixOf "NVIM" <$> title <||> isSuffixOf "- NVIM\" " <$> title))
             , ("M-b", addName "firefox" $ runOrRaiseNext "firefox" (className =? "firefox"))
             , ("M-S-b", addName "run or copy firefox" $ runOrCopy "firefox" (className =? "firefox"))
@@ -475,7 +477,7 @@ myKeys c =
             , ("M-S-;", addName "UnMinimize" $ withLastMinimized maximizeWindowAndFocus)
             , ("M-'", addName "Mark Boring" $ markBoringEverywhere)
             , ("M-S-'", addName "Clear Boring" $ clearBoring)
-            , ("M-g", addName "SSH" $ sshPrompt prompt)
+            , ("M-g", addName "Mail" $ namedScratchpadAction [] "mail")
             , ("M-/", addName "Goto" $ workspacePrompt topicPrompt gotoWs)
             , ("M-S-/", addName "Move to" $ workspacePrompt topicPrompt shiftWin)
             , ("M-C-/", addName "Copy to" $ workspacePrompt topicPrompt copyTo)
@@ -485,6 +487,8 @@ myKeys c =
             , ("M-]", addName "next topic" $ moveTo Next $ hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
             , ("M-S-[", addName "shift prev topic" $ shiftTo Prev $ hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
             , ("M-S-]", addName "shift next topic" $ shiftTo Next $ hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
+            , ("M-i", addName "swap screens" $ swapNextScreen)
+            , ("M-S-i", addName "swap screens" $ swapPrevScreen)
             ]
             ^++^ subKeys
                 "Volume"
@@ -507,13 +511,6 @@ myKeys c =
                 -- Brightness
                 [ ("<XF86MonBrightnessUp>", addName "Increase brightness" $ spawn "light -A 1")
                 , ("<XF86MonBrightnessDown>", addName "Decrease brightness" $ spawn "light -U 1")
-                ]
-            -- Move to other screens
-            ^++^ subKeys
-                "Workspaces"
-                [ ("M-" ++ m ++ k, addName "" $ screenWorkspace sc >>= flip whenJust (windows . f))
-                | (k, sc) <- zip ["e", "r", "t"] [0 ..]
-                , (f, m) <- [(W.view, ""), (W.shift, "S-")]
                 ]
             ^++^ subKeys
                 "Workspaces"
