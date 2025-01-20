@@ -70,6 +70,8 @@ import XMonad.Prompt.FuzzyMatch (fuzzyMatch, fuzzySort)
 import XMonad.Prompt.Ssh
 import XMonad.Prompt.Workspace
 
+import XMonad.Actions.Submap
+import XMonad.Prompt.Man
 import XMonad.Util.ClickableWorkspaces (clickablePP)
 import XMonad.Util.EZConfig
 import XMonad.Util.Hacks
@@ -79,6 +81,7 @@ import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.Themes (xmonadTheme)
+import XMonad.Util.XUtils (WindowConfig (..))
 
 --------------------------------------------------------------------------------
 -- MAIN
@@ -130,6 +133,13 @@ myFont = "FiraCode Nerd Font"
 
 browser :: Browser
 browser = "firefox"
+
+visualConfig :: WindowConfig
+visualConfig = def
+    { winFont = "xft:" ++ myFont ++ ":size=21"
+    , winBg = "#25273A"
+    , winFg = "#CAD3F5"
+    }
 
 --------------------------------------------------------------------------------
 -- TOPICS
@@ -489,6 +499,7 @@ myKeys c =
             , ("M-S-]", addName "shift next topic" $ shiftTo Next $ hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
             , ("M-i", addName "swap screens" $ swapNextScreen)
             , ("M-S-i", addName "swap screens" $ swapPrevScreen)
+            , ("M-e", addName "search" $ visualSubmap visualConfig searchEngineMap)
             ]
             ^++^ subKeys
                 "Volume"
@@ -583,3 +594,48 @@ xrdbGet value = do
     return $ case res of
         [] -> Nothing
         a : _ -> Just a
+
+searchEngineMap :: Map (KeyMask, KeySym) (String, X ())
+searchEngineMap =
+    basicSubmapFromList
+        [ (xK_a, "[a]rXiv", sw arXiv)
+        , (xK_w, "[w]ikipedia", sw wikipedia)
+        , (xK_y, "[y]ouTube", sw youtube)
+        , (xK_h, "[h]oogle", sw hoogle)
+        ,
+            ( xK_n
+            , "[n]ix"
+            , visualSubmap visualConfig $
+                basicSubmapFromList
+                    [ (xK_n, "noogle", sw noogle)
+                    , (xK_p, "nixos", sw nixos)
+                    ]
+            )
+        ,
+            ( xK_r
+            , "[r]ust"
+            , visualSubmap visualConfig $
+                basicSubmapFromList
+                    [ (xK_c, "[c]rates.io", sw cratesIo)
+                    , (xK_r, "[r]ust std", sw rustStd)
+                    ]
+            )
+        ,
+            ( xK_m
+            , "[m]an"
+            , manPrompt
+                promptNoHist
+                    { searchPredicate = searchPredicate def
+                    , sorter = sorter def
+                    }
+            )
+        , (xK_o, "[o]sm", sw openstreetmap)
+        ]
+  where
+    sw = promptSearchBrowser prompt browser
+
+{- | Create a basic (i.e. there is no additional 'KeyMask' to consider)
+submap from a list of @(key, action)@ pairs.
+-}
+basicSubmapFromList :: (Ord key) => [(key, desc, action)] -> Map (KeyMask, key) (desc, action)
+basicSubmapFromList = fromList . map \(k, d, a) -> ((0, k), (d, a))
