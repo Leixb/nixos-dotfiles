@@ -614,7 +614,7 @@ searchEngineMap =
             , "[n]ix"
             , visualSubmap visualConfig $
                 basicSubmapFromList
-                    [ (xK_n, "[n]oogle", sw noogle)
+                    [ (xK_n, "[n]oogle", sw noogle')
                     , (xK_p, "nixos [p]ackages", sw nixos)
                     , (xK_h, "[h]ome", sw homeManager)
                     , (xK_o, "nixos [o]ptions", sw nixosOptions)
@@ -650,3 +650,4 @@ searchEngineMap =
     sourcegraph = searchEngine "sourcegraph" "https://sourcegraph.com/search?q="
     repology = searchEngine "repology" "https://repology.org/projects/?search="
     cppreference = searchEngine "cppreference" "https://duckduckgo.com/?sites=cppreference.com&q="
+    noogle' = searchEngine "noogle" "https://noogle.dev/q?term="
