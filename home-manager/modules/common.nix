@@ -426,5 +426,7 @@ in
     sort = "reverse-threads";
   };
 
+  programs.notmuch.enable = true;
+
   programs.nix-index.enable = true;
 }
