@@ -419,14 +419,42 @@ in
     };
   };
 
+  programs.notmuch.enable = true;
   programs.neomutt = {
     enable = true;
     editor = "nvim";
     sidebar.enable = true;
     sort = "reverse-threads";
+    vimKeys = true;
+    unmailboxes = true;
+    extraConfig = builtins.readFile ./neomutt.theme;
   };
 
-  programs.notmuch.enable = true;
+  sops.secrets.email_pass.path = "${config.xdg.configHome}/mail/sops";
+
+  accounts.email.maildirBasePath = "Mail";
+  accounts.email.accounts.bsc = {
+    address = "abonerib@bsc.es";
+    aliases = [ "aleix.boneribo@bsc.es" ];
+    primary = true;
+    userName = "abonerib";
+    realName = "Aleix Boné";
+    passwordCommand = "cat ${config.sops.secrets.email_pass.path}";
+    imap = {
+      host = "mail.bsc.es";
+      port = 993;
+      tls.enable = true;
+    };
+    smtp = {
+      host = "mail.bsc.es";
+      port = 465;
+      tls.enable = true;
+    };
+    neomutt.enable = true;
+    neomutt.mailboxType = "imap";
+    notmuch.enable = true;
+    notmuch.neomutt.enable = true;
+  };
 
   programs.nix-index.enable = true;
 }
