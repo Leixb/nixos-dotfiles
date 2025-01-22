@@ -389,8 +389,12 @@ myHandleEventHook =
         , trayerPaddingXmobarEventHook
         ]
 
-doCenterFloatFixed = doRectFloat (RationalRect (1 % 4) (1 % 4) (1 % 2) (1 % 2)) <+> doF W.swapUp
-doCenterFloatFixedBig = doRectFloat (RationalRect (1 % 8) (1 % 8) (3 % 4) (3 % 4)) <+> doF W.swapUp
+rectfloatCenter ratio = doRectFloat $ RationalRect border border ratio ratio
+    where
+        border = (1 - ratio) / 2
+
+doCenterFloatFixed = rectfloatCenter (1 % 2) <+> doF W.swapUp
+doCenterFloatFixedBig = rectfloatCenter (4 % 5) <+> doF W.swapUp
 
 scratchpads =
     [ NS "scratchpad" (myTerm ++ " --name scratchpad --class scratchpad") (className =? "scratchpad") doCenterFloatFixed
