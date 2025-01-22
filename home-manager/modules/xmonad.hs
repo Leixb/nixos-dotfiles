@@ -419,6 +419,8 @@ myManageHook =
             , (appName =? "Alert" <&&> className =? "Zotero") -?> doIgnore
             , (className =? "Qalculate-gtk") -?> doCenterFloatUp
             , (className =? "Pavucontrol") -?> doCenterFloatUp
+            , (className =? "Wxparaver") -?> doShift "paraver"
+            , (className =? "firefox") -?> doShift (myWorkspaces !! 1)
             , (stringProperty "WM_NAME" =? "Picture-in-Picture") -?> doFloat
             , isDialog -?> doCenterFloatUp
             , isFullscreen -?> doFullFloat
