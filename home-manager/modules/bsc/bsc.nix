@@ -26,6 +26,8 @@ let
         node="$(tail -n1 "$OUT" | cut -f 3 -d' ')"
         mn5_key="$(cat ${config.sops.secrets.ssh_mn5_pubkey.path})"
 
+        ${lib.getExe pkgs.libnotify} "Allocation granted" "$node is ready for job"
+
         echo "$node $mn5_key" >>~/.ssh/known_hosts
     fi
 
