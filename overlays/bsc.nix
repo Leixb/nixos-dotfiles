@@ -15,7 +15,7 @@ in
     };
   });
 
-  paraver = prev.wxparaver.overrideAttrs (oldAttrs: {
+  paraver = (prev.wxparaver.override { boost = final.boost186; }).overrideAttrs (oldAttrs: {
     version = paraverVersion;
 
     src = final.fetchFromGitHub {
@@ -43,7 +43,7 @@ in
     meta.mainProgram = "wxparaver";
   });
 
-  wxGTK30 = final.wxGTK31;
+  wxGTK30 = final.wxGTK32;
 
   wxparaver-adwaita = final.wrapGTKTheme "Adwaita:dark" final.paraver;
 }
