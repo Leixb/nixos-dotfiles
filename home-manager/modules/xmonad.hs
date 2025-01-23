@@ -424,8 +424,8 @@ myManageHook =
             , (stringProperty "WM_NAME" =? "Picture-in-Picture") -?> doFloat
             , isDialog -?> doCenterFloatUp
             , isFullscreen -?> doFullFloat
-            , return True -?> insertPosition Below Newer
             ]
+        , not <$> willFloat --> insertPosition Below Newer
         , title =? "Calendar" --> (doFocus *> doCenterFloatUp)
         , namedScratchpadManageHook scratchpads
         ]
