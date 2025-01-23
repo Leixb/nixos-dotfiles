@@ -81,6 +81,7 @@ import XMonad.Util.Run
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.Themes (xmonadTheme)
 import XMonad.Util.XUtils (WindowConfig (..))
+import XMonad.Prompt.Shell (shellPrompt)
 
 --------------------------------------------------------------------------------
 -- MAIN
@@ -498,6 +499,7 @@ myKeys c =
             , ("M-/", addName "Goto" $ workspacePrompt topicPrompt gotoWs)
             , ("M-S-/", addName "Move to" $ workspacePrompt topicPrompt shiftWin)
             , ("M-C-/", addName "Copy to" $ workspacePrompt topicPrompt copyTo)
+            , ("M-p", addName "Prompt" $ shellPrompt prompt)
             , ("M-o", addName "toggletopic" toggleTopic)
             , ("M-S-o", addName "move toggle topic" shiftToLastTopic)
             , ("M-[", addName "prev topic" $ moveTo Prev $ hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
