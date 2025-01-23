@@ -399,7 +399,7 @@ doCenterFloatFixedBig = rectfloatCenter (4 % 5) <+> doF W.swapUp
 scratchpads =
     [ NS "scratchpad" (myTerm ++ " --name scratchpad --class scratchpad") (className =? "scratchpad") doCenterFloatFixed
     , NS "qalc" "qalculate-gtk" (className =? "Qalculate-gtk") doCenterFloatFixed
-    , NS "mail" "thunderbird" (className =? "thunderbird") doCenterFloatFixedBig
+    , NS "mail" "thunderbird" (appName =? "Mail" <&&> className =? "thunderbird") doCenterFloatFixedBig
     , NS "btm" (myTerm ++ " --name btm --class btm -e btm") (className =? "btm") doCenterFloatFixedBig
     ]
 
