@@ -197,6 +197,7 @@ topics =
                         , "ovni"
                         , "haskell/jutge"
                         , "aoc-25"
+                        , "modulefiles"
                         ]
                    ]
             )
