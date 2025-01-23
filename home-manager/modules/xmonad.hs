@@ -479,6 +479,7 @@ myKeys c =
             , ("M-x", addName "Toggle mirror" $ sendMessage $ Toggle MIRROR)
             , ("M-<Return>", addName "Open terminal" $ spawnTermInTopic)
             , ("M-S-<Return>", addName "Promote to master" $ dwmpromote)
+            , ("M-a", addName "Topic Action" $ currentTopicAction topicConfig)
             , ("M-C-t", addName "Tile floating windows" $ withFocused $ windows . W.sink)
             , ("M-s", addName "Sticky" $ windows copyToAll)
             , ("M-S-s", addName "Unsticky" $ killAllOtherCopies)
