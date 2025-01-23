@@ -167,7 +167,7 @@ topics =
     , only "5"
     , only "6"
     , inHome "7:CAL" $ spawnInTerm "cal -y"
-    , inHome "8:IM" $ spawn "slack"
+    , inHome "8:IM" $ spawn "slack" *> spawn "telegram-desktop"
     , TI "9:MEDIA" "Videos" spawnTermInTopic
     , sshHost "mn5"
     , sshHost "hut"
