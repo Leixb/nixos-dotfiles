@@ -583,7 +583,7 @@ myXmobarPP = do
 rescreenCfg :: RescreenConfig
 rescreenCfg =
     def
-        { afterRescreenHook = spawn "pkill xmobar; sleep 1; xmonad --restart; ~/.fehbg"
+        { afterRescreenHook = spawn "sleep 0.5; pkill -USR2 xmobar; ~/.fehbg"
         , randrChangeHook = spawn "autorandr --change"
         }
 

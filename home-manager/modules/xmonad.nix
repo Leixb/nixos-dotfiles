@@ -150,6 +150,9 @@
     enable = true;
 
     numlock.enable = true;
+    initExtra = ''
+      autorandr --change
+    '';
 
     windowManager.xmonad = {
       enable = true;
