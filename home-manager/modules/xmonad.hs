@@ -37,6 +37,7 @@ import XMonad.Hooks.ShowWName
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.WindowSwallowing (swallowEventHook)
+import XMonad.Hooks.FloatConfigureReq
 
 import XMonad.Layout.Accordion
 import XMonad.Layout.BoringWindows (boringWindows, clearBoring, focusDown, focusUp, markBoringEverywhere)
@@ -380,6 +381,7 @@ myHandleEventHook =
         , minimizeEventHook
         , trayerAboveXmobarEventHook
         , trayerPaddingXmobarEventHook
+        , fixSteamFlicker
         ]
 
 rectfloatCenter ratio = doRectFloat $ RationalRect border border ratio ratio
