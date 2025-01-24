@@ -5,8 +5,6 @@ module Main (main) where
 import Data.Map.Strict (Map)
 import Data.Ratio
 
-import XMonad.Actions.TopicSpace
-
 import System.Environment (lookupEnv)
 import System.Exit (exitSuccess)
 
@@ -22,11 +20,10 @@ import XMonad.Actions.DwmPromote (dwmpromote)
 import XMonad.Actions.GroupNavigation
 import XMonad.Actions.Minimize
 import XMonad.Actions.MouseResize (mouseResize)
-import XMonad.Actions.Prefix
 import XMonad.Actions.Search hiding (Query)
 import XMonad.Actions.WindowGo
 import XMonad.Actions.WithAll (killAll)
-import XMonad.Actions.WorkspaceNames
+import XMonad.Actions.TopicSpace
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
@@ -38,7 +35,6 @@ import XMonad.Hooks.RefocusLast
 import XMonad.Hooks.Rescreen
 import XMonad.Hooks.ShowWName
 import XMonad.Hooks.StatusBar
-import XMonad.Hooks.StatusBar.PP
 import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.WindowSwallowing (swallowEventHook)
 
@@ -56,17 +52,14 @@ import XMonad.Layout.Minimize
 import XMonad.Layout.MultiToggle
 import XMonad.Layout.MultiToggle.Instances
 import XMonad.Layout.NoBorders
-import XMonad.Layout.PerWorkspace
 import XMonad.Layout.Renamed
 import XMonad.Layout.Spacing
 import XMonad.Layout.Spiral (spiral)
 import XMonad.Layout.Tabbed (tabbed)
 import XMonad.Layout.ThreeColumns
-import XMonad.Layout.WorkspaceDir
 
 import XMonad.Prompt
 import XMonad.Prompt.FuzzyMatch (fuzzyMatch, fuzzySort)
-import XMonad.Prompt.Ssh
 import XMonad.Prompt.Workspace
 
 import XMonad.Actions.Submap
@@ -79,7 +72,6 @@ import XMonad.Util.NamedActions
 import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run
 import XMonad.Util.SpawnOnce (spawnOnce)
-import XMonad.Util.Themes (xmonadTheme)
 import XMonad.Util.XUtils (WindowConfig (..))
 import XMonad.Prompt.Shell (shellPrompt)
 
@@ -563,7 +555,7 @@ myXmobarPP = do
     let formatFocused = wrap (foreground "[") (foreground "]") . magenta . ppWindow
     let formatUnfocused = wrap (lowWhite "[") (lowWhite "]") . blue . ppWindow
 
-    (copiesPP (pad . green) >=> workspaceNamesPP >=> clickablePP) $
+    (copiesPP (pad . green) >=> clickablePP) $
         filterOutWsPP [scratchpadWorkspaceTag] $
             def
                 { ppSep = magenta " | "
