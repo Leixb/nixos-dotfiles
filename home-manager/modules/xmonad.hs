@@ -87,7 +87,7 @@ main =
         . ewmh
         . javaHack
         . rescreenHook rescreenCfg
-        . withUrgencyHook NoUrgencyHook
+        . withUrgencyHook (BorderUrgencyHook colorRed)
         . withSB (statusBarProp "xmobar" myXmobarPP)
         . spawnExternalProcess def
         . addDescrKeys ((mod4Mask, xK_F1), xMessage) myKeys
