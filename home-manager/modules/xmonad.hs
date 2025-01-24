@@ -118,8 +118,8 @@ myConfig =
         , workspaces = topicNames topics
         }
   where
-    background = "#25273A"
-    foreground = "#CAD3F5"
+    background = colorBg
+    foreground = colorFg
 
 myFont = "FiraCode Nerd Font"
 
@@ -130,8 +130,8 @@ visualConfig :: WindowConfig
 visualConfig =
     def
         { winFont = "xft:" ++ myFont ++ ":size=21"
-        , winBg = "#25273A"
-        , winFg = "#CAD3F5"
+        , winBg = colorBg
+        , winFg = colorFg
         }
 
 --------------------------------------------------------------------------------
@@ -234,16 +234,16 @@ spawnInTerm' prog = proc $ inTerm >-> executeNoQuote prog
 inTermHold = termInTopic >-$ pure " --hold"
 
 -- | Base colours to be used.
-colorBg :: String = "#1e1e2e"
+colorBg :: String = "#25273A"
 
-colorBlue :: String = "#b4befe"
-colorCyan :: String = "#89dceb"
-colorFg :: String = "#f8f8f2"
-colorLowWhite :: String = "#bbbbbb"
-colorMagenta :: String = "#eba0ac"
-colorRed :: String = "#f38ba8"
-colorText :: String = "#cdd6f4"
-colorYellow :: String = "#f9e2af"
+colorBlue :: String = "#8AADF4"
+colorCyan :: String = "#8BD5CA"
+colorFg :: String = "#CAD3F5"
+colorLowWhite :: String = "#676B84"
+colorMagenta :: String = "#C6A0F6"
+colorRed :: String = "#ED8796"
+colorText :: String = "#B8C0E0"
+colorYellow :: String = "#EED49F"
 
 -------------------------------------------------------------------------
 -- PROMPT
@@ -314,15 +314,15 @@ myLayout =
 
     myTabTheme =
         def
-            { activeColor = "#8AADF4"
-            , urgentColor = "#ED8796"
-            , inactiveColor = "#25273A"
-            , activeTextColor = "#25273A"
-            , urgentTextColor = "#25273A"
-            , inactiveTextColor = "#CAD3F5"
-            , activeBorderColor = "#CAD3F5"
-            , inactiveBorderColor = "#676B84"
-            , urgentBorderColor = "#676B84"
+            { activeColor = colorBlue
+            , urgentColor = colorRed
+            , inactiveColor = colorBg
+            , activeTextColor = colorBg
+            , urgentTextColor = colorBg
+            , inactiveTextColor = colorFg
+            , activeBorderColor = colorFg
+            , inactiveBorderColor = colorLowWhite
+            , urgentBorderColor = colorLowWhite
             , decoHeight = 40
             , fontName = "xft:JetBrainsMono Nerd Font:size=8"
             , activeBorderWidth = 3
