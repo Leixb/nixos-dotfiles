@@ -617,7 +617,7 @@ searchEngineMap =
                 basicSubmapFromList
                     [ (xK_n, "[n]oogle", sw noogle')
                     , (xK_p, "nixos [p]ackages", sw nixos)
-                    , (xK_h, "[h]ome", sw homeManager)
+                    , (xK_h, "[h]ome", sw homeManager')
                     , (xK_o, "nixos [o]ptions", sw nixosOptions)
                     ]
             )
@@ -652,3 +652,4 @@ searchEngineMap =
     repology = searchEngine "repology" "https://repology.org/projects/?search="
     cppreference = searchEngine "cppreference" "https://duckduckgo.com/?sites=cppreference.com&q="
     noogle' = searchEngine "noogle" "https://noogle.dev/q?term="
+    homeManager' = searchEngine "home-manager" "https://home-manager-options.extranix.com/?release=master&query="
