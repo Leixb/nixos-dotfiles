@@ -21,12 +21,13 @@ import XMonad.Actions.GroupNavigation
 import XMonad.Actions.Minimize
 import XMonad.Actions.MouseResize (mouseResize)
 import XMonad.Actions.Search hiding (Query)
+import XMonad.Actions.TopicSpace
 import XMonad.Actions.WindowGo
 import XMonad.Actions.WithAll (killAll)
-import XMonad.Actions.TopicSpace
 
 import XMonad.Hooks.DynamicLog
 import XMonad.Hooks.EwmhDesktops
+import XMonad.Hooks.FloatConfigureReq
 import XMonad.Hooks.InsertPosition
 import XMonad.Hooks.ManageDocks
 import XMonad.Hooks.ManageHelpers
@@ -37,7 +38,6 @@ import XMonad.Hooks.ShowWName
 import XMonad.Hooks.StatusBar
 import XMonad.Hooks.UrgencyHook
 import XMonad.Hooks.WindowSwallowing (swallowEventHook)
-import XMonad.Hooks.FloatConfigureReq
 
 import XMonad.Layout.Accordion
 import XMonad.Layout.BoringWindows (boringWindows, clearBoring, focusDown, focusUp, markBoringEverywhere)
@@ -65,6 +65,7 @@ import XMonad.Prompt.Workspace
 
 import XMonad.Actions.Submap
 import XMonad.Prompt.Man
+import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Util.ClickableWorkspaces (clickablePP)
 import XMonad.Util.EZConfig
 import XMonad.Util.Hacks
@@ -74,7 +75,6 @@ import XMonad.Util.NamedScratchpad
 import XMonad.Util.Run
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.XUtils (WindowConfig (..))
-import XMonad.Prompt.Shell (shellPrompt)
 
 --------------------------------------------------------------------------------
 -- MAIN
@@ -98,8 +98,8 @@ myConfig =
         { modMask = mod4Mask
         , terminal = "kitty"
         , borderWidth = 3
-        , focusedBorderColor = foreground
-        , normalBorderColor = background
+        , focusedBorderColor = colorFg
+        , normalBorderColor = colorBg
         , layoutHook = myLayout
         , logHook =
             historyHook
@@ -108,8 +108,8 @@ myConfig =
                 *> showWNameLogHook
                     def
                         { swn_font = "xft:" ++ myFont ++ ":size=21"
-                        , swn_bgcolor = background
-                        , swn_color = foreground
+                        , swn_bgcolor = colorBg
+                        , swn_color = colorFg
                         }
         , handleEventHook = myHandleEventHook
         , manageHook = myManageHook
@@ -118,14 +118,12 @@ myConfig =
             myStartupHook
         , workspaces = topicNames topics
         }
-  where
-    background = colorBg
-    foreground = colorFg
 
 myFont = "FiraCode Nerd Font"
 
 browser :: Browser
 browser = "firefox"
+isBrowser = className =? browser
 
 visualConfig :: WindowConfig
 visualConfig =
@@ -145,14 +143,14 @@ topicConfig =
         { topicDirs = tiDirs topics
         , topicActions = tiActions topics
         , defaultTopicAction = const (pure ())
-        , defaultTopic = tHSK
+        , defaultTopic = defTopic
         }
 
-tHSK :: Topic = "`"
+defTopic :: Topic = "`"
 
 topics :: [TopicItem]
 topics =
-    [ noAction tHSK "Documents"
+    [ noAction defTopic "Documents"
     , TI "1:WEB" "Downloads" $ spawn browser
     , TI "2:SHELL" "Documents" spawnTermInTopic
     , TI "3:EDITOR" "Documents" spawnEditorInTopic
@@ -171,29 +169,29 @@ topics =
     , TI "minecraft" ".local/share/PrismLauncher" $ spawn "prismlauncher"
     , inHome "gaming" $ spawn "steam"
     ]
-        ++ fmap
-            ($ spawnTermInTopic)
-            ( [ TI "dotfiles" ".dotfiles"
-              , TI "downloads" "Downloads"
-              ]
-                ++ [ TI name ("Documents/" ++ name)
-                   | name <-
-                        [ "nixpkgs"
-                        , "bscpkgs"
-                        , "nos-v"
-                        , "tampi"
-                        , "nodes"
-                        , "nanos6"
-                        , "pocl-v"
-                        , "hpccg"
-                        , "jungle"
-                        , "ovni"
-                        , "haskell/jutge"
-                        , "aoc-25"
-                        , "modulefiles"
-                        ]
-                   ]
-            )
+        ++ ( ($ spawnTermInTopic)
+                <$> ( [ TI "dotfiles" ".dotfiles"
+                      , TI "downloads" "Downloads"
+                      ]
+                        ++ [ TI name ("Documents/" ++ name)
+                           | name <-
+                                [ "nixpkgs"
+                                , "bscpkgs"
+                                , "nos-v"
+                                , "tampi"
+                                , "nodes"
+                                , "nanos6"
+                                , "pocl-v"
+                                , "hpccg"
+                                , "jungle"
+                                , "ovni"
+                                , "haskell/jutge"
+                                , "aoc-25"
+                                , "modulefiles"
+                                ]
+                           ]
+                    )
+           )
   where
     only :: Topic -> TopicItem
     only n = noAction n "~/."
@@ -325,7 +323,7 @@ myLayout =
             , inactiveBorderColor = colorLowWhite
             , urgentBorderColor = colorLowWhite
             , decoHeight = 40
-            , fontName = "xft:JetBrainsMono Nerd Font:size=8"
+            , fontName = "xft:" ++ myFont ++ ":size=9"
             , activeBorderWidth = 3
             , inactiveBorderWidth = 3
             , urgentBorderWidth = 3
@@ -385,8 +383,8 @@ myHandleEventHook =
         ]
 
 rectfloatCenter ratio = doRectFloat $ RationalRect border border ratio ratio
-    where
-        border = (1 - ratio) / 2
+  where
+    border = (1 - ratio) / 2
 
 doCenterFloatFixed = rectfloatCenter (1 % 2) <+> doF W.swapUp
 doCenterFloatFixedBig = rectfloatCenter (4 % 5) <+> doF W.swapUp
@@ -482,8 +480,8 @@ myKeys c =
             , ("M-c", addName "Toggle qalc" $ namedScratchpadAction [] "qalc")
             , ("M-t", addName "Toggle btm" $ namedScratchpadAction [] "btm")
             , ("M-n", addName "Nvim" $ runOrRaiseNext (myTerm ++ " nvim") ((isSuffixOf "NVIM" <$> title) <||> (isSuffixOf "- NVIM\" " <$> title)))
-            , ("M-b", addName "firefox" $ runOrRaiseNext "firefox" (className =? "firefox"))
-            , ("M-S-b", addName "run or copy firefox" $ runOrCopy "firefox" (className =? "firefox"))
+            , ("M-b", addName "browser" $ runOrRaiseNext browser isBrowser)
+            , ("M-S-b", addName "run or copy browser" $ runOrCopy browser isBrowser)
             , ("M-v", addName "Terminal" $ runOrRaiseNext myTerm (className =? myTerm))
             , ("M-u", addName "Focus urgent" focusUrgent)
             , ("M-;", addName "Minimize" $ withFocused minimizeWindow)
