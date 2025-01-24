@@ -156,9 +156,12 @@
 
     windowManager.xmonad = {
       enable = true;
-      enableContribAndExtras = true;
+      enableContribAndExtras = false; # added manually in extraPackages
+      haskellPackages = pkgs.haskell.packages.ghc9101.extend (self: super: {
+        xmonad = super.xmonad_0_18_0;
+      });
       extraPackages = haskellPackages: [
-        haskellPackages.xmobar
+        haskellPackages.xmonad-contrib_0_18_1
       ];
       config = ./xmonad.hs;
     };
