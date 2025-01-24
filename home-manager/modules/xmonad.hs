@@ -399,31 +399,29 @@ scratchpads =
 myManageHook =
     composeAll
         [ composeOne
-            [ className =? "confirm" -?> doCenterFloatUp
-            , className =? "file_progress" -?> doCenterFloatUp
-            , className =? "dialog" -?> doCenterFloatUp
-            , className =? "download" -?> doCenterFloatUp
-            , className =? "error" -?> doCenterFloatUp
-            , className =? "notification" -?> doCenterFloatUp
-            , className =? "pinentry-gtk-2" -?> doCenterFloatUp
-            , className =? "splash" -?> doCenterFloatUp
-            , className =? "toolbar" -?> doCenterFloatUp
+            [ className =? "confirm" -?> doCenterFloat
+            , className =? "file_progress" -?> doCenterFloat
+            , className =? "dialog" -?> doCenterFloat
+            , className =? "download" -?> doCenterFloat
+            , className =? "error" -?> doCenterFloat
+            , className =? "notification" -?> doCenterFloat
+            , className =? "pinentry-gtk-2" -?> doCenterFloat
+            , className =? "splash" -?> doCenterFloat
+            , className =? "toolbar" -?> doCenterFloat
             , className =? "Slack" -?> doShift (myWorkspaces !! 8)
             , (appName =? "Alert" <&&> className =? "Zotero") -?> doIgnore
-            , (className =? "Qalculate-gtk") -?> doCenterFloatUp
-            , (className =? "Pavucontrol") -?> doCenterFloatUp
+            , (className =? "Qalculate-gtk") -?> doCenterFloat
+            , (className =? "pavucontrol") -?> doCenterFloatFixed
             , (className =? "Wxparaver") -?> doShift "paraver"
-            , (className =? "firefox") -?> doShift (myWorkspaces !! 1)
+            , isBrowser -?> doShift (myWorkspaces !! 1)
             , (stringProperty "WM_NAME" =? "Picture-in-Picture") -?> doFloat
-            , isDialog -?> doCenterFloatUp
+            , isDialog -?> doCenterFloat
             , isFullscreen -?> doFullFloat
             ]
         , not <$> willFloat --> insertPosition Below Newer
-        , title =? "Calendar" --> (doFocus *> doCenterFloatUp)
+        , title =? "Calendar" --> (doFocus *> doCenterFloat)
         , namedScratchpadManageHook scratchpads
         ]
-  where
-    doCenterFloatUp = doCenterFloat <+> doF W.swapUp
 
 myStartupHook =
     mconcat
