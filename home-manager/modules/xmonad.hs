@@ -500,6 +500,8 @@ myKeys c =
             , ("M-i", addName "swap screens" swapNextScreen)
             , ("M-S-i", addName "swap screens" swapPrevScreen)
             , ("M-e", addName "search" $ visualSubmap visualConfig searchEngineMap)
+            , ("<Print>", addName "screenshot" $ spawn "flameshot gui")
+            , ("M-<F10>", addName "screenshot" $ spawn "flameshot gui")
             ]
             ^++^ subKeys
                 "Volume"
