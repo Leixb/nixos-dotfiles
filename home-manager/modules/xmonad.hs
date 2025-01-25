@@ -3,6 +3,7 @@
 module Main (main) where
 
 import Data.Map.Strict (Map)
+import Data.Map.Strict qualified as M
 import Data.Ratio
 
 import System.Environment (lookupEnv)
@@ -92,50 +93,57 @@ main =
         . spawnExternalProcess def
         . addDescrKeys ((mod4Mask, xK_F1), xMessage) myKeys
         $ myConfig
+  where
+    rescreenCfg :: RescreenConfig
+    rescreenCfg =
+        def
+            { afterRescreenHook = spawn "sleep 0.5; pkill -USR2 xmobar" *> spawn wallpaperCmd
+            , randrChangeHook = spawn "autorandr --change"
+            }
 
-myConfig =
-    def
-        { modMask = mod4Mask
-        , terminal = "kitty"
-        , borderWidth = 3
-        , focusedBorderColor = colorFg
-        , normalBorderColor = colorBg
-        , layoutHook = myLayout
-        , logHook =
-            historyHook
-                *> refocusLastLogHook
-                *> workspaceHistoryHookExclude [scratchpadWorkspaceTag]
-                *> showWNameLogHook
-                    def
-                        { swn_font = "xft:" ++ myFont ++ ":size=21"
-                        , swn_bgcolor = colorBg
-                        , swn_color = colorFg
-                        }
-        , handleEventHook = myHandleEventHook
-        , manageHook = myManageHook
-        , startupHook = do
-            -- return () >> checkKeymap myConfig myKeymap -- WARN: return needed to avoid infinite recursion
-            myStartupHook
-        , workspaces = topicNames topics
-        }
+    myConfig =
+        def
+            { modMask = mod4Mask
+            , terminal = myTerm
+            , borderWidth = 3
+            , focusedBorderColor = colorFg
+            , normalBorderColor = colorBg
+            , layoutHook = myLayout
+            , logHook = myLogHook
+            , handleEventHook = myHandleEventHook
+            , manageHook = myManageHook
+            , startupHook = myStartupHook
+            , workspaces = myWorkspaces
+            }
 
+myTerm = "kitty"
+myBrowser :: Browser
+myBrowser = "firefox"
+isBrowser = className =? myBrowser
+
+--------------------------------------------------------------------------------
+-- THEME
+--------------------------------------------------------------------------------
 myFont = "FiraCode Nerd Font"
 
-browser :: Browser
-browser = "firefox"
-isBrowser = className =? browser
+colorBg :: String = "#25273A"
+colorBlue :: String = "#8AADF4"
+colorCyan :: String = "#8BD5CA"
+colorGreen :: String = "#A6DA95"
+colorFg :: String = "#CAD3F5"
+colorLowWhite :: String = "#676B84"
+colorMagenta :: String = "#C6A0F6"
+colorRed :: String = "#ED8796"
+colorText :: String = "#B8C0E0"
+colorYellow :: String = "#EED49F"
 
-visualConfig :: WindowConfig
-visualConfig =
-    def
-        { winFont = "xft:" ++ myFont ++ ":size=21"
-        , winBg = colorBg
-        , winFg = colorFg
-        }
+wallpaperCmd = "~/.fehbg"
 
 --------------------------------------------------------------------------------
 -- TOPICS
 --------------------------------------------------------------------------------
+
+myWorkspaces = topicNames topics
 
 topicConfig :: TopicConfig
 topicConfig =
@@ -143,15 +151,13 @@ topicConfig =
         { topicDirs = tiDirs topics
         , topicActions = tiActions topics
         , defaultTopicAction = const (pure ())
-        , defaultTopic = defTopic
+        , defaultTopic = head myWorkspaces
         }
-
-defTopic :: Topic = "`"
 
 topics :: [TopicItem]
 topics =
-    [ noAction defTopic "Documents"
-    , TI "1:WEB" "Downloads" $ spawn browser
+    [ noAction "\xf35e" "Documents"
+    , TI "1:WEB" "Downloads" $ spawn myBrowser
     , TI "2:SHELL" "Documents" spawnTermInTopic
     , TI "3:EDITOR" "Documents" spawnEditorInTopic
     , TI "4:PLAYGROUND" "Documents/Playground" spawnTermInTopic
@@ -163,86 +169,53 @@ topics =
     , sshHost "mn5"
     , sshHost "hut"
     , sshHost "hca"
-    , TI "paraver" "Documents/traces" $ spawn "wxparaver" *> switchToLayout "TwoPane Tab"
+    , TI "paraver" "Documents/traces" $ spawn "wxparaver" *> switchToLayout paraverLayout
     , TI "zotero" "Zotero" $ spawn "zotero"
     , inHome "discord" $ spawn "legcord"
     , TI "minecraft" ".local/share/PrismLauncher" $ spawn "prismlauncher"
     , inHome "gaming" $ spawn "steam"
     ]
         ++ ( ($ spawnTermInTopic)
-                <$> ( [ TI "dotfiles" ".dotfiles"
-                      , TI "downloads" "Downloads"
-                      ]
-                        ++ [ TI name ("Documents/" ++ name)
-                           | name <-
-                                [ "nixpkgs"
-                                , "bscpkgs"
-                                , "nos-v"
-                                , "tampi"
-                                , "nodes"
-                                , "nanos6"
-                                , "pocl-v"
-                                , "hpccg"
-                                , "jungle"
-                                , "ovni"
-                                , "haskell/jutge"
-                                , "aoc-25"
-                                , "modulefiles"
-                                ]
-                           ]
-                    )
+                <$> [ TI "dotfiles" ".dotfiles"
+                    , TI "downloads" "Downloads"
+                    ]
+                    ++ [ TI name ("Documents/" ++ name)
+                       | name <-
+                            [ "nixpkgs"
+                            , "bscpkgs"
+                            , "nos-v"
+                            , "tampi"
+                            , "nodes"
+                            , "nanos6"
+                            , "pocl-v"
+                            , "hpccg"
+                            , "jungle"
+                            , "ovni"
+                            , "haskell/jutge"
+                            , "aoc-25"
+                            , "modulefiles"
+                            ]
+                       ]
            )
   where
     only :: Topic -> TopicItem
     only n = noAction n "~/."
 
-switchToLayout = sendMessage . JumpToLayout
+    sshHost host = inHome host $ spawnInTerm ("ssh " ++ host)
 
-sshHost host = inHome host $ spawnInTerm ("ssh " ++ host)
+    switchToLayout = sendMessage . JumpToLayout
 
--- | Go to a topic, shift a window to it, or do both at the same time.
-gotoWs, shiftWin, copyTo :: Topic -> X ()
-gotoWs = switchTopic topicConfig
-shiftWin = windows . W.shift
-copyTo = windows . copy
-
-{- | Prompt version of 'goto' for topics that are not available via
-direct keybindings.
--}
-promptedGoto :: X ()
-promptedGoto = workspacePrompt topicPrompt gotoWs
-
--- | Modify our standard prompt a bit.
-topicPrompt :: XPConfig
-topicPrompt =
-    prompt
-        { autoComplete = Just 3000 -- Time is in μs.
-        , historySize = 0 -- No history in the prompt.
-        }
+    spawnEditorInTopic = spawnInTerm "nvim ."
+    spawnEditorInTopicOpen file = spawnInTerm $ "nvim " ++ file
+    spawnInTerm prog = proc $ inTermHold >-> executeNoQuote prog
+    spawnInTerm' prog = proc $ inTerm >-> executeNoQuote prog
+    inTermHold = termInTopic >-$ pure " --hold"
 
 -- | Spawn terminal in topic directory.
 spawnTermInTopic :: X ()
 spawnTermInTopic = proc termInTopic
 
 termInTopic = termInDir >-$ currentTopicDir topicConfig
-
-spawnEditorInTopic = spawnInTerm "nvim ."
-spawnEditorInTopicOpen file = spawnInTerm $ "nvim " ++ file
-spawnInTerm prog = proc $ inTermHold >-> executeNoQuote prog
-spawnInTerm' prog = proc $ inTerm >-> executeNoQuote prog
-inTermHold = termInTopic >-$ pure " --hold"
-
--- | Base colours to be used.
-colorBg :: String = "#25273A"
-
-colorBlue :: String = "#8AADF4"
-colorCyan :: String = "#8BD5CA"
-colorFg :: String = "#CAD3F5"
-colorLowWhite :: String = "#676B84"
-colorMagenta :: String = "#C6A0F6"
-colorRed :: String = "#ED8796"
-colorText :: String = "#B8C0E0"
-colorYellow :: String = "#EED49F"
 
 -------------------------------------------------------------------------
 -- PROMPT
@@ -278,17 +251,15 @@ prompt =
             , emacsLikeXPKeymap
             ]
 
-{- | I really don't want a history for some things; just clutters up the
-@promptHistory@ file.
--}
-promptNoHist :: XPConfig
-promptNoHist = prompt{historySize = 0}
+--------------------------------------------------------------------------------
+-- Layouts
+--------------------------------------------------------------------------------
 
-setName :: String -> l a -> ModifiedLayout Rename l a
-setName n = renamed [Replace n]
+paraverLayout = "TwoPane Tab"
 
 myLayout =
     avoidStruts
+        . refocusLastLayoutHook
         . mkToggle (MIRROR ?? NBFULL ?? NOBORDERS ?? EOT)
         . smartBorders
         . mouseResize
@@ -309,7 +280,10 @@ myLayout =
     threeColsMid = spacer $ magnifiercz' 1.3 $ CenterMainFluid nmaster delta ratio
     threeCols = spacer $ ThreeCol nmaster delta ratio
     twoPaneA = setName "TwoPane Acc" $ spacer $ mastered delta ratioTwoPane $ focusTracking Accordion
-    twoPane = setName "TwoPane Tab" $ spacer' $ mastered delta ratioTwoPane $ focusTracking $ tabbed shrinkText myTabTheme
+    twoPane = setName paraverLayout $ spacer' $ mastered delta ratioTwoPane $ focusTracking $ tabbed shrinkText myTabTheme
+
+    setName :: String -> l a -> ModifiedLayout Rename l a
+    setName n = renamed [Replace n]
 
     myTabTheme =
         def
@@ -329,99 +303,9 @@ myLayout =
             , urgentBorderWidth = 3
             }
 
-myLayoutPrinter x = let iconstr = icon x in fromMaybe x iconstr
-  where
-    icon = fmap asIcon . getIconName
-    asIcon x = "<icon=" ++ x ++ ".xbm/>"
-    stripPrefix :: String -> String -> String
-    stripPrefix [] s = s
-    stripPrefix _ [] = []
-    stripPrefix (p : ps) (s : ss) = if p == s then stripPrefix ps ss else s : ss
-
-    getIconName :: String -> Maybe String
-    getIconName "Full" = Just "full"
-    getIconName "Tall" = Just "tall"
-    getIconName "Spiral" = Just "spiral"
-    getIconName "ThreeCol" = Just "threeCol"
-    getIconName "CenterMainFluid" = Just "threeCol"
-    getIconName "Accordion" = Just "accordion"
-    getIconName "Grid False" = Just "grid"
-    getIconName "Grid" = Just "grid"
-    getIconName "TwoPane Tab" = Just "mastertab"
-    getIconName "TwoPane Acc" = Just "masteracc"
-    getIconName x
-        | "Spacing" `isPrefixOf` x = getIconName $ stripPrefix "Spacing " x
-        | "Magnifier" `isPrefixOf` x = getIconName $ stripPrefix "Magnifier " x
-        | "NoMaster" `isPrefixOf` x = getIconName $ stripPrefix "NoMaster " x
-        | "Hinted" `isPrefixOf` x = getIconName $ stripPrefix "Hinted " x
-        | "Minimize" `isPrefixOf` x = getIconName $ stripPrefix "Minimize " x
-        | "Mirror" `isPrefixOf` x = fmap ("mirror_" ++) . getIconName $ stripPrefix "Mirror " x
-        | otherwise = Nothing
-
-endsWith, startsWith :: (Eq a) => Query [a] -> [a] -> Query Bool
-qa `endsWith` a = qa <&> isSuffixOf a
-qa `startsWith` a = qa <&> isPrefixOf a
-
-qNot :: Query Bool -> Query Bool
-qNot = fmap not
-
-myHandleEventHook =
-    composeAll
-        [ handleEventHook def
-        , windowedFullscreenFixEventHook
-        , swallowEventHook
-            ( className
-                =? "kitty"
-                <&&> qNot ((title `endsWith` "NVIM") <||> (title `startsWith` "gdb"))
-            )
-            (return True)
-        , refocusLastWhen refocusingIsActive
-        , minimizeEventHook
-        , trayerAboveXmobarEventHook
-        , trayerPaddingXmobarEventHook
-        , fixSteamFlicker
-        ]
-
-rectfloatCenter ratio = doRectFloat $ RationalRect border border ratio ratio
-  where
-    border = (1 - ratio) / 2
-
-doCenterFloatFixed = rectfloatCenter (1 % 2) <+> doF W.swapUp
-doCenterFloatFixedBig = rectfloatCenter (4 % 5) <+> doF W.swapUp
-
-scratchpads =
-    [ NS "scratchpad" (myTerm ++ " --name scratchpad --class scratchpad") (className =? "scratchpad") doCenterFloatFixed
-    , NS "qalc" "qalculate-gtk" (className =? "Qalculate-gtk") doCenterFloatFixed
-    , NS "mail" "thunderbird" (appName =? "Mail" <&&> className =? "thunderbird") doCenterFloatFixedBig
-    , NS "btm" (myTerm ++ " --name btm --class btm -e btm") (className =? "btm") doCenterFloatFixedBig
-    ]
-
-myManageHook =
-    composeAll
-        [ composeOne
-            [ className =? "confirm" -?> doCenterFloat
-            , className =? "file_progress" -?> doCenterFloat
-            , className =? "dialog" -?> doCenterFloat
-            , className =? "download" -?> doCenterFloat
-            , className =? "error" -?> doCenterFloat
-            , className =? "notification" -?> doCenterFloat
-            , className =? "pinentry-gtk-2" -?> doCenterFloat
-            , className =? "splash" -?> doCenterFloat
-            , className =? "toolbar" -?> doCenterFloat
-            , className =? "Slack" -?> doShift (myWorkspaces !! 8)
-            , (appName =? "Alert" <&&> className =? "Zotero") -?> doIgnore
-            , (className =? "Qalculate-gtk") -?> doCenterFloat
-            , (className =? "pavucontrol") -?> doCenterFloatFixed
-            , (className =? "Wxparaver") -?> doShift "paraver"
-            , isBrowser -?> doShift (myWorkspaces !! 1)
-            , (stringProperty "WM_NAME" =? "Picture-in-Picture") -?> doFloat
-            , isDialog -?> doCenterFloat
-            , isFullscreen -?> doFullFloat
-            ]
-        , not <$> willFloat --> insertPosition Below Newer
-        , title =? "Calendar" --> (doFocus *> doCenterFloat)
-        , namedScratchpadManageHook scratchpads
-        ]
+--------------------------------------------------------------------------------
+-- HOOKS
+--------------------------------------------------------------------------------
 
 myStartupHook =
     mconcat
@@ -430,222 +314,334 @@ myStartupHook =
         , spawnOnce "slack -u"
         ]
   where
-    restoreBackground = spawnOnce "~/.fehbg"
+    restoreBackground = spawnOnce wallpaperCmd
 
-subtitle' :: String -> ((KeyMask, KeySym), NamedAction)
-subtitle' x =
-    ( (0, 0)
-    , NamedAction $
-        map toUpper $
-            sep ++ "\n-- " ++ x ++ " --\n" ++ sep
-    )
+myLogHook =
+    historyHook
+        *> workspaceHistoryHookExclude [scratchpadWorkspaceTag]
+        *> showWNameLogHook
+            def
+                { swn_font = "xft:" ++ myFont ++ ":size=21"
+                , swn_bgcolor = colorBg
+                , swn_color = colorFg
+                }
+
+myHandleEventHook =
+    composeAll
+        [ handleEventHook def
+        , windowedFullscreenFixEventHook
+        , swallowEventHook
+            ( className
+                =? myTerm
+                <&&> (not <$> ((title `endsWith` "NVIM") <||> (title `startsWith` "gdb")))
+            )
+            (return True)
+        , refocusLastWhen (refocusingIsActive <&&> (not <$> isFullscreen))
+        , minimizeEventHook
+        , trayerAboveXmobarEventHook
+        , trayerPaddingXmobarEventHook
+        , fixSteamFlicker
+        ]
   where
-    sep = replicate (6 + length x) '-'
+    endsWith, startsWith :: (Eq a) => Query [a] -> [a] -> Query Bool
+    qa `endsWith` a = qa <&> isSuffixOf a
+    qa `startsWith` a = qa <&> isPrefixOf a
 
--- | Toggle between the current and the last topic.
-toggleTopic :: X ()
-toggleTopic = switchNthLastFocusedByScreen topicConfig 1
+myManageHook =
+    composeAll
+        [ composeOne
+            ( floats
+                ++ [ className =? "pavucontrol" -?> doCenterFloatFixed
+                   , (stringProperty "WM_NAME" =? "Picture-in-Picture") -?> doFloat
+                   , isDialog -?> doCenterFloat
+                   , isFullscreen -?> doFullFloat
+                   , title =? "Calendar" -?> (doFocus *> doCenterFloat)
+                   ]
+            )
+        , composeOne
+            [ (appName =? "Alert" <&&> className =? "Zotero") -?> doIgnore
+            , className =? "Slack" -?> doShift (myWorkspaces !! 8)
+            , className =? "Wxparaver" -?> doShift "paraver"
+            , isBrowser -?> doShift (myWorkspaces !! 1)
+            ]
+        , not <$> willFloat --> insertPosition Below Newer
+        , namedScratchpadManageHook scratchpads
+        ]
+  where
+    floats =
+        [ className =? name -?> doCenterFloat
+        | name <-
+            [ "confirm"
+            , "file_progress"
+            , "dialog"
+            , "download"
+            , "error"
+            , "notification"
+            , "pinentry-gtk-2"
+            , "splash"
+            , "toolbar"
+            , "Qalculate-gtk"
+            ]
+        ]
+    rectfloatCenter ratio = doRectFloat $ RationalRect border border ratio ratio
+      where
+        border = (1 - ratio) / 2
 
--- | Shift the currently focused window to the last visited topic.
-shiftToLastTopic :: X ()
-shiftToLastTopic = shiftNthLastFocused 1
+    doCenterFloatFixed = rectfloatCenter (1 % 2) <+> doF W.swapUp
+    doCenterFloatFixedBig = rectfloatCenter (4 % 5) <+> doF W.swapUp
+
+    scratchpads =
+        [ NS "scratchpad" (myTerm ++ " --name scratchpad --class scratchpad") (className =? "scratchpad") doCenterFloatFixed
+        , NS "qalc" "qalculate-gtk" (className =? "Qalculate-gtk") doCenterFloatFixed
+        , NS "mail" "thunderbird" (appName =? "Mail" <&&> className =? "thunderbird") doCenterFloatFixedBig
+        , NS "btm" (myTerm ++ " --name btm --class btm -e btm") (className =? "btm") doCenterFloatFixedBig
+        ]
+
+--------------------------------------------------------------------------------
+-- KEYBINDS
+--------------------------------------------------------------------------------
 
 -- https://github.com/xmonad/xmonad/blob/master/src/XMonad/Config.hs
 myKeys c =
-    let subKeys str ks = subtitle' str : mkNamedKeymap c ks
-     in -- in (subtitle "Custom Keys" :) $
-        -- mkNamedKeymap c $
-        subKeys
-            "Base"
-            [ ("M-S-q", addName "Quit Xmonad" $ io exitSuccess)
-            , ("M-d", addName "Open rofi" $ spawn "rofi -show")
-            , ("M-k", addName "Focus Up" focusUp)
-            , ("M-j", addName "Focus Down" focusDown)
-            , ("M-w", addName "Remove window from workspace" kill1)
-            , ("M-S-w", addName "Kill window" kill)
-            , ("M-C-S-w", addName "Remove Window from all workspaces" killAll)
-            , ("C-M1-l", addName "Lock screen" $ spawn "i3lock-fancy-rapid 5 5")
-            , ("M-S-m", addName "Focus previous" $ nextMatch History (return True))
-            , ("M-f", addName "Toggle fullscreen" $ sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts)
-            , ("M-x", addName "Toggle mirror" $ sendMessage $ Toggle MIRROR)
-            , ("M-<Return>", addName "Open terminal" spawnTermInTopic)
-            , ("M-S-<Return>", addName "Promote to master" dwmpromote)
-            , ("M-a", addName "Topic Action" $ currentTopicAction topicConfig)
-            , ("M-C-t", addName "Tile floating windows" $ withFocused $ windows . W.sink)
-            , ("M-s", addName "Sticky" $ windows copyToAll)
-            , ("M-S-s", addName "Unsticky" killAllOtherCopies)
-            , ("M-z", addName "Toggle Scratchpad" $ namedScratchpadAction [] "scratchpad")
-            , ("M-c", addName "Toggle qalc" $ namedScratchpadAction [] "qalc")
-            , ("M-t", addName "Toggle btm" $ namedScratchpadAction [] "btm")
-            , ("M-n", addName "Nvim" $ runOrRaiseNext (myTerm ++ " nvim") ((isSuffixOf "NVIM" <$> title) <||> (isSuffixOf "- NVIM\" " <$> title)))
-            , ("M-b", addName "browser" $ runOrRaiseNext browser isBrowser)
-            , ("M-S-b", addName "run or copy browser" $ runOrCopy browser isBrowser)
-            , ("M-v", addName "Terminal" $ runOrRaiseNext myTerm (className =? myTerm))
-            , ("M-u", addName "Focus urgent" focusUrgent)
-            , ("M-;", addName "Minimize" $ withFocused minimizeWindow)
-            , ("M-S-;", addName "UnMinimize" $ withLastMinimized maximizeWindowAndFocus)
-            , ("M-'", addName "Mark Boring" markBoringEverywhere)
-            , ("M-S-'", addName "Clear Boring" clearBoring)
-            , ("M-g", addName "Mail" $ namedScratchpadAction [] "mail")
-            , ("M-/", addName "Goto" $ workspacePrompt topicPrompt gotoWs)
-            , ("M-S-/", addName "Move to" $ workspacePrompt topicPrompt shiftWin)
-            , ("M-C-/", addName "Copy to" $ workspacePrompt topicPrompt copyTo)
-            , ("M-p", addName "Prompt" $ shellPrompt prompt)
-            , ("M-o", addName "toggletopic" toggleTopic)
-            , ("M-S-o", addName "move toggle topic" shiftToLastTopic)
-            , ("M-[", addName "prev topic" $ moveTo Prev $ hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
-            , ("M-]", addName "next topic" $ moveTo Next $ hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
-            , ("M-S-[", addName "shift prev topic" $ shiftTo Prev $ hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
-            , ("M-S-]", addName "shift next topic" $ shiftTo Next $ hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
-            , ("M-i", addName "swap screens" swapNextScreen)
-            , ("M-S-i", addName "swap screens" swapPrevScreen)
-            , ("M-e", addName "search" $ visualSubmap visualConfig searchEngineMap)
-            , ("<Print>", addName "screenshot" $ spawn "flameshot gui")
-            , ("M-<F10>", addName "screenshot" $ spawn "flameshot gui")
+    subKeys
+        "Base"
+        [ ("M-S-q", addName "Quit Xmonad" $ io exitSuccess)
+        , ("M-d", addName "Open rofi" $ spawn "rofi -show")
+        , ("M-k", addName "Focus Up" focusUp)
+        , ("M-j", addName "Focus Down" focusDown)
+        , ("M-w", addName "Remove window from workspace" kill1)
+        , ("M-S-w", addName "Kill window" kill)
+        , ("M-C-S-w", addName "Remove Window from all workspaces" killAll)
+        , ("C-M1-l", addName "Lock screen" $ spawn "i3lock-fancy-rapid 5 5")
+        , ("M-S-m", addName "Focus previous" $ nextMatch History (return True))
+        , ("M-f", addName "Toggle fullscreen" $ sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts)
+        , ("M-x", addName "Toggle mirror" $ sendMessage $ Toggle MIRROR)
+        , ("M-<Return>", addName "Open terminal" spawnTermInTopic)
+        , ("M-S-<Return>", addName "Promote to master" dwmpromote)
+        , ("M-a", addName "Topic Action" $ currentTopicAction topicConfig)
+        , ("M-C-t", addName "Tile floating windows" $ withFocused $ windows . W.sink)
+        , ("M-s", addName "Sticky" $ windows copyToAll)
+        , ("M-S-s", addName "Unsticky" killAllOtherCopies)
+        , ("M-z", addName "Toggle Scratchpad" $ namedScratchpadAction [] "scratchpad")
+        , ("M-c", addName "Toggle qalc" $ namedScratchpadAction [] "qalc")
+        , ("M-t", addName "Toggle btm" $ namedScratchpadAction [] "btm")
+        , ("M-n", addName "Nvim" $ runOrRaiseNext (myTerm ++ " nvim") ((isSuffixOf "NVIM" <$> title) <||> (isSuffixOf "- NVIM\" " <$> title)))
+        , ("M-b", addName "browser" $ runOrRaiseNext myBrowser isBrowser)
+        , ("M-S-b", addName "run or copy browser" $ runOrCopy myBrowser isBrowser)
+        , ("M-v", addName "Terminal" $ runOrRaiseNext myTerm (className =? myTerm))
+        , ("M-u", addName "Focus urgent" focusUrgent)
+        , ("M-;", addName "Minimize" $ withFocused minimizeWindow)
+        , ("M-S-;", addName "UnMinimize" $ withLastMinimized maximizeWindowAndFocus)
+        , ("M-'", addName "Mark Boring" markBoringEverywhere)
+        , ("M-S-'", addName "Clear Boring" clearBoring)
+        , ("M-g", addName "Mail" $ namedScratchpadAction [] "mail")
+        , ("M-/", addName "Goto" $ workspacePrompt topicPrompt gotoWs)
+        , ("M-S-/", addName "Move to" $ workspacePrompt topicPrompt shiftWin)
+        , ("M-C-/", addName "Copy to" $ workspacePrompt topicPrompt copyTo)
+        , ("M-p", addName "Prompt" $ shellPrompt prompt)
+        , ("M-o", addName "toggletopic" toggleTopic)
+        , ("M-S-o", addName "move toggle topic" shiftToLastTopic)
+        , ("M-[", addName "prev topic" $ moveTo Prev $ hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
+        , ("M-]", addName "next topic" $ moveTo Next $ hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
+        , ("M-S-[", addName "shift prev topic" $ shiftTo Prev $ hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
+        , ("M-S-]", addName "shift next topic" $ shiftTo Next $ hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
+        , ("M-i", addName "swap screens" swapNextScreen)
+        , ("M-S-i", addName "swap screens" swapPrevScreen)
+        , ("M-e", addName "search" searchEngineMap)
+        , ("<Print>", addName "screenshot" $ spawn "flameshot gui")
+        , ("M-<F10>", addName "screenshot" $ spawn "flameshot gui")
+        ]
+        ^++^ subKeys
+            "Volume"
+            [ -- Volume
+              ("<XF86AudioLowerVolume>", addName "volume up" $ spawn "amixer -q sset Master 5%-")
+            , ("<XF86AudioRaiseVolume>", addName "volume down" $ spawn "amixer -q sset Master 5%+")
+            , ("<XF86AudioMute>", addName "volume mute" $ spawn "amixer -q sset Master toggle")
             ]
-            ^++^ subKeys
-                "Volume"
-                [ -- Volume
-                  ("<XF86AudioLowerVolume>", addName "volume up" $ spawn "amixer -q sset Master 5%-")
-                , ("<XF86AudioRaiseVolume>", addName "volume down" $ spawn "amixer -q sset Master 5%+")
-                , ("<XF86AudioMute>", addName "volume mute" $ spawn "amixer -q sset Master toggle")
-                ]
-            ^++^ subKeys
-                "Media"
-                -- Media
-                [ ("<XF86AudioPlay>", addName "Play/Pause" $ spawn "playerctl play-pause")
-                , ("<XF86AudioNext>", addName "Next" $ spawn "playerctl next")
-                , ("<XF86AudioPrev>", addName "Prev" $ spawn "playerctl previous")
-                , ("<XF86AudioStop>", addName "Stop" $ spawn "playerctl stop")
-                -- ("M-<KP_5>", addName "volume up" $ spawn "hass-cli state toggle light.desk_lamp")
-                ]
-            ^++^ subKeys
-                "Brightness"
-                -- Brightness
-                [ ("<XF86MonBrightnessUp>", addName "Increase brightness" $ spawn "light -A 1")
-                , ("<XF86MonBrightnessDown>", addName "Decrease brightness" $ spawn "light -U 1")
-                ]
-            ^++^ subKeys
-                "Workspaces"
-                -- Copy client to other workspaces
-                [ ("M-C-" ++ ws, addName "" $ windows $ copy name)
-                | (ws, name) <- zip wsKeys myWorkspaces
-                ]
-            ^++^ subKeys
-                "Goto"
-                [("M-" <> m <> k, addName "" $ f i) | (i, k) <- zip (topicNames topics) wsKeys, (f, m) <- [(gotoWs, ""), (windows . W.shift, "S-")]]
+        ^++^ subKeys
+            "Media"
+            -- Media
+            [ ("<XF86AudioPlay>", addName "Play/Pause" $ spawn "playerctl play-pause")
+            , ("<XF86AudioNext>", addName "Next" $ spawn "playerctl next")
+            , ("<XF86AudioPrev>", addName "Prev" $ spawn "playerctl previous")
+            , ("<XF86AudioStop>", addName "Stop" $ spawn "playerctl stop")
+            -- ("M-<KP_5>", addName "volume up" $ spawn "hass-cli state toggle light.desk_lamp")
+            ]
+        ^++^ subKeys
+            "Brightness"
+            -- Brightness
+            [ ("<XF86MonBrightnessUp>", addName "Increase brightness" $ spawn "light -A 1")
+            , ("<XF86MonBrightnessDown>", addName "Decrease brightness" $ spawn "light -U 1")
+            ]
+        ^++^ subKeys
+            "Workspaces"
+            -- Copy client to other workspaces
+            [ ("M-C-" ++ ws, addName "" $ windows $ copy name)
+            | (ws, name) <- zip wsKeys myWorkspaces
+            ]
+        ^++^ subKeys
+            "Goto"
+            [("M-" <> m <> k, addName "" $ f i) | (i, k) <- zip (topicNames topics) wsKeys, (f, m) <- [(gotoWs, ""), (windows . W.shift, "S-")]]
+  where
+    subKeys str ks = subtitle' str : mkNamedKeymap c ks
 
-wsKeys = "`" : map (show @Int) [1 .. 9]
-myWorkspaces = topicNames topics
+    subtitle' :: String -> ((KeyMask, KeySym), NamedAction)
+    subtitle' x =
+        ( (0, 0)
+        , NamedAction $
+            map toUpper $
+                sep ++ "\n-- " ++ x ++ " --\n" ++ sep
+        )
+      where
+        sep = replicate (6 + length x) '-'
 
-myLogHook = dynamicLogWithPP . filterOutWsPP [scratchpadWorkspaceTag] $ def
+    wsKeys = "`" : map (show @Int) [1 .. 9]
+
+    -- \| Toggle between the current and the last topic.
+    toggleTopic :: X ()
+    toggleTopic = switchNthLastFocusedByScreen topicConfig 1
+
+    -- \| Shift the currently focused window to the last visited topic.
+    shiftToLastTopic :: X ()
+    shiftToLastTopic = shiftNthLastFocused 1
+
+    -- \| Go to a topic, shift a window to it, or copyIt
+    gotoWs, shiftWin, copyTo :: Topic -> X ()
+    gotoWs = switchTopic topicConfig
+    shiftWin = windows . W.shift
+    copyTo = windows . copy
+
+    -- \| Modify our standard prompt a bit.
+    topicPrompt :: XPConfig
+    topicPrompt =
+        prompt
+            { autoComplete = Just 3000 -- Time is in μs.
+            , historySize = 0 -- No history in the prompt.
+            }
+
+--------------------------------------------------------------------------------
+-- xmobar pretty printer
+--------------------------------------------------------------------------------
 
 myXmobarPP :: X PP
-myXmobarPP = do
-    red <- getColorOrDefault "color1" "#ED8796"
-    green <- getColorOrDefault "color2" "#A6DA95"
-    yellow <- getColorOrDefault "color3" "#EED49F"
-    blue <- getColorOrDefault "color4" "#8AADF4"
-    magenta <- getColorOrDefault "color5" "#C6A0F6"
-    white <- getColorOrDefault "color7" "#B8C0E0"
-    cyan' <- liftIO $ fromMaybe "#8BD5CA" <$> xrdbGet "color6"
-    foreground <- getColorOrDefault "foreground" "#CAD3F5"
-    lowWhite <- getColorOrDefault "color8" "#5B6078"
-
-    let formatFocused = wrap (foreground "[") (foreground "]") . magenta . ppWindow
-    let formatUnfocused = wrap (lowWhite "[") (lowWhite "]") . blue . ppWindow
-
-    (copiesPP (pad . green) >=> clickablePP) $
+myXmobarPP =
+    copiesPP (pad . fgColor colorGreen) >=> clickablePP $
         filterOutWsPP [scratchpadWorkspaceTag] $
             def
-                { ppSep = magenta " | "
+                { ppSep = fgColor colorMagenta " | "
                 , ppTitleSanitize = xmobarStrip
-                , ppCurrent = pad . xmobarBorder "Top" cyan' 2
+                , ppCurrent = pad . xmobarBorder "Top" colorCyan 2
                 , ppVisible = wrap "(" ")"
                 , ppHidden = pad
                 , -- , ppHiddenNoWindows = lowWhite . pad
-                  ppLayout = white . myLayoutPrinter
-                , ppUrgent = red . wrap (yellow "!") (yellow "!")
+                  ppLayout = fgColor colorFg . myLayoutPrinter
+                , ppUrgent = fgColor colorRed . wrap (fgColor colorYellow "!") (fgColor colorYellow "!")
                 , ppOrder = \[ws, l, _, wins] -> [ws, l, wins]
                 , ppExtras = [logTitles formatFocused formatUnfocused]
                 }
   where
-    -- \| Windows should have *some* title, which should not not exceed a
-    -- sane length.
-    ppWindow :: String -> String
     ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
 
-    fgColor = flip xmobarColor ""
+    formatFocused = wrap (fgColor colorFg "[") (fgColor colorFg "]") . fgColor colorMagenta . ppWindow
+    formatUnfocused = wrap (fgColor colorLowWhite "[") (fgColor colorLowWhite "]") . fgColor colorBlue . ppWindow
 
-    getColorOrDefault :: String -> String -> X (String -> String)
-    getColorOrDefault color def = liftIO $ fmap (fgColor . fromMaybe def) . xrdbGet $ color
+    fgColor = (`xmobarColor` "")
 
-rescreenCfg :: RescreenConfig
-rescreenCfg =
-    def
-        { afterRescreenHook = spawn "sleep 0.5; pkill -USR2 xmobar; ~/.fehbg"
-        , randrChangeHook = spawn "autorandr --change"
-        }
+    myLayoutPrinter x = let iconstr = icon x in fromMaybe x iconstr
+      where
+        icon = fmap asIcon . getIconName
+        asIcon x = "<icon=" ++ x ++ ".xbm/>"
+        stripPrefix :: String -> String -> String
+        stripPrefix [] s = s
+        stripPrefix _ [] = []
+        stripPrefix (p : ps) (s : ss) = if p == s then stripPrefix ps ss else s : ss
 
-myTerm = "kitty"
+        getIconName :: String -> Maybe String
+        getIconName "Full" = Just "full"
+        getIconName "Tall" = Just "tall"
+        getIconName "Spiral" = Just "spiral"
+        getIconName "ThreeCol" = Just "threeCol"
+        getIconName "CenterMainFluid" = Just "threeCol"
+        getIconName "Accordion" = Just "accordion"
+        getIconName "Grid False" = Just "grid"
+        getIconName "Grid" = Just "grid"
+        getIconName "TwoPane Acc" = Just "masteracc"
+        getIconName x
+            | x == paraverLayout = Just "mastertab"
+            | "Spacing" `isPrefixOf` x = getIconName $ stripPrefix "Spacing " x
+            | "Magnifier" `isPrefixOf` x = getIconName $ stripPrefix "Magnifier " x
+            | "NoMaster" `isPrefixOf` x = getIconName $ stripPrefix "NoMaster " x
+            | "Hinted" `isPrefixOf` x = getIconName $ stripPrefix "Hinted " x
+            | "Minimize" `isPrefixOf` x = getIconName $ stripPrefix "Minimize " x
+            | "Mirror" `isPrefixOf` x = fmap ("mirror_" ++) . getIconName $ stripPrefix "Mirror " x
+            | otherwise = Nothing
 
--- xrdbGet :: (MonadIO m) => String -> m (Maybe String)
-xrdbGet :: String -> IO (Maybe String)
-xrdbGet value = do
-    res <- lines <$> runProcessWithInput "xrdb" ["-get", value] ""
-    return $ case res of
-        [] -> Nothing
-        a : _ -> Just a
+--------------------------------------------------------------------------------
+-- search engine visual prompt
+--------------------------------------------------------------------------------
 
-searchEngineMap :: Map (KeyMask, KeySym) (String, X ())
 searchEngineMap =
-    basicSubmapFromList
-        [ (xK_a, "[a]rXiv", sw arXiv)
-        , (xK_w, "[w]ikipedia", sw wikipedia)
-        , (xK_y, "[y]ouTube", sw youtube)
-        , (xK_h, "[h]oogle", sw hoogle)
-        , (xK_g, "[g]oogle", sw google)
-        , (xK_d, "[d]uckduckgo", sw duckduckgo)
-        , (xK_s, "[s]ourcegraph", sw sourcegraph)
-        , (xK_p, "re[p]ology", sw repology)
-        , (xK_c, "[c]ppreference", sw cppreference)
-        , (xK_h, "git[h]ub", sw github)
-        ,
-            ( xK_n
-            , "[n]ix"
-            , visualSubmap visualConfig $
-                basicSubmapFromList
-                    [ (xK_n, "[n]oogle", sw noogle')
-                    , (xK_p, "nixos [p]ackages", sw nixos)
-                    , (xK_h, "[h]ome", sw homeManager')
-                    , (xK_o, "nixos [o]ptions", sw nixosOptions)
-                    ]
-            )
-        ,
-            ( xK_r
-            , "[r]ust"
-            , visualSubmap visualConfig $
-                basicSubmapFromList
-                    [ (xK_c, "[c]rates.io", sw cratesIo)
-                    , (xK_r, "[r]ust std", sw rustStd)
-                    ]
-            )
-        ,
-            ( xK_m
-            , "[m]an"
-            , manPrompt
-                promptNoHist
-                    { searchPredicate = searchPredicate def
-                    , sorter = sorter def
-                    }
-            )
-        , (xK_o, "[o]sm", sw openstreetmap)
-        ]
+    visualSubmap visualConfig $
+        basicSubmapFromList
+            [ (xK_a, "[a]rXiv", sw arXiv)
+            , (xK_w, "[w]ikipedia", sw wikipedia)
+            , (xK_y, "[y]ouTube", sw' youtube)
+            , (xK_h, "[h]oogle", sw hoogle)
+            , (xK_g, "[g]oogle", sw google)
+            , (xK_d, "[d]uckduckgo", sw duckduckgo)
+            , (xK_s, "[s]ourcegraph", sw sourcegraph)
+            , (xK_p, "re[p]ology", sw repology)
+            , (xK_c, "[c]ppreference", sw cppreference)
+            ,
+                ( xK_n
+                , "[n]ix"
+                , visualSubmap visualConfig $
+                    basicSubmapFromList
+                        [ (xK_n, "[n]oogle", sw noogle')
+                        , (xK_p, "nixos [p]ackages", sw nixos)
+                        , (xK_h, "[h]ome", sw homeManager')
+                        , (xK_o, "nixos [o]ptions", sw nixosOptions)
+                        ]
+                )
+            ,
+                ( xK_r
+                , "[r]ust"
+                , visualSubmap visualConfig $
+                    basicSubmapFromList
+                        [ (xK_c, "[c]rates.io", sw cratesIo)
+                        , (xK_r, "[r]ust std", sw rustStd)
+                        ]
+                )
+            ,
+                ( xK_m
+                , "[m]an"
+                , manPrompt
+                    promptNoHist
+                        { searchPredicate = searchPredicate def
+                        , sorter = sorter def
+                        }
+                )
+            , (xK_o, "[o]sm", sw' openstreetmap)
+            ]
+            `M.union` fromList
+                [ ((shiftMask, xK_g), ("[G]ithub", sw github))
+                ]
   where
+    visualConfig :: WindowConfig
+    visualConfig =
+        def
+            { winFont = "xft:" ++ myFont ++ ":size=21"
+            , winBg = colorBg
+            , winFg = colorFg
+            }
+
     basicSubmapFromList :: (Ord key) => [(key, desc, action)] -> Map (KeyMask, key) (desc, action)
     basicSubmapFromList = fromList . map \(k, d, a) -> ((0, k), (d, a))
 
-    sw = promptSearchBrowser prompt browser
+    promptNoHist = prompt{historySize = 0}
+
+    sw = promptSearchBrowser prompt myBrowser
+    sw' = promptSearchBrowser promptNoHist myBrowser
 
     nixosOptions = searchEngine "nixosOptions" "https://search.nixos.org/options?channel=unstable&from=0&size=200&sort=relevance&type=packages&query="
     sourcegraph = searchEngine "sourcegraph" "https://sourcegraph.com/search?q="
