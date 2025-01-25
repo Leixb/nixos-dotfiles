@@ -353,7 +353,8 @@ myManageHook =
         [ composeOne
             ( floats
                 ++ [ className =? "pavucontrol" -?> doCenterFloatFixed
-                   , (stringProperty "WM_NAME" =? "Picture-in-Picture") -?> doFloat
+                   , (wmName =? "Picture-in-Picture") -?> doFloat
+                   , isDialog <&&> isParaver <&&> wmName =? "Drawing window..." -?> (doCenterFloat *> doIgnore) -- paraver drawing window steals focus and its annoying
                    , isDialog -?> doCenterFloat
                    , isFullscreen -?> doFullFloat
                    , title =? "Calendar" -?> (doFocus *> doCenterFloat)
@@ -362,13 +363,15 @@ myManageHook =
         , composeOne
             [ (appName =? "Alert" <&&> className =? "Zotero") -?> doIgnore
             , className =? "Slack" -?> doShift (myWorkspaces !! 8)
-            , className =? "Wxparaver" -?> doShift "paraver"
+            , isParaver -?> doShift "paraver"
             , isBrowser -?> doShift (myWorkspaces !! 1)
             ]
         , not <$> willFloat --> insertPosition Below Newer
         , namedScratchpadManageHook scratchpads
         ]
   where
+    wmName = stringProperty "WM_NAME"
+    isParaver = className =? "Wxparaver"
     floats =
         [ className =? name -?> doCenterFloat
         | name <-
@@ -602,7 +605,7 @@ searchEngineMap =
             , (xK_c, "[c]ppreference", sw cppreference)
             ,
                 ( xK_n
-                , "[n]ix"
+                , "[n]ix ->"
                 , visualSubmap visualConfig $
                     basicSubmapFromList
                         [ (xK_n, "[n]oogle", sw noogle')
@@ -613,7 +616,7 @@ searchEngineMap =
                 )
             ,
                 ( xK_r
-                , "[r]ust"
+                , "[r]ust ->"
                 , visualSubmap visualConfig $
                     basicSubmapFromList
                         [ (xK_c, "[c]rates.io", sw cratesIo)
@@ -644,7 +647,7 @@ searchEngineMap =
             }
 
     basicSubmapFromList :: (Ord key) => [(key, desc, action)] -> Map (KeyMask, key) (desc, action)
-    basicSubmapFromList = fromList . map \(k, d, a) -> ((0, k), (d, a))
+    basicSubmapFromList = fromList . map \(k, d, a) -> ((noModMask, k), (d, a))
 
     promptNoHist = prompt{historySize = 0}
 
