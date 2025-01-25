@@ -9,6 +9,8 @@ import Data.Ratio
 import System.Environment (lookupEnv)
 import System.Exit (exitSuccess)
 
+import Graphics.X11.ExtraTypes.XF86
+
 import XMonad.StackSet (RationalRect (RationalRect))
 import XMonad.StackSet qualified as W
 
@@ -91,7 +93,6 @@ main =
         . withUrgencyHook (BorderUrgencyHook colorRed)
         . withSB (statusBarProp "xmobar" myXmobarPP)
         . spawnExternalProcess def
-        . addDescrKeys ((mod4Mask, xK_F1), xMessage) myKeys
         $ myConfig
   where
     rescreenCfg :: RescreenConfig
@@ -104,6 +105,7 @@ main =
     myConfig =
         def
             { modMask = mod4Mask
+            , keys = myKeys
             , terminal = myTerm
             , borderWidth = 3
             , focusedBorderColor = colorFg
@@ -117,8 +119,7 @@ main =
             }
 
 myTerm = "kitty"
-myBrowser :: Browser
-myBrowser = "firefox"
+myBrowser :: Browser = "firefox"
 isBrowser = className =? myBrowser
 
 --------------------------------------------------------------------------------
@@ -150,7 +151,7 @@ topicConfig =
     def
         { topicDirs = tiDirs topics
         , topicActions = tiActions topics
-        , defaultTopicAction = const (pure ())
+        , defaultTopicAction = const . pure $ mempty
         , defaultTopic = head myWorkspaces
         }
 
@@ -401,123 +402,145 @@ myManageHook =
 -- KEYBINDS
 --------------------------------------------------------------------------------
 
--- https://github.com/xmonad/xmonad/blob/master/src/XMonad/Config.hs
-myKeys c =
-    subKeys
-        "Base"
-        [ ("M-S-q", addName "Quit Xmonad" $ io exitSuccess)
-        , ("M-d", addName "Open rofi" $ spawn "rofi -show")
-        , ("M-k", addName "Focus Up" focusUp)
-        , ("M-j", addName "Focus Down" focusDown)
-        , ("M-w", addName "Remove window from workspace" kill1)
-        , ("M-S-w", addName "Kill window" kill)
-        , ("M-C-S-w", addName "Remove Window from all workspaces" killAll)
-        , ("C-M1-l", addName "Lock screen" $ spawn "i3lock-fancy-rapid 5 5")
-        , ("M-S-m", addName "Focus previous" $ nextMatch History (return True))
-        , ("M-f", addName "Toggle fullscreen" $ sendMessage (Toggle NBFULL) >> sendMessage ToggleStruts)
-        , ("M-x", addName "Toggle mirror" $ sendMessage $ Toggle MIRROR)
-        , ("M-<Return>", addName "Open terminal" spawnTermInTopic)
-        , ("M-S-<Return>", addName "Promote to master" dwmpromote)
-        , ("M-a", addName "Topic Action" $ currentTopicAction topicConfig)
-        , ("M-C-t", addName "Tile floating windows" $ withFocused $ windows . W.sink)
-        , ("M-s", addName "Sticky" $ windows copyToAll)
-        , ("M-S-s", addName "Unsticky" killAllOtherCopies)
-        , ("M-z", addName "Toggle Scratchpad" $ namedScratchpadAction [] "scratchpad")
-        , ("M-c", addName "Toggle qalc" $ namedScratchpadAction [] "qalc")
-        , ("M-t", addName "Toggle btm" $ namedScratchpadAction [] "btm")
-        , ("M-n", addName "Nvim" $ runOrRaiseNext (myTerm ++ " nvim") ((isSuffixOf "NVIM" <$> title) <||> (isSuffixOf "- NVIM\" " <$> title)))
-        , ("M-b", addName "browser" $ runOrRaiseNext myBrowser isBrowser)
-        , ("M-S-b", addName "run or copy browser" $ runOrCopy myBrowser isBrowser)
-        , ("M-v", addName "Terminal" $ runOrRaiseNext myTerm (className =? myTerm))
-        , ("M-u", addName "Focus urgent" focusUrgent)
-        , ("M-;", addName "Minimize" $ withFocused minimizeWindow)
-        , ("M-S-;", addName "UnMinimize" $ withLastMinimized maximizeWindowAndFocus)
-        , ("M-'", addName "Mark Boring" markBoringEverywhere)
-        , ("M-S-'", addName "Clear Boring" clearBoring)
-        , ("M-g", addName "Mail" $ namedScratchpadAction [] "mail")
-        , ("M-/", addName "Goto" $ workspacePrompt topicPrompt gotoWs)
-        , ("M-S-/", addName "Move to" $ workspacePrompt topicPrompt shiftWin)
-        , ("M-C-/", addName "Copy to" $ workspacePrompt topicPrompt copyTo)
-        , ("M-p", addName "Prompt" $ shellPrompt prompt)
-        , ("M-o", addName "toggletopic" toggleTopic)
-        , ("M-S-o", addName "move toggle topic" shiftToLastTopic)
-        , ("M-[", addName "prev topic" $ moveTo Prev $ hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
-        , ("M-]", addName "next topic" $ moveTo Next $ hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
-        , ("M-S-[", addName "shift prev topic" $ shiftTo Prev $ hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
-        , ("M-S-]", addName "shift next topic" $ shiftTo Next $ hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag])
-        , ("M-i", addName "swap screens" swapNextScreen)
-        , ("M-S-i", addName "swap screens" swapPrevScreen)
-        , ("M-e", addName "search" searchEngineMap)
-        , ("<Print>", addName "screenshot" $ spawn "flameshot gui")
-        , ("M-<F10>", addName "screenshot" $ spawn "flameshot gui")
-        ]
-        ^++^ subKeys
-            "Volume"
-            [ -- Volume
-              ("<XF86AudioLowerVolume>", addName "volume up" $ spawn "amixer -q sset Master 5%-")
-            , ("<XF86AudioRaiseVolume>", addName "volume down" $ spawn "amixer -q sset Master 5%+")
-            , ("<XF86AudioMute>", addName "volume mute" $ spawn "amixer -q sset Master toggle")
-            ]
-        ^++^ subKeys
-            "Media"
-            -- Media
-            [ ("<XF86AudioPlay>", addName "Play/Pause" $ spawn "playerctl play-pause")
-            , ("<XF86AudioNext>", addName "Next" $ spawn "playerctl next")
-            , ("<XF86AudioPrev>", addName "Prev" $ spawn "playerctl previous")
-            , ("<XF86AudioStop>", addName "Stop" $ spawn "playerctl stop")
-            -- ("M-<KP_5>", addName "volume up" $ spawn "hass-cli state toggle light.desk_lamp")
-            ]
-        ^++^ subKeys
-            "Brightness"
-            -- Brightness
-            [ ("<XF86MonBrightnessUp>", addName "Increase brightness" $ spawn "light -A 1")
-            , ("<XF86MonBrightnessDown>", addName "Decrease brightness" $ spawn "light -U 1")
-            ]
-        ^++^ subKeys
-            "Workspaces"
-            -- Copy client to other workspaces
-            [ ("M-C-" ++ ws, addName "" $ windows $ copy name)
-            | (ws, name) <- zip wsKeys myWorkspaces
-            ]
-        ^++^ subKeys
-            "Goto"
-            [("M-" <> m <> k, addName "" $ f i) | (i, k) <- zip (topicNames topics) wsKeys, (f, m) <- [(gotoWs, ""), (windows . W.shift, "S-")]]
-  where
-    subKeys str ks = subtitle' str : mkNamedKeymap c ks
+{- ORMOLU_DISABLE -}
+myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
+myKeys conf@(XConfig {modMask = modMask}) = M.fromList $
+    -- launching and killing programs
+    [ ((modMask,                 xK_Return), spawnTermInTopic) -- %! Launch terminal
+    , ((modMask,                 xK_d     ), spawn "rofi -show") -- %! Launch rofi
+    , ((modMask .|. shiftMask,   xK_d     ), shellPrompt prompt) -- %! Launch shell prompt
 
-    subtitle' :: String -> ((KeyMask, KeySym), NamedAction)
-    subtitle' x =
-        ( (0, 0)
-        , NamedAction $
-            map toUpper $
-                sep ++ "\n-- " ++ x ++ " --\n" ++ sep
-        )
+    , ((modMask,                 xK_w     ), kill1) -- %! Close the focused window in workspace
+    , ((modMask .|. shiftMask,   xK_w     ), kill) -- %! Close the focused window
+    , ((modMask .|. controlMask, xK_w     ), killAll) -- %! Close the focused window in all workspaces
+    , ((modMask,                 xK_s     ), windows copyToAll) -- %! Make window sticky
+    , ((modMask .|. shiftMask,   xK_s     ), killAllOtherCopies) -- %! Close all other windows
+
+    , ((mod4Mask .|. controlMask, xK_l    ), spawn "i3lock-fancy-rapid 5 5") -- %! Close the focused window
+
+    , ((modMask,               xK_space ), sendMessage NextLayout) -- %! Rotate through the available layout algorithms
+    , ((modMask .|. shiftMask, xK_space ), setLayout $ layoutHook conf) -- %!  Reset the layouts on the current workspace to default
+
+    , ((modMask,               xK_n     ), refresh) -- %! Resize viewed windows to the correct size
+
+    -- move focus up or down the window stack
+    , ((modMask,               xK_j     ), focusDown) -- %! Move focus to the next window
+    , ((modMask,               xK_k     ), focusUp  ) -- %! Move focus to the previous window
+    , ((modMask,               xK_m     ), windows W.focusMaster  ) -- %! Move focus to the master window
+    , ((modMask .|. shiftMask, xK_m     ), nextMatch History $ pure True) -- %! Move focus to previous window
+    , ((modMask,               xK_u     ), focusUrgent) -- %! Move focus to urgent window
+
+    -- modifying the window order
+    , ((modMask .|. shiftMask, xK_Return), dwmpromote) -- %! Swap the focused window and the master window
+    , ((modMask .|. shiftMask, xK_j     ), windows W.swapDown  ) -- %! Swap the focused window with the next window
+    , ((modMask .|. shiftMask, xK_k     ), windows W.swapUp    ) -- %! Swap the focused window with the previous window
+
+    -- resizing the master/slave ratio
+    , ((modMask,               xK_h     ), sendMessage Shrink) -- %! Shrink the master area
+    , ((modMask,               xK_l     ), sendMessage Expand) -- %! Expand the master area
+
+    , ((modMask,               xK_f     ), sendMessage (Toggle NBFULL) *> sendMessage ToggleStruts) -- %! Toggle Fullscreen
+    , ((modMask,               xK_x     ), sendMessage $ Toggle MIRROR) -- %! Toggle layout mirror
+
+    -- floating layer support
+    , ((modMask,               xK_t     ), withFocused $ windows . W.sink) -- %! Push window back into tiling
+
+    -- increase or decrease number of windows in the master area
+    , ((modMask              , xK_comma ), sendMessage (IncMasterN 1)) -- %! Increment the number of windows in the master area
+    , ((modMask              , xK_period), sendMessage (IncMasterN (-1))) -- %! Decrement the number of windows in the master area
+
+    -- quit, or restart
+    , ((modMask .|. shiftMask, xK_q     ), io exitSuccess) -- %! Quit xmonad
+    , ((modMask              , xK_q     ), spawn "xmonad --recompile && xmonad --restart") -- %! Restart xmonad
+
+    -- raise
+    , ((modMask              , xK_b     ), runOrRaiseNext myBrowser isBrowser) -- %! Raise browser
+    , ((modMask .|. shiftMask, xK_b     ), runOrCopy myBrowser isBrowser) -- %! Copy browser
+
+    -- boring and minimized windows
+    , ((modMask                , xK_semicolon ), withFocused minimizeWindow) -- %! Minimize window
+    , ((modMask .|. shiftMask  , xK_semicolon ), withLastMinimized maximizeWindow) -- %! Restore last minimized
+    , ((modMask .|. controlMask, xK_semicolon ), withLastMinimized maximizeWindowAndFocus) -- %! Restore last minimized
+    , ((modMask                , xK_apostrophe), markBoringEverywhere) -- %! Mark window as boring
+    , ((modMask .|. shiftMask  , xK_apostrophe), clearBoring) -- %! Restore boring windows
+
+    , ((modMask                , xK_e), searchEngineMap) -- %! Open search engines
+
+    , ((modMask,               xK_i     ), swapNextScreen) -- %! Swap with next screen
+    , ((modMask .|. shiftMask, xK_i     ), swapPrevScreen) -- %! Swap with prev screen
+
+    -- topics
+    , ((modMask,                 xK_a           ), currentTopicAction topicConfig) -- %! Run topic action
+    , ((modMask,                 xK_o           ), switchNthLastFocusedByScreen topicConfig 1) -- %! Switch between current and last topic
+    , ((modMask .|. shiftMask,   xK_o           ), shiftNthLastFocused 1) -- %! Shift to last topic
+    , ((modMask,                 xK_bracketleft ), moveTo Prev activeTopics) -- %! Move through active topics
+    , ((modMask,                 xK_bracketright), moveTo Next activeTopics)
+    , ((modMask .|. shiftMask,   xK_bracketleft ), shiftTo Prev activeTopics) -- %! Shift to next topic
+    , ((modMask .|. shiftMask,   xK_bracketright), shiftTo Next activeTopics) -- %! Shift to prev topic
+    , ((modMask,                 xK_slash       ), workspacePrompt topicPrompt $ switchTopic topicConfig) -- %! Focus prompt
+    , ((modMask .|. shiftMask,   xK_slash       ), workspacePrompt topicPrompt $ windows . W.shift) -- %! Shift prompt
+    , ((modMask .|. controlMask, xK_slash       ), workspacePrompt topicPrompt $ windows . copy) -- %! Copy prompt
+
+    , ((noModMask, xK_Print), spawn "flameshot gui")
+    , ((modMask,   xK_F10  ), spawn "flameshot gui")
+
+    , ((noModMask, xF86XK_AudioLowerVolume), spawn "amixer -q sset Master 5%-")
+    , ((noModMask, xF86XK_AudioRaiseVolume), spawn "amixer -q sset Master 5%+")
+    , ((noModMask, xF86XK_AudioMute       ), spawn "amixer -q sset Master toggle")
+    , ((noModMask, xF86XK_AudioMicMute    ), spawn "amixer -q sset Capture toggle")
+
+    , ((noModMask, xF86XK_AudioPlay       ), spawn "playerctl play-pause")
+    , ((noModMask, xF86XK_AudioPause      ), spawn "playerctl pause")
+    , ((noModMask, xF86XK_AudioStop       ), spawn "playerctl stop")
+    , ((noModMask, xF86XK_AudioNext       ), spawn "playerctl next")
+    , ((noModMask, xF86XK_AudioPrev       ), spawn "playerctl previous")
+
+    , ((noModMask, xF86XK_MonBrightnessUp   ), spawn "light -A 5")
+    , ((noModMask, xF86XK_MonBrightnessDown ), spawn "light -U 5")
+    , ((shiftMask, xF86XK_MonBrightnessUp   ), spawn "light -A 1")
+    , ((shiftMask, xF86XK_MonBrightnessDown ), spawn "light -U 1")
+
+
+    ] ++ [ ((modMask, k), namedScratchpadAction mempty name) | (k, name) <-
+        [ (xK_z, "scratchpad")
+        , (xK_c, "qalc")
+        , (xK_p, "btm")
+        , (xK_g, "mail")
+      ]
+    ] ++ [ ((modMask .|. m, k), action wsName)
+           | (wsName, k) <- zip myWorkspaces wsKeys
+           , (m, action) <-
+                [ (noModMask  , switchTopic topicConfig)
+                , (shiftMask  , windows . W.shift)
+                , (controlMask, windows . copy)
+                ]
+    ]
       where
-        sep = replicate (6 + length x) '-'
+        activeTopics = hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag]
 
-    wsKeys = "`" : map (show @Int) [1 .. 9]
+        wsKeys = xK_grave : [xK_0 .. xK_9]
 
-    -- \| Toggle between the current and the last topic.
-    toggleTopic :: X ()
-    toggleTopic = switchNthLastFocusedByScreen topicConfig 1
+        topicPrompt :: XPConfig
+        topicPrompt =
+            prompt
+                { autoComplete = Just 3000 -- Time is in μs.
+                , historySize = 0 -- No history in the prompt.
+                }
 
-    -- \| Shift the currently focused window to the last visited topic.
-    shiftToLastTopic :: X ()
-    shiftToLastTopic = shiftNthLastFocused 1
-
-    -- \| Go to a topic, shift a window to it, or copyIt
-    gotoWs, shiftWin, copyTo :: Topic -> X ()
-    gotoWs = switchTopic topicConfig
-    shiftWin = windows . W.shift
-    copyTo = windows . copy
-
-    -- \| Modify our standard prompt a bit.
-    topicPrompt :: XPConfig
-    topicPrompt =
-        prompt
-            { autoComplete = Just 3000 -- Time is in μs.
-            , historySize = 0 -- No history in the prompt.
-            }
+-- | Mouse bindings: default actions bound to mouse events
+mouseBindings :: XConfig Layout -> M.Map (KeyMask, Button) (Window -> X ())
+mouseBindings (XConfig {modMask = modMask}) = M.fromList
+    -- mod-button1 %! Set the window to floating mode and move by dragging
+    [ ((modMask, button1), \w -> focus w >> mouseMoveWindow w
+                                         >> windows W.shiftMaster)
+    -- mod-button2 %! Raise the window to the top of the stack
+    , ((modMask, button2), windows . (W.shiftMaster .) . W.focusWindow)
+    -- mod-button3 %! Set the window to floating mode and resize by dragging
+    , ((modMask, button3), \w -> focus w >> mouseResizeWindow w
+                                         >> windows W.shiftMaster)
+    -- you may also bind events to the mouse scroll wheel (button4 and button5)
+    ]
+{- ORMOLU_ENABLE -}
 
 --------------------------------------------------------------------------------
 -- xmobar pretty printer
