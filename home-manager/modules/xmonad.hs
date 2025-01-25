@@ -17,65 +17,62 @@ import XMonad.StackSet qualified as W
 import XMonad
 import XMonad.Prelude
 
-import XMonad.Actions.CopyWindow
-import XMonad.Actions.CycleWS
+import XMonad.Actions.CopyWindow (copiesPP, copy, copyToAll, kill1, killAllOtherCopies, runOrCopy)
+import XMonad.Actions.CycleWS (Direction1D (..), WSType (..), emptyWS, hiddenWS, ignoringWSs, moveTo, shiftTo, swapNextScreen, swapPrevScreen)
 import XMonad.Actions.DwmPromote (dwmpromote)
-import XMonad.Actions.GroupNavigation
-import XMonad.Actions.Minimize
+import XMonad.Actions.GroupNavigation (Direction (History), historyHook, nextMatch)
+import XMonad.Actions.Minimize (maximizeWindow, maximizeWindowAndFocus, minimizeWindow, withLastMinimized)
 import XMonad.Actions.MouseResize (mouseResize)
 import XMonad.Actions.Search hiding (Query)
 import XMonad.Actions.TopicSpace
-import XMonad.Actions.WindowGo
+import XMonad.Actions.WindowGo (runOrRaiseNext)
 import XMonad.Actions.WithAll (killAll)
 
 import XMonad.Hooks.DynamicLog
-import XMonad.Hooks.EwmhDesktops
-import XMonad.Hooks.FloatConfigureReq
-import XMonad.Hooks.InsertPosition
-import XMonad.Hooks.ManageDocks
-import XMonad.Hooks.ManageHelpers
-import XMonad.Hooks.Minimize
-import XMonad.Hooks.RefocusLast
-import XMonad.Hooks.Rescreen
-import XMonad.Hooks.ShowWName
-import XMonad.Hooks.StatusBar
-import XMonad.Hooks.UrgencyHook
+import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen)
+import XMonad.Hooks.FloatConfigureReq (fixSteamFlicker)
+import XMonad.Hooks.InsertPosition (Focus (Newer), Position (Below), insertPosition)
+import XMonad.Hooks.ManageDocks (Direction1D (Next, Prev), ToggleStruts (ToggleStruts), avoidStruts, docks)
+import XMonad.Hooks.ManageHelpers (composeOne, doCenterFloat, doFocus, doFullFloat, doRectFloat, isDialog, isFullscreen, (-?>))
+import XMonad.Hooks.RefocusLast (refocusLastLayoutHook, refocusLastWhen, refocusingIsActive)
+import XMonad.Hooks.Rescreen (RescreenConfig (..), rescreenHook)
+import XMonad.Hooks.ShowWName (SWNConfig (..), showWNameLogHook)
+import XMonad.Hooks.StatusBar (statusBarProp, withSB)
+import XMonad.Hooks.UrgencyHook (BorderUrgencyHook (..), focusUrgent, withUrgencyHook)
 import XMonad.Hooks.WindowSwallowing (swallowEventHook)
 
-import XMonad.Layout.Accordion
+import XMonad.Layout.Accordion (Accordion (Accordion))
 import XMonad.Layout.BoringWindows (boringWindows, clearBoring, focusDown, focusUp, markBoringEverywhere)
 import XMonad.Layout.CenterMainFluid (CenterMainFluid (CenterMainFluid))
 import XMonad.Layout.CenteredMaster (centerMaster)
 import XMonad.Layout.Decoration
 import XMonad.Layout.FocusTracking (focusTracking)
 import XMonad.Layout.Groups.Examples (TiledTabsConfig (tabsTheme))
-import XMonad.Layout.HintedGrid
+import XMonad.Layout.HintedGrid (Grid (Grid))
 import XMonad.Layout.Magnifier (magnifiercz')
 import XMonad.Layout.Master (mastered)
-import XMonad.Layout.Minimize
-import XMonad.Layout.MultiToggle
-import XMonad.Layout.MultiToggle.Instances
-import XMonad.Layout.NoBorders
-import XMonad.Layout.Renamed
-import XMonad.Layout.Spacing
+import XMonad.Layout.Minimize (minimize)
+import XMonad.Layout.MultiToggle (EOT (EOT), Toggle (Toggle), mkToggle, (??))
+import XMonad.Layout.MultiToggle.Instances (StdTransformers (..))
+import XMonad.Layout.NoBorders (smartBorders)
+import XMonad.Layout.Renamed (Rename (Replace), renamed)
+import XMonad.Layout.Spacing (Border (Border), spacingRaw)
 import XMonad.Layout.Spiral (spiral)
 import XMonad.Layout.Tabbed (tabbed)
-import XMonad.Layout.ThreeColumns
+import XMonad.Layout.ThreeColumns (ThreeCol (ThreeCol))
 
 import XMonad.Prompt
 import XMonad.Prompt.FuzzyMatch (fuzzyMatch, fuzzySort)
-import XMonad.Prompt.Workspace
+import XMonad.Prompt.Workspace (workspacePrompt)
 
-import XMonad.Actions.Submap
-import XMonad.Prompt.Man
+import XMonad.Actions.Submap (visualSubmap)
+import XMonad.Prompt.Man (manPrompt)
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Util.ClickableWorkspaces (clickablePP)
-import XMonad.Util.EZConfig
-import XMonad.Util.Hacks
+import XMonad.Util.Hacks (fixSteamFlicker, javaHack, trayerAboveXmobarEventHook, trayerPaddingXmobarEventHook, windowedFullscreenFixEventHook)
 import XMonad.Util.Loggers (logTitles)
-import XMonad.Util.NamedActions
-import XMonad.Util.NamedScratchpad
-import XMonad.Util.Run
+import XMonad.Util.NamedScratchpad (NamedScratchpad (..), namedScratchpadAction, namedScratchpadManageHook, scratchpadWorkspaceTag)
+import XMonad.Util.Run (executeNoQuote, inTerm, proc, spawnExternalProcess, termInDir, (>-$), (>->))
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.XUtils (WindowConfig (..))
 
@@ -121,6 +118,10 @@ main =
 myTerm = "kitty"
 myBrowser :: Browser = "firefox"
 isBrowser = className =? myBrowser
+
+i3lock = spawn "i3lock-fancy-rapid 5 5"
+rofi = spawn "rofi -show"
+screenshot = spawn "flameshot gui"
 
 --------------------------------------------------------------------------------
 -- THEME
@@ -338,7 +339,6 @@ myHandleEventHook =
             )
             (return True)
         , refocusLastWhen (refocusingIsActive <&&> (not <$> isFullscreen))
-        , minimizeEventHook
         , trayerAboveXmobarEventHook
         , trayerPaddingXmobarEventHook
         , fixSteamFlicker
@@ -404,10 +404,10 @@ myManageHook =
 
 {- ORMOLU_DISABLE -}
 myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
-myKeys conf@(XConfig {modMask = modMask}) = M.fromList $
+myKeys conf@(XConfig {modMask = modMask}) = fromList $
     -- launching and killing programs
     [ ((modMask,                 xK_Return), spawnTermInTopic) -- %! Launch terminal
-    , ((modMask,                 xK_d     ), spawn "rofi -show") -- %! Launch rofi
+    , ((modMask,                 xK_d     ), rofi) -- %! Launch rofi
     , ((modMask .|. shiftMask,   xK_d     ), shellPrompt prompt) -- %! Launch shell prompt
 
     , ((modMask,                 xK_w     ), kill1) -- %! Close the focused window in workspace
@@ -416,7 +416,7 @@ myKeys conf@(XConfig {modMask = modMask}) = M.fromList $
     , ((modMask,                 xK_s     ), windows copyToAll) -- %! Make window sticky
     , ((modMask .|. shiftMask,   xK_s     ), killAllOtherCopies) -- %! Close all other windows
 
-    , ((mod4Mask .|. controlMask, xK_l    ), spawn "i3lock-fancy-rapid 5 5") -- %! Close the focused window
+    , ((mod4Mask .|. controlMask, xK_l    ), i3lock) -- %! Lock screen
 
     , ((modMask,               xK_space ), sendMessage NextLayout) -- %! Rotate through the available layout algorithms
     , ((modMask .|. shiftMask, xK_space ), setLayout $ layoutHook conf) -- %!  Reset the layouts on the current workspace to default
@@ -481,8 +481,8 @@ myKeys conf@(XConfig {modMask = modMask}) = M.fromList $
     , ((modMask .|. shiftMask,   xK_slash       ), workspacePrompt topicPrompt $ windows . W.shift) -- %! Shift prompt
     , ((modMask .|. controlMask, xK_slash       ), workspacePrompt topicPrompt $ windows . copy) -- %! Copy prompt
 
-    , ((noModMask, xK_Print), spawn "flameshot gui")
-    , ((modMask,   xK_F10  ), spawn "flameshot gui")
+    , ((noModMask, xK_Print), screenshot)
+    , ((modMask,   xK_F10  ), screenshot)
 
     , ((noModMask, xF86XK_AudioLowerVolume), spawn "amixer -q sset Master 5%-")
     , ((noModMask, xF86XK_AudioRaiseVolume), spawn "amixer -q sset Master 5%+")
@@ -499,7 +499,6 @@ myKeys conf@(XConfig {modMask = modMask}) = M.fromList $
     , ((noModMask, xF86XK_MonBrightnessDown ), spawn "light -U 5")
     , ((shiftMask, xF86XK_MonBrightnessUp   ), spawn "light -A 1")
     , ((shiftMask, xF86XK_MonBrightnessDown ), spawn "light -U 1")
-
 
     ] ++ [ ((modMask, k), namedScratchpadAction mempty name) | (k, name) <-
         [ (xK_z, "scratchpad")
@@ -518,7 +517,7 @@ myKeys conf@(XConfig {modMask = modMask}) = M.fromList $
       where
         activeTopics = hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag]
 
-        wsKeys = xK_grave : [xK_0 .. xK_9]
+        wsKeys = xK_grave : [xK_1 .. xK_9]
 
         topicPrompt :: XPConfig
         topicPrompt =
@@ -526,20 +525,6 @@ myKeys conf@(XConfig {modMask = modMask}) = M.fromList $
                 { autoComplete = Just 3000 -- Time is in μs.
                 , historySize = 0 -- No history in the prompt.
                 }
-
--- | Mouse bindings: default actions bound to mouse events
-mouseBindings :: XConfig Layout -> M.Map (KeyMask, Button) (Window -> X ())
-mouseBindings (XConfig {modMask = modMask}) = M.fromList
-    -- mod-button1 %! Set the window to floating mode and move by dragging
-    [ ((modMask, button1), \w -> focus w >> mouseMoveWindow w
-                                         >> windows W.shiftMaster)
-    -- mod-button2 %! Raise the window to the top of the stack
-    , ((modMask, button2), windows . (W.shiftMaster .) . W.focusWindow)
-    -- mod-button3 %! Set the window to floating mode and resize by dragging
-    , ((modMask, button3), \w -> focus w >> mouseResizeWindow w
-                                         >> windows W.shiftMaster)
-    -- you may also bind events to the mouse scroll wheel (button4 and button5)
-    ]
 {- ORMOLU_ENABLE -}
 
 --------------------------------------------------------------------------------
