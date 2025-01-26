@@ -121,7 +121,16 @@ isBrowser = className =? myBrowser
 
 i3lock = spawn "i3lock-fancy-rapid 5 5"
 rofi = spawn "rofi -show"
-screenshot = spawn "flameshot gui"
+screenshotFull = spawn "flameshot screen"
+screenshot = withFocused $ getGeom >=> (spawn . ("flameshot gui --region " ++))
+  where
+    getGeom :: Window -> X String
+    getGeom w = do
+        d <- asks display
+        formatGeometry <$> io (getWindowAttributes d w)
+
+    formatGeometry WindowAttributes{wa_border_width = border, wa_x = x, wa_y = y, wa_height = height, wa_width = width} =
+        show width ++ "x" ++ show height ++ "+" ++ show (x + border) ++ "+" ++ show (y + border)
 
 --------------------------------------------------------------------------------
 -- THEME
@@ -484,8 +493,10 @@ myKeys conf@(XConfig {modMask = modMask}) = fromList $
     , ((modMask .|. shiftMask,   xK_slash       ), workspacePrompt topicPrompt $ windows . W.shift) -- %! Shift prompt
     , ((modMask .|. controlMask, xK_slash       ), workspacePrompt topicPrompt $ windows . copy) -- %! Copy prompt
 
-    , ((noModMask, xK_Print), screenshot)
-    , ((modMask,   xK_F10  ), screenshot)
+    , ((noModMask,               xK_Print), screenshot)
+    , ((modMask,                 xK_F10  ), screenshot)
+    , ((shiftMask,               xK_Print), screenshotFull)
+    , ((modMask .|. shiftMask,   xK_F10  ), screenshotFull)
 
     , ((noModMask, xF86XK_AudioLowerVolume), spawn "amixer -q sset Master 5%-")
     , ((noModMask, xF86XK_AudioRaiseVolume), spawn "amixer -q sset Master 5%+")
