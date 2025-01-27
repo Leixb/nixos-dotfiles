@@ -201,12 +201,13 @@ in
     installVimSyntax = true;
     settings = {
       theme = "catppuccin-macchiato";
-      font-size = 9;
+      font-size = 11;
       window-decoration = false;
       background-opacity = 0.75;
       # shell-integration-features = "no-cursor";
       shell-integration = "fish";
       gtk-titlebar = false;
+      gtk-adwaita = false;
     };
   };
 
