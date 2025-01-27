@@ -428,7 +428,8 @@ myKeys conf@(XConfig {modMask = modMask}) = fromList $
     , ((modMask,                 xK_s     ), windows copyToAll) -- %! Make window sticky
     , ((modMask .|. shiftMask,   xK_s     ), killAllOtherCopies) -- %! Close all other windows
 
-    , ((mod4Mask .|. controlMask, xK_l    ), i3lock) -- %! Lock screen
+    , ((modMask  .|. controlMask, xK_l    ), i3lock) -- %! Lock screen
+    , ((mod1Mask .|. controlMask, xK_l    ), i3lock) -- %! Lock screen
 
     , ((modMask,               xK_space ), sendMessage NextLayout) -- %! Rotate through the available layout algorithms
     , ((modMask .|. shiftMask, xK_space ), setLayout $ layoutHook conf) -- %!  Reset the layouts on the current workspace to default
