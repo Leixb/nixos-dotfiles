@@ -5,7 +5,7 @@ in {
   options.terminal = {
     package = lib.mkOption {
       type = lib.types.package;
-      default = pkgs.kitty;
+      default = pkgs.ghostty;
       description = "The terminal to use";
     };
     flags = lib.mkOption {

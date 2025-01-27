@@ -115,7 +115,9 @@ main =
             , workspaces = myWorkspaces
             }
 
-myTerm = "kitty"
+myTerm = "ghostty"
+isTerm = className =? "com.mitchellh.ghostty"
+
 myBrowser :: Browser = "firefox"
 isBrowser = className =? myBrowser
 
@@ -165,32 +167,34 @@ topicConfig =
         , defaultTopic = head myWorkspaces
         }
 
+home = "/home/leix/"
+
 topics :: [TopicItem]
 topics =
     [ noAction "\xf35e" "Documents"
-    , TI "1:WEB" "Downloads" $ spawn myBrowser
-    , TI "2:SHELL" "Documents" spawnTermInTopic
-    , TI "3:EDITOR" "Documents" spawnEditorInTopic
-    , TI "4:PLAYGROUND" "Documents/Playground" spawnTermInTopic
+    , ti "1:WEB" "Downloads" $ spawn myBrowser
+    , ti "2:SHELL" "Documents" spawnTermInTopic
+    , ti "3:EDITOR" "Documents" spawnEditorInTopic
+    , ti "4:PLAYGROUND" "Documents/Playground" spawnTermInTopic
     , only "5"
     , only "6"
     , inHome "7:CAL" $ spawnInTerm "cal -y"
     , inHome "8:IM" $ spawn "slack" *> spawn "telegram-desktop"
-    , TI "9:MEDIA" "Videos" spawnTermInTopic
+    , ti "9:MEDIA" "Videos" spawnTermInTopic
     , sshHost "mn5"
     , sshHost "hut"
     , sshHost "hca"
-    , TI "paraver" "Documents/traces" $ spawn "wxparaver" *> switchToLayout paraverLayout
-    , TI "zotero" "Zotero" $ spawn "zotero"
+    , ti "paraver" "Documents/traces" $ spawn "wxparaver" *> switchToLayout paraverLayout
+    , ti "zotero" "Zotero" $ spawn "zotero"
     , inHome "discord" $ spawn "legcord"
-    , TI "minecraft" ".local/share/PrismLauncher" $ spawn "prismlauncher"
+    , ti "minecraft" ".local/share/PrismLauncher" $ spawn "prismlauncher"
     , inHome "gaming" $ spawn "steam"
     ]
         ++ ( ($ spawnTermInTopic)
-                <$> [ TI "dotfiles" ".dotfiles"
-                    , TI "downloads" "Downloads"
+                <$> [ ti "dotfiles" ".dotfiles"
+                    , ti "downloads" "Downloads"
                     ]
-                    ++ [ TI name ("Documents/" ++ name)
+                    ++ [ ti name ("Documents/" ++ name)
                        | name <-
                             [ "nixpkgs"
                             , "bscpkgs"
@@ -210,7 +214,7 @@ topics =
            )
   where
     only :: Topic -> TopicItem
-    only n = noAction n "~/."
+    only n = noAction n home
 
     sshHost host = inHome host $ spawnInTerm ("ssh " ++ host)
 
@@ -222,11 +226,16 @@ topics =
     spawnInTerm' prog = proc $ inTerm >-> executeNoQuote prog
     inTermHold = termInTopic >-$ pure " --hold"
 
+    ti name folder = TI name (home ++ folder)
+
 -- | Spawn terminal in topic directory.
 spawnTermInTopic :: X ()
 spawnTermInTopic = proc termInTopic
 
-termInTopic = termInDir >-$ currentTopicDir topicConfig
+termInTopic =
+    inTerm >-$ do
+        d <- currentTopicDir topicConfig
+        return $ "--working-directory=" ++ d
 
 -------------------------------------------------------------------------
 -- PROMPT
@@ -336,15 +345,12 @@ myLogHook =
                 , swn_bgcolor = colorBg
                 , swn_color = colorFg
                 }
-
 myHandleEventHook =
     composeAll
         [ handleEventHook def
         , windowedFullscreenFixEventHook
         , swallowEventHook
-            ( className
-                =? myTerm
-                <&&> (not <$> ((title `endsWith` "NVIM") <||> (title `startsWith` "gdb")))
+            ( isTerm <&&> (not <$> ((title `endsWith` "NVIM") <||> (title `startsWith` "gdb")))
             )
             (return True)
         , refocusLastWhen (refocusingIsActive <&&> (not <$> isFullscreen))
@@ -404,10 +410,10 @@ myManageHook =
     doCenterFloatFixedBig = rectfloatCenter (4 % 5) <+> doF W.swapUp
 
     scratchpads =
-        [ NS "scratchpad" (myTerm ++ " --name scratchpad --class scratchpad") (className =? "scratchpad") doCenterFloatFixed
+        [ NS "scratchpad" (myTerm ++ " --title=scratchpad --class=scratchpad.ghostty") (className =? "scratchpad.ghostty") doCenterFloatFixed
         , NS "qalc" "qalculate-gtk" (className =? "Qalculate-gtk") doCenterFloatFixed
         , NS "mail" "thunderbird" (appName =? "Mail" <&&> className =? "thunderbird") doCenterFloatFixedBig
-        , NS "btm" (myTerm ++ " --name btm --class btm -e btm") (className =? "btm") doCenterFloatFixedBig
+        , NS "btm" (myTerm ++ " --title=btm --class=btm.ghostty -e btm") (className =? "btm.ghostty") doCenterFloatFixedBig
         ]
 
 --------------------------------------------------------------------------------

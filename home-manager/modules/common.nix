@@ -195,6 +195,21 @@ in
     };
   };
 
+  programs.ghostty = {
+    enable = true;
+    enableFishIntegration = true;
+    installVimSyntax = true;
+    settings = {
+      theme = "catppuccin-macchiato";
+      font-size = 9;
+      window-decoration = false;
+      background-opacity = 0.75;
+      # shell-integration-features = "no-cursor";
+      shell-integration = "fish";
+      gtk-titlebar = false;
+    };
+  };
+
   programs.alacritty = {
     enable = true;
     settings = {
