@@ -226,7 +226,7 @@ topics =
     spawnEditorInTopicOpen file = spawnInTerm $ "nvim " ++ file
     spawnInTerm prog = proc $ inTermHold >-> executeNoQuote prog
     spawnInTerm' prog = proc $ inTerm >-> executeNoQuote prog
-    inTermHold = termInTopic >-$ pure " --hold"
+    inTermHold = termInTopic >-$ pure " --wait-after-command"
 
     ti name folder = TI name (home ++ folder)
 
