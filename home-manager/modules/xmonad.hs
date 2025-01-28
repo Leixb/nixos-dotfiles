@@ -209,6 +209,8 @@ topics =
                             , "haskell/jutge"
                             , "aoc-25"
                             , "modulefiles"
+                            , "cgenarate"
+                            , "gromacs"
                             ]
                        ]
            )
