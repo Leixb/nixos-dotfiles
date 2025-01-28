@@ -494,6 +494,7 @@ myKeys conf@(XConfig {modMask = modMask}) = fromList $
     , ((modMask,                 xK_a           ), currentTopicAction topicConfig) -- %! Run topic action
     , ((modMask,                 xK_o           ), switchNthLastFocusedByScreen topicConfig 1) -- %! Switch between current and last topic
     , ((modMask .|. shiftMask,   xK_o           ), shiftNthLastFocused 1) -- %! Shift to last topic
+    , ((modMask .|. controlMask, xK_o           ), copyNthLastFocused 1) -- %! Copy to last topic
     , ((modMask,                 xK_bracketleft ), moveTo Prev activeTopics) -- %! Move through active topics
     , ((modMask,                 xK_bracketright), moveTo Next activeTopics)
     , ((modMask .|. shiftMask,   xK_bracketleft ), shiftTo Prev activeTopics) -- %! Shift to next topic
@@ -548,6 +549,9 @@ myKeys conf@(XConfig {modMask = modMask}) = fromList $
                 { autoComplete = Just 3000 -- Time is in μs.
                 , historySize = 0 -- No history in the prompt.
                 }
+        copyNthLastFocused n = do
+            ws <- fmap (listToMaybe . drop n) workspaceHistory
+            whenJust ws $ windows . copy
 {- ORMOLU_ENABLE -}
 
 --------------------------------------------------------------------------------
