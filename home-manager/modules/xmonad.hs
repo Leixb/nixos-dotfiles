@@ -352,7 +352,7 @@ myHandleEventHook =
         [ handleEventHook def
         , windowedFullscreenFixEventHook
         , swallowEventHook
-            ( isTerm <&&> (not <$> ((title `endsWith` "NVIM") <||> (title `startsWith` "gdb")))
+            ( isTerm <&&> (not <$> ((title `endsWith` "NVIM") <||> (title `startsWith` "gdb") <||> isTerm))
             )
             (return True)
         , refocusLastWhen (refocusingIsActive <&&> (not <$> isFullscreen))
