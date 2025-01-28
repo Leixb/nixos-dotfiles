@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, lib, ... }:
 let
   switch-audio = pkgs.writers.writeBashBin "switch-audio" ''
     headset="alsa_output.usb-Logitech_G733_Gaming_Headset-00.iec958-stereo"
@@ -37,6 +37,8 @@ in
 
     wxparaver-adwaita
   ];
+
+  programs.ghostty.settings.font-size = 11;
 
   home.stateVersion = "21.11";
 }

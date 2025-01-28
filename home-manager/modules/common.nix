@@ -201,7 +201,7 @@ in
     installVimSyntax = true;
     settings = {
       theme = "catppuccin-macchiato";
-      font-size = 11;
+      font-size = lib.mkDefault 10;
       window-decoration = false;
       background-opacity = 0.75;
       # shell-integration-features = "no-cursor";
