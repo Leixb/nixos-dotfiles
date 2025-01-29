@@ -23,7 +23,9 @@ import XMonad.Actions.DwmPromote (dwmpromote)
 import XMonad.Actions.GroupNavigation (Direction (History), historyHook, nextMatch)
 import XMonad.Actions.Minimize (maximizeWindow, maximizeWindowAndFocus, minimizeWindow, withLastMinimized)
 import XMonad.Actions.MouseResize (mouseResize)
+import XMonad.Actions.RotSlaves (rotAllUp, rotSlavesUp)
 import XMonad.Actions.Search hiding (Query)
+import XMonad.Actions.Submap (visualSubmap)
 import XMonad.Actions.TopicSpace
 import XMonad.Actions.WindowGo (runOrRaiseNext)
 import XMonad.Actions.WithAll (killAll)
@@ -63,11 +65,10 @@ import XMonad.Layout.ThreeColumns (ThreeCol (ThreeCol))
 
 import XMonad.Prompt
 import XMonad.Prompt.FuzzyMatch (fuzzyMatch, fuzzySort)
-import XMonad.Prompt.Workspace (workspacePrompt)
-
-import XMonad.Actions.Submap (visualSubmap)
 import XMonad.Prompt.Man (manPrompt)
 import XMonad.Prompt.Shell (shellPrompt)
+import XMonad.Prompt.Workspace (workspacePrompt)
+
 import XMonad.Util.ClickableWorkspaces (clickablePP)
 import XMonad.Util.Hacks (fixSteamFlicker, javaHack, trayerAboveXmobarEventHook, trayerPaddingXmobarEventHook, windowedFullscreenFixEventHook)
 import XMonad.Util.Loggers (logTitles)
@@ -441,6 +442,9 @@ myKeys conf@(XConfig {modMask = modMask}) = fromList $
 
     , ((modMask,               xK_space ), sendMessage NextLayout) -- %! Rotate through the available layout algorithms
     , ((modMask .|. shiftMask, xK_space ), setLayout $ layoutHook conf) -- %!  Reset the layouts on the current workspace to default
+
+    , ((modMask              , xK_r     ), rotAllUp) -- %!  Rotate all windows in stack
+    , ((modMask .|. shiftMask, xK_r     ), rotSlavesUp) -- %!  Rotate slave windows in stack
 
     , ((modMask,               xK_n     ), refresh) -- %! Resize viewed windows to the correct size
 
