@@ -353,9 +353,9 @@ myHandleEventHook =
         [ handleEventHook def
         , windowedFullscreenFixEventHook
         , swallowEventHook
-            ( isTerm <&&> (not <$> ((title `endsWith` "NVIM") <||> (title `startsWith` "gdb") <||> isTerm))
+            ( isTerm <&&> (not <$> ((title `endsWith` "NVIM") <||> (title `startsWith` "gdb")))
             )
-            (return True)
+            (not <$> isTerm)
         , refocusLastWhen (refocusingIsActive <&&> (not <$> isFullscreen))
         , trayerAboveXmobarEventHook
         , trayerPaddingXmobarEventHook
