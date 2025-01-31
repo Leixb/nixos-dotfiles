@@ -212,6 +212,8 @@ topics =
                             , "modulefiles"
                             , "cgenarate"
                             , "gromacs"
+                            , "tacuda"
+                            , "tasycl"
                             ]
                        ]
            )
