@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, config, inputs, ... }:
 let
   bufresize-nvim = pkgs.vimUtils.buildVimPlugin {
     pname = "bufresize-nvim";
@@ -42,6 +42,7 @@ in
   home.file.".vale.ini".text = "";
 
   home.sessionVariables.EDITOR = "nvim";
+  home.sessionVariables.NVIM_PACKAGE = config.programs.neovim.finalPackage;
 
   programs.neovim = {
     enable = true;
