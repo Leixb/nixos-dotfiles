@@ -26,6 +26,7 @@ import XMonad.Actions.MouseResize (mouseResize)
 import XMonad.Actions.RotSlaves (rotAllUp, rotSlavesUp)
 import XMonad.Actions.Search hiding (Query)
 import XMonad.Actions.Submap (visualSubmap)
+import XMonad.Actions.SwapPromote (masterHistoryHook, swapHybrid)
 import XMonad.Actions.TopicSpace
 import XMonad.Actions.WindowGo (runOrRaiseNext)
 import XMonad.Actions.WithAll (killAll)
@@ -344,6 +345,7 @@ myStartupHook =
 myLogHook =
     historyHook
         *> workspaceHistoryHookExclude [scratchpadWorkspaceTag]
+        *> masterHistoryHook
         *> showWNameLogHook
             def
                 { swn_font = "xft:" ++ myFont ++ ":size=21"
@@ -458,7 +460,7 @@ myKeys conf@(XConfig {modMask = modMask}) = fromList $
     , ((modMask,               xK_u     ), focusUrgent) -- %! Move focus to urgent window
 
     -- modifying the window order
-    , ((modMask .|. shiftMask, xK_Return), dwmpromote) -- %! Swap the focused window and the master window
+    , ((modMask .|. shiftMask, xK_Return), whenX (swapHybrid True) dwmpromote) -- %! Swap the focused window and the master window
     , ((modMask .|. shiftMask, xK_j     ), windows W.swapDown  ) -- %! Swap the focused window with the next window
     , ((modMask .|. shiftMask, xK_k     ), windows W.swapUp    ) -- %! Swap the focused window with the previous window
 
