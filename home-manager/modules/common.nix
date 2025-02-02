@@ -122,6 +122,7 @@ in
     waypipe # wayland remote desktop
     zip # zip file creation
     tg # telegram terminal
+    plexamp
   ];
 
   xdg.configFile."WebCord/Themes/catppuccin.theme.css".text = ''

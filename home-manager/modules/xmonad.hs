@@ -183,6 +183,7 @@ topics =
     , inHome "7:CAL" $ spawnInTerm "cal -y"
     , inHome "8:IM" $ spawn "slack" *> spawn "telegram-desktop"
     , ti "9:MEDIA" "Videos" spawnTermInTopic
+    , ti "0:MUSIC" "Music" $ spawn "plexamp"
     , sshHost "mn5"
     , sshHost "hut"
     , sshHost "hca"
@@ -549,7 +550,7 @@ myKeys conf@(XConfig {modMask = modMask}) = fromList $
       where
         activeTopics = hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag]
 
-        wsKeys = xK_grave : [xK_1 .. xK_9]
+        wsKeys = xK_grave : [xK_1 .. xK_9] ++ [xK_0]
 
         topicPrompt :: XPConfig
         topicPrompt =
