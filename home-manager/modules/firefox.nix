@@ -73,6 +73,7 @@ in {
         stylus
         firefox-color
         duckduckgo-privacy-essentials
+        multi-account-containers
         # tree-style-tab
       ];
 
