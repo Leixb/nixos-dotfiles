@@ -201,6 +201,8 @@ topics =
                        | name <-
                             [ "nixpkgs"
                             , "bscpkgs"
+                            , "nixos-riscv"
+                            , "alpi"
                             , "nos-v"
                             , "tampi"
                             , "nodes"
