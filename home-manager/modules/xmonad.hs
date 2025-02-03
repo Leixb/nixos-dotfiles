@@ -203,6 +203,7 @@ topics =
                             , "bscpkgs"
                             , "nixos-riscv"
                             , "alpi"
+                            , "alpinfo"
                             , "nos-v"
                             , "tampi"
                             , "nodes"
