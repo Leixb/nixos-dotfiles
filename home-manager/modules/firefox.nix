@@ -45,6 +45,7 @@ in {
         "browser.quitShortcut.disabled" = true;
         "browser.shell.checkDefaultBrowser" = false;
         "browser.ssb.enabled" = true;
+        "browser.tabs.groups.enabled" = true;
         "browser.urlbar.placeholderName" = "DuckDuckGo";
         "browser.urlbar.suggest.openpage" = false;
         "datareporting.policy.dataSubmissionEnable" = false;
