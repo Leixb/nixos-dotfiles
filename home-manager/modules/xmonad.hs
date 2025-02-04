@@ -123,7 +123,7 @@ isTerm = className =? "com.mitchellh.ghostty"
 myBrowser :: Browser = "firefox"
 isBrowser = className =? myBrowser
 
-i3lock = spawn "i3lock-fancy-rapid 5 5"
+lock = spawn "loginctl lock-session"
 rofi = spawn "rofi -show"
 screenshotFull = spawn "flameshot screen"
 screenshot = withFocused $ getGeom >=> (spawn . ("flameshot gui --region " ++))
@@ -445,8 +445,8 @@ myKeys conf@(XConfig {modMask = modMask}) = fromList $
     , ((modMask,                 xK_s     ), windows copyToAll) -- %! Make window sticky
     , ((modMask .|. shiftMask,   xK_s     ), killAllOtherCopies) -- %! Close all other windows
 
-    , ((modMask  .|. controlMask, xK_l    ), i3lock) -- %! Lock screen
-    , ((mod1Mask .|. controlMask, xK_l    ), i3lock) -- %! Lock screen
+    , ((modMask  .|. controlMask, xK_l    ), lock) -- %! Lock screen
+    , ((mod1Mask .|. controlMask, xK_l    ), lock) -- %! Lock screen
 
     , ((modMask,               xK_space ), sendMessage NextLayout) -- %! Rotate through the available layout algorithms
     , ((modMask .|. shiftMask, xK_space ), setLayout $ layoutHook conf) -- %!  Reset the layouts on the current workspace to default
