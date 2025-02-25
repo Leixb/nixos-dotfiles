@@ -205,6 +205,7 @@ topics =
                             , "alpi"
                             , "alpinfo"
                             , "nos-v"
+                            , "mpi-nosv-ipc"
                             , "tampi"
                             , "nodes"
                             , "nanos6"
@@ -499,8 +500,10 @@ myKeys conf@(XConfig {modMask = modMask}) = fromList $
 
     , ((modMask                , xK_e), searchEngineMap) -- %! Open search engines
 
-    , ((modMask,               xK_i     ), swapNextScreen) -- %! Swap with next screen
-    , ((modMask .|. shiftMask, xK_i     ), swapPrevScreen) -- %! Swap with prev screen
+    , ((modMask,                               xK_i     ), swapNextScreen) -- %! Swap with next screen
+    , ((modMask .|. shiftMask,                 xK_i     ), swapPrevScreen) -- %! Swap with prev screen
+    , ((modMask .|. controlMask,               xK_i     ), nextScreen) -- %! Focus next screen
+    , ((modMask .|. controlMask .|. shiftMask, xK_i     ), nextScreen) -- %! Focus prev screen
 
     -- topics
     , ((modMask,                 xK_a           ), currentTopicAction topicConfig) -- %! Run topic action
