@@ -60,7 +60,7 @@ in {
         "privacy.trackingprotection.socialtracking.enabled" = true;
       };
 
-      extensions = with pkgs.firefox-addons; [
+      extensions.packages = with pkgs.firefox-addons; [
         bitwarden
         darkreader
         (languagetool.overrideAttrs (oldAttrs: {
