@@ -285,6 +285,18 @@ in
       notes = "nvim -c 'Neorg workspace notes'";
       journal = "nvim -c 'Neorg journal'";
     };
+    shellAbbrs = {
+      gco = "git checkout";
+      gc = "git commit";
+      gp = "git push";
+      gpf = "git push --force-with-lease";
+      gl = "git lg";
+      da = "direnv allow";
+      dotdot = {
+        regex = "^\\.\\.+$";
+        function = "multicd";
+      };
+    };
     interactiveShellInit = ''
       set fish_greeting
       fish_vi_key_bindings
@@ -304,6 +316,8 @@ in
     functions = {
       gitignore =
         "curl -sL https://www.gitignore.io/api/$argv | tail -n+5 | head -n-2";
+      multicd =
+        "echo cd (string repeat -n (math (string length -- $argv[1]) - 1) ../)";
     };
     plugins = [
       {
