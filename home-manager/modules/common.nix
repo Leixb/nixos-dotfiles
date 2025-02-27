@@ -203,12 +203,10 @@ in
     settings = {
       theme = "catppuccin-macchiato";
       font-size = lib.mkDefault 10;
-      window-decoration = false;
+      window-decoration = "none";
       background-opacity = 0.75;
-      # shell-integration-features = "no-cursor";
       shell-integration = "fish";
       gtk-titlebar = false;
-      gtk-adwaita = false;
       cursor-invert-fg-bg = true;
     };
   };
