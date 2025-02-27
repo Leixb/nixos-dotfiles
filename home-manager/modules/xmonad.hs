@@ -18,7 +18,7 @@ import XMonad
 import XMonad.Prelude
 
 import XMonad.Actions.CopyWindow (copiesPP, copy, copyToAll, kill1, killAllOtherCopies, runOrCopy)
-import XMonad.Actions.CycleWS (Direction1D (..), WSType (..), emptyWS, hiddenWS, ignoringWSs, moveTo, shiftTo, swapNextScreen, swapPrevScreen)
+import XMonad.Actions.CycleWS (Direction1D (..), WSType (..), emptyWS, hiddenWS, ignoringWSs, moveTo, shiftTo, swapNextScreen, swapPrevScreen, nextScreen, prevScreen, shiftNextScreen)
 import XMonad.Actions.DwmPromote (dwmpromote)
 import XMonad.Actions.GroupNavigation (Direction (History), historyHook, nextMatch)
 import XMonad.Actions.Minimize (maximizeWindow, maximizeWindowAndFocus, minimizeWindow, withLastMinimized)
@@ -77,6 +77,7 @@ import XMonad.Util.NamedScratchpad (NamedScratchpad (..), namedScratchpadAction,
 import XMonad.Util.Run (executeNoQuote, inTerm, proc, spawnExternalProcess, termInDir, (>-$), (>->))
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.XUtils (WindowConfig (..))
+import XMonad.Actions.Warp (warpToWindow)
 
 --------------------------------------------------------------------------------
 -- MAIN
@@ -204,15 +205,16 @@ topics =
                             , "nixos-riscv"
                             , "alpi"
                             , "alpinfo"
-                            , "nos-v"
                             , "mpi-nosv-ipc"
-                            , "tampi"
+                            , "nos-v"
+                            , "ovni"
                             , "nodes"
+                            , "llvm"
                             , "nanos6"
                             , "pocl-v"
+                            , "tampi"
                             , "hpccg"
                             , "jungle"
-                            , "ovni"
                             , "haskell/jutge"
                             , "aoc-25"
                             , "modulefiles"
@@ -220,6 +222,7 @@ topics =
                             , "gromacs"
                             , "tacuda"
                             , "tasycl"
+                            , "bench6"
                             ]
                        ]
            )
@@ -307,7 +310,7 @@ myLayout =
 
     grid = spacer $ Grid False
     spir = spacer $ spiral (6 / 7)
-    tiled = spacer $ Tall nmaster delta ratio
+    tiled = spacer $ XMonad.Tall nmaster delta ratio
     threeColsMid = spacer $ magnifiercz' 1.3 $ CenterMainFluid nmaster delta ratio
     threeCols = spacer $ ThreeCol nmaster delta ratio
     twoPaneA = setName "TwoPane Acc" $ spacer $ mastered delta ratioTwoPane $ focusTracking Accordion
@@ -501,9 +504,11 @@ myKeys conf@(XConfig {modMask = modMask}) = fromList $
     , ((modMask                , xK_e), searchEngineMap) -- %! Open search engines
 
     , ((modMask,                               xK_i     ), swapNextScreen) -- %! Swap with next screen
-    , ((modMask .|. shiftMask,                 xK_i     ), swapPrevScreen) -- %! Swap with prev screen
-    , ((modMask .|. controlMask,               xK_i     ), nextScreen) -- %! Focus next screen
-    , ((modMask .|. controlMask .|. shiftMask, xK_i     ), nextScreen) -- %! Focus prev screen
+    , ((modMask .|. shiftMask,                 xK_i     ), shiftNextScreen) -- %! Swap with prev screen
+    , ((modMask .|. controlMask,               xK_i     ), nextScreen *> centerMouse) -- %! Focus next screen
+    , ((modMask .|. controlMask .|. shiftMask, xK_i     ), prevScreen *> centerMouse) -- %! Focus prev screen
+
+    , ((modMask, xK_y     ), centerMouse) -- %! Center mouse on window
 
     -- topics
     , ((modMask,                 xK_a           ), currentTopicAction topicConfig) -- %! Run topic action
@@ -579,6 +584,8 @@ myKeys conf@(XConfig {modMask = modMask}) = fromList $
         copyNthLastFocused n = do
             ws <- fmap (listToMaybe . drop n) workspaceHistory
             whenJust ws $ windows . copy
+
+        centerMouse = warpToWindow (1/2) (1/2)
 {- ORMOLU_ENABLE -}
 
 --------------------------------------------------------------------------------
