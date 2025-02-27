@@ -29,12 +29,6 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    agenix = {
-      url = "github:ryantm/agenix";
-      inputs.nixpkgs.follows = "nixpkgs";
-      inputs.home-manager.follows = "home-manager";
-    };
-
     firefox-addons = {
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -42,7 +36,7 @@
     };
 
     nix-index-database = {
-      url = "github:Mic92/nix-index-database";
+      url = "github:nix-community/nix-index-database";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -61,7 +55,7 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, agenix, pre-commit-hooks, devenv, ... }:
+  outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, pre-commit-hooks, devenv, ... }:
     let
       system = "x86_64-linux";
 
@@ -100,7 +94,6 @@
         { nixpkgs.overlays = overlays; }
         pin-flake-reg
         sops-nix.nixosModules.sops
-        agenix.nixosModules.age
       ];
 
       inherit (nixpkgs) lib;
