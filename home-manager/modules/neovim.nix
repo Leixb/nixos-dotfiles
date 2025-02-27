@@ -11,17 +11,6 @@ let
     };
   };
 
-  unimpaired-nvim = pkgs.vimUtils.buildVimPlugin {
-    pname = "unimpaired-nvim";
-    version = "2023-10-17";
-    src = pkgs.fetchFromGitHub {
-      owner = "tummetott";
-      repo = "unimpaired.nvim";
-      rev = "792404dc39a754ef17c4aca964762fa7cb880baa";
-      sha256 = "sha256-CyoGs5DZGQU/mOoY8D/jlr3iv4JzeJNpZc3uwcwL3WA=";
-    };
-  };
-
   # TODO: nvim-R / repl support
 
 in
@@ -75,9 +64,8 @@ in
 
       nodejs
 
-      ## null-ls
       actionlint
-      # hadolint -- WARN: broken by haskellPackages.ilist, remmember to set back null-ls-nvim once fixed
+      hadolint
       shellcheck
       stylua
       vale
@@ -110,6 +98,13 @@ in
       # Git plugins
       vim-rhubarb
       vim-fugitive
+      {
+        plugin = git-conflict-nvim;
+        type = "lua";
+        config = ''
+          require('git-conflict').setup()
+        '';
+      }
 
       vim-easy-align
 
