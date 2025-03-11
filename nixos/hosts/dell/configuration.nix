@@ -10,6 +10,7 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./vpn.nix
+      ./../../modules/hydra.nix
     ];
 
   # Bootloader.
