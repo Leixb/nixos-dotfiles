@@ -39,7 +39,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    neorg-overlay.url = "github:nvim-neorg/nixpkgs-neorg-overlay";
+    neorg-overlay = {
+      url = "github:nvim-neorg/nixpkgs-neorg-overlay";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-utils.follows = "flake-utils";
+    };
 
     bscpkgs.url = "sourcehut:~rodarima/bscpkgs";
     bscpkgs.inputs.nixpkgs.follows = "nixpkgs";
