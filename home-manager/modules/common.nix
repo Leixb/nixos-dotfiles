@@ -294,6 +294,19 @@ in
         regex = "^\\.\\.+$";
         function = "multicd";
       };
+      "!!" = {
+        position = "anywhere";
+        function = "last_history_item";
+      };
+      L = {
+        position = "anywhere";
+        setCursor = true;
+        expansion = "% | less";
+      };
+      G = {
+        position = "anywhere";
+        expansion = "| grep";
+      };
     };
     interactiveShellInit = ''
       set fish_greeting
@@ -316,6 +329,7 @@ in
         "curl -sL https://www.gitignore.io/api/$argv | tail -n+5 | head -n-2";
       multicd =
         "echo cd (string repeat -n (math (string length -- $argv[1]) - 1) ../)";
+      last_history_item = "echo $history[1]";
     };
     plugins = [
       {
