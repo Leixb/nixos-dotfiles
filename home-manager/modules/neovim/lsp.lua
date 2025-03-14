@@ -293,23 +293,18 @@ vim.lsp.handlers["window/showMessage"] = function(_, result, ctx)
     })
 end
 
-local signs = {
-    Error = " ",
-    Warn = " ",
-    Hint = " ",
-    Info = " ",
-}
-
-for type, icon in pairs(signs) do
-    local hl = "DiagnosticSign" .. type
-    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
-end
-
 -- set up vim.diagnostics
 -- vim.diagnostic.config opts
 vim.diagnostic.config({
     underline = true,
-    signs = true,
+    signs = {
+        text = {
+            [vim.diagnostic.severity.HINT] = " ",
+            [vim.diagnostic.severity.INFO] = " ",
+            [vim.diagnostic.severity.WARN] = " ",
+            [vim.diagnostic.severity.ERROR] = " ",
+        },
+    },
     update_in_insert = false,
     severity_sort = true,
     float = {
