@@ -285,10 +285,14 @@ in
     };
     shellAbbrs = {
       gco = "git checkout";
-      gc = "git commit";
+      gc = "git commit -v";
       gp = "git push";
       gpf = "git push --force-with-lease";
       gl = "git lg";
+      gcm = {
+        setCursor = true;
+        expansion = "git commit -m \"%\"";
+      };
       da = "direnv allow";
       dotdot = {
         regex = "^\\.\\.+$";
