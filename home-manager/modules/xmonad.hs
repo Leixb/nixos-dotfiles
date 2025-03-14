@@ -18,7 +18,7 @@ import XMonad
 import XMonad.Prelude
 
 import XMonad.Actions.CopyWindow (copiesPP, copy, copyToAll, kill1, killAllOtherCopies, runOrCopy)
-import XMonad.Actions.CycleWS (Direction1D (..), WSType (..), emptyWS, hiddenWS, ignoringWSs, moveTo, shiftTo, swapNextScreen, swapPrevScreen, nextScreen, prevScreen, shiftNextScreen)
+import XMonad.Actions.CycleWS (Direction1D (..), WSType (..), emptyWS, hiddenWS, ignoringWSs, moveTo, nextScreen, prevScreen, shiftNextScreen, shiftTo, swapNextScreen, swapPrevScreen)
 import XMonad.Actions.DwmPromote (dwmpromote)
 import XMonad.Actions.GroupNavigation (Direction (History), historyHook, nextMatch)
 import XMonad.Actions.Minimize (maximizeWindow, maximizeWindowAndFocus, minimizeWindow, withLastMinimized)
@@ -70,6 +70,7 @@ import XMonad.Prompt.Man (manPrompt)
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Prompt.Workspace (workspacePrompt)
 
+import XMonad.Actions.Warp (warpToWindow)
 import XMonad.Util.ClickableWorkspaces (clickablePP)
 import XMonad.Util.Hacks (fixSteamFlicker, javaHack, trayerAboveXmobarEventHook, trayerPaddingXmobarEventHook, windowedFullscreenFixEventHook)
 import XMonad.Util.Loggers (logTitles)
@@ -77,7 +78,6 @@ import XMonad.Util.NamedScratchpad (NamedScratchpad (..), namedScratchpadAction,
 import XMonad.Util.Run (executeNoQuote, inTerm, proc, spawnExternalProcess, termInDir, (>-$), (>->))
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.XUtils (WindowConfig (..))
-import XMonad.Actions.Warp (warpToWindow)
 
 --------------------------------------------------------------------------------
 -- MAIN
