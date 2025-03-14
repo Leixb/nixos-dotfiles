@@ -184,7 +184,6 @@ topics =
     , inHome "7:CAL" $ spawnInTerm "cal -y"
     , inHome "8:IM" $ spawn "slack" *> spawn "telegram-desktop"
     , ti "9:MEDIA" "Videos" spawnTermInTopic
-    , ti "0:MUSIC" "Music" $ spawn "plexamp"
     , sshHost "mn5"
     , sshHost "hut"
     , sshHost "hca"
@@ -226,6 +225,8 @@ topics =
                             ]
                        ]
            )
+        ++ [ ti "0:MUSIC" "Music" $ spawn "plexamp"
+           ]
   where
     only :: Topic -> TopicItem
     only n = noAction n home
