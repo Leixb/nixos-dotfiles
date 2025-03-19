@@ -222,6 +222,7 @@ topics =
                             , "tacuda"
                             , "tasycl"
                             , "bench6"
+                            , "ompss-2-exercises"
                             ]
                        ]
            )
