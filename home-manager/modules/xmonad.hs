@@ -223,6 +223,8 @@ topics =
                             , "tasycl"
                             , "bench6"
                             , "ompss-2-exercises"
+                            , "ci-infrastructure"
+                            , "slides/team-meetings"
                             ]
                        ]
            )
