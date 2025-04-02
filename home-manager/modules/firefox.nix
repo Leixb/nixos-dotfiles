@@ -262,7 +262,8 @@ in {
         };
       };
 
-      bookmarks =
+      bookmarks.force = true;
+      bookmarks.settings =
         [
           {
             name = "Wikipedia";
