@@ -80,7 +80,7 @@ in {
 
       search = {
         force = true;
-        default = "DuckDuckGo";
+        default = "ddg";
         order = [
           "DuckDuckGo"
           "Wikipedia (en)"
@@ -106,15 +106,15 @@ in {
         ];
 
         engines = {
-          "Bing".metaData.hidden = true;
-          "Amazon.com".metaData.hidden = true;
-          "eBay".metaData.hidden = true;
-          "Wikipedia (en)".metaData.alias = "@wk";
-          "Google".metaData.alias = "@g";
+          "bing".metaData.hidden = true;
+          "amazondotcom-us".metaData.hidden = true;
+          "ebay".metaData.hidden = true;
+          "wikipedia".metaData.alias = "@wk";
+          "google".metaData.alias = "@g";
 
           "WayBack Machine" = {
             urls = [{ template = "https://web.archive.org/web/{searchTerms}"; }];
-            iconUpdateURL =
+            icon =
               "https://web.archive.org/_static/images/archive.ico";
             updateInterval = 24 * 60 * 60 * 1000; # daily
             definedAliases = [ "@wb" ];
@@ -123,7 +123,7 @@ in {
             urls = [{
               template = "https://archive.today/newest/{searchTerms}";
             }];
-            iconUpdateURL = "https://archive.today/apple-touch-icon.png";
+            icon = "https://archive.today/apple-touch-icon.png";
             updateInterval = 24 * 60 * 60 * 1000;
             definedAliases = [ "@at" ];
           };
@@ -131,14 +131,14 @@ in {
             urls = [{
               template = "https://web.archive.org/web/*/{searchTerms}";
             }];
-            iconUpdateURL =
+            icon =
               "https://web.archive.org/_static/images/archive.ico";
             updateInterval = 24 * 60 * 60 * 1000;
             definedAliases = [ "@wba" ];
           };
           "archive.today (all)" = {
             urls = [{ template = "https://archive.today/{searchTerms}*"; }];
-            iconUpdateURL = "https://archive.today/apple-touch-icon.png";
+            icon = "https://archive.today/apple-touch-icon.png";
             updateInterval = 24 * 60 * 60 * 1000;
             definedAliases = [ "@ata" ];
           };
@@ -146,7 +146,7 @@ in {
             urls = [{
               template = "https://wordnik.com/words/?myWord={searchTerms}";
             }];
-            iconUpdateURL = "https://wordnik.com/img/favicon.png";
+            icon = "https://wordnik.com/img/favicon.png";
             updateInterval = 24 * 60 * 60 * 1000;
             definedAliases = [ "@wd" ];
           };
@@ -154,7 +154,7 @@ in {
             urls = [{
               template = "https://openlibrary.org/search?q={searchTerms}";
             }];
-            iconUpdateURL =
+            icon =
               "https://openlibrary.org/static/images/openlibrary-192x192.png";
             updateInterval = 24 * 60 * 60 * 1000;
             definedAliases = [ "@ol" ];
@@ -164,20 +164,20 @@ in {
               template =
                 "https://search.marginalia.nu/search?query={searchTerms}";
             }];
-            iconUpdateURL = "https://search.marginalia.nu/favicon.ico";
+            icon = "https://search.marginalia.nu/favicon.ico";
             updateInterval = 24 * 60 * 60 * 1000;
             definedAliases = [ "@mg" ];
           };
           "Discu.eu" = {
             urls = [{ template = "https://discu.eu/?q={searchTerms}"; }];
-            iconUpdateURL = "https://discu.eu/static/favicon-32x32.png";
+            icon = "https://discu.eu/static/favicon-32x32.png";
             updateInterval = 24 * 60 * 60 * 1000;
             definedAliases = [ "@du" ];
           };
           "Hacker News" = {
             urls =
               [{ template = "https://hn.algolia.com/?q={searchTerms}"; }];
-            iconUpdateURL = "https://news.ycombinator.com/favicon.ico";
+            icon = "https://news.ycombinator.com/favicon.ico";
             updateInterval = 24 * 60 * 60 * 1000;
             definedAliases = [ "@hn" ];
           };
@@ -186,7 +186,7 @@ in {
               template =
                 "https://www.youtube.com/results?search_query={searchTerms}";
             }];
-            iconUpdateURL =
+            icon =
               "https://www.youtube.com/s/desktop/271dfaff/img/favicon_144x144.png";
             updateInterval = 24 * 60 * 60 * 1000;
             definedAliases = [ "@yt" ];
@@ -194,14 +194,14 @@ in {
           "Genius" = {
             urls =
               [{ template = "https://genius.com/search?q={searchTerms}"; }];
-            iconUpdateURL = "https://genius.com/favicon.ico";
+            icon = "https://genius.com/favicon.ico";
             updateInterval = 24 * 60 * 60 * 1000;
             definedAliases = [ "@gen" ];
           };
           "ManKier" = {
             urls =
               [{ template = "https://www.mankier.com/?q={searchTerms}"; }];
-            iconUpdateURL = "https://www.mankier.com/favicon.ico";
+            icon = "https://www.mankier.com/favicon.ico";
             updateInterval = 24 * 60 * 60 * 1000;
             definedAliases = [ "@man" ];
           };
@@ -255,7 +255,7 @@ in {
               template =
                 "https://noogle.dev/?term={searchTerms}";
             }];
-            iconUpdateURL = "https://noogle.dev/_next/static/media/white.dc624142.svg";
+            icon = "https://noogle.dev/_next/static/media/white.dc624142.svg";
             updateInterval = 24 * 60 * 60 * 1000;
             definedAliases = [ "@nxf" ];
           };

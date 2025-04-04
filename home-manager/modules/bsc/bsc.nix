@@ -84,7 +84,7 @@ in
     p = "ssh hut p";
   };
 
-  programs.firefox.profiles.${config.home.username}.bookmarks = [
+  programs.firefox.profiles.${config.home.username}.bookmarks.settings = [
     {
       toolbar = true;
       bookmarks = import ./bookmarks.nix;

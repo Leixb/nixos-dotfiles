@@ -20,7 +20,7 @@
     })) # Minecraft map editor
   ];
 
-  programs.firefox.profiles.${config.home.username}.bookmarks = [
+  programs.firefox.profiles.${config.home.username}.bookmarks.settings = [
     {
       toolbar = true;
       bookmarks = [
