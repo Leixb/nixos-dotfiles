@@ -18,7 +18,7 @@ import XMonad
 import XMonad.Prelude
 
 import XMonad.Actions.CopyWindow (copiesPP, copy, copyToAll, kill1, killAllOtherCopies, runOrCopy)
-import XMonad.Actions.CycleWS (Direction1D (..), WSType (..), emptyWS, hiddenWS, ignoringWSs, moveTo, nextScreen, prevScreen, shiftNextScreen, shiftTo, swapNextScreen, swapPrevScreen)
+import XMonad.Actions.CycleWS (Direction1D (..), WSType (..), emptyWS, hiddenWS, ignoringWSs, moveTo, nextScreen, prevScreen, shiftNextScreen, shiftTo, swapNextScreen, swapPrevScreen, doTo)
 import XMonad.Actions.DwmPromote (dwmpromote)
 import XMonad.Actions.GroupNavigation (Direction (History), historyHook, nextMatch)
 import XMonad.Actions.Minimize (maximizeWindow, maximizeWindowAndFocus, minimizeWindow, withLastMinimized)
@@ -523,6 +523,8 @@ myKeys conf@(XConfig {modMask = modMask}) = fromList $
     , ((modMask,                 xK_bracketright), moveTo Next activeTopics)
     , ((modMask .|. shiftMask,   xK_bracketleft ), shiftTo Prev activeTopics) -- %! Shift to next topic
     , ((modMask .|. shiftMask,   xK_bracketright), shiftTo Next activeTopics) -- %! Shift to prev topic
+    , ((modMask .|. controlMask, xK_bracketleft),  doTo Prev activeTopics (pure id) $ windows . copy) -- %! Copy to next topic
+    , ((modMask .|. controlMask, xK_bracketright), doTo Next activeTopics (pure id) $ windows . copy) -- %! Copy to prev topic
     , ((modMask,                 xK_slash       ), workspacePrompt topicPrompt $ switchTopic topicConfig) -- %! Focus prompt
     , ((modMask .|. shiftMask,   xK_slash       ), workspacePrompt topicPrompt $ windows . W.shift) -- %! Shift prompt
     , ((modMask .|. controlMask, xK_slash       ), workspacePrompt topicPrompt $ windows . copy) -- %! Copy prompt
