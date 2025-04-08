@@ -42,6 +42,8 @@ in
   services.earlyoom = {
     enable = true;
     freeMemThreshold = 2;
+    freeSwapThreshold = 80;
+    freeSwapKillThreshold = 100;
     enableNotifications = true;
   };
 
