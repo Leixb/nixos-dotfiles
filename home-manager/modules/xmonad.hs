@@ -213,6 +213,7 @@ topics =
                             , "pocl-v"
                             , "tampi"
                             , "hpccg"
+                            , "gpt2"
                             , "jungle"
                             , "haskell/jutge"
                             , "aoc-25"
