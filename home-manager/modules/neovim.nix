@@ -69,6 +69,8 @@ in
       shellcheck
       stylua
       vale
+
+      vscode-langservers-extracted
     ];
 
     plugins = with pkgs.vimPlugins; [
