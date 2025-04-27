@@ -1,35 +1,5 @@
 { config, osConfig, lib, pkgs, ... }:
 
-let
-  i3lock-custom = pkgs.i3lock-fancy-rapid.override {
-    i3lock = pkgs.writeShellScriptBin "i3lock" ''
-      systemctl --user stop picom
-      . ${config.sops.secrets.hass_env.path}
-
-      ${pkgs.curl}/bin/curl --connect-timeout 5 -X POST \
-      -H "Authorization: Bearer $HASS_TOKEN" \
-      -H "Content-Type: application/json" \
-      -d '{"hostname" : "${osConfig.networking.hostName}"}' \
-      $HASS_SERVER/api/events/nixos.lock &
-      CURL_PID=$!
-
-      ${pkgs.dunst}/bin/dunstctl set-paused true
-
-      ${pkgs.i3lock-color}/bin/i3lock-color --nofork "$@"
-
-      systemctl --user start picom
-      ${pkgs.dunst}/bin/dunstctl set-paused false
-
-      if ! kill $CURL_PID ; then
-      ${pkgs.curl}/bin/curl --connect-timeout 5 -X POST \
-      -H "Authorization: Bearer $HASS_TOKEN" \
-      -H "Content-Type: application/json" \
-      -d '{"hostname" : "${osConfig.networking.hostName}"}' \
-      $HASS_SERVER/api/events/nixos.unlock &
-      fi
-    '';
-  };
-in
 {
 
   sops.secrets.hass_env.sopsFile = ../../nixos/secrets/hass.yaml;
@@ -79,7 +49,6 @@ in
     gmrun
     autorandr
 
-    i3lock-custom
     xsel
   ];
 
@@ -191,7 +160,7 @@ in
 
   services.screen-locker = {
     enable = true;
-    lockCmd = "${lib.getExe i3lock-custom} 5 5";
+    lockCmd = "i3lock-fancy-rapid 5 5";
     inactiveInterval = 10;
   };
 }
