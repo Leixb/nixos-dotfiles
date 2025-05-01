@@ -92,8 +92,7 @@ in
     file # file type detection
     flameshot # screenshot tool
     gh # github cli
-    # gimp-with-plugins
-    gimp
+    gimp3-with-plugins
     git-extras # git extensions
     simple-scan # scanner
     kitty-imgdiff # image diff
