@@ -32,7 +32,7 @@ in
     switch-audio
     geogebra6
     obs-studio
-    kdenlive
+    kdePackages.kdenlive
     ungoogled-chromium
 
     wxparaver-adwaita

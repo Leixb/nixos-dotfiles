@@ -11,7 +11,6 @@
       ./hardware-configuration.nix
       ./vpn.nix
       ./../../modules/hydra.nix
-      ./../../modules/hut-substituter.nix
     ];
 
   # Bootloader.
