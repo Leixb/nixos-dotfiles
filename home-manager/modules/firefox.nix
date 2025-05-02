@@ -82,9 +82,9 @@ in {
         force = true;
         default = "ddg";
         order = [
-          "DuckDuckGo"
-          "Wikipedia (en)"
-          "Google"
+          "ddg"
+          "wikipedia"
+          "google"
           "WayBack Machine"
           "archive.today"
           "WayBack Machine (all)"
@@ -94,7 +94,7 @@ in {
           "Marginalia"
           "Discu.eu"
           "Hacker News"
-          "YouTube"
+          "youtube"
           "Genius"
           "ManKier"
           "Nix Packages"
@@ -181,7 +181,7 @@ in {
             updateInterval = 24 * 60 * 60 * 1000;
             definedAliases = [ "@hn" ];
           };
-          "YouTube" = {
+          "youtube" = {
             urls = [{
               template =
                 "https://www.youtube.com/results?search_query={searchTerms}";
