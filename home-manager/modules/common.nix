@@ -260,6 +260,7 @@ in
       branch = { sort = "-committerdate"; };
       fetch = { writeCommitGraph = true; };
       core = { fsmonitor = true; };
+      commit.verbose = true;
     };
   };
 
