@@ -149,7 +149,12 @@ in
         plugin = nvim-treesitter-context;
         type = "lua";
         config = ''
-          require('treesitter-context').setup { enable = true }
+          require('treesitter-context').setup {
+            enable = true,
+            max_lines = 10, -- How many lines the window should span. Values <= 0 mean no limit.
+            min_window_height = 40, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+            multiline_threshold = 7, -- Maximum number of lines to show for a single context
+          }
         '';
       }
 
