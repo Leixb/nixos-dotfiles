@@ -238,8 +238,8 @@ in
     ignores = [ "*~" "*.swp" "/.direnv/" ];
 
     aliases = {
-      lg =
-        "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit";
+      lg = "log --color --graph  --abbrev-commit --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'";
+      l = "log --color --graph --abbrev-commit --pretty=format:'%C(magenta)%h%C(reset) %C(bold blue)<%an>%Creset %Cgreen(%ar)%Creset %C(yellow)%D%Creset%n%s%n'";
       wd = "diff --word-diff";
       wdiff = "diff --word-diff";
       blamec = "blame -w -C -C -C";
@@ -252,6 +252,28 @@ in
     lfs.enable = true;
 
     extraConfig = {
+      core = {
+        compression = 9;
+        whitespace = "error";
+        preloadindex = true;
+      };
+
+      url = {
+        "git@github.com:".insteadOf = "gh:";
+        "git@github.com:leixb/".insteadOf = "leixb:";
+        "git@bscpm04.bsc.es:".insteadOf = "pm:";
+      };
+
+      status = {
+        branch = true;
+        showStash = true;
+      };
+
+      diff = {
+        renames = "copies";
+        interHunkContext = 10;
+      };
+
       init = { defaultBranch = "master"; };
       pull = { rebase = true; };
       gpg = { format = "ssh"; };
