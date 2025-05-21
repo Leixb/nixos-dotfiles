@@ -261,7 +261,10 @@ in
       url = {
         "git@github.com:".insteadOf = "gh:";
         "git@github.com:leixb/".insteadOf = "leixb:";
+        "git@git.sr.ht:~".insteadOf = "sh:";
+        "git@gitlab-internal.bsc.es:".insteadOf = "bsc:";
         "git@bscpm04.bsc.es:".insteadOf = "pm:";
+        "gitea@hut:".insteadOf = "jungle:";
       };
 
       status = {
