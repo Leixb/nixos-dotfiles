@@ -1,9 +1,5 @@
-openfortivpn_config: ENC[AES256_GCM,data:22vSmeD+Fni/h1BBX7lBxNb5hmF0txDYPYngpEMRy4GjwTCdUW4yVqD9wzAp5O2XjUswbik4Lo8=,iv:duN/7ki7tVtvBjy3thWpDEtZ0fONCMAXVn3N/54rSh8=,tag:nNCz1AnohLFGlh6fK2b8oA==,type:str]
+openfortivpn_config: ENC[AES256_GCM,data:rvvu4fBxj6oV+pM2YWNd3BfDfxUfFX9HiDaOMlAmuF4TUuLyGm+uBBVYEM37AgYmZsvcypOL+ik=,iv:I+uL4OkrXVK6oNRbv2DjWsPRkxdm7L4cDAmCvwZdrqQ=,tag:GpjaUKSuuYzyRWbQGiPtKQ==,type:str]
 sops:
-    kms: []
-    gcp_kms: []
-    azure_kv: []
-    hc_vault: []
     age:
         - recipient: age1wtzrvpnqc806yzvhkx9lfapnm6ck65p76j5u47u9p87ynq0hze7smwsume
           enc: |
@@ -23,8 +19,7 @@ sops:
             dTJrc1BTc0JHL28yczQwZlo5Q3Y2eGMKHtErmUhtHkocli/oQ2Ni1dZxoIDlgfnZ
             FjX2W9p1aB8A7i5m0HT9ftuW58Tb9i/fGQt2Fd8bSPFDHEy9jVpjPQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2024-06-15T17:59:35Z"
-    mac: ENC[AES256_GCM,data:oVaW2k0rkx9I6kOFEnFrWgZ2xK+ejZsi85PZUUvQJDId0kTwOrgczNQSPMycnpmotNxrDzF53M0fgESHfccI9Umq8CmKfGAGTN8XzyvGUbHhulQU2/6QfCwamIwfW9iWgfHnPMdtCaSXQfkQjzcn1EcOhN6GcyM1J2KpnDOjhcA=,iv:lefCnzYrywlL2d34DAtEFP7RJiZOlH7eJfTnukx5RS4=,tag:KOh/0Dqg91viUTUT8aAYEA==,type:str]
-    pgp: []
+    lastmodified: "2025-05-15T13:15:03Z"
+    mac: ENC[AES256_GCM,data:VoZ6af4Tl8QzCMBRlNowfa2h2KwuE5NZI1AjIr94HsmktmXrMb/q18cWqw4NAkgTTADulbXhfoybXhx9t14R2sf6y4jvBVKYyqRc9fEEAcEr50lBw33ocG+s+8G49/+uiknj2nzrCKMHLRalpco+mE7orO1ZSTYiVVc8VDTHPls=,iv:5DUC9I2LJ+VhM2Vn/ad+u2e8MVDoGgZtYvqyTYpM+Pw=,tag:yjDzxqYls+WXrV/XcKGUFw==,type:str]
     unencrypted_suffix: _unencrypted
-    version: 3.8.1
+    version: 3.10.2
