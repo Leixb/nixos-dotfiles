@@ -52,6 +52,7 @@ import XMonad.Layout.Decoration
 import XMonad.Layout.FocusTracking (focusTracking)
 import XMonad.Layout.Groups.Examples (TiledTabsConfig (tabsTheme))
 import XMonad.Layout.HintedGrid (Grid (Grid))
+import XMonad.Layout.MagicFocus
 import XMonad.Layout.Magnifier (magnifiercz')
 import XMonad.Layout.Master (mastered)
 import XMonad.Layout.Minimize (minimize)
@@ -295,6 +296,7 @@ prompt =
 --------------------------------------------------------------------------------
 
 paraverLayout = "TwoPane Tab"
+twoPaneAccDesc = "TwoPane Acc"
 
 myLayout =
     avoidStruts
@@ -318,7 +320,7 @@ myLayout =
     tiled = spacer $ XMonad.Tall nmaster delta ratio
     threeColsMid = spacer $ magnifiercz' 1.3 $ CenterMainFluid nmaster delta ratio
     threeCols = spacer $ ThreeCol nmaster delta ratio
-    twoPaneA = setName "TwoPane Acc" $ spacer $ mastered delta ratioTwoPane $ focusTracking Accordion
+    twoPaneA = setName twoPaneAccDesc $ spacer $ mastered delta ratioTwoPane $ focusTracking Accordion
     twoPane = setName paraverLayout $ spacer' $ mastered delta ratioTwoPane $ focusTracking $ tabbed shrinkText myTabTheme
 
     setName :: String -> l a -> ModifiedLayout Rename l a
@@ -365,10 +367,18 @@ myLogHook =
                 , swn_bgcolor = colorBg
                 , swn_color = colorFg
                 }
+
+isAccord :: X Bool
+isAccord = do
+    wset <- gets windowset
+    let ldesc = description . W.layout . W.workspace . W.current $ wset
+    return $ isSuffixOf twoPaneAccDesc ldesc
+
 myHandleEventHook =
     composeAll
         [ handleEventHook def
         , windowedFullscreenFixEventHook
+        , followOnlyIf (not <$> isAccord)
         , swallowEventHook
             ( isTerm <&&> (not <$> ((title `endsWith` "NVIM") <||> (title `startsWith` "gdb")))
             )
@@ -645,7 +655,7 @@ myXmobarPP =
         getIconName "Accordion" = Just "accordion"
         getIconName "Grid False" = Just "grid"
         getIconName "Grid" = Just "grid"
-        getIconName "TwoPane Acc" = Just "masteracc"
+        getIconName twoPaneAccDesc = Just "masteracc"
         getIconName x
             | x == paraverLayout = Just "mastertab"
             | "Spacing" `isPrefixOf` x = getIconName $ stripPrefix "Spacing " x
