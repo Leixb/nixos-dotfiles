@@ -228,6 +228,7 @@ topics =
                             , "ompss-2-exercises"
                             , "ci-infrastructure"
                             , "slides/team-meetings"
+                            , "nsys2prv"
                             ]
                        ]
            )
@@ -509,6 +510,8 @@ myKeys conf@(XConfig {modMask = modMask}) = fromList $
     -- raise
     , ((modMask              , xK_b     ), runOrRaiseNext myBrowser isBrowser) -- %! Raise browser
     , ((modMask .|. shiftMask, xK_b     ), runOrCopy myBrowser isBrowser) -- %! Copy browser
+
+    , ((modMask .|. controlMask, xK_b   ), sendMessage ToggleStruts)
 
     -- boring and minimized windows
     , ((modMask                , xK_semicolon ), withFocused minimizeWindow) -- %! Minimize window
