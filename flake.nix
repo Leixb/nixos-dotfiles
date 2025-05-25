@@ -119,8 +119,8 @@
           haskell-language-server
           (haskellPackages.ghcWithPackages (hpkgs: with hpkgs; [
             xmobar
-            xmonad_0_18_0
-            xmonad-contrib_0_18_1
+            xmonad
+            xmonad-contrib
           ]))
         ];
 
