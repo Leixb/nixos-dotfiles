@@ -1,5 +1,3 @@
-local lspconfig = require("lspconfig")
-
 -- disable autostart on pavilion
 -- since resources are limited there
 local autostart = vim.fn.hostname() ~= "nixos-pav"
@@ -122,18 +120,27 @@ local lsp_list = {
     "svelte",
     "texlab",
     "ts_ls",
+    "ty",
+    -- 'hls',
+    "yamlls",
+    "nil_ls",
+    "clangd",
+    "pylsp",
+    "lua_ls",
     -- "vimls",
 }
 
 for _, val in pairs(lsp_list) do
-    lspconfig[val].setup({
-        on_attach = lsp_attach,
-        autostart = autostart,
-        capabilities = capabilities,
-    })
+    vim.lsp.enable(val)
 end
 
--- lspconfig.hls.setup({
+vim.lsp.config("*", {
+    on_attach = lsp_attach,
+    autostart = autostart,
+    capabilities = capabilities,
+})
+
+-- vim.lsp.config('hls', {
 --     filetypes = { "haskell", "lhaskell", "cabal" },
 --     on_attach = lsp_attach,
 --     autostart = autostart,
@@ -159,7 +166,7 @@ vim.g.haskell_tools = {
     },
 }
 
-lspconfig.yamlls.setup({
+vim.lsp.config("yamlls", {
     on_attach = lsp_attach,
     autostart = autostart,
     capabilities = capabilities,
@@ -170,7 +177,7 @@ lspconfig.yamlls.setup({
     },
 })
 
-lspconfig.nil_ls.setup({
+vim.lsp.config("nil_ls", {
     on_attach = lsp_attach,
     autostart = autostart,
     capabilities = capabilities,
@@ -182,7 +189,7 @@ lspconfig.nil_ls.setup({
 -- Fix clangd warning on mixed encoding
 local capabilities_16 = capabilities
 capabilities_16.offsetEncoding = { "utf-16" }
-lspconfig.clangd.setup({
+vim.lsp.config("clangd", {
     on_attach = lsp_attach,
     autostart = autostart,
     capabilities = capabilities_16,
@@ -192,7 +199,7 @@ local runtime_path = vim.split(package.path, ";")
 table.insert(runtime_path, "lua/?.lua")
 table.insert(runtime_path, "lua/?/init.lua")
 
-lspconfig.pylsp.setup({
+vim.lsp.config("pylsp", {
     on_attach = lsp_attach,
     autostart = autostart,
     capabilities = capabilities,
@@ -213,7 +220,7 @@ lspconfig.pylsp.setup({
     },
 })
 
-lspconfig.lua_ls.setup({
+vim.lsp.config("lua_ls", {
     autostart = autostart,
     settings = {
         Lua = {
