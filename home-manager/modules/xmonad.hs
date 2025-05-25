@@ -79,6 +79,7 @@ import XMonad.Util.NamedScratchpad (NamedScratchpad (..), namedScratchpadAction,
 import XMonad.Util.Run (executeNoQuote, inTerm, proc, spawnExternalProcess, termInDir, (>-$), (>->))
 import XMonad.Util.SpawnOnce (spawnOnce)
 import XMonad.Util.XUtils (WindowConfig (..))
+import XMonad.Util.WorkspaceCompare (getSortByIndex)
 
 --------------------------------------------------------------------------------
 -- MAIN
@@ -534,8 +535,8 @@ myKeys conf@(XConfig {modMask = modMask}) = fromList $
     , ((modMask,                 xK_bracketright), moveTo Next activeTopics)
     , ((modMask .|. shiftMask,   xK_bracketleft ), shiftTo Prev activeTopics) -- %! Shift to next topic
     , ((modMask .|. shiftMask,   xK_bracketright), shiftTo Next activeTopics) -- %! Shift to prev topic
-    , ((modMask .|. controlMask, xK_bracketleft),  doTo Prev activeTopics (pure id) $ windows . copy) -- %! Copy to next topic
-    , ((modMask .|. controlMask, xK_bracketright), doTo Next activeTopics (pure id) $ windows . copy) -- %! Copy to prev topic
+    , ((modMask .|. controlMask, xK_bracketleft),  doTo Prev activeTopics getSortByIndex $ windows . copy) -- %! Copy to next topic
+    , ((modMask .|. controlMask, xK_bracketright), doTo Next activeTopics getSortByIndex $ windows . copy) -- %! Copy to prev topic
     , ((modMask,                 xK_slash       ), workspacePrompt topicPrompt $ switchTopic topicConfig) -- %! Focus prompt
     , ((modMask .|. shiftMask,   xK_slash       ), workspacePrompt topicPrompt $ windows . W.shift) -- %! Shift prompt
     , ((modMask .|. controlMask, xK_slash       ), workspacePrompt topicPrompt $ windows . copy) -- %! Copy prompt
