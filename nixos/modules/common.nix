@@ -294,8 +294,8 @@ in
       auto-optimise-store = true;
 
       substituters = [
-        "https://nix-community.cachix.org"
         "https://cache.nixos.org/"
+        "https://nix-community.cachix.org"
         "https://devenv.cachix.org"
         "https://hyprland.cachix.org"
       ];
