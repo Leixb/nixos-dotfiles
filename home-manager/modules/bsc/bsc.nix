@@ -9,7 +9,7 @@ let
 
     queue="$(ssh mn5 squeue | tail -n1 | awk '{ print $8 }')"
 
-    if [[ "$queue" =~ ^gs[0-9]{2}r[0-3]b[0-9]{2}$ ]]; then
+    if [[ "$queue" =~ ^[ag]s[0-9]{2}r[0-3]b[0-9]{2}$ ]]; then
         echo "Reusing allocation $queue" >&2
         node="$queue"
     else
@@ -24,11 +24,8 @@ let
         ssh mn5 salloc -A bsc15 --qos "$QUEUE" --exclusive --time=$HOURS:00:00  --no-shell |& tee "$OUT"
 
         node="$(tail -n1 "$OUT" | cut -f 3 -d' ')"
-        mn5_key="$(cat ${config.sops.secrets.ssh_mn5_pubkey.path})"
 
         ${lib.getExe pkgs.libnotify} "Allocation granted" "$node is ready for job"
-
-        echo "$node $mn5_key" >>~/.ssh/known_hosts
     fi
 
     exec ssh "$node"
