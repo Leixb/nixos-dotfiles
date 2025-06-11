@@ -55,7 +55,7 @@
     let
       system = "x86_64-linux";
 
-      specialArgs = { inherit inputs; };
+      specialArgs = { inherit self inputs; };
 
       extra-packages = final: prev: {
         firefox-addons = inputs.firefox-addons.packages.${system};
@@ -129,7 +129,7 @@
 
       nixosConfigurations = {
         kuro = lib.nixosSystem {
-          inherit system;
+          inherit specialArgs system;
 
           modules = common-modules ++ [
             ./nixos/hosts/kuro/configuration.nix
@@ -149,7 +149,6 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.leix = import ./home-manager/users/leix.nix;
-              home-manager.extraSpecialArgs = specialArgs;
               home-manager.sharedModules = [
                 ./home-manager/modules/home.nix
                 ./home-manager/modules/common.nix
@@ -163,7 +162,7 @@
         };
 
         nixos-pav = lib.nixosSystem {
-          inherit system;
+          inherit specialArgs system;
 
           modules = common-modules ++ [
             ./nixos/hosts/pavilion/configuration.nix
@@ -173,7 +172,6 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.leix = import ./home-manager/users/leix.nix;
-              home-manager.extraSpecialArgs = specialArgs;
               home-manager.sharedModules = [
                 ./home-manager/hosts/pavilion.nix
                 ./home-manager/modules/home.nix
@@ -187,7 +185,7 @@
         };
 
         asus = lib.nixosSystem {
-          inherit system;
+          inherit specialArgs system;
 
           modules = common-modules ++ [
             ./nixos/hosts/asus/configuration.nix
@@ -200,7 +198,6 @@
               home-manager.useUserPackages = true;
               home-manager.users.leix = import ./home-manager/users/leix.nix;
               home-manager.users.marc = import ./home-manager/users/marc.nix;
-              home-manager.extraSpecialArgs = specialArgs;
               home-manager.sharedModules = [
                 ./home-manager/modules/home.nix
                 ./home-manager/modules/common.nix
@@ -214,7 +211,7 @@
         };
 
         dell = lib.nixosSystem {
-          inherit system;
+          inherit specialArgs system;
 
           modules = common-modules ++ [
             ./nixos/hosts/dell/configuration.nix
@@ -228,7 +225,6 @@
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.leix = import ./home-manager/users/leix.nix;
-              home-manager.extraSpecialArgs = specialArgs;
               home-manager.sharedModules = [
                 ./home-manager/modules/common.nix
                 ./home-manager/hosts/dell.nix
