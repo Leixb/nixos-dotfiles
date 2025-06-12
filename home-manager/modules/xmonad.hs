@@ -659,8 +659,8 @@ myXmobarPP =
         getIconName "Accordion" = Just "accordion"
         getIconName "Grid False" = Just "grid"
         getIconName "Grid" = Just "grid"
-        getIconName twoPaneAccDesc = Just "masteracc"
         getIconName x
+            | x == twoPaneAccDesc = Just "masteracc"
             | x == paraverLayout = Just "mastertab"
             | "Spacing" `isPrefixOf` x = getIconName $ stripPrefix "Spacing " x
             | "Magnifier" `isPrefixOf` x = getIconName $ stripPrefix "Magnifier " x
