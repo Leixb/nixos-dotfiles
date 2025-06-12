@@ -86,7 +86,7 @@
         })
         ./cachix.nix
         ./nixos/modules/common.nix
-        # ./nixos/modules/hut-substituter.nix
+        ./nixos/modules/hut-substituter.nix
         { nixpkgs.overlays = overlays; }
         pin-flake-reg
         sops-nix.nixosModules.sops
