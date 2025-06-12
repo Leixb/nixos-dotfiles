@@ -174,18 +174,21 @@ topicConfig =
 
 home = "/home/leix/"
 
+-- use 3-7 to copy windows from other topics into them and create custom views
 topics :: [TopicItem]
 topics =
     [ noAction "\xf35e" "Documents"
     , ti "1:WEB" "Downloads" $ spawn myBrowser
     , ti "2:SHELL" "Documents" spawnTermInTopic
-    , ti "3:EDITOR" "Documents" spawnEditorInTopic
-    , ti "4:PLAYGROUND" "Documents/Playground" spawnTermInTopic
-    , only "5"
-    , only "6"
-    , inHome "7:CAL" $ spawnInTerm "cal -y"
-    , inHome "8:IM" $ spawn "slack" *> spawn "telegram-desktop"
-    , ti "9:MEDIA" "Videos" spawnTermInTopic
+    , onlyDoc "3"
+    , onlyDoc "4"
+    , onlyDoc "5"
+    , onlyDoc "6"
+    , onlyDoc "7"
+    , inHome "8:im" $ spawn "slack" *> spawn "telegram-desktop"
+    , ti "9:media" "Videos" spawnTermInTopic
+    , ti "0:music" "Music" $ spawn "plexamp"
+-- End of numbered topics (mapped to mod + n)
     , sshHost "mn5"
     , sshHost "hut"
     , sshHost "hca"
@@ -232,11 +235,10 @@ topics =
                             ]
                        ]
            )
-        ++ [ ti "0:MUSIC" "Music" $ spawn "plexamp"
-           ]
   where
-    only :: Topic -> TopicItem
+    only, onlyDoc :: Topic -> TopicItem
     only n = noAction n home
+    onlyDoc n = noAction n "Documents"
 
     sshHost host = inHome host $ spawnInTerm ("ssh " ++ host)
 
@@ -596,7 +598,7 @@ myKeys conf@(XConfig {modMask = modMask}) = fromList $
                 ]
     ]
       where
-        activeTopics = hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag]
+        activeTopics = hiddenWS :&: Not emptyWS :&: ignoringWSs [scratchpadWorkspaceTag , "8:im", "9:media" , "0:music"]
 
         wsKeys = xK_grave : [xK_1 .. xK_9] ++ [xK_0]
 
