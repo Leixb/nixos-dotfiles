@@ -47,8 +47,12 @@
     bscpkgs.url = "sourcehut:~rodarima/bscpkgs";
     bscpkgs.inputs.nixpkgs.follows = "nixpkgs";
 
+    treefmt-nix.url = "github:numtide/treefmt-nix";
+    treefmt-nix.inputs.nixpkgs.follows = "nixpkgs";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+    nixos-hardware.inputs.nixpkgs.follows = "nixpkgs";
+    nixos-hardware.inputs.treefmt-nix.follows = "treefmt-nix";
   };
 
   outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, pre-commit-hooks, ... }:
