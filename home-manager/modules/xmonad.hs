@@ -633,6 +633,13 @@ myXmobarPP =
                   ppLayout = fgColor colorFg . myLayoutPrinter
                 , ppUrgent = fgColor colorRed . wrap (fgColor colorYellow "!") (fgColor colorYellow "!")
                 , ppOrder = \[ws, l, _, wins] -> [ws, l, wins]
+                , ppRename = \wsName _ -> case wsName of
+                    "1:WEB" -> "1:W"
+                    "2:SHELL" -> "2:SH"
+                    "8:im" -> "8:im"
+                    "9:media" -> "9:med"
+                    "0:music" -> "0:mus"
+                    _ -> wsName
                 , ppExtras = [logTitles formatFocused formatUnfocused]
                 }
   where
