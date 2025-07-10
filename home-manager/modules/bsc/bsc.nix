@@ -78,7 +78,7 @@ in
   };
 
   programs.fish.shellAliases = {
-    p = "ssh hut p";
+    p = "ssh tent p";
   };
 
   programs.firefox.profiles.${config.home.username}.bookmarks.settings = [
