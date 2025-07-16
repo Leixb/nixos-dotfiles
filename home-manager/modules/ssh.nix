@@ -8,10 +8,18 @@
 
   # services.ssh-agent.enable = true;
 
+  home.packages = [ pkgs.autossh ];
+
   programs.ssh = {
     enable = true;
 
     addKeysToAgent = "yes";
+
+    controlMaster = "auto";
+    controlPersist = "10m";
+
+    serverAliveInterval = 60;
+    serverAliveCountMax = 10;
 
     includes = [
       config.sops.secrets.ssh_config_home.path
