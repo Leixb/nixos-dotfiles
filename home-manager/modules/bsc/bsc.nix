@@ -81,10 +81,33 @@ in
     p = "ssh tent p";
   };
 
-  programs.firefox.profiles.${config.home.username}.bookmarks.settings = [
+  programs.firefox.profiles =
+    let
+      mkProfile = port:
+        {
+          id = port;
+          isDefault = false;
+          settings = {
+            "network.proxy.allow_hijacking_localhost" = true;
+            "network.proxy.socks" = "localhost";
+            "network.proxy.socks_port" = port;
+            "network.proxy.type" = 1; # socks5
+          };
+        };
+    in
     {
-      toolbar = true;
-      bookmarks = import ./bookmarks.nix;
-    }
-  ];
+      # custom profiles for ssh socks5 dynamic port forwarding proxies
+      # ssh -D <host>
+      SSH_dynamic_forward1 = mkProfile 1080;
+      SSH_dynamic_forward2 = mkProfile 1081;
+
+      # # bsc bookmarks
+      ${config.home.username}.bookmarks.settings = [
+        {
+          toolbar = true;
+          bookmarks = import ./bookmarks.nix;
+        }
+      ];
+    };
+
 }
