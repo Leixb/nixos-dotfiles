@@ -5,6 +5,10 @@
     owner = "root";
   };
 
+  networking.networkmanager.plugins = [
+    pkgs.networkmanager-fortisslvpn
+  ];
+
   systemd.services.openfortivpn = {
     enable = true;
     description = "OpenFortiVPN client";
