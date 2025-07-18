@@ -30,6 +30,10 @@ in
 
   home.file.".vale.ini".text = "";
 
+  home.file."${config.xdg.configHome}/nvim/after/ftplugin/gitcommit.lua".text = ''
+    vim.opt.colorcolumn = "50,72"
+  '';
+
   home.sessionVariables.EDITOR = "nvim";
   home.sessionVariables.NVIM_PACKAGE = config.programs.neovim.finalPackage;
 
