@@ -154,7 +154,7 @@
                 ./home-manager/modules/common.nix
                 ./home-manager/hosts/kuro.nix
                 sops-nix.homeManagerModules.sops
-                inputs.nix-index-database.hmModules.nix-index
+                inputs.nix-index-database.homeModules.nix-index
                 { programs.nix-index-database.comma.enable = true; }
               ];
             }
@@ -177,7 +177,7 @@
                 ./home-manager/modules/home.nix
                 ./home-manager/modules/common.nix
                 sops-nix.homeManagerModules.sops
-                inputs.nix-index-database.hmModules.nix-index
+                inputs.nix-index-database.homeModules.nix-index
                 { programs.nix-index-database.comma.enable = true; }
               ];
             }
@@ -203,7 +203,7 @@
                 ./home-manager/modules/common.nix
                 ./home-manager/hosts/asus.nix
                 sops-nix.homeManagerModules.sops
-                inputs.nix-index-database.hmModules.nix-index
+                inputs.nix-index-database.homeModules.nix-index
                 { programs.nix-index-database.comma.enable = true; }
               ];
             }
@@ -229,7 +229,7 @@
                 ./home-manager/modules/common.nix
                 ./home-manager/hosts/dell.nix
                 sops-nix.homeManagerModules.sops
-                inputs.nix-index-database.hmModules.nix-index
+                inputs.nix-index-database.homeModules.nix-index
                 { programs.nix-index-database.comma.enable = true; }
               ];
             }
