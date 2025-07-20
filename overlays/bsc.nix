@@ -1,17 +1,21 @@
 final: prev:
 let
-  paraverVersion = "4.11.4";
+  paraverVersion = "4.12.0";
 in
 # assert (final.lib.strings.compareVersions paraverVersion prev.paraver.version) != 1; # once this fails, remove src overrides
 {
   paraverKernel = prev.paraverKernel.overrideAttrs (oldAttrs: {
     version = paraverVersion;
-    buildInputs = oldAttrs.buildInputs ++ [ final.zlib ];
+    buildInputs = oldAttrs.buildInputs ++ [ final.zlib final.libxml2 ];
+    # TODO: merge with oldAttrs.patches
+    patches = [
+      ./paraver-fix-libxml2.patch
+    ];
     src = final.fetchFromGitHub {
       owner = "bsc-performance-tools";
       repo = "paraver-kernel";
       rev = "v${paraverVersion}";
-      sha256 = "sha256-1LiEyF2pBkSa4hf3hAz51wBMXsXYpNqHgIeYH1OHE9M=";
+      sha256 = "sha256-Xs7g8ITZhPt00v7o2WlTddbou8C8Rc9kBMFpl2WsCS4=";
     };
   });
 
@@ -22,10 +26,10 @@ in
       owner = "bsc-performance-tools";
       repo = "wxparaver";
       rev = "v${paraverVersion}";
-      sha256 = "sha256-0bsFnDnPwOa/dzSKqPJ91Zw23NYWTs0GcC6tv3WQqMs=";
+      sha256 = "sha256-YsO5gsuEFQdki3lQudEqgo5WXOt/fPdvNw5OxZQ86Zo=";
     };
 
-    patches = [
+    patches = (final.lib.optional (oldAttrs ? patches) oldAttrs.patches) ++ [
       (final.fetchurl {
         url = "https://patch-diff.githubusercontent.com/raw/bsc-performance-tools/wxparaver/pull/14.patch";
         sha256 = "sha256-jJ/LTBxlsRfYvv4MFmXz/zMtPgP4piVUClf0Nxpg+Bk=";
