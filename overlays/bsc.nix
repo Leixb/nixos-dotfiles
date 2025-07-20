@@ -9,6 +9,7 @@ in
     buildInputs = oldAttrs.buildInputs ++ [ final.zlib final.libxml2 ];
     # TODO: merge with oldAttrs.patches
     patches = [
+      ./paraver-dont-expand-colors.patch
       ./paraver-fix-libxml2.patch
     ];
     src = final.fetchFromGitHub {
