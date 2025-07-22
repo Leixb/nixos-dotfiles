@@ -7,11 +7,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1749650500,
-        "narHash": "sha256-2MHfVPV6RA7qPSCtXh4+KK0F0UjN+J4z8//+n6NK7Xs=",
+        "lastModified": 1753182023,
+        "narHash": "sha256-spfV9QA1Q878hn7oA3TdfDJa6vIke5CV0UKBuyhK+/M=",
         "owner": "~rodarima",
         "repo": "bscpkgs",
-        "rev": "9d1944c658929b6f98b3f3803fead4d1b91c4405",
+        "rev": "1666c14a35e08fd2eddcc206d622494435595fdc",
         "type": "sourcehut"
       },
       "original": {
