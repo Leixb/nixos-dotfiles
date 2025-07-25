@@ -1,11 +1,15 @@
 [
   {
-    name = "GitLab";
-    url = "https://gitlab.bsc.es";
+    name = "Gitea";
+    url = "https://jungle.bsc.es/git";
   }
   {
     name = "GitLab (PM)";
     url = "https://gitlab.pm.bsc.es";
+  }
+  {
+    name = "GitLab";
+    url = "https://gitlab.bsc.es";
   }
   {
     name = "GitHub (PM)";
