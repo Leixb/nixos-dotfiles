@@ -75,6 +75,19 @@ in
     "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKOO1MTb4NP9qgI8P/8feqFXReeLCiB79R6YLPlXQaRQ leix@nixos-pav"
   ];
 
+  users.users.marc = {
+    description = "Marc";
+    uid = 1002;
+    isNormalUser = true;
+    hashedPassword = "$6$IGa4YC1e3tr7pDYb$dKN44XyP0CGNZRNNH8g414r2qZatuulHqP4ZcYbr2N040JHuFKg7uNypG7Njl0Cr.JK5bWlOTfoKx8Nn3y3v11";
+    extraGroups = [
+      "networkmanager"
+      "audio"
+      "video"
+      "input"
+    ];
+  };
+
   services.xserver.dpi = 192;
 
   # This value determines the NixOS release from which the default
