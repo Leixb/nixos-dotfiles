@@ -291,6 +291,10 @@ in
     };
     lfs.enable = true;
 
+    attributes = [
+      "*.pdf diff=pdf"
+    ];
+
     extraConfig = {
       core = {
         compression = 9;
@@ -315,6 +319,7 @@ in
       diff = {
         renames = "copies";
         interHunkContext = 10;
+        pdf.command = lib.getExe pkgs.diffpdf;
       };
 
       init = { defaultBranch = "master"; };
