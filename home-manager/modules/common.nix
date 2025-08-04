@@ -227,6 +227,23 @@ in
     };
   };
 
+  programs.jujutsu = {
+    enable = true;
+    settings = {
+      user = {
+        email = "abonerib@bsc.es";
+        name = "Aleix Boné";
+      };
+
+      signing = {
+        behavior = "own";
+        backend = "ssh";
+        key = "~/.ssh/id_ed25519.pub";
+      };
+    };
+  };
+
+  programs.git-cliff.enable = true;
 
   programs.git = {
     enable = true;
