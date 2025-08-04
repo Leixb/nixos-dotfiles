@@ -310,6 +310,14 @@ in
       gv-vim
 
       {
+        plugin = pkgs.vimPlugins.hunk-nvim;
+        type = "lua";
+        config = ''
+          require'hunk'.setup()
+        '';
+      }
+
+      {
         # Must go before grammar-guard, null-ls and other lsp things
         plugin = nvim-lspconfig;
         type = "lua";
