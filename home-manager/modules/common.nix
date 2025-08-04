@@ -235,6 +235,7 @@ in
         name = "Aleix Boné";
       };
 
+      experimental-advance-branches.enabled-branches = [ "glob:*" ];
       signing = {
         behavior = "own";
         backend = "ssh";
