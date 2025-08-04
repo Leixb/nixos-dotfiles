@@ -232,6 +232,7 @@ topics =
                             , "ci-infrastructure"
                             , "slides/team-meetings"
                             , "nsys2prv"
+                            , "fgcs_document"
                             ]
                        ]
            )
