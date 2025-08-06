@@ -341,6 +341,13 @@ in
     config.global.warn_timeout = "30m";
   };
 
+  programs.zk = {
+    enable = true;
+    settings = {
+      notebook.dir = "~/notebook";
+    };
+  };
+
   programs.fish = {
     enable = true;
     shellAliases = {
