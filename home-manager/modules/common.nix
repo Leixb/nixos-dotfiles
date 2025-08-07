@@ -256,6 +256,7 @@ in
       ui = {
         default-command = "log";
         diff-editor = ":builtin";
+        pager = "delta";
       };
 
       signing = {
