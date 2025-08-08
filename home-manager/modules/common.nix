@@ -264,6 +264,33 @@ in
         backend = "ssh";
         key = "~/.ssh/id_ed25519.pub";
       };
+
+      fix.tools = {
+        clang-format = {
+          command = let
+            # Wrapper around clang-format that comments pragmas so they get
+            # indented properly
+            clang-format-pragmas = pkgs.writeShellScriptBin "clang-format-pragmas"
+              ''
+                sed 's=#pragma=// CLANG_FORMAT &=' | \
+                  "${lib.getBin pkgs.clang-tools}/bin/clang-format" "$@" | \
+                  sed 's=// CLANG_FORMAT =='
+              '';
+          in [ "${clang-format-pragmas}/bin/clang-format-pragmas" "--assume-filename=$path" ];
+          patterns = [
+            "glob:'**/*.cc'"
+            "glob:'**/*.cpp'"
+            "glob:'**/*.c'"
+            "glob:'**/*.h'"
+            "glob:'**/*.hpp'"
+          ];
+        };
+
+        black = {
+          command = [ "${lib.getBin pkgs.black}" "-" "--stdin-filename=$path" ];
+          patterns = [ "glob:'**/*.py'"];
+        };
+      };
     };
   };
 
