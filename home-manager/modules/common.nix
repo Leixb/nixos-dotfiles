@@ -257,6 +257,7 @@ in
         default-command = "log";
         diff-editor = ":builtin";
         pager = "delta";
+        diff-formatter = ":git"; # needed for delta
       };
 
       signing = {
