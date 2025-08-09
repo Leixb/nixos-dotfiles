@@ -235,15 +235,6 @@ in
         name = "Aleix Boné";
       };
 
-      experimental-advance-branches = {
-        enabled-branches = [ "glob:*" ];
-        disabled-branches = [
-          "exact:main"
-          "exact:master"
-          "exact:trunk"
-        ];
-      };
-
       revset-aliases."closest_bookmark(to)" = "heads(::to & bookmarks())";
       aliases = {
         tug = ["bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "@-"];
