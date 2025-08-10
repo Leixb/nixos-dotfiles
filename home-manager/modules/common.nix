@@ -231,7 +231,7 @@ in
     enable = true;
     settings = {
       user = {
-        email = "abonerib@bsc.es";
+        email = "aleix.boneribo@bsc.es";
         name = "Aleix Boné";
       };
 
