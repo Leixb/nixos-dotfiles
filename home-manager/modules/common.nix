@@ -282,6 +282,11 @@ in
           command = [ "${lib.getBin pkgs.black}" "-" "--stdin-filename=$path" ];
           patterns = [ "glob:'**/*.py'"];
         };
+
+        nixfmt = {
+          command = [ (lib.getBin pkgs.nixfmt-rfc-style) "--filename=$path" ];
+          patterns = [ "glob:'**/*.nix'" ];
+        };
       };
     };
   };
