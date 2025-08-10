@@ -244,6 +244,9 @@ in
         remote = ["git" "remote"];
       };
 
+      # Prevent pushing work in progress or anything explicitly labeled "private"
+      git.private-commits = "description(glob:'wip:*') | description(glob:'private:*')";
+
       ui = {
         default-command = "log";
         diff-editor = ":builtin";
