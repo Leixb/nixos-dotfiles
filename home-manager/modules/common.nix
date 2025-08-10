@@ -287,6 +287,11 @@ in
           command = [ (lib.getBin pkgs.nixfmt-rfc-style) "--filename=$path" ];
           patterns = [ "glob:'**/*.nix'" ];
         };
+
+        stylua = {
+          command = [ (lib.getBin pkgs.stylua) "--stdin-filepath=$path"];
+          patterns = [ "glob:'**/*.lua'" ];
+        };
       };
     };
   };
