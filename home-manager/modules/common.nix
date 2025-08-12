@@ -308,7 +308,14 @@ in
 
     userName = lib.mkDefault username;
 
-    ignores = [ "*~" "*.swp" "/.direnv/" ];
+    ignores = [
+      "*~"
+      "*.swp"
+      "/.direnv/"
+      ".gdb_history"
+      "result"
+      "result-*"
+    ];
 
     aliases = {
       lg = "log --color --graph  --abbrev-commit --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'";
