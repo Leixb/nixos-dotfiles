@@ -239,6 +239,7 @@ in
       aliases = {
         tug = ["bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "@-"];
         l = ["log"];
+        s = ["status"];
         fetch = ["git" "fetch"];
         push = ["git" "push"];
         remote = ["git" "remote"];
