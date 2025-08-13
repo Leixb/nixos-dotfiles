@@ -332,7 +332,6 @@ in
         '';
       }
 
-      vim-grammarous
       {
         plugin = grammar-guard-nvim;
         type = "lua";
