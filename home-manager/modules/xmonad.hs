@@ -233,6 +233,8 @@ topics =
                             , "slides/team-meetings"
                             , "nsys2prv"
                             , "fgcs_document"
+                            , "qemu"
+                            , "task-awareness/taopencl"
                             ]
                        ]
            )
