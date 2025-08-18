@@ -316,6 +316,7 @@ in
       ".gdb_history"
       "result"
       "result-*"
+      "compile_commands.json"
     ];
 
     aliases = {
