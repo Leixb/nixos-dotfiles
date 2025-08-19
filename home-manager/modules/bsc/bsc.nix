@@ -47,6 +47,7 @@ in
     ungoogled-chromium
     radare2
     cling
+    glab # gitlab cli
   ];
 
   xdg.configFile."distrobox/distrobox.conf" = lib.mkForce {
