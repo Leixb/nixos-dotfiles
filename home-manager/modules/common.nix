@@ -235,9 +235,17 @@ in
         name = "Aleix Boné";
       };
 
-      revset-aliases."closest_bookmark(to)" = "heads(::to & bookmarks())";
+      revset-aliases = {
+        "closest_bookmark(to)" = "heads(::to & bookmarks())";
+        "closest_pushable(to)" = "heads(::to & ~description(exact:'') & (~empty() | merges()))";
+        "closest_merge(to)" = "heads(::to & merges())";
+      };
+
       aliases = {
-        tug = ["bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "@-"];
+        tug = ["bookmark" "move" "--from" "closest_bookmark(@-)" "--to" "closest_pushable(@)"];
+        stack = ["rebase" "-A" "trunk()" "-B" "closest_merge(@)" "-r"];
+        stage = ["stack" "closest_merge(@)+:: ~ empty()"];
+
         l = ["log"];
         s = ["status"];
         fetch = ["git" "fetch"];
