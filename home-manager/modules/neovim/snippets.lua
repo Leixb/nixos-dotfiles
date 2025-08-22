@@ -49,7 +49,4 @@ ls.filetype_set("cpp", { "c" })
 -- You can also use lazy loading so you only get in memory snippets of languages you use
 require("luasnip/loaders/from_vscode").lazy_load() -- You can pass { paths = './my-snippets/'} as well
 
-vim.keymap.set({ "i", "s" }, "<F13>", "<Plug>luasnip-next-choice", { silent = true, desc = "Luasnip next choice" })
-vim.keymap.set({ "i", "s" }, "", "<Plug>luasnip-next-choice", { silent = true, desc = "Luasnip next choice" })
-
 ls.config.setup()
