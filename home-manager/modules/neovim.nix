@@ -292,6 +292,9 @@ in
       }
       direnv-vim
 
+      conjure # repl
+      cmp-conjure
+
       {
         plugin = sniprun;
         type = "lua";

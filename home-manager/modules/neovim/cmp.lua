@@ -47,6 +47,7 @@ cmp.setup({
         { name = "nvim_lua" },
         { name = "latex_symbols" },
         { name = "neorg" },
+        { name = "conjure" },
     }, {
         { name = "buffer" },
     }),
