@@ -17,6 +17,8 @@ in {
 
         "browser.uidensity" = 1;
 
+        "sidebar.verticalTabs" = true;
+
         "network.proxy.allow_hijacking_localhost" = true;
 
         # "privacy.webrtc.legacyGlobalIndicator" = false;
