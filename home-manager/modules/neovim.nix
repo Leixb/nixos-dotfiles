@@ -59,6 +59,7 @@ in
       texlab
       clang-tools
       marksman
+      taplo
 
       nodePackages.dockerfile-language-server-nodejs
       nodePackages.typescript

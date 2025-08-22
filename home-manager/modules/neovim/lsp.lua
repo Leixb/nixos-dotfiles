@@ -112,6 +112,7 @@ local lsp_list = {
     "marksman",
     "jdtls",
     "jsonls",
+    "taplo", -- toml lsp
     "julials",
     -- 'kotlin_language_server',
     -- "rnix",
