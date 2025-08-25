@@ -21,9 +21,6 @@ in {
 
         "network.proxy.allow_hijacking_localhost" = true;
 
-        # "privacy.webrtc.legacyGlobalIndicator" = false;
-        "browser.startup.homepage" = "https://start.duckduckgo.com";
-
         "app.shield.optoutstudies.enabled" = false;
         "app.update.auto" = false;
         "browser.bookmarks.restore_default_bookmarks" = false;
