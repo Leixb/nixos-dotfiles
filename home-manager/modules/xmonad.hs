@@ -405,15 +405,15 @@ myManageHook =
         [ composeOne
             ( floats
                 ++ [ className =? "pavucontrol" -?> doCenterFloatFixed
-                   , (wmName =? "Picture-in-Picture") -?> doFloat
-                   , isDialog <&&> isParaver <&&> wmName =? "Drawing window..." -?> (doCenterFloat *> doIgnore) -- paraver drawing window steals focus and its annoying
+                   , wmName =? "Picture-in-Picture" -?> doFloat
+                   , isDialog <&&> isParaver <&&> wmName =? "Drawing window..." -?> doIgnore -- paraver drawing window steals focus and its annoying
                    , isDialog -?> doCenterFloat
                    , isFullscreen -?> doFullFloat
                    , title =? "Calendar" -?> (doFocus *> doCenterFloat)
                    ]
             )
         , composeOne
-            [ (appName =? "Alert" <&&> className =? "Zotero") -?> doIgnore
+            [ appName =? "Alert" <&&> className =? "Zotero" -?> doIgnore
             , className =? "Slack" -?> doShift (myWorkspaces !! 8)
             , isParaver -?> doShift "paraver"
             , isBrowser -?> doShift (myWorkspaces !! 1)
