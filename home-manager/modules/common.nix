@@ -208,6 +208,7 @@ in
       shell-integration = "fish";
       gtk-titlebar = false;
       cursor-invert-fg-bg = true;
+      confirm-close-surface = false;
     };
   };
 
