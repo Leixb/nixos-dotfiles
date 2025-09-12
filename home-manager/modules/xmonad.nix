@@ -45,7 +45,6 @@
   };
 
   home.packages = with pkgs; [
-    dmenu-rs
     gmrun
     autorandr
 
