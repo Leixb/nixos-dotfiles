@@ -149,6 +149,21 @@
           "git"
           "remote"
         ];
+        "show-" = [
+          "show"
+          "-r"
+          "@-"
+        ];
+        "desc-" = [
+          "describe"
+          "-r"
+          "@-"
+        ];
+        "diff-" = [
+          "diff"
+          "-r"
+          "@-"
+        ];
       };
 
       # Prevent pushing work in progress or anything explicitly labeled "private"
