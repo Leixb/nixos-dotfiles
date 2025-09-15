@@ -12,14 +12,19 @@
 
   programs.ssh = {
     enable = true;
+    enableDefaultConfig = false;
 
-    addKeysToAgent = "yes";
-
-    controlMaster = "auto";
-    controlPersist = "10m";
-
-    serverAliveInterval = 60;
-    serverAliveCountMax = 10;
+    matchBlocks."*" = {
+      forwardAgent = false;
+      compression = false;
+      addKeysToAgent = "yes";
+      hashKnownHosts = false;
+      controlMaster = "auto";
+      controlPersist = "10m";
+      controlPath = "~/.ssh/master-%r@%n:%p";
+      serverAliveInterval = 60;
+      serverAliveCountMax = 10;
+    };
 
     includes = [
       config.sops.secrets.ssh_config_home.path

@@ -71,7 +71,7 @@ in
   programs.ssh = {
     enable = true;
 
-    addKeysToAgent = "yes";
+    matchBlocks."*".addKeysToAgent = "yes";
 
     includes = [
       config.sops.secrets.ssh_config_bsc.path
