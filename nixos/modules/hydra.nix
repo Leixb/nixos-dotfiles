@@ -19,4 +19,9 @@
       Include ${config.sops.secrets.gitlab_hydra.path}
     '';
   };
+
+  nix.settings.extra-allowed-uris = [
+    "git+ssh://git@bscpm04.bsc.es"
+    "git+ssh://git@gitlab-internal.bsc.es"
+  ];
 }
