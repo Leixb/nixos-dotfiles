@@ -419,6 +419,40 @@ in
       neorg-telescope
 
       {
+        plugin = orgmode;
+        type = "lua";
+        config = # lua
+          ''
+            require('orgmode').setup({
+                org_agenda_files = '~/orgfiles/**/*',
+                org_default_notes_file = '~/orgfiles/refile.org',
+            })
+          '';
+      }
+      {
+        plugin = org-roam-nvim;
+        type = "lua";
+        config = # lua
+          ''
+            require('org-roam').setup({
+                directory = '~/orgfiles/roam'
+            })
+          '';
+      }
+      {
+        plugin = headlines-nvim;
+        type = "lua";
+        config = # lua
+          ''
+            require("headlines").setup({
+              org = {
+                fat_headlines = false,
+              }
+            })
+          '';
+      }
+
+      {
         plugin = twilight-nvim;
         type = "lua";
         config = # lua
