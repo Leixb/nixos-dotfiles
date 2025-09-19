@@ -1,4 +1,8 @@
-{ pkgs, config, inputs, ... }:
+{
+  pkgs,
+  config,
+  ...
+}:
 let
   bufresize-nvim = pkgs.vimUtils.buildVimPlugin {
     pname = "bufresize-nvim";
@@ -30,9 +34,10 @@ in
 
   home.file.".vale.ini".text = "";
 
-  home.file."${config.xdg.configHome}/nvim/after/ftplugin/gitcommit.lua".text = ''
-    vim.opt.colorcolumn = "50,72"
-  '';
+  home.file."${config.xdg.configHome}/nvim/after/ftplugin/gitcommit.lua".text = # lua
+    ''
+      vim.opt.colorcolumn = "50,72"
+    '';
 
   home.sessionVariables.EDITOR = "nvim";
   home.sessionVariables.NVIM_PACKAGE = config.programs.neovim.finalPackage;
@@ -83,10 +88,11 @@ in
         # This must be the first plugin to load
         plugin = impatient-nvim;
         type = "lua";
-        config = ''
-          vim.loader.enable()
-          -- require'impatient'
-        '';
+        config = # lua
+          ''
+            vim.loader.enable()
+            -- require'impatient'
+          '';
       }
 
       vim-surround
@@ -94,9 +100,10 @@ in
       {
         plugin = unimpaired-nvim;
         type = "lua";
-        config = ''
-          require('unimpaired').setup()
-        '';
+        config = # lua
+          ''
+            require('unimpaired').setup()
+          '';
       }
 
       # Automatic detection of indentation settings
@@ -108,9 +115,10 @@ in
       {
         plugin = git-conflict-nvim;
         type = "lua";
-        config = ''
-          require('git-conflict').setup()
-        '';
+        config = # lua
+          ''
+            require('git-conflict').setup()
+          '';
       }
 
       vim-easy-align
@@ -119,17 +127,19 @@ in
       {
         plugin = comment-nvim;
         type = "lua";
-        config = ''
-          require'Comment'.setup()
-        '';
+        config = # lua
+          ''
+            require'Comment'.setup()
+          '';
       }
 
       {
         plugin = indent-blankline-nvim-lua;
         type = "lua";
-        config = ''
-          require'ibl'.setup()
-        '';
+        config = # lua
+          ''
+            require'ibl'.setup()
+          '';
       }
 
       {
@@ -143,9 +153,10 @@ in
       # {
       #   plugin = nvim-ts-context-commentstring;
       #   type = "lua";
-      #   config = ''
-      #     require('nvim-treesitter.configs').setup {}
-      #   '';
+      #   config = # lua
+      #     ''
+      #       require('nvim-treesitter.configs').setup {}
+      #     '';
       # } # TODO: check is this ever gets fixed: https://github.com/JoosepAlviste/nvim-ts-context-commentstring/issues/103
       nvim-treesitter-refactor
       nvim-treesitter-endwise
@@ -153,14 +164,15 @@ in
       {
         plugin = nvim-treesitter-context;
         type = "lua";
-        config = ''
-          require('treesitter-context').setup {
-            enable = true,
-            max_lines = 10, -- How many lines the window should span. Values <= 0 mean no limit.
-            min_window_height = 40, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
-            multiline_threshold = 7, -- Maximum number of lines to show for a single context
-          }
-        '';
+        config = # lua
+          ''
+            require('treesitter-context').setup {
+              enable = true,
+              max_lines = 10, -- How many lines the window should span. Values <= 0 mean no limit.
+              min_window_height = 40, -- Minimum editor window height to enable context. Values <= 0 mean no limit.
+              multiline_threshold = 7, -- Maximum number of lines to show for a single context
+            }
+          '';
       }
 
       {
@@ -175,37 +187,41 @@ in
       {
         plugin = todo-comments-nvim;
         type = "lua";
-        config = ''
-          require'todo-comments'.setup()
-          vim.keymap.set('n', '<leader>t' , '<cmd>TodoTelescope<CR>' , { noremap = true , silent = true, desc = "List code with TODO annotations with telescope" })
-        '';
+        config = # lua
+          ''
+            require'todo-comments'.setup()
+            vim.keymap.set('n', '<leader>t' , '<cmd>TodoTelescope<CR>' , { noremap = true , silent = true, desc = "List code with TODO annotations with telescope" })
+          '';
       }
 
       {
         plugin = nvim-autopairs;
         type = "lua";
-        config = ''
-          require'nvim-autopairs'.setup()
-        '';
+        config = # lua
+          ''
+            require'nvim-autopairs'.setup()
+          '';
       }
 
       {
         plugin = whitespace-nvim;
         type = "lua";
-        config = ''
-          require'whitespace-nvim'.setup({
-            ignored_filetypes = { 'TelescopePrompt', 'Trouble', 'help', 'lspinfo' },
-          })
-          vim.api.nvim_create_user_command("Trim", require('whitespace-nvim').trim, { desc = "Trim trailing whitespace" })
-        '';
+        config = # lua
+          ''
+            require'whitespace-nvim'.setup({
+              ignored_filetypes = { 'TelescopePrompt', 'Trouble', 'help', 'lspinfo' },
+            })
+            vim.api.nvim_create_user_command("Trim", require('whitespace-nvim').trim, { desc = "Trim trailing whitespace" })
+          '';
       }
 
       {
         plugin = nvim-colorizer-lua;
         type = "lua";
-        config = ''
-          require'colorizer'.setup()
-        '';
+        config = # lua
+          ''
+            require'colorizer'.setup()
+          '';
       }
 
       {
@@ -228,18 +244,20 @@ in
       {
         plugin = bufresize-nvim;
         type = "lua";
-        config = ''
-          require'bufresize'.setup()
-        '';
+        config = # lua
+          ''
+            require'bufresize'.setup()
+          '';
       }
       nvim-web-devicons
 
       {
         plugin = which-key-nvim;
         type = "lua";
-        config = ''
-          require'which-key'.setup()
-        '';
+        config = # lua
+          ''
+            require'which-key'.setup()
+          '';
       }
 
       nvim-bqf
@@ -298,12 +316,13 @@ in
       {
         plugin = sniprun;
         type = "lua";
-        config = ''
-          require'sniprun'.setup({
-            repl_enable = {'Julia_original'},
-            display = { "TerminalWithCode" },
-          })
-        '';
+        config = # lua
+          ''
+            require'sniprun'.setup({
+              repl_enable = {'Julia_original'},
+              display = { "TerminalWithCode" },
+            })
+          '';
       }
 
       {
@@ -316,9 +335,10 @@ in
       {
         plugin = pkgs.vimPlugins.hunk-nvim;
         type = "lua";
-        config = ''
-          require'hunk'.setup()
-        '';
+        config = # lua
+          ''
+            require'hunk'.setup()
+          '';
       }
 
       {
@@ -331,9 +351,10 @@ in
       {
         plugin = guess-indent-nvim;
         type = "lua";
-        config = ''
-          require'guess-indent'.setup()
-        '';
+        config = # lua
+          ''
+            require'guess-indent'.setup()
+          '';
       }
 
       {
@@ -348,9 +369,10 @@ in
       # {
       #   plugin = lsp-format-nvim;
       #   type = "lua";
-      #   config = ''
-      #     require("lsp-format").setup({})
-      #   '';
+      #   config = # lua
+      #     ''
+      #       require("lsp-format").setup({})
+      #     '';
       # }
       {
         plugin = rust-tools-nvim;
@@ -372,19 +394,21 @@ in
       {
         plugin = nvim-dap-ui;
         type = "lua";
-        config = ''
-          vim.keymap.set('n', '<F5>' , function() require'dapui'.toggle() end,
-            { noremap = true , silent = true, desc = "DapUI toggle" })
-        '';
+        config = # lua
+          ''
+            vim.keymap.set('n', '<F5>' , function() require'dapui'.toggle() end,
+              { noremap = true , silent = true, desc = "DapUI toggle" })
+          '';
       }
 
       {
         plugin = symbols-outline-nvim;
         type = "lua";
-        config = ''
-          vim.keymap.set('n', '<F4>' , function() require'symbols-outline'.toggle_outline() end,
-            { noremap = true , silent = true, desc = "SymbolsOutline toggle" })
-        '';
+        config = # lua
+          ''
+            vim.keymap.set('n', '<F4>' , function() require'symbols-outline'.toggle_outline() end,
+              { noremap = true , silent = true, desc = "SymbolsOutline toggle" })
+          '';
       }
 
       {
@@ -397,24 +421,27 @@ in
       {
         plugin = twilight-nvim;
         type = "lua";
-        config = ''
-          require'twilight'.setup()
-        '';
+        config = # lua
+          ''
+            require'twilight'.setup()
+          '';
       }
       {
         plugin = zen-mode-nvim;
         type = "lua";
-        config = ''
-          require'zen-mode'.setup()
-        '';
+        config = # lua
+          ''
+            require'zen-mode'.setup()
+          '';
       }
       {
         # Load after other plugins that use register_progress (e.g. lsp-status)
         plugin = fidget-nvim;
         type = "lua";
-        config = ''
-          require'fidget'.setup()
-        '';
+        config = # lua
+          ''
+            require'fidget'.setup()
+          '';
       }
     ];
 
@@ -428,9 +455,10 @@ in
 
     # Add library code here for use in the Lua config from the
     # plugins list above.
-    extraConfig = ''
-      luafile ${./neovim/init.lua}
-    '';
+    extraConfig = # lua
+      ''
+        luafile ${./neovim/init.lua}
+      '';
   };
 
 }
