@@ -67,6 +67,7 @@ cmp.setup({
         { name = "latex_symbols" },
         { name = "neorg" },
         { name = "conjure" },
+        { name = "orgmode" },
     }, {
         { name = "buffer" },
     }),
