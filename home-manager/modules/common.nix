@@ -250,10 +250,6 @@ in
       vim = "nvim";
       vi = "nvim";
       o = "xdg-open";
-      gtd = "nvim -c 'Neorg workspace gtd' -c 'Neorg gtd views'";
-      today = "nvim -c 'Neorg workspace gtd' -c 'lua TasksToday()'";
-      notes = "nvim -c 'Neorg workspace notes'";
-      journal = "nvim -c 'Neorg journal'";
     };
     shellAbbrs = {
       gco = "git checkout";

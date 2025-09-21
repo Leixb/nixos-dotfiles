@@ -39,6 +39,8 @@ in
     pstree
   ];
 
+  programs.fish.shellAliases.agenda = "nvim -c 'lua Org.agenda.a()' ~/orgfiles/refile.org";
+
   # home.file.".Rprofile".text = ''
   #   .libPaths( c( .libPaths(), "${nvimcom}") )
   #   options(browser = "xdg-open")
