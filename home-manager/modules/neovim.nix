@@ -189,7 +189,11 @@ in
         type = "lua";
         config = # lua
           ''
-            require'todo-comments'.setup()
+            require'todo-comments'.setup({
+              highlight = {
+                exclude = { "org" },
+              },
+            })
             vim.keymap.set('n', '<leader>t' , '<cmd>TodoTelescope<CR>' , { noremap = true , silent = true, desc = "List code with TODO annotations with telescope" })
           '';
       }
