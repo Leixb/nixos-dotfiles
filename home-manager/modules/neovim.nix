@@ -15,6 +15,18 @@ let
     };
   };
 
+  telescope-orgmode = pkgs.vimUtils.buildVimPlugin {
+    pname = "telescope-orgmode";
+    version = "1.4.3";
+    src = pkgs.fetchFromGitHub {
+      owner = "nvim-orgmode";
+      repo = "telescope-orgmode.nvim";
+      rev = "1.4.3";
+      sha256 = "sha256-6gZR1hJ8dqpnV/DFNn2htG3cPIu/USug4uQU/JS4RpI=";
+    };
+    doCheck = false;
+  };
+
   # TODO: nvim-R / repl support
 
 in
@@ -463,6 +475,23 @@ in
               }
             })
           '';
+      }
+      {
+        plugin = telescope-orgmode;
+        type = "lua";
+        config = # lua
+        ''
+          require('telescope').load_extension('orgmode')
+          vim.keymap.set("n", "<leader>of", require("telescope").extensions.orgmode.search_headings, { desc = "Search headings" })
+          vim.api.nvim_create_autocmd('FileType', {
+            pattern = 'org',
+            group = vim.api.nvim_create_augroup('orgmode_telescope_nvim', { clear = true }),
+            callback = function()
+              vim.keymap.set('n', '<leader>or', require('telescope').extensions.orgmode.refile_heading, { desc = "Refile Heading" })
+              vim.keymap.set("n", "<leader>li", require("telescope").extensions.orgmode.insert_link, { desc = "Insert link" })
+            end,
+          })
+        '';
       }
 
       {
