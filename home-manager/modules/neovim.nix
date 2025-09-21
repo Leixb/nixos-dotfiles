@@ -150,14 +150,14 @@ in
 
       rainbow-delimiters-nvim
       nvim-ts-autotag
-      # {
-      #   plugin = nvim-ts-context-commentstring;
-      #   type = "lua";
-      #   config = # lua
-      #     ''
-      #       require('nvim-treesitter.configs').setup {}
-      #     '';
-      # } # TODO: check is this ever gets fixed: https://github.com/JoosepAlviste/nvim-ts-context-commentstring/issues/103
+      {
+        plugin = nvim-ts-context-commentstring;
+        type = "lua";
+        config = # lua
+          ''
+            require('nvim-treesitter.configs').setup {}
+          '';
+      }
       nvim-treesitter-refactor
       nvim-treesitter-endwise
       nvim-treesitter-textobjects
