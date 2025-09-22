@@ -11,5 +11,10 @@ let lib = prev.lib; in {
       ''
         wrapProgram "$out${binPath}" --set GTK_THEME "${theme}"
       '';
+
+  vimPlugins = prev.vimPlugins // {
+    fzf-lua = prev.vimPlugins.fzf-lua.overrideAttrs (oldAttrs: {
+      doCheck = false;
+    });
   };
 }
