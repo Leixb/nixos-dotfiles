@@ -103,6 +103,8 @@ vim.keymap.set(
     "<cmd>ccl <bar> lcl <bar> helpc <CR>",
     { desc = "Close location, qf and help windows" }
 )
+vim.keymap.set( "n", "<leader><S-c>", vim.cmd.close, { desc = "Close" })
+vim.keymap.set( "n", "<leader>bd", vim.cmd.bdelete, { desc = "Delete buffer" })
 
 vim.keymap.set({ "i", "c" }, "jk", "<ESC>", { desc = "jk to escape" })
 
