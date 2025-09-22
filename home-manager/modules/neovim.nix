@@ -444,6 +444,11 @@ in
             require('orgmode').setup({
                 org_agenda_files = '~/orgfiles/**/*',
                 org_default_notes_file = '~/orgfiles/refile.org',
+                mappings = {
+                  org = {
+                    org_refile = '<leader>o<S-r>',
+                  },
+                },
             })
             vim.api.nvim_create_autocmd('FileType', {
               pattern = 'org',
