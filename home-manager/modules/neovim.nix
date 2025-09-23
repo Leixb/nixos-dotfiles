@@ -37,6 +37,11 @@ in
     xdotool
     neovim-remote
     pstree
+
+    # orgmode export
+    pandoc
+    texliveBasic
+    emacs
   ];
 
   programs.fish.shellAliases.agenda = "nvim -c 'lua Org.agenda.a()' ~/orgfiles/refile.org";
@@ -442,13 +447,24 @@ in
         config = # lua
           ''
             require('orgmode').setup({
-                org_agenda_files = '~/orgfiles/**/*',
-                org_default_notes_file = '~/orgfiles/refile.org',
-                mappings = {
-                  org = {
-                    org_refile = '<leader>o<S-r>',
-                  },
+              org_agenda_files = '~/orgfiles/**/*',
+              org_default_notes_file = '~/orgfiles/refile.org',
+              mappings = {
+                org = {
+                  org_refile = '<leader>o<S-r>',
                 },
+              },
+              org_startup_indented = true,
+              org_adapt_indentation = true,
+              org_todo_keywords = { 'TODO', 'WAITING', '|', 'DONE' },
+              org_todo_keyword_faces = {
+                WAITING = ':foreground lightblue :weight bold',
+                REVIEWED = ':foreground orange :weight bold',
+                MERGED = ':foreground lightgreen :weight bold',
+                CLOSED = ':foreground lightgreen :weight bold :underline on',
+                WIP = ':foreground #ED8796 :weight bold',
+              },
+              org_ellipsis = ' ...',
             })
             vim.api.nvim_create_autocmd('FileType', {
               pattern = 'org',
