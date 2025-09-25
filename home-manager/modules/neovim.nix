@@ -456,7 +456,7 @@ in
               },
               org_startup_indented = true,
               org_adapt_indentation = true,
-              org_todo_keywords = { 'TODO', 'WAITING', '|', 'DONE' },
+              org_todo_keywords = { 'TODO(t)', 'WAITING', '|', 'DONE' },
               org_todo_keyword_faces = {
                 WAITING = ':foreground lightblue :weight bold',
                 REVIEWED = ':foreground orange :weight bold',
