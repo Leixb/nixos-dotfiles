@@ -201,7 +201,7 @@ in
     enableFishIntegration = true;
     installVimSyntax = true;
     settings = {
-      theme = "catppuccin-macchiato";
+      theme = "Catppuccin Macchiato";
       font-size = lib.mkDefault 10;
       window-decoration = "none";
       background-opacity = 0.75;
