@@ -31,9 +31,6 @@
   # Set your time zone.
   time.timeZone = "Europe/Madrid";
 
-  # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
-
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
