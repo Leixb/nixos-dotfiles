@@ -289,6 +289,8 @@ in
       trusted-users = [ "root" "leix" ];
       auto-optimise-store = true;
 
+      connect-timeout = 5;
+
       substituters = [
         "https://cache.nixos.org/"
         "https://nix-community.cachix.org"
