@@ -1,6 +1,6 @@
 require("grammar-guard").init()
 
-require("lspconfig").grammar_guard.setup({
+vim.lsp.config("grammar_guard", {
     cmd = { "ltex-ls" },
     autostart = autostart,
     settings = {
