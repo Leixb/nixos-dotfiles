@@ -10,6 +10,7 @@
   services.hydra = {
     enable = true;
     hydraURL = "http://localhost:3000"; # externally visible URL
+    listenHost = "localhost";
     notificationSender = "hydra@localhost"; # e-mail of Hydra service
     # a standalone Hydra will require you to unset the buildMachinesFiles list to avoid using a nonexistant /etc/nix/machines
     buildMachinesFiles = [ ];
