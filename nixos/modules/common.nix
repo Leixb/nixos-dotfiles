@@ -278,7 +278,7 @@ in
   powerManagement.cpuFreqGovernor = "performance";
 
   nix = {
-    # package = pkgs.nixVersions.unstable;
+    package = pkgs.nixVersions.latest;
     extraOptions = ''
       experimental-features = nix-command flakes ca-derivations
       keep-outputs = true
