@@ -1,7 +1,7 @@
 { lib, pkgs, config, osConfig, ... }: {
   home.username = osConfig.users.users.leix.name;
 
-  imports = [ ../modules/taskwarrior.nix ../modules/mime-apps.nix ];
+  imports = [ ../modules/mime-apps.nix ];
 
   home.packages = with pkgs; [
     miniupnpc
