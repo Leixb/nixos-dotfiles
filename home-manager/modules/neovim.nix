@@ -58,6 +58,11 @@ in
       vim.opt.colorcolumn = "50,72"
     '';
 
+  home.file."${config.xdg.configHome}/nvim/after/ftplugin/jjdescription.lua".text = # lua
+    ''
+      vim.opt.colorcolumn = "50,72"
+    '';
+
   home.sessionVariables.EDITOR = "nvim";
   home.sessionVariables.NVIM_PACKAGE = config.programs.neovim.finalPackage;
 
