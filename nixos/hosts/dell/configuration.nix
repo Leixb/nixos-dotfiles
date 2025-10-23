@@ -112,6 +112,11 @@
 
   nix.settings.sandbox = "relaxed";
 
+  nix.registry.jungle.to = {
+    type = "git";
+    url = "https://jungle.bsc.es/git/rarias/jungle";
+  };
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
