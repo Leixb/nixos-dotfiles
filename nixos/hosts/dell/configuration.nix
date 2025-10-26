@@ -94,7 +94,14 @@
     ${pkgs.xorg.xrandr}/bin/xrandr --output DP-2-1 --primary --left-of eDP-1
   '';
 
-  services.nixseparatedebuginfod.enable = true;
+  services.nixseparatedebuginfod2 = {
+    enable = true;
+    substituters = [
+      "local:"
+      "https://cache.nixos.org"
+      "https://jungle.bsc.es/cache"
+    ];
+  };
 
   services.displayManager.autoLogin = {
     enable = true;
