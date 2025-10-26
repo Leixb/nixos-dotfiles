@@ -90,7 +90,7 @@ in
       marksman
       taplo
 
-      nodePackages.dockerfile-language-server-nodejs
+      dockerfile-language-server
       nodePackages.typescript
       nodePackages.typescript-language-server
       # nodePackages.vscode-langservers-extracted
