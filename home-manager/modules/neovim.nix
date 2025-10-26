@@ -402,11 +402,8 @@ in
       #       require("lsp-format").setup({})
       #     '';
       # }
-      {
-        plugin = rust-tools-nvim;
-        type = "lua";
-        config = builtins.readFile ./neovim/rust-tools-nvim.lua; # After lsp.lua
-      }
+
+      # rustaceanvim
 
       {
         plugin = none-ls-nvim;
