@@ -115,7 +115,7 @@ in {
           set fish_color_search_match   --background="${yellow}"  # history search matches and selected pager items (background only)
         '';
 
-        programs.git.delta.options = with cfg.palette; {
+        programs.delta.options = with cfg.palette; {
           line-numbers-zero-style = white;
           line-numbers-minus-style = red;
           line-numbers-plus-style = green;

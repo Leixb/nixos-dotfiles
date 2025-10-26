@@ -64,7 +64,7 @@ in
   sops.secrets.ssh_config_bsc.path = "${config.home.homeDirectory}/.ssh/config.d/bsc";
   sops.secrets.ssh_mn5_pubkey.path = "${config.home.homeDirectory}/.ssh/.mn5_pubkey";
 
-  programs.git.userName = "Aleix Boné";
+  programs.git.settings.user.name = "Aleix Boné";
   programs.git.includes = [{ path = config.sops.secrets.git_config_bsc.path; }];
   sops.secrets.git_config_bsc.path = "${config.xdg.configHome}/git/config.d/secret.inc";
 

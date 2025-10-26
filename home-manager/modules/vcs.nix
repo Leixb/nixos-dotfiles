@@ -10,7 +10,11 @@
     signing.key = "~/.ssh/id_ed25519.pub";
     signing.signByDefault = true;
 
-    userName = lib.mkDefault config.home.username;
+    lfs.enable = true;
+
+    attributes = [
+      "*.pdf diff=pdf"
+    ];
 
     ignores = [
       "*~"
@@ -22,27 +26,17 @@
       "compile_commands.json"
     ];
 
-    aliases = {
-      lg = "log --color --graph  --abbrev-commit --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'";
-      l = "log --color --graph --abbrev-commit --pretty=format:'%C(magenta)%h%C(reset) %C(bold blue)<%an>%Creset %Cgreen(%ar)%Creset %C(yellow)%D%Creset%n%s%n'";
-      wd = "diff --word-diff";
-      wdiff = "diff --word-diff";
-      blamec = "blame -w -C -C -C";
-    };
+    settings = {
+      user.name = lib.mkDefault config.home.username;
 
-    delta = {
-      enable = true;
-      options = {
-        line-numbers = true;
+      alias = {
+        lg = "log --color --graph  --abbrev-commit --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'";
+        l = "log --color --graph --abbrev-commit --pretty=format:'%C(magenta)%h%C(reset) %C(bold blue)<%an>%Creset %Cgreen(%ar)%Creset %C(yellow)%D%Creset%n%s%n'";
+        wd = "diff --word-diff";
+        wdiff = "diff --word-diff";
+        blamec = "blame -w -C -C -C";
       };
-    };
-    lfs.enable = true;
 
-    attributes = [
-      "*.pdf diff=pdf"
-    ];
-
-    extraConfig = {
       core = {
         compression = 9;
         whitespace = "error";
@@ -246,6 +240,14 @@
           patterns = [ "glob:'**/*.lua'" ];
         };
       };
+    };
+  };
+
+  programs.delta = {
+    enable = true;
+    enableGitIntegration = true;
+    options = {
+      line-numbers = true;
     };
   };
 
