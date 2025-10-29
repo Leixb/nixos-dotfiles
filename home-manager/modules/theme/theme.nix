@@ -62,6 +62,7 @@ in {
 
   config =
     let
+      removeHash = (builtins.replaceStrings [ "#" ] [ "" ]);
       base16 = with cfg.palette; {
         #black
         color0 = darkgray1;
@@ -92,7 +93,7 @@ in {
         background = black;
         foreground = white;
       };
-      base16nohash = mapAttrs (name: color: builtins.replaceStrings [ "#" ] [ "" ] color) base16;
+      base16nohash = mapAttrs (_: removeHash) base16;
     in
     mkIf cfg.enable (mkMerge [
       {
@@ -307,19 +308,20 @@ in {
 
       (mkIf cfg.enableZathuraTheme {
         programs.zathura.options = with cfg.palette; {
-
           default-fg = white;
           default-bg = black;
 
           completion-bg = darkgray1;
           completion-fg = white;
           completion-highlight-bg = darkgray2;
-          completion-highlight-fg = white;
-          completion-group-bg = darkgray1;
-          completion-group-fg = blue;
+          completion-highlight-fg = black;
+          completion-group-bg = black;
+          completion-group-fg = white;
 
           statusbar-fg = white;
-          statusbar-bg = black;
+          statusbar-bg = darkblack;
+          inputbar-fg = white;
+          inputbar-bg = black;
 
           notification-bg = black;
           notification-fg = white;
@@ -328,9 +330,7 @@ in {
           notification-warning-bg = black;
           notification-warning-fg = yellow;
 
-          inputbar-fg = white;
-          inputbar-bg = black;
-
+          recolor = false;
           recolor-lightcolor = black;
           recolor-darkcolor = white;
 
@@ -342,10 +342,10 @@ in {
           render-loading-bg = black;
           render-loading-fg = white;
 
-          highlight-color = darkgray2;
-          highlight-fg = pink;
-          highlight-active-color = flamingo;
-
+          # 4d -> ~ 30% alpha
+          highlight-color = "#4D" + (removeHash teal);
+          highlight-fg = white;
+          highlight-active-color = "#4D" + (removeHash blue);
         };
       })
 
