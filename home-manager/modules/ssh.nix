@@ -19,9 +19,9 @@
       compression = false;
       addKeysToAgent = "yes";
       hashKnownHosts = false;
-      controlMaster = "auto";
-      controlPersist = "10m";
-      controlPath = "~/.ssh/master-%r@%n:%p";
+      # controlMaster = "auto";
+      # controlPersist = "10m";
+      # controlPath = "~/.ssh/master-%r@%n:%p";
       serverAliveInterval = 60;
       serverAliveCountMax = 10;
     };
