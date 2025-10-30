@@ -72,7 +72,13 @@
       ];
 
       pin-flake-reg = with inputs; {
-        nix.registry.nixpkgs.flake = nixpkgs;
+        nix.registry."nixpkgs".to = {
+          owner = "NixOS";
+          repo = "nixpkgs";
+          rev = nixpkgs.rev;
+          type = "github";
+        };
+
         nix.registry.flake-utils.flake = flake-utils;
         nix.registry.leixb.flake = self;
       };
