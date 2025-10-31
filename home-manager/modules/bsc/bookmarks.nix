@@ -71,4 +71,8 @@
     name = "Chat";
     url = "https://chat.bsc.es/";
   }
+  {
+    name = "HyperKitty";
+    url = "https://mailman3.bsc.es";
+  }
 ]
