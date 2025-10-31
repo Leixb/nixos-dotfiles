@@ -47,6 +47,13 @@
     jungle.url = "https://jungle.bsc.es/git/rarias/jungle/archive/master.tar.gz";
     jungle.inputs.nixpkgs.follows = "nixpkgs";
 
+    paraver-kernel.url = "git+ssh://git@bscpm04.bsc.es/rarias/paraver-kernel.git";
+    paraver-kernel.inputs.bscpkgs.follows = "jungle";
+
+    wxparaver.url = "git+ssh://git@bscpm04.bsc.es/rarias/wxparaver.git";
+    wxparaver.inputs.paraver-kernel.follows = "paraver-kernel";
+    wxparaver.inputs.bscpkgs.follows = "jungle";
+
     nixos-hardware.url = "github:NixOS/nixos-hardware";
   };
 
@@ -65,6 +72,7 @@
         inputs.neovim-nightly-overlay.overlays.default
         inputs.neorg-overlay.overlays.default
         inputs.jungle.overlays.default
+        inputs.wxparaver.overlays.default
         (import ./overlays/bsc.nix)
         (import ./overlays/overlay.nix)
         (import ./overlays/packages.nix)

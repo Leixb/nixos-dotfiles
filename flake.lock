@@ -435,6 +435,26 @@
         "type": "github"
       }
     },
+    "paraver-kernel": {
+      "inputs": {
+        "bscpkgs": [
+          "jungle"
+        ]
+      },
+      "locked": {
+        "lastModified": 1758109372,
+        "narHash": "sha256-En+7Ah9qg3hG6bEeXeIXcXtGSlWEr5SfU2TPBHUI2Fw=",
+        "ref": "refs/heads/master",
+        "rev": "c92010a03d6b8bd78dbc217d8da7e0e4a6a52dc0",
+        "revCount": 2257,
+        "type": "git",
+        "url": "ssh://git@bscpm04.bsc.es/rarias/paraver-kernel.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@bscpm04.bsc.es/rarias/paraver-kernel.git"
+      }
+    },
     "pre-commit-hooks": {
       "inputs": {
         "flake-compat": "flake-compat_4",
@@ -469,8 +489,10 @@
         "nix-index-database": "nix-index-database",
         "nixos-hardware": "nixos-hardware",
         "nixpkgs": "nixpkgs_3",
+        "paraver-kernel": "paraver-kernel",
         "pre-commit-hooks": "pre-commit-hooks",
-        "sops-nix": "sops-nix"
+        "sops-nix": "sops-nix",
+        "wxparaver": "wxparaver"
       }
     },
     "sops-nix": {
@@ -506,6 +528,29 @@
         "owner": "nix-systems",
         "repo": "default",
         "type": "github"
+      }
+    },
+    "wxparaver": {
+      "inputs": {
+        "bscpkgs": [
+          "jungle"
+        ],
+        "paraver-kernel": [
+          "paraver-kernel"
+        ]
+      },
+      "locked": {
+        "lastModified": 1756888762,
+        "narHash": "sha256-Ij71tQoQWBMiHMyZrcBC2zRidiEgo42w7prmW8pBK+M=",
+        "ref": "refs/heads/master",
+        "rev": "7455fd5db8b24d7e7640227f08cdeb8f8bb7d0d6",
+        "revCount": 2441,
+        "type": "git",
+        "url": "ssh://git@bscpm04.bsc.es/rarias/wxparaver.git"
+      },
+      "original": {
+        "type": "git",
+        "url": "ssh://git@bscpm04.bsc.es/rarias/wxparaver.git"
       }
     }
   },
