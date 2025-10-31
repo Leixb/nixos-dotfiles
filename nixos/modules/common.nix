@@ -253,7 +253,7 @@ in
       libre-franklin
       noto-fonts
       noto-fonts-cjk-sans
-      noto-fonts-emoji
+      noto-fonts-color-emoji
       montserrat
       nerd-fonts.fira-code
       nerd-fonts.droid-sans-mono

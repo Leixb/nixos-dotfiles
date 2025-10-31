@@ -16,7 +16,7 @@
     picard # MusicBrainz tagger
     nicotine-plus # Soulseek client
     (mcaselector.overrideAttrs (oldAttrs: {
-      nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ pkgs.wrapGAppsHook ];
+      nativeBuildInputs = oldAttrs.nativeBuildInputs ++ [ pkgs.wrapGAppsHook3 ];
     })) # Minecraft map editor
   ];
 

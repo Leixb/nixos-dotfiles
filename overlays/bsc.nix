@@ -1,6 +1,6 @@
 final: prev:
 {
-  paraver = prev.wxparaver.overrideAttrs (oldAttrs: {
+  paraver = (prev.wxparaver.override { wrapGAppsHook = final.wrapGAppsHook3; }).overrideAttrs (oldAttrs: {
     patches = (final.lib.optional (oldAttrs ? patches) oldAttrs.patches) ++ [
       (final.fetchurl {
         url = "https://patch-diff.githubusercontent.com/raw/bsc-performance-tools/wxparaver/pull/14.patch";
