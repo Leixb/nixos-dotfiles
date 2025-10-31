@@ -1,25 +1,5 @@
 {
   "nodes": {
-    "bscpkgs": {
-      "inputs": {
-        "nixpkgs": [
-          "nixpkgs"
-        ]
-      },
-      "locked": {
-        "lastModified": 1759323565,
-        "narHash": "sha256-Xe0po3vXWLC+yPlSwZBSSRsaKlNNysrYbWQNWyAJYJM=",
-        "owner": "~rodarima",
-        "repo": "bscpkgs",
-        "rev": "5df49dcfab960782aa4eb21d5abd7825f5b3a8c9",
-        "type": "sourcehut"
-      },
-      "original": {
-        "owner": "~rodarima",
-        "repo": "bscpkgs",
-        "type": "sourcehut"
-      }
-    },
     "firefox-addons": {
       "inputs": {
         "nixpkgs": [
@@ -28,11 +8,11 @@
       },
       "locked": {
         "dir": "pkgs/firefox-addons",
-        "lastModified": 1761537827,
-        "narHash": "sha256-ycO0xEJ3ZYGI6ZypYY5hswmJ0oXqBLeuJiFR8hPzMVQ=",
+        "lastModified": 1761883417,
+        "narHash": "sha256-JkFtjW2pf1Sdu8nw6fyq8x0VPps98cuMbdweUvvCbek=",
         "owner": "rycee",
         "repo": "nur-expressions",
-        "rev": "317a76be83cb9ff7327f43a455f73bc38f44373e",
+        "rev": "9556511b278ac97d8793bbc690bcc5e1f425aa81",
         "type": "gitlab"
       },
       "original": {
@@ -45,11 +25,11 @@
     "flake-compat": {
       "flake": false,
       "locked": {
-        "lastModified": 1747046372,
-        "narHash": "sha256-CIVLLkVgvHYbgI2UpXvIIBJ12HWgX+fjA8Xf8PUmqCY=",
+        "lastModified": 1761588595,
+        "narHash": "sha256-XKUZz9zewJNUj46b4AJdiRZJAvSZ0Dqj2BNfXvFlJC4=",
         "owner": "edolstra",
         "repo": "flake-compat",
-        "rev": "9100a0f413b0c601e0533d1d94ffd501ce2e7885",
+        "rev": "f387cd2afec9419c8ee37694406ca490c3f34ee5",
         "type": "github"
       },
       "original": {
@@ -203,11 +183,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1761530345,
-        "narHash": "sha256-+9+YCK9Lh6GThkXu/8JTxMFUnImIdZpb8ElUh6/F5Y8=",
+        "lastModified": 1761878381,
+        "narHash": "sha256-lCRaipHgszaFZ1Cs8fdGJguVycCisBAf2HEFgip5+xU=",
         "owner": "nix-community",
         "repo": "home-manager",
-        "rev": "bbaeb9f1c29e79bb1653b32c3d73244cdf4bd888",
+        "rev": "4ac96eb21c101a3e5b77ba105febc5641a8959aa",
         "type": "github"
       },
       "original": {
@@ -216,14 +196,32 @@
         "type": "github"
       }
     },
+    "jungle": {
+      "inputs": {
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1761924226,
+        "narHash": "sha256-7UXhHZWfSvGdcRtNhCHJTtN8t46GfXt6m8fQQbRaER8=",
+        "rev": "a173af654f6290c48f1a2fd128c9d008283b157d",
+        "type": "tarball",
+        "url": "https://jungle.bsc.es/git/api/v1/repos/rarias/jungle/archive/a173af654f6290c48f1a2fd128c9d008283b157d.tar.gz"
+      },
+      "original": {
+        "type": "tarball",
+        "url": "https://jungle.bsc.es/git/rarias/jungle/archive/master.tar.gz"
+      }
+    },
     "neorg": {
       "flake": false,
       "locked": {
-        "lastModified": 1760743016,
-        "narHash": "sha256-8OWc0Dv4AAn6rv1YqgJfNHseu9nn/8xk9eDhkmAwvMs=",
+        "lastModified": 1761838636,
+        "narHash": "sha256-aypMPbtBhhcFLMmdnUh/8e6cOQM7bVfezpXoLwVt1ak=",
         "owner": "nvim-neorg",
         "repo": "neorg",
-        "rev": "1dd99edd73c48196f7fa9ec763089fb774cf5499",
+        "rev": "59775af2fadb85cec6bff08a584c2c98a1694ea6",
         "type": "github"
       },
       "original": {
@@ -246,11 +244,11 @@
         "norg-meta": "norg-meta"
       },
       "locked": {
-        "lastModified": 1761395576,
-        "narHash": "sha256-oWIYmcvzqgBfZgv0uc+cn2zeRb9dvGLjPAuQP+JofA4=",
+        "lastModified": 1761905958,
+        "narHash": "sha256-9Q0a64hcS8CBGxNX1JFiHZ+kxP1Sr3mX17+nTj8JBrc=",
         "owner": "nvim-neorg",
         "repo": "nixpkgs-neorg-overlay",
-        "rev": "69a00578ddd099481bdc4866daf0cbdbc711ed5e",
+        "rev": "ffbf63d627e1201ed04f9076b9472ff708fba267",
         "type": "github"
       },
       "original": {
@@ -284,11 +282,11 @@
         ]
       },
       "locked": {
-        "lastModified": 1761523524,
-        "narHash": "sha256-TojbhWgDcC8J5ZR+qUAZAl6qfCqZmJySeIF4KCr34ho=",
+        "lastModified": 1761869064,
+        "narHash": "sha256-rp7XnoIqjnpZD4o9i00JDGXRkfXlYKejl9HeN+MXdW8=",
         "owner": "nix-community",
         "repo": "neovim-nightly-overlay",
-        "rev": "24c42acda3301de323774e9dc1ed59af4974683c",
+        "rev": "923a0d1e5e5ce35847b75a95d759f3128bc09202",
         "type": "github"
       },
       "original": {
@@ -300,11 +298,11 @@
     "neovim-src": {
       "flake": false,
       "locked": {
-        "lastModified": 1761522795,
-        "narHash": "sha256-zIgAp7f4rymWmgjCZykWWYmxBhNu7MQWHRz2Qut3YWA=",
+        "lastModified": 1761834237,
+        "narHash": "sha256-dDgCjRfZY8AWTL9BKEbXhPOb5rdNI4RlmLE+rmGNzZs=",
         "owner": "neovim",
         "repo": "neovim",
-        "rev": "d707ccf98808058d1bec9c831dd4dc5e46e16eaf",
+        "rev": "5ddabbeba43e519604f5e1cfacb7a1d83094097e",
         "type": "github"
       },
       "original": {
@@ -335,11 +333,11 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1760958188,
-        "narHash": "sha256-2m1S4jl+GEDtlt2QqeHil8Ny456dcGSKJAM7q3j/BFU=",
+        "lastModified": 1761933221,
+        "narHash": "sha256-rNHeoG3ZrA94jczyLSjxCtu67YYPYIlXXr0uhG3wNxM=",
         "owner": "NixOS",
         "repo": "nixos-hardware",
-        "rev": "d6645c340ef7d821602fd2cd199e8d1eed10afbc",
+        "rev": "7467f155fcba189eb088a7601f44fbef7688669b",
         "type": "github"
       },
       "original": {
@@ -382,11 +380,11 @@
     },
     "nixpkgs_3": {
       "locked": {
-        "lastModified": 1761373498,
-        "narHash": "sha256-Q/uhWNvd7V7k1H1ZPMy/vkx3F8C13ZcdrKjO7Jv7v0c=",
+        "lastModified": 1761672384,
+        "narHash": "sha256-o9KF3DJL7g7iYMZq9SWgfS1BFlNbsm6xplRjVlOCkXI=",
         "owner": "nixos",
         "repo": "nixpkgs",
-        "rev": "6a08e6bb4e46ff7fcbb53d409b253f6bad8a28ce",
+        "rev": "08dacfca559e1d7da38f3cf05f1f45ee9bfd213c",
         "type": "github"
       },
       "original": {
@@ -461,11 +459,11 @@
     },
     "root": {
       "inputs": {
-        "bscpkgs": "bscpkgs",
         "firefox-addons": "firefox-addons",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
         "home-manager": "home-manager",
+        "jungle": "jungle",
         "neorg-overlay": "neorg-overlay",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nix-index-database": "nix-index-database",

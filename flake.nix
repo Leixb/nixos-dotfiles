@@ -44,9 +44,8 @@
       inputs.flake-utils.follows = "flake-utils";
     };
 
-    bscpkgs.url = "sourcehut:~rodarima/bscpkgs";
-    bscpkgs.inputs.nixpkgs.follows = "nixpkgs";
-
+    jungle.url = "https://jungle.bsc.es/git/rarias/jungle/archive/master.tar.gz";
+    jungle.inputs.nixpkgs.follows = "nixpkgs";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
   };
@@ -65,7 +64,7 @@
         extra-packages
         inputs.neovim-nightly-overlay.overlays.default
         inputs.neorg-overlay.overlays.default
-        inputs.bscpkgs.overlays.default
+        inputs.jungle.overlays.default
         (import ./overlays/bsc.nix)
         (import ./overlays/overlay.nix)
         (import ./overlays/packages.nix)
