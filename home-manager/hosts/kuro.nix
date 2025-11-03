@@ -34,8 +34,6 @@ in
     obs-studio
     kdePackages.kdenlive
     ungoogled-chromium
-
-    wxparaver-adwaita
   ];
 
   programs.ghostty.settings.font-size = 11;
