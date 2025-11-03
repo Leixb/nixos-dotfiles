@@ -10,7 +10,7 @@
     gamescope # game window capture
     josm # OpenStreetMap Java editor
     plexamp # Plex music player
-    tdesktop # Telegram desktop client
+    telegram-desktop # Telegram desktop client
     element-desktop # Matrix client
     headsetcontrol # Logitech headset control
     picard # MusicBrainz tagger
