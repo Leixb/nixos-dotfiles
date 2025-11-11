@@ -41,7 +41,6 @@ in
     # orgmode export
     pandoc
     texliveBasic
-    emacs
   ];
 
   programs.fish.shellAliases.agenda = "nvim -c 'lua Org.agenda.a()' ~/orgfiles/refile.org";
