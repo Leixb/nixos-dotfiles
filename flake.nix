@@ -142,7 +142,7 @@
 
       nixosConfigurations = {
         kuro = lib.nixosSystem {
-          inherit specialArgs system;
+          inherit specialArgs;
 
           modules = common-modules ++ [
             ./nixos/hosts/kuro/configuration.nix
@@ -175,7 +175,7 @@
         };
 
         nixos-pav = lib.nixosSystem {
-          inherit specialArgs system;
+          inherit specialArgs;
 
           modules = common-modules ++ [
             ./nixos/hosts/pavilion/configuration.nix
@@ -198,7 +198,7 @@
         };
 
         asus = lib.nixosSystem {
-          inherit specialArgs system;
+          inherit specialArgs;
 
           modules = common-modules ++ [
             ./nixos/hosts/asus/configuration.nix
@@ -224,7 +224,7 @@
         };
 
         dell = lib.nixosSystem {
-          inherit specialArgs system;
+          inherit specialArgs;
 
           modules = common-modules ++ [
             ./nixos/hosts/dell/configuration.nix
