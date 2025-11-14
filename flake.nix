@@ -57,11 +57,17 @@
     nixos-hardware.url = "github:NixOS/nixos-hardware";
   };
 
-  outputs = inputs@{ self, nixpkgs, home-manager, sops-nix, pre-commit-hooks, ... }:
+  outputs =
+    inputs@{
+      self,
+      nixpkgs,
+      home-manager,
+      sops-nix,
+      pre-commit-hooks,
+      ...
+    }:
     let
       system = "x86_64-linux";
-
-      specialArgs = { inherit self inputs; };
 
       inherit (nixpkgs) lib;
       pkgs = import nixpkgs { inherit system; };
@@ -88,11 +94,13 @@
           nixpkgs-fmt
           sops
           haskell-language-server
-          (haskellPackages.ghcWithPackages (hpkgs: with hpkgs; [
-            xmobar
-            xmonad
-            xmonad-contrib
-          ]))
+          (haskellPackages.ghcWithPackages (
+            hpkgs: with hpkgs; [
+              xmobar
+              xmonad
+              xmonad-contrib
+            ]
+          ))
         ];
 
         inherit (self.checks.${system}.pre-commit-check) shellHook;
