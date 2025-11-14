@@ -24,7 +24,10 @@ let
 in
 {
   _module.args.location = location;
-  imports = [ ./hardware-configuration.nix ];
+  imports = [
+    ./hardware-configuration.nix
+    ../../modules/intel.nix
+  ];
 
   services.xserver.displayManager.lightdm.enable = true;
 
