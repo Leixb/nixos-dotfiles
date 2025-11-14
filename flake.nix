@@ -63,12 +63,6 @@
 
       specialArgs = { inherit self inputs; };
 
-      common-modules = [
-        ./cachix.nix
-        ./nixos/modules/common.nix
-        sops-nix.nixosModules.sops
-      ];
-
       inherit (nixpkgs) lib;
       pkgs = import nixpkgs { inherit system; };
     in
@@ -106,22 +100,22 @@
 
       nixosConfigurations =
         let
-
           mkSystem = name: lib.nixosSystem {
             inherit specialArgs;
 
-            modules = common-modules ++ [
+            modules = [
+              ./nixos/modules/common.nix
               ./nixos/hosts/${name}/configuration.nix
               { home-manager.sharedModules = [ ./home-manager/hosts/${name}.nix ]; }
             ];
           };
-
         in
         {
         kuro = lib.nixosSystem {
           inherit specialArgs;
 
-          modules = common-modules ++ [
+          modules = [
+            ./nixos/modules/common.nix
             ./nixos/hosts/kuro/configuration.nix
             ./nixos/modules/xorg.nix
             ./nixos/modules/gaming.nix
@@ -154,7 +148,8 @@
         nixos-pav = lib.nixosSystem {
           inherit specialArgs;
 
-          modules = common-modules ++ [
+          modules = [
+            ./nixos/modules/common.nix
             ./nixos/hosts/pavilion/configuration.nix
             ./nixos/modules/xorg.nix
             home-manager.nixosModules.home-manager
@@ -177,7 +172,8 @@
         asus = lib.nixosSystem {
           inherit specialArgs;
 
-          modules = common-modules ++ [
+          modules = [
+            ./nixos/modules/common.nix
             ./nixos/hosts/asus/configuration.nix
             ./nixos/modules/nvidia.nix
             ./nixos/modules/xorg.nix

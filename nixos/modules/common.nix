@@ -5,6 +5,8 @@
 {
 
   imports = [
+    inputs.sops-nix.nixosModules.sops
+
     ./common/audio.nix
     ./common/boot.nix
     ./common/fonts.nix
