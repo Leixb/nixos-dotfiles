@@ -140,7 +140,23 @@
         inherit (self.checks.${system}.pre-commit-check) shellHook;
       };
 
-      nixosConfigurations = {
+      nixosConfigurations =
+        let
+
+          mkHM = name: {
+          };
+
+          mkSystem = name: lib.nixosSystem {
+            inherit specialArgs;
+
+            modules = common-modules ++ [
+              ./nixos/hosts/${name}/configuration.nix
+              { home-manager.sharedModules = [ ./home-manager/hosts/${name}.nix ]; }
+            ];
+          };
+
+        in
+        {
         kuro = lib.nixosSystem {
           inherit specialArgs;
 
@@ -223,31 +239,7 @@
           ];
         };
 
-        dell = lib.nixosSystem {
-          inherit specialArgs;
-
-          modules = common-modules ++ [
-            ./nixos/hosts/dell/configuration.nix
-            ./nixos/modules/virtualization.nix
-            ./nixos/modules/xorg.nix
-            ./nixos/modules/ssd.nix
-            ./nixos/modules/sops.nix
-            inputs.nixos-hardware.nixosModules.dell-latitude-7420
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.leix = import ./home-manager/users/leix.nix;
-              home-manager.sharedModules = [
-                ./home-manager/modules/common.nix
-                ./home-manager/hosts/dell.nix
-                sops-nix.homeManagerModules.sops
-                inputs.nix-index-database.homeModules.nix-index
-                { programs.nix-index-database.comma.enable = true; }
-              ];
-            }
-          ];
-        };
+        dell = mkSystem "dell";
       };
     };
 }
