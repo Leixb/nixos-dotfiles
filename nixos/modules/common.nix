@@ -38,13 +38,9 @@
 
   services.ananicy = {
     enable = true;
-
     package = pkgs.ananicy-cpp;
-    # settings.loglevel = "info";
-    extraRules = [
-      { name = "League of Legends.exe"; type = "game"; }
-    ];
   };
+
   services.acpid.enable = true;
 
   services.xserver.wacom.enable = true;
