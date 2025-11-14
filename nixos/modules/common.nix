@@ -290,8 +290,6 @@
     gc.automatic = true;
   };
 
-  system.autoUpgrade.enable = true;
-
   sops.secrets.hass_env.sopsFile = ../secrets/hass.yaml;
 
   programs.i3lock =
