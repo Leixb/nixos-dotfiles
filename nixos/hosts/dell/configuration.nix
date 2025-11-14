@@ -112,7 +112,7 @@
   };
 
   # otherwise static plays when connected to analog output
-  hardware.pulseaudio.extraConfig = "unload-module module-suspend-on-idle";
+  services.pulseaudio.extraConfig = "unload-module module-suspend-on-idle";
 
   programs.nix-ld.enable = true;
 
