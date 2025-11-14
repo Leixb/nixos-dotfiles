@@ -1,6 +1,6 @@
 -- disable autostart on pavilion
 -- since resources are limited there
-local autostart = vim.fn.hostname() ~= "nixos-pav"
+local autostart = vim.fn.hostname() ~= "pavilion"
 
 vim.keymap.set(
     "n",

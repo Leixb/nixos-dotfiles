@@ -83,7 +83,7 @@ in
 
   nix.sshServe.enable = true;
   nix.sshServe.keys = [
-    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKOO1MTb4NP9qgI8P/8feqFXReeLCiB79R6YLPlXQaRQ leix@nixos-pav"
+    "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIKOO1MTb4NP9qgI8P/8feqFXReeLCiB79R6YLPlXQaRQ leix@pavilion"
   ];
 
   users.users.marc = {

@@ -112,7 +112,7 @@
         in
         {
           kuro = mkSystem "kuro";
-          nixos-pav = mkSystem "pavilion";
+          pavilion = mkSystem "pavilion";
           asus = mkSystem "asus";
           dell = mkSystem "dell";
         };
