@@ -103,6 +103,14 @@
     ];
   };
 
+  services.fprintd = {
+    enable = true;
+    tod = {
+      enable = true;
+      driver = pkgs.libfprint-2-tod1-broadcom;
+    };
+  };
+
   services.displayManager.autoLogin = {
     enable = true;
     user = "leix";
