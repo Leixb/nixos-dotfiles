@@ -2,18 +2,6 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 { config, self, pkgs, lib, inputs, ... }:
-let
-  update_system = pkgs.writeShellScriptBin "update-system" ''
-    cd ~/.dotfiles
-    set -e
-    nixos-rebuild build --flake .# && ${pkgs.nvd}/bin/nvd diff /run/current-system result
-    read -r -p "Switch? [Y/n]" response
-    response=''${response,,} # tolower
-    if [[ $response =~ ^(yes|y| ) ]] || [[ -z $response ]]; then
-      sudo nixos-rebuild switch --flake .#
-    fi
-  '';
-in
 {
   boot.kernel.sysctl = {
     "vm.swappiness" = lib.mkDefault 1;
@@ -194,7 +182,6 @@ in
     vim
     wget
     openssl
-    update_system
     man-pages
     man-pages-posix
   ];
