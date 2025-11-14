@@ -5,6 +5,7 @@
   imports = [
     ./hardware-configuration.nix
     ../../modules/intel.nix
+    ../../modules/xorg.nix
   ];
 
   boot.kernel.sysctl = {

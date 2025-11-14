@@ -10,6 +10,9 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ../../modules/intel.nix
+      ../../modules/nvidia.nix
+      ../../modules/xorg.nix
+      ../../modules/gnome.nix
     ];
 
   # Bootloader.

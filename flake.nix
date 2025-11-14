@@ -111,92 +111,10 @@
           };
         in
         {
-        kuro = lib.nixosSystem {
-          inherit specialArgs;
-
-          modules = [
-            ./nixos/modules/common.nix
-            ./nixos/hosts/kuro/configuration.nix
-            ./nixos/modules/xorg.nix
-            ./nixos/modules/gaming.nix
-            ./nixos/modules/hass.nix
-
-            ./nixos/modules/nvidia.nix
-
-            ./nixos/modules/restic.nix
-            ./nixos/modules/ssd.nix
-            ./nixos/modules/synology-mounts.nix
-
-            ./nixos/modules/virtualization.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.leix = import ./home-manager/users/leix.nix;
-              home-manager.sharedModules = [
-                ./home-manager/modules/home.nix
-                ./home-manager/modules/common.nix
-                ./home-manager/hosts/kuro.nix
-                sops-nix.homeManagerModules.sops
-                inputs.nix-index-database.homeModules.nix-index
-                { programs.nix-index-database.comma.enable = true; }
-              ];
-            }
-          ];
+          kuro = mkSystem "kuro";
+          nixos-pav = mkSystem "pavilion";
+          asus = mkSystem "asus";
+          dell = mkSystem "dell";
         };
-
-        nixos-pav = lib.nixosSystem {
-          inherit specialArgs;
-
-          modules = [
-            ./nixos/modules/common.nix
-            ./nixos/hosts/pavilion/configuration.nix
-            ./nixos/modules/xorg.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.leix = import ./home-manager/users/leix.nix;
-              home-manager.sharedModules = [
-                ./home-manager/hosts/pavilion.nix
-                ./home-manager/modules/home.nix
-                ./home-manager/modules/common.nix
-                sops-nix.homeManagerModules.sops
-                inputs.nix-index-database.homeModules.nix-index
-                { programs.nix-index-database.comma.enable = true; }
-              ];
-            }
-          ];
-        };
-
-        asus = lib.nixosSystem {
-          inherit specialArgs;
-
-          modules = [
-            ./nixos/modules/common.nix
-            ./nixos/hosts/asus/configuration.nix
-            ./nixos/modules/nvidia.nix
-            ./nixos/modules/xorg.nix
-            ./nixos/modules/gnome.nix
-            home-manager.nixosModules.home-manager
-            {
-              home-manager.useGlobalPkgs = true;
-              home-manager.useUserPackages = true;
-              home-manager.users.leix = import ./home-manager/users/leix.nix;
-              home-manager.users.marc = import ./home-manager/users/marc.nix;
-              home-manager.sharedModules = [
-                ./home-manager/modules/home.nix
-                ./home-manager/modules/common.nix
-                ./home-manager/hosts/asus.nix
-                sops-nix.homeManagerModules.sops
-                inputs.nix-index-database.homeModules.nix-index
-                { programs.nix-index-database.comma.enable = true; }
-              ];
-            }
-          ];
-        };
-
-        dell = mkSystem "dell";
-      };
     };
 }

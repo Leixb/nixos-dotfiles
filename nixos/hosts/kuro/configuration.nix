@@ -26,7 +26,15 @@ in
   _module.args.location = location;
   imports = [
     ./hardware-configuration.nix
+    ../../modules/gaming.nix
+    ../../modules/hass.nix
     ../../modules/intel.nix
+    ../../modules/nvidia.nix
+    ../../modules/restic.nix
+    ../../modules/ssd.nix
+    ../../modules/synology-mounts.nix
+    ../../modules/virtualization.nix
+    ../../modules/xorg.nix
   ];
 
   services.xserver.displayManager.lightdm.enable = true;
