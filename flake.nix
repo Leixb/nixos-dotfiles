@@ -63,45 +63,9 @@
 
       specialArgs = { inherit self inputs; };
 
-      extra-packages = final: prev: {
-        firefox-addons = inputs.firefox-addons.packages.${system};
-      };
-
-      overlays = [
-        extra-packages
-        inputs.neovim-nightly-overlay.overlays.default
-        inputs.neorg-overlay.overlays.default
-        inputs.jungle.overlays.default
-        inputs.wxparaver.overlays.default
-        (import ./overlays/bsc.nix)
-        (import ./overlays/overlay.nix)
-        (import ./overlays/packages.nix)
-      ];
-
-      pin-flake-reg = with inputs; {
-        nix.registry."nixpkgs".to = {
-          owner = "NixOS";
-          repo = "nixpkgs";
-          rev = nixpkgs.rev;
-          type = "github";
-        };
-
-        nix.registry.flake-utils.flake = flake-utils;
-        nix.registry.leixb.flake = self;
-      };
-
       common-modules = [
-        ({ ... }: {
-          imports = [{
-            nix.nixPath = [ "nixpkgs=${nixpkgs}" "home-manager=${home-manager}" ];
-            environment.sessionVariables.NIXPKGS = "${nixpkgs}";
-          }];
-        })
         ./cachix.nix
         ./nixos/modules/common.nix
-        ./nixos/modules/hut-substituter.nix
-        { nixpkgs.overlays = overlays; }
-        pin-flake-reg
         sops-nix.nixosModules.sops
       ];
 
@@ -142,9 +106,6 @@
 
       nixosConfigurations =
         let
-
-          mkHM = name: {
-          };
 
           mkSystem = name: lib.nixosSystem {
             inherit specialArgs;

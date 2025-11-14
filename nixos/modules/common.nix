@@ -18,8 +18,10 @@
     ./common/users.nix
     ./common/zram.nix
     ./common/packages.nix
+    ./common/overlays.nix
     ./common/docs.nix
     ./common/home-manager.nix
+    ./common/hut-substituter.nix
   ];
 
   services.fwupd.enable = true;

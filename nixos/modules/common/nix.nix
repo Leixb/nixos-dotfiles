@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 {
   nixpkgs.config.allowUnfree = true;
 
@@ -32,6 +32,24 @@
         "hyprland.cachix.org-1:a7pgxzMz7+chwVL3/pzj6jIBMioiJM7ypFP8PwtkuGc="
       ];
     };
+
+    registry = {
+      nixpkgs.to = {
+        owner = "NixOS";
+        repo = "nixpkgs";
+        rev = inputs.nixpkgs.rev;
+        type = "github";
+      };
+
+      flake-utils.flake = inputs.flake-utils;
+      leixb.flake = inputs.self;
+    };
+
+    nixPath = [
+      "nixpkgs=${inputs.nixpkgs}"
+      "home-manager=${inputs.home-manager}"
+    ];
+
     gc.automatic = true;
   };
 

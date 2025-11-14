@@ -1,4 +1,3 @@
-{ ... }:
 {
   nix.settings = {
     extra-substituters = [ "https://jungle.bsc.es/cache" ];
