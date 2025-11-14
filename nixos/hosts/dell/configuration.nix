@@ -111,11 +111,6 @@
     };
   };
 
-  services.displayManager.autoLogin = {
-    enable = true;
-    user = "leix";
-  };
-
   # otherwise static plays when connected to analog output
   hardware.pulseaudio.extraConfig = "unload-module module-suspend-on-idle";
 
