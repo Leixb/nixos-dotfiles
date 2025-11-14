@@ -100,21 +100,23 @@
 
       nixosConfigurations =
         let
-          mkSystem = name: lib.nixosSystem {
-            inherit specialArgs;
+          mkSystem =
+            name:
+            lib.nixosSystem {
+              specialArgs = { inherit self inputs; };
 
-            modules = [
-              ./nixos/modules/common.nix
-              ./nixos/hosts/${name}/configuration.nix
-              { home-manager.sharedModules = [ ./home-manager/hosts/${name}.nix ]; }
-            ];
-          };
+              modules = [
+                ./nixos/modules/common.nix
+                ./nixos/hosts/${name}/configuration.nix
+                { home-manager.sharedModules = [ ./home-manager/hosts/${name}.nix ]; }
+              ];
+            };
         in
-        {
-          kuro = mkSystem "kuro";
-          pavilion = mkSystem "pavilion";
-          asus = mkSystem "asus";
-          dell = mkSystem "dell";
-        };
+        lib.genAttrs [
+          "kuro"
+          "pavilion"
+          "asus"
+          "dell"
+        ] mkSystem;
     };
 }
