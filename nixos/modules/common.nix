@@ -182,12 +182,6 @@
     man-pages-posix
   ];
 
-  system.activationScripts.diff = ''
-    [ -d /run/current-system ] && ${pkgs.nix}/bin/nix store \
-        --experimental-features 'nix-command' \
-        diff-closures /run/current-system "$systemConfig"
-  '';
-
   services.systembus-notify.enable = true;
 
   services.udev.packages = with pkgs; [
