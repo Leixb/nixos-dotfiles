@@ -6,6 +6,7 @@
     ./common/audio.nix
     ./common/bluetooth.nix
     ./common/boot.nix
+    ./common/desktop-services.nix
     ./common/docs.nix
     ./common/firmware.nix
     ./common/fonts.nix
@@ -27,8 +28,6 @@
     ./common/users.nix
     ./common/zram.nix
   ];
-
-  programs.mtr.enable = true;
 
   system.configurationRevision = self.rev or "dirty";
 }
