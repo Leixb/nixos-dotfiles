@@ -50,6 +50,12 @@
     wxparaver.inputs.bscpkgs.follows = "jungle";
 
     nixos-hardware.url = "github:NixOS/nixos-hardware";
+
+    autofirma-nix = {
+      url = "github:nix-community/autofirma-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+      inputs.home-manager.follows = "home-manager";
+    };
   };
 
   outputs =
