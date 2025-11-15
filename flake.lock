@@ -1,5 +1,67 @@
 {
   "nodes": {
+    "autofirma-nix": {
+      "inputs": {
+        "autofirma-src": "autofirma-src",
+        "clienteafirma-external-src": "clienteafirma-external-src",
+        "flake-parts": "flake-parts",
+        "home-manager": [
+          "home-manager"
+        ],
+        "jmulticard-src": "jmulticard-src",
+        "nix-unit": "nix-unit",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1762939683,
+        "narHash": "sha256-U2F9tK5LioLDfQizU4FWKv8Y3hE1WuPEeoe7ElkRa78=",
+        "owner": "nix-community",
+        "repo": "autofirma-nix",
+        "rev": "75770f68709e764659712ff152193d7986db2530",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "autofirma-nix",
+        "type": "github"
+      }
+    },
+    "autofirma-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1716805628,
+        "narHash": "sha256-GQyj3QuWIHTkYwdJ4oKVsG923YG9mCUXfhqdIvEWNMA=",
+        "owner": "ctt-gob-es",
+        "repo": "clienteafirma",
+        "rev": "f8888062394a4ca41c5802beb2524597a5ce465a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ctt-gob-es",
+        "ref": "v1.8.3",
+        "repo": "clienteafirma",
+        "type": "github"
+      }
+    },
+    "clienteafirma-external-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1712248159,
+        "narHash": "sha256-iS3I6zIxuKG133s/FqDlXZzOZ2ZOJcqZK9X6Tv3+3lc=",
+        "owner": "ctt-gob-es",
+        "repo": "clienteafirma-external",
+        "rev": "f450ac76094ffe387f6590b9ac61b5ada5a501e7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ctt-gob-es",
+        "ref": "OT_14395",
+        "repo": "clienteafirma-external",
+        "type": "github"
+      }
+    },
     "firefox-addons": {
       "inputs": {
         "nixpkgs": [
@@ -87,6 +149,27 @@
       }
     },
     "flake-parts": {
+      "inputs": {
+        "nixpkgs-lib": [
+          "autofirma-nix",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1762810396,
+        "narHash": "sha256-dxFVgQPG+R72dkhXTtqUm7KpxElw3u6E+YlQ2WaDgt8=",
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "rev": "0bdadb1b265fb4143a75bd1ec7d8c915898a9923",
+        "type": "github"
+      },
+      "original": {
+        "owner": "hercules-ci",
+        "repo": "flake-parts",
+        "type": "github"
+      }
+    },
+    "flake-parts_2": {
       "inputs": {
         "nixpkgs-lib": [
           "neovim-nightly-overlay",
@@ -196,6 +279,23 @@
         "type": "github"
       }
     },
+    "jmulticard-src": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1686816513,
+        "narHash": "sha256-sCqMK4FvwRHsGIB6iQVyqrx0+EDiUfQSAsPqmDq2Giw=",
+        "owner": "ctt-gob-es",
+        "repo": "jmulticard",
+        "rev": "9983fc690f3b68dc2c8fde19db269766cf0fb387",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ctt-gob-es",
+        "ref": "v1.8",
+        "repo": "jmulticard",
+        "type": "github"
+      }
+    },
     "jungle": {
       "inputs": {
         "nixpkgs": [
@@ -275,7 +375,7 @@
     },
     "neovim-nightly-overlay": {
       "inputs": {
-        "flake-parts": "flake-parts",
+        "flake-parts": "flake-parts_2",
         "neovim-src": "neovim-src",
         "nixpkgs": [
           "nixpkgs"
@@ -311,6 +411,28 @@
         "type": "github"
       }
     },
+    "nix-github-actions": {
+      "inputs": {
+        "nixpkgs": [
+          "autofirma-nix",
+          "nix-unit",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1737420293,
+        "narHash": "sha256-F1G5ifvqTpJq7fdkT34e/Jy9VCyzd5XfJ9TO8fHhJWE=",
+        "owner": "nix-community",
+        "repo": "nix-github-actions",
+        "rev": "f4158fa080ef4503c8f4c820967d946c2af31ec9",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix-github-actions",
+        "type": "github"
+      }
+    },
     "nix-index-database": {
       "inputs": {
         "nixpkgs": [
@@ -328,6 +450,33 @@
       "original": {
         "owner": "nix-community",
         "repo": "nix-index-database",
+        "type": "github"
+      }
+    },
+    "nix-unit": {
+      "inputs": {
+        "flake-parts": [
+          "autofirma-nix",
+          "flake-parts"
+        ],
+        "nix-github-actions": "nix-github-actions",
+        "nixpkgs": [
+          "autofirma-nix",
+          "nixpkgs"
+        ],
+        "treefmt-nix": "treefmt-nix"
+      },
+      "locked": {
+        "lastModified": 1762774186,
+        "narHash": "sha256-hRADkHjNt41+JUHw2EiSkMaL4owL83g5ZppjYUdF/Dc=",
+        "owner": "nix-community",
+        "repo": "nix-unit",
+        "rev": "1c9ab50554eed0b768f9e5b6f646d63c9673f0f7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nix-community",
+        "repo": "nix-unit",
         "type": "github"
       }
     },
@@ -479,6 +628,7 @@
     },
     "root": {
       "inputs": {
+        "autofirma-nix": "autofirma-nix",
         "firefox-addons": "firefox-addons",
         "flake-compat": "flake-compat",
         "flake-utils": "flake-utils",
@@ -527,6 +677,28 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "treefmt-nix": {
+      "inputs": {
+        "nixpkgs": [
+          "autofirma-nix",
+          "nix-unit",
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1762410071,
+        "narHash": "sha256-aF5fvoZeoXNPxT0bejFUBXeUjXfHLSL7g+mjR/p5TEg=",
+        "owner": "numtide",
+        "repo": "treefmt-nix",
+        "rev": "97a30861b13c3731a84e09405414398fbf3e109f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "numtide",
+        "repo": "treefmt-nix",
         "type": "github"
       }
     },
