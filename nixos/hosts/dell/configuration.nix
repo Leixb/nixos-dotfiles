@@ -10,6 +10,7 @@
       # Include the results of the hardware scan.
       ./hardware-configuration.nix
       ./vpn.nix
+      ../../modules/laptop.nix
       ../../modules/sops.nix
       ../../modules/ssd.nix
       ../../modules/virtualization.nix

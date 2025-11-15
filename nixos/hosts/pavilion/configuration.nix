@@ -4,6 +4,7 @@
 { config, pkgs, lib, inputs, ... }: {
   imports = [
     ./hardware-configuration.nix
+    ../../modules/laptop.nix
     ../../modules/intel.nix
     ../../modules/xorg.nix
   ];

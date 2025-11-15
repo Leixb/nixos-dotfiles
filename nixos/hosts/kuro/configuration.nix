@@ -29,12 +29,14 @@ in
     ../../modules/gaming.nix
     ../../modules/hass.nix
     ../../modules/intel.nix
+    ../../modules/laptop.nix
     ../../modules/nvidia.nix
     ../../modules/restic.nix
     ../../modules/ssd.nix
     ../../modules/synology-mounts.nix
     ../../modules/virtualization.nix
     ../../modules/xorg.nix
+    ../../modules/wacom.nix
   ];
 
   services.xserver.displayManager.lightdm.enable = true;
