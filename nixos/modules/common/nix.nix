@@ -43,6 +43,11 @@
 
       flake-utils.flake = inputs.flake-utils;
       leixb.flake = inputs.self;
+
+      jungle.to = {
+        type = "git";
+        url = "https://jungle.bsc.es/git/rarias/jungle";
+      };
     };
 
     nixPath = [

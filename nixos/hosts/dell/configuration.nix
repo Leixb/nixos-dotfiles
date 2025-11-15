@@ -26,58 +26,15 @@
 
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
-
-  services.grafana.settings.log.level = "warn";
-
   networking.hostName = "dell"; # Define your hostname.
 
   # Enable networking
   networking.networkmanager.enable = true;
   # networking.networkmanager.wifi.backend = "iwd";
 
-  # Set your time zone.
-  time.timeZone = "Europe/Madrid";
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # Enable the GNOME Desktop Environment.
-  # services.xserver.displayManager.gdm.enable = true;
-  # services.xserver.desktopManager.gnome.enable = true;
-
-  # Enable CUPS to print documents.
-  services.printing.enable = true;
-
   # Install firefox.
   programs.firefox.enable = true;
 
-  # Allow unfree packages
-  nixpkgs.config.allowUnfree = true;
-
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-  ];
-
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
   networking.firewall.enable = lib.mkForce true;
 
   xdg.portal = {
@@ -88,11 +45,6 @@
     };
   };
   services.gnome.at-spi2-core.enable = true; # Fix warning on xdg-portal start
-
-  services.thermald.enable = true;
-  powerManagement.enable = true;
-
-  hardware.sensor.iio.enable = true;
 
   boot.kernel.sysctl."kernel.perf_event_paranoid" = 1;
 
@@ -131,11 +83,6 @@
   ];
 
   nix.settings.sandbox = "relaxed";
-
-  nix.registry.jungle.to = {
-    type = "git";
-    url = "https://jungle.bsc.es/git/rarias/jungle";
-  };
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
