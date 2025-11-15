@@ -35,8 +35,6 @@
   # Install firefox.
   programs.firefox.enable = true;
 
-  networking.firewall.enable = lib.mkForce true;
-
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
