@@ -1,8 +1,8 @@
+{ pkgs, ... }:
 {
   imports = [
     ../modules/xmonad.nix
     ../modules/bsc/bsc.nix
-    ../modules/autofirma.nix
   ];
 
   services.dunst.settings.global = {
