@@ -170,6 +170,14 @@
         diff-formatter = ":git"; # needed for delta
       };
 
+      merge-tools.hunk = {
+        program = "nvim";
+        edit-args = ["-c" "DiffEditor $left $right $output"];
+      };
+
+      merge-tools.meld.program = lib.getExe pkgs.meld;
+      merge-tools.meld-3.program = lib.getExe pkgs.meld;
+
       signing = {
         behavior = "own";
         backend = "ssh";
