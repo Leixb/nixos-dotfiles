@@ -178,8 +178,9 @@
       merge-tools.meld.program = lib.getExe pkgs.meld;
       merge-tools.meld-3.program = lib.getExe pkgs.meld;
 
+      git.sign-on-push = true;
       signing = {
-        behavior = "own";
+        behavior = "drop";
         backend = "ssh";
         key = "~/.ssh/id_ed25519.pub";
       };
