@@ -101,6 +101,18 @@
         name = "Aleix Boné";
       };
 
+      "--scope" = [
+        {
+          "--when" = {
+            repositories = [
+              "~/Documents/Personal"
+              "~/.dotfiles"
+            ];
+          };
+          user.email = "abone9999" + "@" + "gmail.com";
+        }
+      ];
+
       revset-aliases = {
         "closest_bookmark(to)" = "heads(::to & bookmarks())";
         "closest_pushable(to)" = "heads(::to & ~description(exact:'') & (~empty() | merges()))";
