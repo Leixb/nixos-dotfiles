@@ -111,4 +111,20 @@ in
       ];
     };
 
+  programs.jujutsu.settings = {
+    user.email = "aleix.boneribo@bsc.es";
+
+    "--scope" = [
+      {
+        "--when" = {
+          repositories = [
+            "~/Documents/Personal"
+            "~/.dotfiles"
+          ];
+        };
+        user.email = "abone9999" + "@" + "gmail.com";
+      }
+    ];
+  };
+
 }

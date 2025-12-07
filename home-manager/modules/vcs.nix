@@ -97,21 +97,9 @@
     enable = true;
     settings = {
       user = {
-        email = "aleix.boneribo@bsc.es";
+        email = lib.mkDefault ("abone9999" + "@" + "gmail.com");
         name = "Aleix Boné";
       };
-
-      "--scope" = [
-        {
-          "--when" = {
-            repositories = [
-              "~/Documents/Personal"
-              "~/.dotfiles"
-            ];
-          };
-          user.email = "abone9999" + "@" + "gmail.com";
-        }
-      ];
 
       revset-aliases = {
         "closest_bookmark(to)" = "heads(::to & bookmarks())";
@@ -184,7 +172,10 @@
 
       merge-tools.hunk = {
         program = "nvim";
-        edit-args = ["-c" "DiffEditor $left $right $output"];
+        edit-args = [
+          "-c"
+          "DiffEditor $left $right $output"
+        ];
       };
 
       merge-tools.meld.program = lib.getExe pkgs.meld;
@@ -198,7 +189,7 @@
       };
 
       templates = {
-        draft_commit_description = ''
+        default_commit_description = ''
           concat(
             coalesce(description, default_commit_description, "\n"),
             surround(
