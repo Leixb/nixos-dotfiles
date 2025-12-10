@@ -238,8 +238,9 @@
 
         nixfmt = {
           command = [
-            (lib.getBin pkgs.nixfmt-rfc-style)
-            "--filename=$path"
+            (lib.getExe pkgs.nixfmt-tree)
+            "--stdin"
+            "$path"
           ];
           patterns = [ "glob:'**/*.nix'" ];
         };
