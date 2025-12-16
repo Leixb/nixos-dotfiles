@@ -1,4 +1,4 @@
-{ config, osConfig, lib, pkgs, system, inputs, ... }:
+{ config, osConfig, pkgs, ... }:
 
 let
   username = osConfig.users.users.leix.name;

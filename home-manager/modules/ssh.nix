@@ -1,5 +1,5 @@
 # vim: sw=2 ts=2:
-{ config, lib, pkgs, osConfig, system, inputs, ... }:
+{ config, pkgs, ... }:
 {
   sops.secrets.ssh_config_home.path = "${config.home.homeDirectory}/.ssh/config.d/home";
   sops.secrets.ssh_config_nas_lan.path = "${config.home.homeDirectory}/.ssh/config.d/nas_lan";

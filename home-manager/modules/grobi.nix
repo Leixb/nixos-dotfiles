@@ -1,4 +1,4 @@
-{ config, osConfig, lib, pkgs, system, inputs, ... }:
+{ pkgs, ... }:
 
 {
   services.grobi = {

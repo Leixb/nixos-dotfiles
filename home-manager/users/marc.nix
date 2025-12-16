@@ -1,5 +1,5 @@
 # vim: sw=2 ts=2:
-{ config, lib, pkgs, osConfig, system, inputs, ... }:
+{ pkgs, osConfig, ... }:
 let
   username = osConfig.users.users.marc.name;
 in

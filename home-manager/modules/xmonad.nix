@@ -1,4 +1,4 @@
-{ config, osConfig, lib, pkgs, ... }:
+{ config, lib, pkgs, ... }:
 
 {
 
@@ -6,7 +6,7 @@
   sops.secrets.hass_env.path = "${config.xdg.stateHome}/.hass_env";
 
   # force overwrite compiled xmonad binary
-  home.file.".xmonad/xmonad-${pkgs.system}".force = true;
+  home.file.".xmonad/xmonad-${pkgs.stdenv.hostPlatform.system}".force = true;
 
   programs.xmobar = {
     enable = true;
