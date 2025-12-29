@@ -16,6 +16,7 @@
       ../../modules/virtualization.nix
       ../../modules/xorg.nix
       ../../modules/intel.nix
+      ../../modules/overlays-bsc.nix
       inputs.nixos-hardware.nixosModules.dell-latitude-7420
       # ./../../modules/hydra.nix
     ];
