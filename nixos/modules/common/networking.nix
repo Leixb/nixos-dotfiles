@@ -1,6 +1,6 @@
+{ lib, ... }:
 {
-  networking.wireless.enable =
-    false; # Enables wireless support via wpa_supplicant.
+  networking.wireless.enable = lib.mkDefault false; # Enables wireless support via wpa_supplicant.
   networking.networkmanager.enable = true;
   # networking.networkmanager.wifi.backend = "iwd";
 
