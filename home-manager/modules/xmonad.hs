@@ -216,6 +216,8 @@ topics =
                             , "llvm"
                             , "nanos6"
                             , "pocl-v"
+                            , "rodinia"
+                            , "velocity"
                             , "tampi"
                             , "hpccg"
                             , "gpt2"
