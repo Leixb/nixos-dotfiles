@@ -238,6 +238,7 @@ topics =
                             , "qemu"
                             , "task-awareness/taopencl"
                             , "oneTBB"
+                            , "ggml"
                             ]
                        ]
            )
