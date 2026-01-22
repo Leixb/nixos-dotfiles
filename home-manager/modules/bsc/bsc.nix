@@ -36,6 +36,7 @@ in
     msmtp
     qalloc
     wxparaver-adwaita
+    papercut-adwaita
     slack
     rocketchat-desktop
     openfortivpn

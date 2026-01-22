@@ -1,6 +1,6 @@
 final: prev:
 {
-  paraver = (prev.wxparaver.override { wrapGAppsHook = final.wrapGAppsHook3; }).overrideAttrs (oldAttrs: {
+  paraver = prev.wxparaver.overrideAttrs (oldAttrs: {
     patches = (final.lib.optional (oldAttrs ? patches) oldAttrs.patches) ++ [
       (final.fetchurl {
         url = "https://patch-diff.githubusercontent.com/raw/bsc-performance-tools/wxparaver/pull/14.patch";
@@ -15,4 +15,6 @@ final: prev:
   });
 
   wxparaver-adwaita = final.wrapGTKTheme "Adwaita:dark" final.paraver;
+
+  papercut-adwaita = final.wrapGTKTheme "Adwaita:light" final.papercut;
 }
