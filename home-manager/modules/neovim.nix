@@ -181,7 +181,6 @@ in
             require('nvim-treesitter.configs').setup {}
           '';
       }
-      nvim-treesitter-refactor
       nvim-treesitter-endwise
       nvim-treesitter-textobjects
       {
