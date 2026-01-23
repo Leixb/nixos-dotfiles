@@ -59,5 +59,18 @@ require("nvim-treesitter").setup({
         },
     },
 })
-vim.g.foldmethod = "expr"
-vim.g.foldexpr = "nvim_treesitter#foldexpr()"
+
+vim.api.nvim_create_autocmd('FileType', {
+  pattern = { '*' },
+  callback = function(args)
+        local ft = vim.bo[args.buf].filetype
+        local lang = vim.treesitter.language.get_lang(ft)
+
+        if vim.treesitter.language.add(lang) then
+          vim.treesitter.start(args.buf, lang)
+          vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+          vim.wo[0][0].foldexpr = "v:lua.vim.treesitter.foldexpr()"
+          vim.wo[0][0].foldmethod = "expr"
+        end
+  end,
+})
