@@ -393,7 +393,7 @@ myHandleEventHook =
         , swallowEventHook
             ( isTerm <&&> (not <$> ((title `endsWith` "NVIM") <||> (title `startsWith` "gdb")))
             )
-            (not <$> isTerm)
+            (not <$> (isTerm <||> isPapercut))
         , refocusLastWhen (refocusingIsActive <&&> (not <$> isFullscreen))
         , trayerAboveXmobarEventHook
         , trayerPaddingXmobarEventHook
@@ -403,6 +403,8 @@ myHandleEventHook =
     endsWith, startsWith :: (Eq a) => Query [a] -> [a] -> Query Bool
     qa `endsWith` a = qa <&> isSuffixOf a
     qa `startsWith` a = qa <&> isPrefixOf a
+
+isPapercut = className =? "biz-papercut-pcng-client-uit-UserClient"
 
 myManageHook =
     composeAll
@@ -414,6 +416,7 @@ myManageHook =
                    , isDialog -?> doCenterFloat
                    , isFullscreen -?> doFullFloat
                    , title =? "Calendar" -?> (doFocus *> doCenterFloat)
+                   , isPapercut -?> doFloat
                    ]
             )
         , composeOne
