@@ -18,8 +18,10 @@
       { map = [ "index" "pager" ]; key = "dd"; action = "noop"; }
       { map = [ "index" "pager" ]; key = "dt"; action = "noop"; }
       { map = [ "index" "pager" ]; key = "dT"; action = "noop"; }
+      { map = [ "index" "pager" ]; key = "O"; action = "noop"; }
     ];
     macros = [
+      { map = [ "index" "pager"]; key = "O"; action = "<shell-escape>systemctl --user start mbsync && afew --move-mails && notmuch new && mbsync -a<enter><sync-mailbox>"; } # Full sync
       { map = [ "index" "pager" ]; key = "dd"; action = "<modify-labels>+trash -inbox -unread<enter>"; }
       { map = [ "index" "pager" ]; key = "dT"; action = "<tag-thread><modify-labels>+trash -inbox -unread<enter>"; }
       { map = [ "index" "pager" ]; key = "dt"; action = "<tag-subthread><modify-labels>+trash -inbox -unread<enter>"; }
