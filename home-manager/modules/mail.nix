@@ -116,12 +116,13 @@
       tags = +gitea
 
       [MailMover]
-      folders = bsc/Inbox bsc/Trash bsc/Spam bsc/Archives
+      folders = bsc/Inbox bsc/Trash bsc/Spam bsc/Archives bsc/Drafts
       rename = True
       max_age = 0
 
       bsc/Inbox = 'tag:archive':bsc/Archives 'tag:trash':bsc/Trash 'tag:spam':bsc/Spam
       bsc/Trash = 'NOT tag:trash':bsc/Inbox
+      bsc/Drafts = 'tag:trash':bsc/Trash
       bsc/Spam = 'NOT tag:spam':bsc/Inbox 'tag:trash':bsc/Trash
       bsc/Archives = 'tag:inbox':bsc/Inbox 'tag:trash':bsc/Trash
 
@@ -183,25 +184,25 @@
       enable = true;
       virtualMailboxes = [
         { name = "inbox"; query = "tag:inbox"; }
-        { name = "unread"; query = "tag:unread"; }
+        { name = "unread"; query = "tag:unread AND NOT tag:trash"; }
         { name = "todo"; query = "tag:todo"; }
         { name = "flagged"; query = "tag:flagged"; }
-        { name = "archive"; query = "tag:archive"; }
+        { name = "archive"; query = "tag:archive AND NOT tag:trash"; }
         { name = "all"; query = "NOT tag:trash"; }
 
-        { name = "drafts"; query = "tag:drafts"; }
+        { name = "drafts"; query = "tag:drafts AND NOT tag:trash"; }
         { name = "sent"; query = "tag:sent"; type = "messages"; }
 
         { name = "spam"; query = "tag:spam"; }
         { name = "trash"; query = "tag:trash"; }
 
         { name = "lists"; query = "tag:lists"; }
-        { name = " - BSC-CNS"; query = "tag:lists/bsc-cns"; }
-        { name = " - DARE WP26"; query = "tag:lists/dare_sw_wp26"; }
-        { name = " - Personal"; query = "tag:lists/personal"; }
-        { name = " - STAR"; query = "tag:lists/star"; }
-        { name = " - jungle"; query = "tag:lists/jungle"; }
-        { name = " - nix"; query = "tag:lists/nix"; }
+        { name = "l.bsc"; query = "tag:lists/bsc-cns"; }
+        { name = "l.personal"; query = "tag:lists/personal"; }
+        { name = "l.star"; query = "tag:lists/star"; }
+        { name = "l.jungle"; query = "tag:lists/jungle"; }
+        { name = "l.nix"; query = "tag:lists/nix"; }
+        { name = "l.dare"; query = "tag:lists/dare_sw_wp26"; }
       ];
     };
 
