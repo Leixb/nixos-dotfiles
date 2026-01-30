@@ -59,9 +59,30 @@
   programs.notmuch = {
     enable = true;
     new.tags = [ "new" ];
-    hooks.postNew = lib.optionalString config.programs.afew.enable ''
-      ${lib.getExe config.programs.afew.package} --tag --new
-    '';
+    hooks.postNew = let
+      notmuchPostNew = pkgs.writeShellApplication {
+        name = "notmuch-post";
+        meta.mainProgram = "notmuch-post";
+        runtimeInputs = with pkgs; [
+          libnotify
+          notmuch
+          jq
+        ] ++ (lib.optionals config.programs.afew.enable [ config.programs.afew.package ]);
+        text =
+          ''
+          NEW_COUNT=$(notmuch count tag:new)
+          if [ "$NEW_COUNT" -gt 0 ]; then
+            notify-send "📬 Mail" "$NEW_COUNT new message(s)" -i mail-unread
+
+            notmuch search --format=json tag:new | jq -r '.[] | "\(.authors): \(.subject)"' | while read -r line; do
+                notify-send "MAIL:" "$line" -i mail-unread -t 10000
+            done
+          fi
+
+          ${lib.optionalString config.programs.afew.enable "afew --tag --new"}
+        '';
+      };
+    in lib.getExe notmuchPostNew;
   };
 
   programs.afew = {
