@@ -14,9 +14,17 @@
     unmailboxes = true;
     binds = [
       { map = [ "index" "pager" ]; key = "\\`"; action = "modify-labels"; }
+      { map = [ "index" "pager" ]; key = "S"; action = "vfolder-from-query"; }
+      { map = [ "index" "pager" ]; key = "dd"; action = "noop"; }
+      { map = [ "index" "pager" ]; key = "dt"; action = "noop"; }
+      { map = [ "index" "pager" ]; key = "dT"; action = "noop"; }
     ];
     macros = [
+      { map = [ "index" "pager" ]; key = "dd"; action = "<modify-labels>+trash -inbox -unread<enter>"; }
+      { map = [ "index" "pager" ]; key = "dT"; action = "<tag-thread><modify-labels>+trash -inbox -unread<enter>"; }
+      { map = [ "index" "pager" ]; key = "dt"; action = "<tag-subthread><modify-labels>+trash -inbox -unread<enter>"; }
       { map = [ "index" "pager" ]; key = "\\cb"; action = "<enter-command>unset wait_key<enter><pipe-message>${lib.getExe pkgs.urlscan}<enter><enter-command>set wait_key<enter>"; } # follow urls
+      { map = [ "attach" "compose" ]; key = "\\cb"; action = "<enter-command>unset wait_key<enter><pipe-message>${lib.getExe pkgs.urlscan}<enter><enter-command>set wait_key<enter>"; } # follow urls
       { map = [ "index" "pager" ]; key = "\\ct"; action = "<modify-labels>!todo\\n"; } # Toggle todo
     ];
     extraConfig =
@@ -114,8 +122,8 @@
 
       bsc/Inbox = 'tag:archive':bsc/Archives 'tag:trash':bsc/Trash 'tag:spam':bsc/Spam
       bsc/Trash = 'NOT tag:trash':bsc/Inbox
-      bsc/Spam = 'NOT tag:spam':bsc/Spam
-      bsc/Archives = 'tag:inbox':bsc/Inbox
+      bsc/Spam = 'NOT tag:spam':bsc/Inbox 'tag:trash':bsc/Trash
+      bsc/Archives = 'tag:inbox':bsc/Inbox 'tag:trash':bsc/Trash
 
       # [FolderNameFilter]
       # folder_blacklist =
@@ -129,17 +137,17 @@
       query = tag:sent
       tags = -inbox;-new
 
+      [InboxFilter]
+
       [Filter.4]
       message = Tag archived mail
       query = NOT tag:inbox AND NOT tag:sent AND NOT tag:drafts AND NOT tag:spam AND NOT tag:trash
-      tags = +archive;-bsc/Inbox;-Inbox
+      tags = +archive
 
       [Filter.5]
       message = Remove inbox tag from trash
       query = tag:trash
-      tags = -inbox;-bsc/Inbox;-Inbox
-
-      [InboxFilter]
+      tags = -inbox
     '';
   };
 
