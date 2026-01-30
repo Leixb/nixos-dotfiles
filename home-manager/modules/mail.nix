@@ -134,6 +134,7 @@
       # maildir_separator = /
 
       [ArchiveSentMailsFilter]
+      sent_tag = sent
 
       [Filter.3]
       message = Remove inbox from sent mail explicitly
