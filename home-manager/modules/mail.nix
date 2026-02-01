@@ -46,11 +46,6 @@
 
         set mailcap_path = ${mailcap}
 
-        set spoolfile = "notmuch://?query=tag:inbox"
-        set record = ${config.accounts.email.maildirBasePath}/bsc/Sent
-        set postponed = ${config.accounts.email.maildirBasePath}/bsc/Drafts
-        set trash = ${config.accounts.email.maildirBasePath}/bsc/Trash
-
         set nm_unread_tag = unread
         set mail_check_stats = yes
 
