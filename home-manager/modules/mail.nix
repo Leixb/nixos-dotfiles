@@ -82,7 +82,7 @@
           if [ "$NEW_COUNT" -gt 0 ]; then
             notify-send "📬 Mail" "$NEW_COUNT new message(s)" -i mail-unread
 
-            notmuch search --format=json tag:new | jq -r '.[] | "\(.authors): \(.subject)"' | while read -r line; do
+            notmuch search --format=json tag:new | jq -r '.[] | "\(.authors): \(.subject)"' | head -n 10 | while read -r line; do
                 notify-send "MAIL:" "$line" -i mail-unread -t 10000
             done
           fi
