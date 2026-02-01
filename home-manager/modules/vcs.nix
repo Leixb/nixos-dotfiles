@@ -28,6 +28,7 @@
 
     settings = {
       user.name = lib.mkDefault config.home.username;
+      github.user = "LeixB";
 
       alias = {
         lg = "log --color --graph  --abbrev-commit --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset'";
