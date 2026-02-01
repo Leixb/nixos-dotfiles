@@ -106,11 +106,21 @@
       [ListMailsFilter]
 
       [Filter.1]
+      message = Tag BSC account
+      query = path:bsc/**
+      tags = +bsc
+
+      [Filter.2]
+      message = Tag UPC account
+      query = path:upc/**
+      tags = +upc
+
+      [Filter.3]
       message = Vicenç
       query = from:vbeltran@bsc.es
       tags = +boss
 
-      [Filter.2]
+      [Filter.4]
       message = Gitlab
       query = from:gitlab@gitlab.bsc.es
       tags = +gitlab
@@ -139,19 +149,19 @@
       [ArchiveSentMailsFilter]
       sent_tag = sent
 
-      [Filter.3]
+      [Filter.5]
       message = Remove inbox from sent mail explicitly
       query = tag:sent
       tags = -inbox;-new
 
       [InboxFilter]
 
-      [Filter.4]
+      [Filter.6]
       message = Tag archived mail
       query = NOT tag:inbox AND NOT tag:sent AND NOT tag:drafts AND NOT tag:spam AND NOT tag:trash
       tags = +archive
 
-      [Filter.5]
+      [Filter.7]
       message = Remove inbox tag from trash
       query = tag:trash
       tags = -inbox
@@ -159,6 +169,9 @@
   };
 
   sops.secrets.email_pass.path = "${config.xdg.configHome}/mail/sops";
+
+  programs.lieer.enable = true;
+  services.lieer.enable = true;
 
   accounts.email.maildirBasePath = "Mail";
 
@@ -215,6 +228,48 @@
     mbsync = {
       enable = true;
       extraConfig.channel.Create = "Both";
+    };
+  };
+
+  accounts.email.accounts.upc = {
+    address = "aleix.bone@estudiantat.upc.edu";
+    aliases = [ "aleix.bone@est.fib.upc.edu" ];
+    flavor = "gmail.com";
+    realName = "Aleix Boné";
+    folders.inbox = "mail";
+
+    lieer = {
+      enable = true;
+      sync.enable = true;
+      settings = {
+        account = "me";
+        ignore_tags = [ "new" "upc" ];
+      };
+    };
+
+    notmuch.enable = true;
+
+    neomutt.enable = true;
+    neomutt.mailboxType = "maildir";
+
+    notmuch.neomutt = {
+      enable = true;
+      virtualMailboxes = [
+        { name = "inbox"; query = "tag:inbox"; }
+        { name = "unread"; query = "tag:unread AND NOT tag:trash"; }
+        { name = "todo"; query = "tag:todo"; }
+        { name = "flagged"; query = "tag:flagged"; }
+        { name = "archive"; query = "tag:archive AND NOT tag:trash"; }
+        { name = "all"; query = "NOT tag:trash"; }
+
+        { name = "drafts"; query = "tag:drafts AND NOT tag:trash"; }
+        { name = "sent"; query = "tag:sent"; type = "messages"; }
+
+        { name = "spam"; query = "tag:spam"; }
+        { name = "trash"; query = "tag:trash"; }
+
+        { name = "lists"; query = "tag:lists"; }
+      ];
     };
   };
 }
