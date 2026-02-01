@@ -362,7 +362,6 @@ myLayout =
 myStartupHook =
     mconcat
         [ restoreBackground
-        , spawnOnce "thunderbird"
         , spawnOnce "slack -u"
         ]
   where
@@ -456,7 +455,7 @@ myManageHook =
     scratchpads =
         [ NS "scratchpad" (myTerm ++ " --title=scratchpad --class=scratchpad.ghostty") (className =? "scratchpad.ghostty") doCenterFloatFixed
         , NS "qalc" "qalculate-gtk" (className =? "Qalculate-gtk") doCenterFloatFixed
-        , NS "mail" "thunderbird" (appName =? "Mail" <&&> className =? "thunderbird") doCenterFloatFixedBig
+        , NS "mail" (myTerm ++ " --title=neomutt --class=neomutt.ghostty -e neomutt") (className =? "neomutt.ghostty") doCenterFloatFixedBig
         , NS "btm" (myTerm ++ " --title=btm --class=btm.ghostty -e btm") (className =? "btm.ghostty") doCenterFloatFixedBig
         ]
 
