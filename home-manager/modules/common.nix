@@ -96,6 +96,7 @@ in
     gh # github cli
     gimp3-with-plugins
     git-extras # git extensions
+    htop
     simple-scan # scanner
     kitty-imgdiff # image diff
     inkscape # vector graphics editor
