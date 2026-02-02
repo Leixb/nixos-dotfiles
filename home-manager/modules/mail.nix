@@ -23,7 +23,7 @@
       { map = [ "index" "pager" ]; key = "a"; action = "noop"; }
     ];
     macros = [
-      { map = [ "index" "pager"]; key = "O"; action = "<shell-escape>systemctl --user start mbsync && afew --move-mails && notmuch new && mbsync -a<enter><sync-mailbox>"; } # Full sync
+      { map = [ "index" "pager"]; key = "O"; action = "<shell-escape>systemctl --user start mbsync && afew -v --move-mails && notmuch new && mbsync -a<enter><sync-mailbox>"; } # Full sync
       { map = [ "index" "pager" ]; key = "dd"; action = "<modify-labels>+trash -inbox -unread<enter>"; }
       { map = [ "index" "pager" ]; key = "a"; action = "<modify-labels>+archive -inbox<enter>"; }
       { map = [ "index" "pager" ]; key = "dT"; action = "<tag-thread><modify-labels>+trash -inbox -unread<enter>"; }
