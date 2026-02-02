@@ -151,7 +151,6 @@
       [MailMover]
       folders = bsc/Inbox bsc/Trash bsc/Spam bsc/Archives bsc/Drafts
       rename = True
-      max_age = 0
 
       bsc/Inbox = 'tag:archive':bsc/Archives 'tag:trash':bsc/Trash 'tag:spam':bsc/Spam
       bsc/Trash = 'NOT tag:trash':bsc/Inbox
