@@ -49,6 +49,8 @@
         set nm_unread_tag = unread
         set mail_check_stats = yes
 
+        set spoolfile = "notmuch://?query=tag:inbox"
+
         set pager_format = "-%Z- %C/%m: %-20.20n   %s%*  -- (%P) %g"
         set index_format = "%4C %Z %{%b %d} %-15.15L (%?l?%4l&%4c?) %s %g"
 
