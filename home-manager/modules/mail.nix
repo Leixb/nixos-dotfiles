@@ -38,6 +38,7 @@
           text/html; ${lib.getExe pkgs.w3m} -I %{charset} -T text/html; copiousoutput; description=HTML Text; nametemplate=%s.html
           text/html; ${lib.getExe config.programs.firefox.package} %s; nametemplate=%s.html; needsterminal
           image/*; ${lib.getExe pkgs.timg} -g80x40 %s; needsterminal
+          application/pdf; ${lib.getExe pkgs.zathura} '%s'
         '';
       in
       ''
