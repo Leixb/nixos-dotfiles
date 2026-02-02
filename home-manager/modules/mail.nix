@@ -127,22 +127,6 @@
       pattern = Gitea
       tags = +gitea
 
-      [MailMover]
-      folders = bsc/Inbox bsc/Trash bsc/Spam bsc/Archives bsc/Drafts
-      rename = True
-      max_age = 0
-
-      bsc/Inbox = 'tag:archive':bsc/Archives 'tag:trash':bsc/Trash 'tag:spam':bsc/Spam
-      bsc/Trash = 'NOT tag:trash':bsc/Inbox
-      bsc/Drafts = 'tag:trash':bsc/Trash
-      bsc/Spam = 'NOT tag:spam':bsc/Inbox 'tag:trash':bsc/Trash
-      bsc/Archives = 'tag:inbox':bsc/Inbox 'tag:trash':bsc/Trash
-
-      # [FolderNameFilter]
-      # folder_blacklist =
-      # folder_transforms = bsc/Drafts:drafts bsc/Sent:sent bsc/Trash:trash
-      # maildir_separator = /
-
       [ArchiveSentMailsFilter]
       sent_tag = sent
 
@@ -162,6 +146,17 @@
       message = Remove inbox tag from trash
       query = tag:trash
       tags = -inbox
+
+      [MailMover]
+      folders = bsc/Inbox bsc/Trash bsc/Spam bsc/Archives bsc/Drafts
+      rename = True
+      max_age = 0
+
+      bsc/Inbox = 'tag:archive':bsc/Archives 'tag:trash':bsc/Trash 'tag:spam':bsc/Spam
+      bsc/Trash = 'NOT tag:trash':bsc/Inbox
+      bsc/Drafts = 'tag:trash':bsc/Trash
+      bsc/Spam = 'NOT tag:spam':bsc/Inbox 'tag:trash':bsc/Trash
+      bsc/Archives = 'tag:inbox':bsc/Inbox 'tag:trash':bsc/Trash
     '';
   };
 
