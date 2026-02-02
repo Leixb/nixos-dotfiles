@@ -223,6 +223,9 @@
     };
   };
 
+  # Run notmuch new after lieer import
+  systemd.user.services.lieer-upc.Service.ExecStartPost = "${lib.getExe pkgs.notmuch} new";
+
   accounts.email.accounts.upc = {
     address = "aleix.bone@estudiantat.upc.edu";
     aliases = [ "aleix.bone@est.fib.upc.edu" ];
