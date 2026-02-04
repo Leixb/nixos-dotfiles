@@ -67,6 +67,11 @@
     '';
   };
 
+  services.imapnotify = {
+    enable = true;
+    path = [ pkgs.coreutils pkgs.systemd ];
+  };
+
   programs.notmuch = {
     enable = true;
     new.tags = [ "new" ];
@@ -179,6 +184,12 @@
       host = "mail.bsc.es";
       port = 993;
       tls.enable = true;
+    };
+
+    imapnotify = {
+      enable = true;
+      boxes = [ "Inbox" ];
+      onNotify = "systemctl --user start mbsync";
     };
 
     smtp = {
