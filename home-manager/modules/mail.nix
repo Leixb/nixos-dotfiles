@@ -87,14 +87,11 @@
         text =
           ''
           NEW_COUNT=$(notmuch count tag:new)
-          if [ "$NEW_COUNT" -gt 0 ]; then
-            notify-send "📬 Mail" "$NEW_COUNT new message(s)" -i mail-unread
-
-            notmuch search --format=json tag:new | jq -r '.[] | "\(.authors): \(.subject)"' | head -n 10 | while read -r line; do
-                notify-send "MAIL:" "$line" -i mail-unread -t 10000
-            done
+          if [ "$NEW_COUNT" -eq 0 ]; then
+            exit 0
           fi
 
+          notify-send "📬 Mail" "$NEW_COUNT new message(s)" -i mail-unread
           ${lib.optionalString config.programs.afew.enable "afew --tag --new"}
         '';
       };
