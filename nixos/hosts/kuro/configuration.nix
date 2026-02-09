@@ -77,8 +77,8 @@ in
   hardware.xpadneo.enable = true;
 
   services.xserver.displayManager.setupCommands = ''
-    ${pkgs.xorg.xrandr}/bin/xrandr --auto
-    ${pkgs.xorg.xrandr}/bin/xrandr \
+    ${pkgs.xrandr}/bin/xrandr --auto
+    ${pkgs.xrandr}/bin/xrandr \
       --output eDP-1-1 --right-of DP-2
       --output HDMI-0 --left-of DP-2
   '';

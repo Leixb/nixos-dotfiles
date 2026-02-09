@@ -11,7 +11,7 @@
         atomic = true;
         configure_row = [ "DP-2" "eDP-1-1" ];
         execute_after = [
-          "${pkgs.xorg.xrandr}/bin/xrandr --dpi 192 --output DP-2 --scale 1.25x1.25"
+          "${pkgs.xrandr}/bin/xrandr --dpi 192 --output DP-2 --scale 1.25x1.25"
           "${pkgs.xmonad-with-packages}/bin/xmonad --restart"
         ];
       }
@@ -22,7 +22,7 @@
         primary = true;
         atomic = true;
         execute_after = [
-          "${pkgs.xorg.xrandr}/bin/xrandr --dpi 120"
+          "${pkgs.xrandr}/bin/xrandr --dpi 120"
           "${pkgs.xmonad-with-packages}/bin/xmonad --restart"
         ];
       }

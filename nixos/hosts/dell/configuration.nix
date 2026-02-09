@@ -47,8 +47,8 @@
   boot.kernel.sysctl."kernel.perf_event_paranoid" = 1;
 
   services.xserver.displayManager.setupCommands = ''
-    ${pkgs.xorg.xrandr}/bin/xrandr --auto
-    ${pkgs.xorg.xrandr}/bin/xrandr --output DP-2-1 --primary --left-of eDP-1
+    ${pkgs.xrandr}/bin/xrandr --auto
+    ${pkgs.xrandr}/bin/xrandr --output DP-2-1 --primary --left-of eDP-1
   '';
 
   services.nixseparatedebuginfod2 = {
