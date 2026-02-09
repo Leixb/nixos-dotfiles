@@ -12,4 +12,16 @@ in
   home.username = username;
   home.homeDirectory = "/home/${username}";
   home.packages = with pkgs; [ ];
+
+  programs.vscode = {
+    enable = true;
+    package = pkgs.vscodium;
+    profiles.default.extensions = with pkgs.vscode-extensions; [
+      vscodevim.vim
+      yzhang.markdown-all-in-one
+      editorconfig.editorconfig
+      golang.go
+    ];
+  };
+
 }

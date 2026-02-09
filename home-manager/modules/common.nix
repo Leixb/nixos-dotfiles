@@ -420,17 +420,6 @@ in
       };
     };
 
-  programs.vscode = {
-    enable = true;
-    package = pkgs.vscodium;
-    profiles.default.extensions = with pkgs.vscode-extensions; [
-      vscodevim.vim
-      yzhang.markdown-all-in-one
-      editorconfig.editorconfig
-      golang.go
-    ];
-  };
-
   programs.zathura.enable = true;
   programs.sioyek = {
     enable = true;
