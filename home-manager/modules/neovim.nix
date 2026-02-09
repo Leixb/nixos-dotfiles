@@ -157,7 +157,7 @@ in
       }
 
       {
-        plugin = indent-blankline-nvim-lua;
+        plugin = indent-blankline-nvim;
         type = "lua";
         config = # lua
           ''
