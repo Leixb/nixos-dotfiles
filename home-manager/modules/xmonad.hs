@@ -239,6 +239,7 @@ topics =
                             , "task-awareness/taopencl"
                             , "oneTBB"
                             , "ggml"
+                            , "iwocl-benchmarks"
                             ]
                        ]
            )
