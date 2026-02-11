@@ -321,7 +321,7 @@ in
   programs.tmux = {
     enable = true;
 
-    terminal = "alacritty";
+    terminal = "ghostty";
     keyMode = "vi";
     escapeTime = 0;
     mouse = true;
