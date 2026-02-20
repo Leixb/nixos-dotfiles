@@ -208,6 +208,11 @@
       enable = true;
       virtualMailboxes = [
         { name = "inbox"; query = "tag:inbox"; }
+
+        { name = "i.bsc"; query = "tag:inbox AND tag:bsc"; }
+        { name = "i.upc"; query = "tag:inbox AND tag:upc-dac"; }
+        { name = "i.est"; query = "tag:inbox AND tag:upc-est"; }
+
         { name = "unread"; query = "tag:unread AND NOT tag:trash"; }
         { name = "todo"; query = "tag:todo"; }
         { name = "flagged"; query = "tag:flagged"; }
@@ -227,6 +232,9 @@
         { name = "l.jungle"; query = "tag:lists/jungle"; }
         { name = "l.nix"; query = "tag:lists/nix"; }
         { name = "l.dare"; query = "tag:lists/dare_sw_wp26"; }
+        { name = "l.phds"; query = "tag:lists/doctorands-tic"; }
+
+        { name = "menus"; query = "from:no-reply@bsc.es AND subject:'MENÚ*'"; }
       ];
     };
 
