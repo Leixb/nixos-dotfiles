@@ -111,16 +111,21 @@
       tags = +bsc
 
       [Filter.2]
-      message = Tag UPC account
+      message = Tag estudiantat UPC account
       query = path:upc/**
-      tags = +upc
+      tags = +upc;+upc-est
 
       [Filter.3]
+      message = Tag DAC UPC account
+      query = path:upc-dac/**
+      tags = +upc;+upc-dac
+
+      [Filter.4]
       message = Vicenç
       query = from:vbeltran@bsc.es
       tags = +boss
 
-      [Filter.4]
+      [Filter.5]
       message = Gitlab
       query = from:gitlab@gitlab.bsc.es
       tags = +gitlab
@@ -133,19 +138,19 @@
       [ArchiveSentMailsFilter]
       sent_tag = sent
 
-      [Filter.5]
+      [Filter.6]
       message = Remove inbox from sent mail explicitly
       query = tag:sent
       tags = -inbox;-new
 
       [InboxFilter]
 
-      [Filter.6]
+      [Filter.7]
       message = Tag archived mail
       query = NOT tag:inbox AND NOT tag:sent AND NOT tag:drafts AND NOT tag:spam AND NOT tag:trash
       tags = +archive
 
-      [Filter.7]
+      [Filter.8]
       message = Remove inbox tag from trash
       query = tag:trash
       tags = -inbox
@@ -233,6 +238,7 @@
 
   # Run notmuch new after lieer import
   systemd.user.services.lieer-upc.Service.ExecStartPost = "${lib.getExe pkgs.notmuch} new";
+  systemd.user.services.lieer-upc-dac.Service.ExecStartPost = "${lib.getExe pkgs.notmuch} new";
 
   accounts.email.accounts.upc = {
     address = "aleix.bone@estudiantat.upc.edu";
@@ -246,7 +252,7 @@
       sync.enable = true;
       settings = {
         account = "me";
-        ignore_tags = [ "new" "upc" ];
+        ignore_tags = [ "new" "upc" "upc-est" ];
       };
     };
 
@@ -255,24 +261,29 @@
     neomutt.enable = true;
     neomutt.mailboxType = "maildir";
 
-    notmuch.neomutt = {
+    notmuch.neomutt.enable = true;
+  };
+
+  accounts.email.accounts.upc-dac = {
+    address = "aleix.bone@upc.edu";
+    flavor = "gmail.com";
+    realName = "Aleix Boné";
+    folders.inbox = "mail";
+
+    lieer = {
       enable = true;
-      virtualMailboxes = [
-        { name = "inbox"; query = "tag:inbox"; }
-        { name = "unread"; query = "tag:unread AND NOT tag:trash"; }
-        { name = "todo"; query = "tag:todo"; }
-        { name = "flagged"; query = "tag:flagged"; }
-        { name = "archive"; query = "tag:archive AND NOT tag:trash"; }
-        { name = "all"; query = "NOT tag:trash"; }
-
-        { name = "drafts"; query = "tag:drafts AND NOT tag:trash"; }
-        { name = "sent"; query = "tag:sent"; type = "messages"; }
-
-        { name = "spam"; query = "tag:spam"; }
-        { name = "trash"; query = "tag:trash"; }
-
-        { name = "lists"; query = "tag:lists"; }
-      ];
+      sync.enable = true;
+      settings = {
+        account = "me";
+        ignore_tags = [ "new" "upc" "upc-dac" ];
+      };
     };
+
+    notmuch.enable = true;
+
+    neomutt.enable = true;
+    neomutt.mailboxType = "maildir";
+
+    notmuch.neomutt.enable = true;
   };
 }
