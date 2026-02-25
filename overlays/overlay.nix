@@ -23,4 +23,15 @@ in
       doCheck = false;
     });
   };
+
+  picom12 = prev.picom.overrideAttrs {
+    version = "12.5";
+    src = final.fetchFromGitHub {
+      owner = "yshui";
+      repo = "picom";
+      tag = "v12.5";
+      hash = "sha256-H8IbzzrzF1c63MXbw5mqoll3H+vgcSVpijrlSDNkc+o=";
+      fetchSubmodules = true;
+    };
+  };
 }

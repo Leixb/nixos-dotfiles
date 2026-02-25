@@ -55,6 +55,7 @@
     picom = {
       enable = true;
       backend = "glx";
+      package = pkgs.picom12;
       vSync = true;
       settings = {
         unredir-if-possible = true;
