@@ -55,6 +55,9 @@
         set pager_format = "-%Z- %C/%m: %-20.20n   %s%*  -- (%P) %g"
         set index_format = "%4C %Z %{%b %d} %-15.15L (%?l?%4l&%4c?) %s %g"
 
+        set crypt_use_gpgme
+        set pgp_sign_as = 0x6920CD05
+
         source ${./neomutt.theme}
       '';
   };
