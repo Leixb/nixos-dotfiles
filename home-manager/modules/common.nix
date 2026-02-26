@@ -87,44 +87,36 @@ in
     acpi # battery info
     alsa-utils # sound
     bottom # system monitor
-    cachix # nix binary cache manager
-    devenv # Reproducible development environment
     fd # find alternative
     feh # image viewer
     file # file type detection
     flameshot # screenshot tool
     gh # github cli
     gimp3-with-plugins
-    git-extras # git extensions
     htop
-    simple-scan # scanner
-    kitty-imgdiff # image diff
     inkscape # vector graphics editor
-    krita # image editor
-    libnotify # notification daemon
+    kitty-imgdiff # image diff
+    libnotify # notify-send
     libqalculate # calculator
     libreoffice # office suite
     miniserve # file server
     miniupnpc # upnp client
-    # mpris-notifier # media change notification
     mpv # video player
     neofetch # system info
-    notify # notification daemon
+    nix-diff
     pavucontrol # pulseaudio volume control
     pcmanfm # file manager
     playerctl # media player control
     powertop # power usage monitor
     qalculate-gtk # calculator (GUI)
     ripgrep # grep alternative
+    simple-scan # scanner
     sshfs # ssh filesystem mount
     tealdeer # simple help pages for commands
-    thunderbird
-    unzip # zip file extraction
-    vlc # video player
-    waypipe # wayland remote desktop
-    zip # zip file creation
     tg # telegram terminal
-    plexamp
+    unzip
+    zip
+    # krita # image editor
   ];
 
   xdg.configFile."WebCord/Themes/catppuccin.theme.css".text = ''
