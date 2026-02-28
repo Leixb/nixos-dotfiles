@@ -50,13 +50,20 @@
         set nm_unread_tag = unread
         set mail_check_stats = yes
 
-        set spoolfile = "notmuch://?query=tag:inbox"
-
-        set pager_format = "-%Z- %C/%m: %-20.20n   %s%*  -- (%P) %g"
-        set index_format = "%4C %Z %{%b %d} %-15.15L (%?l?%4l&%4c?) %s %g"
+        set spoolfile = "notmuch://?query=tag:inbox AND NOT tag:gmail"
 
         set crypt_use_gpgme
         set pgp_sign_as = 0x6920CD05
+        set crypt_auto_sign = yes
+
+        set pager_format = "-%Z- %C/%m: %-20.20n   %s%*  -- (%P) (%g)"
+        set index_format = "%4C %Z %{%b %d} %-15.15L (%<l?%4l&%4c>) %s (%g)"
+
+        set header_cache = "~/Mail/.hcache"
+        # use very high $read_inc to speed up reading hcache'd maildirs
+        set read_inc=1000
+
+        set query_command="${lib.getExe pkgs.notmuch-addrlookup} --format=mutt %s"
 
         source ${./neomutt.theme}
       '';
@@ -124,11 +131,16 @@
       tags = +upc;+upc-dac
 
       [Filter.4]
+      message = Tag gmail
+      query = path:gmail/**
+      tags = +gmail
+
+      [Filter.5]
       message = Vicenç
       query = from:vbeltran@bsc.es
       tags = +boss
 
-      [Filter.5]
+      [Filter.6]
       message = Gitlab
       query = from:gitlab@gitlab.bsc.es
       tags = +gitlab
@@ -141,19 +153,19 @@
       [ArchiveSentMailsFilter]
       sent_tag = sent
 
-      [Filter.6]
+      [Filter.7]
       message = Remove inbox from sent mail explicitly
       query = tag:sent
       tags = -inbox;-new
 
       [InboxFilter]
 
-      [Filter.7]
+      [Filter.8]
       message = Tag archived mail
       query = NOT tag:inbox AND NOT tag:sent AND NOT tag:drafts AND NOT tag:spam AND NOT tag:trash
       tags = +archive
 
-      [Filter.8]
+      [Filter.9]
       message = Remove inbox tag from trash
       query = tag:trash
       tags = -inbox
@@ -185,6 +197,15 @@
     realName = "Aleix Boné";
     passwordCommand = "cat ${config.sops.secrets.email_pass.path}";
 
+    signature = {
+      showSignature = "append";
+      text = ''
+        Aleix Boné
+        Research Engineer
+        STAR team <https://www.bsc.es/discover-bsc/organisation/scientific-structure/system-tools-and-advanced-runtimes>, Barcelona Supercomputing Center
+      '';
+    };
+
     imap = {
       host = "mail.bsc.es";
       port = 993;
@@ -210,13 +231,15 @@
     notmuch.neomutt = {
       enable = true;
       virtualMailboxes = [
-        { name = "inbox"; query = "tag:inbox"; }
+        { name = "inbox"; query = "tag:inbox AND NOT tag:gmail"; }
+        { name = "i.all"; query = "tag:inbox"; }
 
         { name = "i.bsc"; query = "tag:inbox AND tag:bsc"; }
         { name = "i.upc"; query = "tag:inbox AND tag:upc-dac"; }
         { name = "i.est"; query = "tag:inbox AND tag:upc-est"; }
+        { name = "i.gmail"; query = "tag:inbox AND tag:gmail"; }
 
-        { name = "unread"; query = "tag:unread AND NOT tag:trash"; }
+        { name = "unread"; query = "tag:unread AND NOT tag:trash AND NOT tag:spam"; }
         { name = "todo"; query = "tag:todo"; }
         { name = "flagged"; query = "tag:flagged"; }
         { name = "archive"; query = "tag:archive AND NOT tag:trash"; }
@@ -236,6 +259,9 @@
         { name = "l.nix"; query = "tag:lists/nix"; }
         { name = "l.dare"; query = "tag:lists/dare_sw_wp26"; }
         { name = "l.phds"; query = "tag:lists/doctorands-tic"; }
+        { name = "l.nixpkgs"; query = "tag:lists/nixpkgs"; }
+        { name = "l.pocl"; query = "tag:lists/pocl OR tag:lists/unpublished OR tag:lists/pocl-priv"; }
+        { name = "github"; query = "tag:GitHub"; }
 
         { name = "menus"; query = "from:no-reply@bsc.es AND subject:'MENÚ*'"; }
       ];
@@ -250,6 +276,7 @@
   # Run notmuch new after lieer import
   systemd.user.services.lieer-upc.Service.ExecStartPost = "${lib.getExe pkgs.notmuch} new";
   systemd.user.services.lieer-upc-dac.Service.ExecStartPost = "${lib.getExe pkgs.notmuch} new";
+  systemd.user.services.lieer-gmail.Service.ExecStartPost = "${lib.getExe pkgs.notmuch} new";
 
   accounts.email.accounts.upc = {
     address = "aleix.bone@estudiantat.upc.edu";
@@ -263,7 +290,7 @@
       sync.enable = true;
       settings = {
         account = "me";
-        ignore_tags = [ "new" "upc" "upc-est" ];
+        ignore_tags = [ "new" "UPC" "upc" "upc-est" ];
       };
     };
 
@@ -286,7 +313,30 @@
       sync.enable = true;
       settings = {
         account = "me";
-        ignore_tags = [ "new" "upc" "upc-dac" ];
+        ignore_tags = [ "new" "UPC" "upc" "upc-dac" ];
+      };
+    };
+
+    notmuch.enable = true;
+
+    neomutt.enable = true;
+    neomutt.mailboxType = "maildir";
+
+    notmuch.neomutt.enable = true;
+  };
+
+  accounts.email.accounts.gmail = {
+    address = "abone9999@gmail.com";
+    flavor = "gmail.com";
+    realName = "Aleix Boné";
+    folders.inbox = "mail";
+
+    lieer = {
+      enable = true;
+      sync.enable = true;
+      settings = {
+        account = "me";
+        ignore_tags = [ "new" "gmail" "upc" ];
       };
     };
 
