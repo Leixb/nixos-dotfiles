@@ -94,15 +94,25 @@
           notmuch
           jq
         ] ++ (lib.optionals config.programs.afew.enable [ config.programs.afew.package ]);
-        text =
-          ''
-          NEW_COUNT=$(notmuch count tag:new)
-          if [ "$NEW_COUNT" -eq 0 ]; then
-            exit 0
-          fi
+        text = ''
+          BEFORE=$(notmuch search --output=threads tag:new 2>/dev/null)
 
-          notify-send "📬 Mail" "$NEW_COUNT new message(s)" -i mail-unread
           ${lib.optionalString config.programs.afew.enable "afew --tag --new"}
+
+          COUNT=0
+          SUMMARY=""
+          while IFS= read -r tid; do
+            [ -z "$tid" ] && continue
+            if notmuch search "$tid" and tag:inbox | grep -q .; then
+              COUNT=$((COUNT + 1))
+              if [ $COUNT -le 3 ]; then
+                line=$(notmuch search --format=json "$tid" | jq -r '.[0] | "\(.authors): \(.subject)"')
+                SUMMARY+="$line\n"
+              fi
+            fi
+          done <<< "$BEFORE"
+
+          [ "$COUNT" -gt 0 ] && notify-send -i mail-unread "✉️ $COUNT new messages(s)" "$(printf '%b' "$SUMMARY")"
         '';
       };
     in lib.getExe notmuchPostNew;
