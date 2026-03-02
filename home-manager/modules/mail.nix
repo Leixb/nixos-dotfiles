@@ -168,14 +168,19 @@
       query = tag:sent
       tags = -inbox;-new
 
+      [Filter.8]
+      message = Filter spam
+      query = subject:'\*\*\* SPAM \*\*\**'
+      tags = -inbox;+spam
+
       [InboxFilter]
 
-      [Filter.8]
+      [Filter.9]
       message = Tag archived mail
       query = NOT tag:inbox AND NOT tag:sent AND NOT tag:drafts AND NOT tag:spam AND NOT tag:trash
       tags = +archive
 
-      [Filter.9]
+      [Filter.10]
       message = Remove inbox tag from trash
       query = tag:trash
       tags = -inbox
