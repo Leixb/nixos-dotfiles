@@ -580,16 +580,16 @@ myKeys conf@(XConfig {modMask = modMask}) = fromList $
     , ((modMask .|. shiftMask, xK_F2      ), spawn "amixer -q sset Master 1%-")
     , ((modMask .|. shiftMask, xK_F3      ), spawn "amixer -q sset Master 1%+")
     , ((modMask, xK_F4                    ), spawn "amixer -q sset Capture toggle")
-    , ((modMask, xK_F5                    ), spawn "light -U 5")
-    , ((modMask, xK_F6                    ), spawn "light -A 5")
+    , ((modMask, xK_F5                    ), spawn "brightnessctl set +5%")
+    , ((modMask, xK_F6                    ), spawn "brightnessctl set 5%-")
     , ((modMask, xK_F7                    ), spawn "playerctl previous")
     , ((modMask, xK_F8                    ), spawn "playerctl play-pause")
     , ((modMask, xK_F9                    ), spawn "playerctl next")
 
-    , ((noModMask, xF86XK_MonBrightnessUp   ), spawn "light -A 5")
-    , ((noModMask, xF86XK_MonBrightnessDown ), spawn "light -U 5")
-    , ((shiftMask, xF86XK_MonBrightnessUp   ), spawn "light -A 1")
-    , ((shiftMask, xF86XK_MonBrightnessDown ), spawn "light -U 1")
+    , ((noModMask, xF86XK_MonBrightnessUp   ), spawn "brightnessctl set +5%")
+    , ((noModMask, xF86XK_MonBrightnessDown ), spawn "brightnessctl set 5%-")
+    , ((shiftMask, xF86XK_MonBrightnessUp   ), spawn "brightnessctl set +1%")
+    , ((shiftMask, xF86XK_MonBrightnessDown ), spawn "brightnessctl set 1%-")
 
     , ((shiftMask, xF86XK_MenuKB ), rofi)
 
