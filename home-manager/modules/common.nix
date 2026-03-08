@@ -102,7 +102,6 @@ in
     miniserve # file server
     miniupnpc # upnp client
     mpv # video player
-    neofetch # system info
     nix-diff
     pavucontrol # pulseaudio volume control
     pcmanfm # file manager
