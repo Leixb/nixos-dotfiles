@@ -1,4 +1,4 @@
-{ inputs, pkgs, ... }:
+{ inputs, lib, pkgs, ... }:
 {
   nixpkgs.config.allowUnfree = true;
 
@@ -27,6 +27,7 @@
       trusted-public-keys = [
         "nix-community.cachix.org-1:mB9FSh9qf2dCimDSUo8Zy7bkq5CX+/rkCWyvRCYg3Fs="
       ];
+      builders = lib.mkForce "@/etc/nix/machines";
     };
 
     registry = {
