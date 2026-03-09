@@ -34,4 +34,14 @@ in
       fetchSubmodules = true;
     };
   };
+
+  nix-output-monitor = prev.nix-output-monitor.overrideAttrs {
+    patches = [
+      (final.fetchpatch {
+        # fix ssh-ng:// build attribution
+        url = "https://code.maralorn.de/maralorn/nix-output-monitor/commit/10a3cbcb0bdea960e7670e82ca5ee8abf37b9b5d.patch";
+        sha256 = "sha256-Jpp4RRgcuX40KU+1Xtwe47NJ8KXEzPjCQ/+e1sSDSdA=";
+      })
+    ];
+  };
 }
