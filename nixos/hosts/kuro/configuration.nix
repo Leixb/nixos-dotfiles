@@ -46,6 +46,8 @@ in
     defaultSession = "xsession";
   };
 
+  services.flatpak.enable = true;
+
   xdg.portal = {
     enable = true;
     extraPortals = with pkgs; [ xdg-desktop-portal-gtk pkgs.xdg-desktop-portal-wlr ];
