@@ -76,6 +76,16 @@ in
 
   hardware.xpadneo.enable = true;
 
+  hardware.bluetooth.settings = {
+    General = {
+      ControllerMode = "dual";
+      Privacy = "device";
+      JustWorksRepairing = "always";
+      Class = "0x000100";
+      FastConnectable = true;
+    };
+  };
+
   services.xserver.displayManager.setupCommands = ''
     ${pkgs.xrandr}/bin/xrandr --auto
     ${pkgs.xrandr}/bin/xrandr \
