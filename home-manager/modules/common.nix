@@ -86,6 +86,7 @@ in
   home.packages = with pkgs; [
     acpi # battery info
     alsa-utils # sound
+    android-tools
     bottom # system monitor
     fd # find alternative
     feh # image viewer

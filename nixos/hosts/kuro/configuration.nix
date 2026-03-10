@@ -72,8 +72,6 @@ in
   environment.systemPackages = [ battery_conservation_mode ];
   boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
 
-  programs.adb.enable = true; # enable android proper data tethering
-
   services.ddccontrol.enable = true;
 
   hardware.xpadneo.enable = true;
