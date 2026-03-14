@@ -99,6 +99,10 @@
 
           ${lib.optionalString config.programs.afew.enable "afew --tag --new"}
 
+          if [ "$BEFORE" = "" ]; then
+            exit 0
+          fi
+
           COUNT=0
           SUMMARY=""
           while IFS= read -r tid; do
