@@ -193,7 +193,9 @@ in
   programs.ghostty = {
     enable = true;
     enableFishIntegration = true;
+    enableBashIntegration = true;
     installVimSyntax = true;
+    systemd.enable = true;
     settings = {
       theme = "Catppuccin Macchiato";
       font-size = lib.mkDefault 10;
@@ -203,6 +205,10 @@ in
       gtk-titlebar = false;
       cursor-invert-fg-bg = true;
       confirm-close-surface = false;
+      notify-on-command-finish = "unfocused";
+      notify-on-command-finish-action = "no-bell,notify";
+      notify-on-command-finish-after = "1m";
+      window-inherit-working-directory = true;
     };
   };
 

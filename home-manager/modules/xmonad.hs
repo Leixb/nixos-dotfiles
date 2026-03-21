@@ -18,7 +18,7 @@ import XMonad
 import XMonad.Prelude
 
 import XMonad.Actions.CopyWindow (copiesPP, copy, copyToAll, kill1, killAllOtherCopies, runOrCopy)
-import XMonad.Actions.CycleWS (Direction1D (..), WSType (..), emptyWS, hiddenWS, ignoringWSs, moveTo, nextScreen, prevScreen, shiftNextScreen, shiftTo, swapNextScreen, swapPrevScreen, doTo)
+import XMonad.Actions.CycleWS (Direction1D (..), WSType (..), doTo, emptyWS, hiddenWS, ignoringWSs, moveTo, nextScreen, prevScreen, shiftNextScreen, shiftTo, swapNextScreen, swapPrevScreen)
 import XMonad.Actions.DwmPromote (dwmpromote)
 import XMonad.Actions.GroupNavigation (Direction (History), historyHook, nextMatch)
 import XMonad.Actions.Minimize (maximizeWindow, maximizeWindowAndFocus, minimizeWindow, withLastMinimized)
@@ -78,8 +78,8 @@ import XMonad.Util.Loggers (logTitles)
 import XMonad.Util.NamedScratchpad (NamedScratchpad (..), namedScratchpadAction, namedScratchpadManageHook, scratchpadWorkspaceTag)
 import XMonad.Util.Run (executeNoQuote, inTerm, proc, spawnExternalProcess, termInDir, (>-$), (>->))
 import XMonad.Util.SpawnOnce (spawnOnce)
-import XMonad.Util.XUtils (WindowConfig (..))
 import XMonad.Util.WorkspaceCompare (getSortByIndex)
+import XMonad.Util.XUtils (WindowConfig (..))
 
 --------------------------------------------------------------------------------
 -- MAIN
@@ -120,7 +120,8 @@ main =
             , workspaces = myWorkspaces
             }
 
-myTerm = "ghostty"
+myTerm = "ghostty +new-window"
+myTerm' = "ghostty"
 isTerm = className =? "com.mitchellh.ghostty"
 
 myBrowser :: Browser = "firefox"
@@ -188,8 +189,8 @@ topics =
     , inHome "8:im" $ spawn "slack" *> spawn "telegram-desktop"
     , ti "9:media" "Videos" spawnTermInTopic
     , ti "0:music" "Music" $ spawn "plexamp"
--- End of numbered topics (mapped to mod + n)
-    , sshHost "mn5"
+    , -- End of numbered topics (mapped to mod + n)
+      sshHost "mn5"
     , sshHost "hut"
     , sshHost "hca"
     , ti "paraver" "Documents/traces" $ spawn "wxparaver" *> switchToLayout paraverLayout
@@ -454,10 +455,10 @@ myManageHook =
     doCenterFloatFixedBig = rectfloatCenter (4 % 5) <+> doF W.swapUp
 
     scratchpads =
-        [ NS "scratchpad" (myTerm ++ " --title=scratchpad --class=scratchpad.ghostty") (className =? "scratchpad.ghostty") doCenterFloatFixed
+        [ NS "scratchpad" (myTerm' ++ " --title=scratchpad --class=scratchpad.ghostty") (className =? "scratchpad.ghostty") doCenterFloatFixed
         , NS "qalc" "qalculate-gtk" (className =? "Qalculate-gtk") doCenterFloatFixed
-        , NS "mail" (myTerm ++ " --title=neomutt --class=neomutt.ghostty -e neomutt") (className =? "neomutt.ghostty") doCenterFloatFixedBig
-        , NS "btm" (myTerm ++ " --title=btm --class=btm.ghostty -e btm") (className =? "btm.ghostty") doCenterFloatFixedBig
+        , NS "mail" (myTerm' ++ " --title=neomutt --class=neomutt.ghostty -e neomutt") (className =? "neomutt.ghostty") doCenterFloatFixedBig
+        , NS "btm" (myTerm' ++ " --title=btm --class=btm.ghostty -e btm") (className =? "btm.ghostty") doCenterFloatFixedBig
         ]
 
 --------------------------------------------------------------------------------
@@ -469,6 +470,7 @@ myKeys :: XConfig Layout -> M.Map (KeyMask, KeySym) (X ())
 myKeys conf@(XConfig {modMask = modMask}) = fromList $
     -- launching and killing programs
     [ ((modMask,                 xK_Return), spawnTermInTopic) -- %! Launch terminal
+    , ((mod1Mask,                xK_Return), spawn myTerm)     -- %! Launch terminal
     , ((modMask,                 xK_d     ), rofi) -- %! Launch rofi
     , ((modMask .|. shiftMask,   xK_d     ), shellPrompt prompt) -- %! Launch shell prompt
 
