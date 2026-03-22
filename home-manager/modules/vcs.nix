@@ -163,6 +163,11 @@
           "-r"
           "@-"
         ];
+        sdesc = [ # describe without diff
+          "desc"
+          "--config"
+          "templates.draft_commit_description='builtin_draft_commit_description'"
+        ];
       };
 
       # Prevent pushing work in progress or anything explicitly labeled "private"
