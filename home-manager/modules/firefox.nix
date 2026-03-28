@@ -28,6 +28,26 @@ in {
         "browser.ctrlTab.recentlyUsedOrder" = false;
         "browser.discovery.enabled" = false;
         "browser.laterrun.enabled" = false;
+
+        "browser.ml.enable" = false;
+        "browser.ml.chat.enabled" = false;
+        "browser.ml.linkPreview.enabled" = false;
+        "browser.ml.pageAssist.enabled" = false;
+        "browser.ml.smartAssist.enabled" = false;
+        "extensions.ml.enabled" = false;
+        "browser.tabs.groups.smart.enabled" = false;
+        "browser.search.visualSearch.featureGate" = false;
+        "browser.urlbar.quicksuggest.mlEnabled" = false;
+        "pdfjs.enableAltText" = false;
+        "places.semanticHistory.featureGate" = false;
+
+        "browser.ai.control.default" = false;
+        "browser.ai.control.linkPreviewKeyPoints" = false;
+        "browser.ai.control.pdfjsAltText" = false;
+        "browser.ai.control.sidebarChatbot" = false;
+        "browser.ai.control.smartTabGroups" = false;
+        "browser.ai.control.translations" = false;
+
         "browser.newtabpage.activity-stream.enabled" = false;
         "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.addons" = false;
         "browser.newtabpage.activity-stream.asrouter.userprefs.cfr.features" =
