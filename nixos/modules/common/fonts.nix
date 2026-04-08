@@ -8,6 +8,7 @@
       fira-code
       fira-code-symbols
       fira-mono
+      fixedsys-excelsior
       liberation_ttf
       libre-baskerville
       libre-bodoni
