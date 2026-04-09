@@ -85,6 +85,7 @@
   programs.notmuch = {
     enable = true;
     new.tags = [ "new" ];
+    new.ignore = [ ".hcache" ];
     hooks.postNew = let
       notmuchPostNew = pkgs.writeShellApplication {
         name = "notmuch-post";
