@@ -90,10 +90,9 @@ in
       taplo
 
       dockerfile-language-server
-      nodePackages.typescript
-      nodePackages.typescript-language-server
-      # nodePackages.vscode-langservers-extracted
-      nodePackages.yaml-language-server
+      typescript
+      typescript-language-server
+      yaml-language-server
 
       nodejs
 
