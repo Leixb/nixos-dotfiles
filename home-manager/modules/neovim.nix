@@ -15,18 +15,6 @@ let
     };
   };
 
-  telescope-orgmode = pkgs.vimUtils.buildVimPlugin {
-    pname = "telescope-orgmode";
-    version = "1.4.3";
-    src = pkgs.fetchFromGitHub {
-      owner = "nvim-orgmode";
-      repo = "telescope-orgmode.nvim";
-      rev = "1.4.3";
-      sha256 = "sha256-6gZR1hJ8dqpnV/DFNn2htG3cPIu/USug4uQU/JS4RpI=";
-    };
-    doCheck = false;
-  };
-
   # TODO: nvim-R / repl support
 
 in
@@ -424,82 +412,6 @@ in
             vim.keymap.set('n', '<F4>' , function() require'symbols-outline'.toggle_outline() end,
               { noremap = true , silent = true, desc = "SymbolsOutline toggle" })
           '';
-      }
-
-      {
-        plugin = orgmode;
-        type = "lua";
-        config = # lua
-          ''
-            require('orgmode').setup({
-              org_agenda_files = '~/orgfiles/**/*',
-              org_default_notes_file = '~/orgfiles/refile.org',
-              mappings = {
-                org = {
-                  org_refile = '<leader>o<S-r>',
-                },
-              },
-              org_startup_indented = true,
-              org_adapt_indentation = true,
-              org_todo_keywords = { 'TODO(t)', 'WAITING', '|', 'DONE' },
-              org_todo_keyword_faces = {
-                WAITING = ':foreground lightblue :weight bold',
-                REVIEWED = ':foreground orange :weight bold',
-                MERGED = ':foreground lightgreen :weight bold',
-                CLOSED = ':foreground lightgreen :weight bold :underline on',
-                WIP = ':foreground #ED8796 :weight bold',
-              },
-              org_ellipsis = ' ...',
-            })
-            vim.api.nvim_create_autocmd('FileType', {
-              pattern = 'org',
-              callback = function()
-                vim.keymap.set('i', '<S-CR>', '<cmd>lua require("orgmode").action("org_mappings.meta_return")<CR>', {
-                  silent = true,
-                  buffer = true,
-                })
-              end,
-            })
-          '';
-      }
-      {
-        plugin = org-roam-nvim;
-        type = "lua";
-        config = # lua
-          ''
-            require('org-roam').setup({
-                directory = '~/orgfiles/roam'
-            })
-          '';
-      }
-      {
-        plugin = headlines-nvim;
-        type = "lua";
-        config = # lua
-          ''
-            require("headlines").setup({
-              org = {
-                fat_headlines = false,
-              }
-            })
-          '';
-      }
-      {
-        plugin = telescope-orgmode;
-        type = "lua";
-        config = # lua
-        ''
-          require('telescope').load_extension('orgmode')
-          vim.keymap.set("n", "<leader>of", require("telescope").extensions.orgmode.search_headings, { desc = "Search headings" })
-          vim.api.nvim_create_autocmd('FileType', {
-            pattern = 'org',
-            group = vim.api.nvim_create_augroup('orgmode_telescope_nvim', { clear = true }),
-            callback = function()
-              vim.keymap.set('n', '<leader>or', require('telescope').extensions.orgmode.refile_heading, { desc = "Refile Heading" })
-              vim.keymap.set("n", "<leader>li", require("telescope").extensions.orgmode.insert_link, { desc = "Insert link" })
-            end,
-          })
-        '';
       }
 
       {
