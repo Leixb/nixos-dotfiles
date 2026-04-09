@@ -28,5 +28,15 @@ require('blink.cmp').setup({
     },
     fuzzy = {
         implementation = "prefer_rust_with_warning"
+    },
+    cmdline = {
+        enabled = true,
+        completion = {
+            menu = {
+                auto_show = function(ctx)
+                    return vim.fn.getcmdtype() == ':'
+                end,
+            },
+        }
     }
 })
