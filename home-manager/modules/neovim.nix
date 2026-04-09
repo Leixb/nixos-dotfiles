@@ -427,13 +427,6 @@ in
       }
 
       {
-        plugin = neorg;
-        type = "lua";
-        config = builtins.readFile ./neovim/neorg.lua;
-      }
-      neorg-telescope
-
-      {
         plugin = orgmode;
         type = "lua";
         config = # lua
