@@ -13,6 +13,11 @@
     vimKeys = true;
     unmailboxes = true;
     binds = [
+      { map = [ "index" "pager" ]; key = "X"; action = "change-vfolder"; }
+      { map = [ "index" "pager" ]; key = "\\CP"; action = "sidebar-prev"; }
+      { map = [ "index" "pager" ]; key = "\\CN"; action = "sidebar-next"; }
+      { map = [ "index" "pager" ]; key = "\\CO"; action = "sidebar-open"; }
+      { map = [ "index" "pager" ]; key = "B"; action = "sidebar-toggle-visible"; }
       { map = [ "index" "pager" ]; key = "\\`"; action = "modify-labels"; }
       { map = [ "index" "pager" ]; key = "S"; action = "vfolder-from-query"; }
       { map = [ "index" "pager" ]; key = "dd"; action = "noop"; }
@@ -58,6 +63,11 @@
 
         set pager_format = "-%Z- %C/%m: %-20.20n   %s%*  -- (%P) (%g)"
         set index_format = "%4C %Z %{%b %d} %-15.15L (%<l?%4l&%4c>) %s (%g)"
+
+        set sidebar_visible = yes
+        set sidebar_non_empty_mailbox_only = yes
+        set sidebar_new_mail_only = yes
+        sidebar_pin "inbox" "todo" "flagged" "i.all" "drafts" "sent" "lists" "archive"
 
         set header_cache = "~/Mail/.hcache"
         # use very high $read_inc to speed up reading hcache'd maildirs
