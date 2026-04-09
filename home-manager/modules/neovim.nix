@@ -275,26 +275,16 @@ in
       }
 
       {
-        plugin = nvim-cmp;
+        plugin = blink-cmp;
         type = "lua";
         config = builtins.readFile ./neovim/cmp.lua;
       }
+      blink-compat
 
-      cmp-buffer
-      cmp-path
       cmp-calc
       cmp-latex-symbols
-      cmp-nvim-lua
-      cmp-nvim-lsp
-      cmp-cmdline
-      cmp-git
+      cmp-digraphs
 
-      {
-        plugin = luasnip;
-        type = "lua";
-        config = builtins.readFile ./neovim/snippets.lua;
-      }
-      cmp_luasnip
       friendly-snippets
 
       {
@@ -317,7 +307,6 @@ in
       direnv-vim
 
       conjure # repl
-      cmp-conjure
 
       {
         plugin = sniprun;
