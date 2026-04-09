@@ -48,7 +48,7 @@ local function lsp_attach(client, bufnr)
     nmap("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
 
     -- See `:help K` for why this keymap
-    nmap("K", vim.lsp.buf.hover, "Hover Documentation")
+    nmap('K', function() vim.lsp.buf.hover { border = 'single' } end, "Hover Documentation")
     vim.keymap.set(
         { "n", "i" },
         "<C-s>",
@@ -252,7 +252,7 @@ vim.lsp.config("lua_ls", {
 
 -- Diagnostics
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+vim.diagnostic.config({
     -- Enable underline, use default values
     underline = true,
     -- Enable virtual text, override spacing to 4
@@ -275,13 +275,6 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
     update_in_insert = false,
 })
 
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
-    border = "rounded",
-})
-
-vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-    border = "rounded",
-})
 
 local notify = require("notify")
 vim.lsp.handlers["window/showMessage"] = function(_, result, ctx)
@@ -316,7 +309,7 @@ vim.diagnostic.config({
     update_in_insert = false,
     severity_sort = true,
     float = {
-        border = "rounded",
+        border = "single",
         focusable = false,
         header = { " " .. " Diagnostics:", "Normal" },
         source = "always",

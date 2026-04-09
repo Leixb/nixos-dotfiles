@@ -1,5 +1,8 @@
 require("notify").setup({
     max_width = 75,
+    on_open = function(win)
+        vim.api.nvim_win_set_config(win, { border = "none" })
+    end,
 })
 vim.notify = require("notify")
 
