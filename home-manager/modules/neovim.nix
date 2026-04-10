@@ -283,7 +283,6 @@ in
 
       cmp-calc
       cmp-latex-symbols
-      cmp-digraphs
 
       friendly-snippets
 

@@ -8,21 +8,17 @@ require('blink.cmp').setup({
         list = { selection = { preselect = false } }
     },
     sources = {
-        default = { 'lsp', 'path', 'snippets', 'buffer', 'digraphs', 'calc', 'latex' },
+        default = { 'lsp', 'path', 'snippets', 'buffer', 'calc', 'latex' },
         providers = {
-            digraphs = {
-                name = 'digraphs',
-                module = 'blink.compat.source',
-                score_offset = -3,
-            },
             calc = {
                 name = 'calc',
                 module = 'blink.compat.source',
+                score_offset = -3,
             },
             latex = {
                 name = 'latex_symbols',
                 module = 'blink.compat.source',
-                score_offset = -2,
+                score_offset = -7,
             }
         }
     },
