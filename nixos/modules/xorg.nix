@@ -37,7 +37,7 @@ in {
           show-password-label = false
           password-alignment = center
           [greeter-theme]
-          background-image = "${../../home-manager/modules/wallpapers/nix-wallpaper-nineish-macchiato.svg}"
+          background-image = "${pkgs.replaceVars ../../home-manager/modules/wallpapers/nix-wallpaper-nineish-macchiato.svg { fg = white; inherit accent base surface1; }}"
           background-image-size = cover
           font = "DejaVu Sans Mono"
           text-color = "${white}"

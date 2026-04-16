@@ -16,6 +16,7 @@ rec {
   color14 = "#C6A0F6"; # mauve
   color15 = "#F0C6C6"; # flamingo
 
+  accent = teal;
   base = color0;
   mantle = color1;
   crust = darkblack;

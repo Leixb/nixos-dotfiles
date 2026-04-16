@@ -1,9 +1,16 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 with lib;
 
-let cfg = config.theme;
-in {
+let
+  cfg = config.theme;
+in
+{
   options = {
     theme = {
       enable = mkEnableOption "enable";
@@ -36,7 +43,10 @@ in {
 
       wallpaper = mkOption {
         type = types.path;
-        default = ../wallpapers/nix-wallpaper-nineish-macchiato.svg;
+        default = pkgs.replaceVars ../wallpapers/nix-wallpaper-nineish-macchiato.svg {
+          inherit (cfg.palette) base surface1 accent;
+          fg = cfg.palette.white;
+        };
         description = ''
           Wallpaper
         '';
@@ -122,9 +132,9 @@ in {
           line-numbers-plus-style = green;
         };
 
-        programs.rofi.font =
-          "${cfg.font.family} ${builtins.toString cfg.font.size}";
-        programs.rofi.theme = builtins.toFile "theme.rasi" (with cfg.palette;
+        programs.rofi.font = "${cfg.font.family} ${builtins.toString cfg.font.size}";
+        programs.rofi.theme = builtins.toFile "theme.rasi" (
+          with cfg.palette;
           ''
             * {
               background: ${black};
@@ -135,7 +145,9 @@ in {
               urgent: ${red};
               urgent-alt: ${red};
             }
-          '' + builtins.readFile ../../../home-manager/modules/rofi_theme.rasi);
+          ''
+          + builtins.readFile ../../../home-manager/modules/rofi_theme.rasi
+        );
 
         xresources.extraConfig = with base16; ''
           ! ${cfg.name}
@@ -192,27 +204,48 @@ in {
       }
 
       (mkIf cfg.enableAlacrittyTheme {
-        programs.alacritty.settings = with cfg.palette;
-          {
-            font.normal.family = cfg.font.family;
-            font.size = cfg.font.size;
+        programs.alacritty.settings = with cfg.palette; {
+          font.normal.family = cfg.font.family;
+          font.size = cfg.font.size;
 
-            colors = {
-              primary = {
-                foreground = white;
-                background = black;
-                dim_foreground = white;
-                bright_foreground = black;
-              };
-              cursor = {
-                text = black;
-                cursor = flamingo;
-              };
+          colors = {
+            primary = {
+              foreground = white;
+              background = black;
+              dim_foreground = white;
+              bright_foreground = black;
+            };
+            cursor = {
+              text = black;
+              cursor = flamingo;
+            };
 
-              normal = { inherit red green yellow blue magenta cyan white; black = gray; };
-              bright = { inherit red green yellow blue magenta cyan white; black = gray; };
+            normal = {
+              inherit
+                red
+                green
+                yellow
+                blue
+                magenta
+                cyan
+                white
+                ;
+              black = gray;
+            };
+            bright = {
+              inherit
+                red
+                green
+                yellow
+                blue
+                magenta
+                cyan
+                white
+                ;
+              black = gray;
             };
           };
+        };
       })
       (mkIf cfg.enableFootTheme {
         programs.foot.settings = {
@@ -245,7 +278,8 @@ in {
       })
 
       (mkIf cfg.enableKittyTheme {
-        programs.kitty.settings = with cfg.palette;
+        programs.kitty.settings =
+          with cfg.palette;
           {
             font_family = cfg.font.family;
             font_size = lib.mkDefault (builtins.toString cfg.font.size);
@@ -277,11 +311,13 @@ in {
             mark3_background = teal;
 
             wayland_titlebar_color = black;
-          } // base16;
+          }
+          // base16;
       })
 
       (mkIf config.programs.fzf.enable {
-        home.sessionVariables.FZF_DEFAULT_OPTS = with cfg.palette;
+        home.sessionVariables.FZF_DEFAULT_OPTS =
+          with cfg.palette;
           builtins.concatStringsSep " " [
             "--color=bg+:${gray},bg:${black},spinner:${flamingo},hl:${red}"
             "--color=fg:${white},header:${red},info:${pink},pointer:${yellow}"
@@ -348,6 +384,8 @@ in {
           highlight-active-color = "#4D" + (removeHash blue);
         };
       })
+
+      { xdg.configFile.wallpaper.source = cfg.wallpaper; }
 
       (mkIf cfg.enableLuakitTheme {
         xdg.configFile."luakit/theme.lua".text = with cfg.palette; ''
@@ -451,29 +489,34 @@ in {
       })
 
       (mkIf cfg.enableDunstTheme {
-        services.dunst.settings = with cfg.palette; let foreground = text; in {
-          global = {
-            frame_color = blue;
-            separator_color = "frame";
-            # font = "${cfg.font.family} ${builtins.toString cfg.font.size}";
-            font = "${cfg.font.family} 9";
-            transparency = 10;
-            offset = lib.mkDefault "5x25";
-            width = lib.mkDefault "(0, 720)";
-            max_icon_size = lib.mkDefault 512;
+        services.dunst.settings =
+          with cfg.palette;
+          let
+            foreground = text;
+          in
+          {
+            global = {
+              frame_color = blue;
+              separator_color = "frame";
+              # font = "${cfg.font.family} ${builtins.toString cfg.font.size}";
+              font = "${cfg.font.family} 9";
+              transparency = 10;
+              offset = lib.mkDefault "5x25";
+              width = lib.mkDefault "(0, 720)";
+              max_icon_size = lib.mkDefault 512;
+            };
+            urgency_low = {
+              inherit background foreground;
+              frame_color = foreground;
+            };
+            urgency_normal = {
+              inherit background foreground;
+            };
+            urgency_critical = {
+              inherit background foreground;
+              frame_color = red;
+            };
           };
-          urgency_low = {
-            inherit background foreground;
-            frame_color = foreground;
-          };
-          urgency_normal = {
-            inherit background foreground;
-          };
-          urgency_critical = {
-            inherit background foreground;
-            frame_color = red;
-          };
-        };
       })
 
     ]);
