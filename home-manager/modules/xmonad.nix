@@ -37,7 +37,7 @@
       height = lib.mkDefault 40;
       transparent = true;
       alpha = 0;
-      tint = "0x25273A";
+      tint = (builtins.replaceStrings [ "#" ] [ "0x" ]) config.theme.palette.background;
       padding = 1;
       distance = 1;
       distancefrom = "right";

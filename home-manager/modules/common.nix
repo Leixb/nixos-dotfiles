@@ -197,7 +197,7 @@ in
     installVimSyntax = true;
     systemd.enable = true;
     settings = {
-      theme = "Catppuccin Macchiato";
+      theme = config.theme.name;
       font-size = lib.mkDefault 10;
       window-decoration = "none";
       background-opacity = 0.75;
