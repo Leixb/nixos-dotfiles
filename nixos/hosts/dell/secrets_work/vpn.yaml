@@ -1,4 +1,4 @@
-openfortivpn_config: ENC[AES256_GCM,data:rvvu4fBxj6oV+pM2YWNd3BfDfxUfFX9HiDaOMlAmuF4TUuLyGm+uBBVYEM37AgYmZsvcypOL+ik=,iv:I+uL4OkrXVK6oNRbv2DjWsPRkxdm7L4cDAmCvwZdrqQ=,tag:GpjaUKSuuYzyRWbQGiPtKQ==,type:str]
+openfortivpn_config: ENC[AES256_GCM,data:h5x0vbXGesiQ+Px+PYFIr3KzzTYsKpwe8ORw6Ih9g29Uqn6Nh8Ha7Gln+AxTV5fsRRwHFodt85Q=,iv:Z5N5sTnec3IFl9Jz9FIkql9ZPfQBj8MCP+9lN2LqVuk=,tag:yiUBODkAOEdeK5+rZbY3+A==,type:str]
 sops:
     age:
         - recipient: age1wtzrvpnqc806yzvhkx9lfapnm6ck65p76j5u47u9p87ynq0hze7smwsume
@@ -19,7 +19,7 @@ sops:
             dTJrc1BTc0JHL28yczQwZlo5Q3Y2eGMKHtErmUhtHkocli/oQ2Ni1dZxoIDlgfnZ
             FjX2W9p1aB8A7i5m0HT9ftuW58Tb9i/fGQt2Fd8bSPFDHEy9jVpjPQ==
             -----END AGE ENCRYPTED FILE-----
-    lastmodified: "2025-05-15T13:15:03Z"
-    mac: ENC[AES256_GCM,data:VoZ6af4Tl8QzCMBRlNowfa2h2KwuE5NZI1AjIr94HsmktmXrMb/q18cWqw4NAkgTTADulbXhfoybXhx9t14R2sf6y4jvBVKYyqRc9fEEAcEr50lBw33ocG+s+8G49/+uiknj2nzrCKMHLRalpco+mE7orO1ZSTYiVVc8VDTHPls=,iv:5DUC9I2LJ+VhM2Vn/ad+u2e8MVDoGgZtYvqyTYpM+Pw=,tag:yjDzxqYls+WXrV/XcKGUFw==,type:str]
+    lastmodified: "2026-04-21T10:40:16Z"
+    mac: ENC[AES256_GCM,data:Oid49UwRacKL9evTRa/OVAgNDcNLk1OHzK9ANnaypsvURCuPpAfCFbjpKazPeDU6RyQ16pMEq6kDAM24izVaIYUxYwmfJdE0l8VOQTSQaP1yRovx2R/v+/L3MtCAn47G7vXe9OFEr8nFbqf7JRWV5+eSEb+DwLr7Q29+zknT8dI=,iv:PxvQB+E2JvHiQEMHe/A8C41zlvEYI4U1kakJzUljn7E=,tag:Ciob8v+LfsjAO2oTy0l3Pw==,type:str]
     unencrypted_suffix: _unencrypted
-    version: 3.10.2
+    version: 3.12.2
