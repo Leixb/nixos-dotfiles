@@ -141,7 +141,7 @@ in
               foreground: ${white};
               border-color: ${lightgray2};
               primary: ${blue};
-              accent: ${teal};
+              accent: ${accent};
               urgent: ${red};
               urgent-alt: ${red};
             }
