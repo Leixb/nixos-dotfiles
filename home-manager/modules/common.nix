@@ -20,7 +20,7 @@ in
     ./ssh.nix
     ./vcs.nix
     ./mail.nix
-    #./mpris.nix
+    ./mpris.nix
   ];
 
   # Let Home Manager install and manage itself.
