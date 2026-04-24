@@ -6,7 +6,7 @@
   ];
 
   services.dunst.settings.global = {
-    offset = "10x40";
+    offset = "10x50";
     width = "(0, 512)";
     max_icon_size = "128";
   };
