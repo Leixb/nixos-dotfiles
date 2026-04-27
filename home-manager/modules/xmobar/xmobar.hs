@@ -77,14 +77,15 @@ data Colors = Colors
     , white :: String
     , background :: String
     , foreground :: String
+    , accent :: String
     }
 
 myCommands color =
     [ Run $ XPropertyLog "_XMONAD_TRAYPAD"
-    -- , Run $ Mpris2 "firefox" ["-t", "<artist> - [<composer>] <title>"] 10
+    , Run $ Mpris2 "firefox" ["-t", "<artist> - [<composer>] <title>"] 10
     , Run $ Mail [
-        ("BSC 📬", "~/Mail/bsc/Inbox") ,
-        ("UPC 📬", "~/Mail/upc/mail")
+        ("BSC 📬", "~/Mail/bsc/Inbox")
+        -- ("UPC 📬", "~/Mail/upc/mail")
     ] "mail"
     , Run $
         WeatherX
@@ -179,7 +180,7 @@ myCommands color =
             , "\xe6aa <usedratio>%"
             ]
             10
-    , Run $ Date ("%a %Y-%m-%d <fc=" ++ cyan color ++ ">%H:%M</fc>") "date" 10
+    , Run $ Date ("%a %Y-%m-%d <fc=" ++ accent color ++ ">%H:%M</fc>") "date" 10
     , Run $
         BatteryP
             ["BAT0"]
