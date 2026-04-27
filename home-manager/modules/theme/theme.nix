@@ -102,6 +102,7 @@ in
         # special
         background = black;
         foreground = white;
+        inherit accent;
       };
       base16nohash = mapAttrs (_: removeHash) base16;
     in
@@ -167,6 +168,7 @@ in
 
           *background: ${cfg.palette.background}
           *foreground: ${cfg.palette.text}
+          *accent: ${accent}
 
           !black
           *color0: ${color0}
@@ -496,7 +498,7 @@ in
           in
           {
             global = {
-              frame_color = blue;
+              frame_color = accent;
               separator_color = "frame";
               # font = "${cfg.font.family} ${builtins.toString cfg.font.size}";
               font = "${cfg.font.family} 9";

@@ -1,5 +1,5 @@
 * {
-    active-background: @accent;
+    active-background: @primary;
     active-foreground: @background;
     normal-background: @background;
     normal-foreground: @foreground;
@@ -13,9 +13,9 @@
     alternate-urgent-background: @background;
     alternate-urgent-foreground: @foreground;
 
-    selected-active-background: @primary;
+    selected-active-background: @accent;
     selected-active-foreground: @background;
-    selected-normal-background: @primary;
+    selected-normal-background: @accent;
     selected-normal-foreground: @background;
     selected-urgent-background: @urgent-alt;
     selected-urgent-foreground: @background;
