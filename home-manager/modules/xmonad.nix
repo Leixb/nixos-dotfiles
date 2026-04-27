@@ -8,6 +8,13 @@
   # force overwrite compiled xmonad binary
   home.file.".xmonad/xmonad-${pkgs.stdenv.hostPlatform.system}".force = true;
 
+  xdg.configFile."xmobar/xmobar.hs" = {
+    enable = true;
+    source = pkgs.replaceVars ./xmobar/xmobar.hs {
+      icons = ./xmobar/icons;
+    };
+  };
+
   programs.xmobar = {
     enable = true;
     package = pkgs.symlinkJoin {
