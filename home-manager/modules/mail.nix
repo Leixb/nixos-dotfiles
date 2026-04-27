@@ -289,6 +289,7 @@
         { name = "l.nix"; query = "tag:lists/nix"; }
         { name = "l.dare"; query = "tag:lists/dare_sw_wp26"; }
         { name = "l.phds"; query = "tag:lists/doctorands-tic"; }
+        { name = "l.trustack"; query = "tag:lists/tru-stack_all"; }
         { name = "l.nixpkgs"; query = "tag:lists/nixpkgs"; }
         { name = "l.pocl"; query = "tag:lists/pocl OR tag:lists/unpublished OR tag:lists/pocl-priv"; }
         { name = "github"; query = "tag:GitHub"; }
