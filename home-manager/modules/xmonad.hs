@@ -110,7 +110,7 @@ main =
             , keys = myKeys
             , terminal = myTerm
             , borderWidth = 3
-            , focusedBorderColor = colorFg
+            , focusedBorderColor = colorAccent
             , normalBorderColor = colorBg
             , layoutHook = myLayout
             , logHook = myLogHook
@@ -145,16 +145,17 @@ screenshot = withFocused $ getGeom >=> (spawn . ("flameshot gui --region " ++))
 --------------------------------------------------------------------------------
 myFont = "FiraCode Nerd Font"
 
-colorBg :: String = "#25273A"
-colorBlue :: String = "#8AADF4"
-colorCyan :: String = "#8BD5CA"
-colorGreen :: String = "#A6DA95"
-colorFg :: String = "#CAD3F5"
-colorLowWhite :: String = "#676B84"
-colorMagenta :: String = "#C6A0F6"
-colorRed :: String = "#ED8796"
-colorText :: String = "#B8C0E0"
-colorYellow :: String = "#EED49F"
+colorBg :: String = "@background@"
+colorBlue :: String = "@blue@"
+colorCyan :: String = "@cyan@"
+colorGreen :: String = "@green@"
+colorFg :: String = "@white@"
+colorAccent :: String = "@accent@"
+colorLowWhite :: String = "@gray@"
+colorMagenta :: String = "@mauve@"
+colorRed :: String = "@red@"
+colorText :: String = "@text@"
+colorYellow :: String = "@yellow@"
 
 wallpaperCmd = "~/.fehbg"
 
@@ -278,10 +279,10 @@ termInTopic =
 prompt :: XPConfig
 prompt =
     def
-        { fgColor = colorFg
+        { fgColor = colorText
         , fgHLight = colorBg
         , bgColor = colorBg
-        , bgHLight = colorCyan
+        , bgHLight = colorAccent
         , font = "xft:" ++ myFont ++ ":size=11"
         , alwaysHighlight = True -- Current best match
         , height = 40
@@ -346,7 +347,7 @@ myLayout =
             , inactiveColor = colorBg
             , activeTextColor = colorBg
             , urgentTextColor = colorBg
-            , inactiveTextColor = colorFg
+            , inactiveTextColor = colorText
             , activeBorderColor = colorFg
             , inactiveBorderColor = colorLowWhite
             , urgentBorderColor = colorLowWhite
@@ -377,7 +378,7 @@ myLogHook =
             def
                 { swn_font = "xft:" ++ myFont ++ ":size=21"
                 , swn_bgcolor = colorBg
-                , swn_color = colorFg
+                , swn_color = colorText
                 }
 
 isAccord :: X Bool
@@ -636,13 +637,13 @@ myXmobarPP =
     copiesPP (pad . fgColor colorGreen) >=> clickablePP $
         filterOutWsPP [scratchpadWorkspaceTag] $
             def
-                { ppSep = fgColor colorMagenta " | "
+                { ppSep = fgColor colorAccent " | "
                 , ppTitleSanitize = xmobarStrip
-                , ppCurrent = pad . xmobarBorder "Top" colorCyan 2
+                , ppCurrent = pad . xmobarBorder "Top" colorAccent 2
                 , ppVisible = wrap "(" ")"
                 , ppHidden = pad
                 , -- , ppHiddenNoWindows = lowWhite . pad
-                  ppLayout = fgColor colorFg . myLayoutPrinter
+                  ppLayout = fgColor colorText . myLayoutPrinter
                 , ppUrgent = fgColor colorRed . wrap (fgColor colorYellow "!") (fgColor colorYellow "!")
                 , ppOrder = \[ws, l, _, wins] -> [ws, l, wins]
                 , ppRename = \wsName _ -> case wsName of
@@ -657,7 +658,7 @@ myXmobarPP =
   where
     ppWindow = xmobarRaw . (\w -> if null w then "untitled" else w) . shorten 30
 
-    formatFocused = wrap (fgColor colorFg "[") (fgColor colorFg "]") . fgColor colorMagenta . ppWindow
+    formatFocused = wrap (fgColor colorFg "[") (fgColor colorFg "]") . fgColor colorAccent . ppWindow
     formatUnfocused = wrap (fgColor colorLowWhite "[") (fgColor colorLowWhite "]") . fgColor colorBlue . ppWindow
 
     fgColor = (`xmobarColor` "")

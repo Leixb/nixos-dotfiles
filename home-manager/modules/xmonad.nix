@@ -136,7 +136,21 @@
     windowManager.xmonad = {
       enable = true;
       enableContribAndExtras = true;
-      config = ./xmonad.hs;
+      config = pkgs.replaceVars ./xmonad.hs {
+        inherit (config.theme.palette)
+          accent
+          background
+          blue
+          cyan
+          gray
+          green
+          mauve
+          red
+          text
+          white
+          yellow
+          ;
+      };
     };
   };
 
