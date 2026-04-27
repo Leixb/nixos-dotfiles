@@ -12,6 +12,7 @@
   programs.git = {
     enable = true;
     signing.key = "~/.ssh/id_ed25519.pub";
+    signing.format = "ssh";
     signing.signByDefault = true;
 
     lfs.enable = true;
@@ -163,7 +164,8 @@
           "-r"
           "@-"
         ];
-        sdesc = [ # describe without diff
+        sdesc = [
+          # describe without diff
           "desc"
           "--config"
           "templates.draft_commit_description='builtin_draft_commit_description'"
@@ -229,7 +231,7 @@
 
         black = {
           command = [
-            "${lib.getBin pkgs.black}"
+            (lib.getExe pkgs.black)
             "-"
             "--stdin-filename=$path"
           ];
@@ -247,10 +249,20 @@
 
         stylua = {
           command = [
-            (lib.getBin pkgs.stylua)
+            (lib.getExe pkgs.stylua)
             "--stdin-filepath=$path"
           ];
           patterns = [ "glob:'**/*.lua'" ];
+        };
+
+        meson = {
+          command = [
+            "meson"
+            "format"
+            "--source-file-path=$path"
+            "-"
+          ];
+          patterns = [ "glob:'**/meson.*'" ];
         };
       };
     };
