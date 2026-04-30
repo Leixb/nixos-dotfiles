@@ -84,7 +84,7 @@ myCommands color =
     [ Run $ XPropertyLog "_XMONAD_TRAYPAD"
     , Run $ Mpris2 "firefox" ["-t", "<artist> - [<composer>] <title>"] 10
     , Run $ Mail [
-        ("BSC 📬", "~/Mail/bsc/Inbox")
+        ("BSC 📬 ", "~/Mail/bsc/Inbox")
         -- ("UPC 📬", "~/Mail/upc/mail")
     ] "mail"
     , Run $
