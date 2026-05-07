@@ -49,6 +49,7 @@ in
     radare2
     cling
     glab # gitlab cli
+    kdePackages.okular
   ];
 
   xdg.configFile."distrobox/distrobox.conf" = lib.mkForce {
