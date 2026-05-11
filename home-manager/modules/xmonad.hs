@@ -242,6 +242,7 @@ topics =
                             , "oneTBB"
                             , "ggml"
                             , "iwocl-benchmarks"
+                            , "thesis"
                             ]
                        ]
            )
