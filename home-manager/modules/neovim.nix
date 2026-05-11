@@ -372,6 +372,14 @@ in
       # rustaceanvim
 
       {
+        plugin = typst-preview-nvim;
+        type = "lua";
+        config = # lua
+          ''
+            require 'typst-preview'.setup {}
+          '';
+      }
+      {
         plugin = none-ls-nvim;
         type = "lua";
         config = builtins.readFile ./neovim/null-ls-nvim.lua;
