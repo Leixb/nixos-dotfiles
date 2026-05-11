@@ -139,6 +139,9 @@ vim.lsp.config["tinymist"] = {
     on_attach = lsp_attach,
     autostart = autostart,
     capabilities = capabilities,
+    settings = {
+        projectResolution = "lockDatabase",
+    },
 }
 
 for _, val in pairs(lsp_list) do
