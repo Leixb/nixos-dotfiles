@@ -129,7 +129,16 @@ local lsp_list = {
     "clangd",
     "pylsp",
     "lua_ls",
+    "tinymist",
     -- "vimls",
+}
+
+vim.lsp.config["tinymist"] = {
+    cmd = { "tinymist" },
+    filetypes = { "typst" },
+    on_attach = lsp_attach,
+    autostart = autostart,
+    capabilities = capabilities,
 }
 
 for _, val in pairs(lsp_list) do
