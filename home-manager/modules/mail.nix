@@ -40,15 +40,15 @@
     extraConfig =
       let
         mailcap = pkgs.writeText "mailcap" ''
+          text/html; ${lib.getExe config.programs.firefox.package} %s; test=test -n "$DISPLAY"; nametemplate=%s.html; needsterminal
           text/html; ${lib.getExe pkgs.w3m} -I %{charset} -T text/html; copiousoutput; description=HTML Text; nametemplate=%s.html
-          text/html; ${lib.getExe config.programs.firefox.package} %s; nametemplate=%s.html; needsterminal
-          image/*; ${lib.getExe pkgs.timg} -g80x40 %s; needsterminal
+          image/*; ${lib.getExe pkgs.timg} %s; needsterminal
           application/pdf; ${lib.getExe pkgs.zathura} '%s'
         '';
       in
       ''
         auto_view text/html image/jpeg image/png image/gif
-        alternative_order text/enriched text/plain text/html
+        alternative_order text/plain text/enriched text/html
 
         set mailcap_path = ${mailcap}
 
