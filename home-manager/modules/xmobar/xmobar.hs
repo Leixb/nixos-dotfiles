@@ -40,7 +40,7 @@ config = do
             , commands = myCommands colors
             , iconRoot = "@icons@"
             , border = BottomB
-            , borderWidth = 3
+            , borderWidth = 0
             , borderColor = accent colors
             , sepChar = "%"
             , alignSep = "}{"
@@ -61,7 +61,9 @@ getColors = do
     background <- fromMaybe "#CAD3F5" <$> xrdbGet "background"
     foreground <- fromMaybe "#25273A" <$> xrdbGet "foreground"
 
-    return Colors{black, red, green, yellow, blue, magenta, cyan, white, foreground, background}
+    accent <- fromMaybe "#8AADF4" <$> xrdbGet "accent"
+
+    return Colors{black, red, green, yellow, blue, magenta, cyan, white, foreground, background, accent}
 
 main :: IO ()
 main = config >>= xmobar
@@ -83,10 +85,12 @@ data Colors = Colors
 myCommands color =
     [ Run $ XPropertyLog "_XMONAD_TRAYPAD"
     , Run $ Mpris2 "firefox" ["-t", "<artist> - [<composer>] <title>"] 10
-    , Run $ Mail [
-        ("BSC 📬 ", "~/Mail/bsc/Inbox")
-        -- ("UPC 📬", "~/Mail/upc/mail")
-    ] "mail"
+    , Run $ NotmuchMail "mail"
+    [ MailItem "📬 BSC:" "" "tag:bsc AND tag:inbox AND NOT tag:gmail"
+    , MailItem "📬 UPC:" "" "tag:upc-dac AND tag:inbox AND NOT tag:gmail"
+    , MailItem "📬 EST:" "" "tag:upc-est AND tag:inbox AND NOT tag:gmail"
+    ]
+    600
     , Run $
         WeatherX
             "LEBL"
@@ -101,22 +105,22 @@ myCommands color =
             , ("cloudy", "☁️")
             , ("overcast", "☁️")
             , ("considerable cloudiness", "☁️")
-            -- ("light drizzle", ""),
-            -- ("patches of fog")
-            -- ("rain")
-            -- ("heavy rain")
-            -- ("snow")
-            -- ("light rain showers")
-            -- ("showers in the vicinity"
-            -- ("mist"
-            -- ("fog"
-            -- ("precipitation"
-            -- ("thunder"
-            -- ("haze"
-            -- ("light rain"
-            -- ("drizzle"
-            -- ("hail"
-            -- ("hailstone"
+            , ("light drizzle", "🌦️")
+            , ("patches of fog", "🌫️")
+            , ("rain", "🌧️")
+            , ("heavy rain", "⛈️")
+            , ("snow", "❄️")
+            , ("light rain showers", "🌦️")
+            , ("showers in the vicinity", "🌦️?")
+            , ("mist", "🌫️")
+            , ("fog", "🌫️")
+            , ("precipitation", "🌧️")
+            , ("thunder", "⚡")
+            , ("haze", "🌫️")
+            , ("light rain", "🌦️")
+            , ("drizzle", "🌦️")
+            , ("hail", "🧊")
+            , ("hailstone", "🧊")
             ] -- <weather> is only populated when there is some weather event, most of the time it's empty
             [ "--template"
             , "<fn=2><skyConditionS></fn><weather> <tempC>°C"
