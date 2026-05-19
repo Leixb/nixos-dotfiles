@@ -27,11 +27,20 @@ require('blink.cmp').setup({
     },
     cmdline = {
         enabled = true,
+        keymap = { preset = 'cmdline' },
         completion = {
             menu = {
                 auto_show = function(ctx)
                     return vim.fn.getcmdtype() == ':'
                 end,
+            },
+            list = {
+                selection = {
+                    -- When `true`, will automatically select the first item in the completion list
+                    preselect = false,
+                    -- When `true`, inserts the completion item automatically when selecting it
+                    auto_insert = true,
+                },
             },
         }
     }
