@@ -118,7 +118,7 @@
           SUMMARY=""
           while IFS= read -r tid; do
             [ -z "$tid" ] && continue
-            if notmuch search "$tid" and tag:inbox | grep -q .; then
+            if notmuch search "$tid" and tag:inbox and not tag:gmail | grep -q .; then
               COUNT=$((COUNT + 1))
               if [ $COUNT -le 3 ]; then
                 line=$(notmuch search --format=json "$tid" | jq -r '.[0] | "\(.authors): \(.subject)"')
