@@ -109,6 +109,7 @@ in
     playerctl # media player control
     powertop # power usage monitor
     qalculate-gtk # calculator (GUI)
+    qbz # qobuz
     ripgrep # grep alternative
     simple-scan # scanner
     sshfs # ssh filesystem mount
