@@ -189,7 +189,7 @@ topics =
     , onlyDoc "7"
     , inHome "8:im" $ spawn "slack" *> spawn "telegram-desktop"
     , ti "9:media" "Videos" spawnTermInTopic
-    , ti "0:music" "Music" $ spawn "plexamp"
+    , ti "0:music" "Music" $ spawn "qbz"
     , -- End of numbered topics (mapped to mod + n)
       sshHost "mn5"
     , sshHost "hut"
