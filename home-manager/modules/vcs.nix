@@ -134,6 +134,15 @@
           "stack"
           "closest_merge(@)+:: ~ empty()"
         ];
+        # Rebase mega-merge that are mutable onto trunk
+        restack = [
+          "rebase"
+          "--onto"
+          "trunk()"
+          "--source"
+          "roots(trunk()..) & mutable()"
+          "--simplify-parents"
+        ];
 
         l = [ "log" ];
         s = [ "status" ];
