@@ -11,6 +11,7 @@
     pre-commit-hooks = {
       url = "github:cachix/pre-commit-hooks.nix";
       inputs.nixpkgs.follows = "nixpkgs";
+      inputs.flake-compat.follows = "flake-compat";
     };
 
     home-manager = {
@@ -37,6 +38,14 @@
       url = "github:nvim-neorg/nixpkgs-neorg-overlay";
       inputs.nixpkgs.follows = "nixpkgs";
       inputs.flake-utils.follows = "flake-utils";
+
+      inputs.norg-meta.inputs.nixpkgs.follows = "nixpkgs";
+      inputs.norg-meta.inputs.flake-compat.follows = "flake-compat";
+      inputs.norg-meta.inputs.flake-utils.follows = "flake-utils";
+
+      inputs.norg.inputs.nixpkgs.follows = "nixpkgs";
+      inputs.norg.inputs.flake-compat.follows = "flake-compat";
+      inputs.norg.inputs.flake-utils.follows = "flake-utils";
     };
 
     jungle.url = "https://jungle.bsc.es/git/rarias/jungle/archive/master.tar.gz";
