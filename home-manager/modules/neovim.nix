@@ -282,7 +282,7 @@ in
       blink-compat
 
       cmp-calc
-      cmp-latex-symbols
+      # cmp-latex-symbols # disabled until #529451 is merged
 
       friendly-snippets
 
