@@ -44,7 +44,7 @@ config = do
             , borderColor = accent colors
             , sepChar = "%"
             , alignSep = "}{"
-            , template = "} %UnsafeXMonadLog% { %mail% | %alsa:default:Master% | %cpu% | %memory% %swap% | %battery% | %LEBL% | %date% %_XMONAD_TRAYPAD%"
+            , template = "} %UnsafeXMonadLog% { %mpris2% | %mail% | %alsa:default:Master% | %cpu% | %memory% %swap% | %battery% | %LEBL% | %date% %_XMONAD_TRAYPAD%"
             }
 
 getColors :: IO Colors
@@ -84,7 +84,7 @@ data Colors = Colors
 
 myCommands color =
     [ Run $ XPropertyLog "_XMONAD_TRAYPAD"
-    , Run $ Mpris2 "firefox" ["-t", "<artist> - [<composer>] <title>"] 10
+    , Run $ Mpris2 "com.blitzfc.qbz" ["-t", "🎵 <artist> - <title>", "-M", "20"] 10
     , Run $ NotmuchMail "mail"
     [ MailItem "📬 BSC:" "" "tag:bsc AND tag:inbox AND NOT tag:gmail"
     , MailItem "📬 UPC:" "" "tag:upc-dac AND tag:inbox AND NOT tag:gmail"
