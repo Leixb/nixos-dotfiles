@@ -357,7 +357,6 @@ in
         config = builtins.readFile ./neovim/grammar-guard-nvim.lua;
       }
 
-      nvim-lsp-ts-utils
       lsp_signature-nvim
       lspkind-nvim
       # {
