@@ -241,6 +241,7 @@ topics =
                             , "task-awareness/taopencl"
                             , "oneTBB"
                             , "ggml"
+                            , "jdk"
                             , "iwocl-benchmarks"
                             , "thesis"
                             ]
