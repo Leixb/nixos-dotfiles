@@ -73,7 +73,7 @@
         # use very high $read_inc to speed up reading hcache'd maildirs
         set read_inc=1000
 
-        set query_command="${lib.getExe pkgs.notmuch-addrlookup} --format=mutt %s"
+        set query_command="${lib.getExe pkgs.notmuch-addrlookup} --format=mutt %s" # Ctrl + T
 
         source ${./neomutt.theme}
       '';
