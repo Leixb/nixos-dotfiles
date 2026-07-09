@@ -236,6 +236,8 @@
             "glob:'**/*.h'"
             "glob:'**/*.hpp'"
           ];
+          line-range-arg = "--lines=$first:$last";
+          run-tool-if-zero-line-ranges = false;
         };
 
         black = {
@@ -245,6 +247,8 @@
             "--stdin-filename=$path"
           ];
           patterns = [ "glob:'**/*.py'" ];
+          line-range-arg = "--line-ranges $first-$last";
+          run-tool-if-zero-line-ranges = false;
         };
 
         nixfmt = {
