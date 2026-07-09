@@ -242,6 +242,7 @@ topics =
                             , "oneTBB"
                             , "ggml"
                             , "jdk"
+                            , "rust"
                             , "iwocl-benchmarks"
                             , "thesis"
                             ]
