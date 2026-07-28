@@ -13,8 +13,8 @@
     enableUserSlices = true;
   };
 
-  services.ananicy = {
-    enable = true;
-    package = pkgs.ananicy-cpp;
-  };
+  # services.ananicy = {
+  #   enable = true;
+  #   package = pkgs.ananicy-cpp;
+  # };
 }
