@@ -14,16 +14,16 @@
     enable = true;
     enableDefaultConfig = false;
 
-    matchBlocks."*" = {
-      forwardAgent = false;
-      compression = false;
-      addKeysToAgent = "yes";
-      hashKnownHosts = false;
+    settings."Host *" = {
+      ForwardAgent = false;
+      Compression = false;
+      AddKeysToAgent = "yes";
+      HashKnownHosts = false;
       # controlMaster = "auto";
       # controlPersist = "10m";
       # controlPath = "~/.ssh/master-%r@%n:%p";
-      serverAliveInterval = 60;
-      serverAliveCountMax = 10;
+      ServerAliveInterval = 60;
+      ServerAliveCountMax = 10;
     };
 
     includes = [

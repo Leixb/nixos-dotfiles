@@ -46,6 +46,7 @@ in
   };
 
   home.pointerCursor = {
+    enable = true;
     gtk.enable = true;
     package = pkgs.capitaine-cursors-themed;
     name = "Capitaine Cursors (Nord)";
