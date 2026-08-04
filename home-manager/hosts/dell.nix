@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, ... }:
 {
   imports = [
     ../modules/xmonad.nix
@@ -10,6 +10,8 @@
     width = "(0, 512)";
     max_icon_size = "128";
   };
+
+  programs.firefox.configPath = "${config.xdg.configHome}/mozilla/firefox";
 
   theme.font.size = 9;
 
