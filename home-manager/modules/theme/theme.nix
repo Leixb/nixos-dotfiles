@@ -104,12 +104,13 @@ in
         foreground = white;
         inherit accent;
       };
-      base16nohash = mapAttrs (_: removeHash) base16;
+      removeHashAttrs = mapAttrs (_: removeHash);
+      base16nohash = removeHashAttrs base16;
     in
     mkIf cfg.enable (mkMerge [
       {
 
-        programs.fish.interactiveShellInit = with cfg.palette; ''
+        programs.fish.interactiveShellInit = with (removeHashAttrs cfg.palette); ''
           set fish_color_normal         "${blue}"  # default color
           set fish_color_command        "${blue}" # commands like echo
           set fish_color_keyword        "${blue}" --bold # keywords like if - this falls back on the command color if unset
