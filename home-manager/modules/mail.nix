@@ -26,6 +26,8 @@
       { map = [ "index" "pager" ]; key = "O"; action = "noop"; }
       { map = [ "index" "pager" ]; key = "A"; action = "create-alias"; }
       { map = [ "index" "pager" ]; key = "a"; action = "noop"; }
+      { map = [ "index" "pager" ]; key = "gr"; action = "group-chat-reply"; }
+      { map = [ "index" "pager" ]; key = "gR"; action = "group-reply"; }
     ];
     macros = [
       { map = [ "index" "pager"]; key = "O"; action = "<shell-escape>systemctl --user start mbsync && afew -v --move-mails && notmuch new && mbsync -a<enter><sync-mailbox>"; } # Full sync
