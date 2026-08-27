@@ -305,7 +305,7 @@ in
       }
       direnv-vim
 
-      conjure # repl
+      # conjure # repl
 
       {
         plugin = sniprun;
@@ -368,7 +368,7 @@ in
       #     '';
       # }
 
-      # rustaceanvim
+      rustaceanvim
 
       {
         plugin = typst-preview-nvim;
