@@ -243,6 +243,7 @@ topics =
                             , "ggml"
                             , "jdk"
                             , "rust"
+                            , "libuv"
                             , "iwocl-benchmarks"
                             , "thesis"
                             ]
