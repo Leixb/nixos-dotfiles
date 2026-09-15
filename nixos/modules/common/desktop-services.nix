@@ -9,7 +9,7 @@
     gnome-settings-daemon
   ];
   services.dbus.packages = with pkgs; [
-    gcr
+    gcr_4
     at-spi2-core
   ];
 
