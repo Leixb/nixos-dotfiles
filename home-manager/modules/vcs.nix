@@ -182,7 +182,7 @@
       };
 
       # Prevent pushing work in progress or anything explicitly labeled "private"
-      git.private-commits = "description(glob:'wip:*') | description(glob:'private:*')";
+      git.private-commits = "description(glob-i:'wip*') | description(glob-i:'private:*')";
 
       ui = {
         default-command = "log";
