@@ -18,7 +18,8 @@ import XMonad
 import XMonad.Prelude
 
 import XMonad.Actions.CopyWindow (copiesPP, copy, copyToAll, kill1, killAllOtherCopies, runOrCopy)
-import XMonad.Actions.CycleWS (Direction1D (..), WSType (..), doTo, emptyWS, hiddenWS, ignoringWSs, moveTo, nextScreen, prevScreen, shiftNextScreen, shiftTo, swapNextScreen, swapPrevScreen)
+import XMonad.Actions.CycleWS (Direction1D (..), WSType (..), doTo, emptyWS, hiddenWS, ignoringWSs, moveTo, shiftTo)
+import XMonad.Actions.PhysicalScreens (onPrevNeighbour, onNextNeighbour)
 import XMonad.Actions.DwmPromote (dwmpromote)
 import XMonad.Actions.GroupNavigation (Direction (History), historyHook, nextMatch)
 import XMonad.Actions.Minimize (maximizeWindow, maximizeWindowAndFocus, minimizeWindow, withLastMinimized)
@@ -541,10 +542,12 @@ myKeys conf@(XConfig {modMask = modMask}) = fromList $
 
     , ((modMask                , xK_e), searchEngineMap) -- %! Open search engines
 
-    , ((modMask,                               xK_i     ), swapNextScreen) -- %! Swap with next screen
-    , ((modMask .|. shiftMask,                 xK_i     ), shiftNextScreen) -- %! Swap with prev screen
-    , ((modMask .|. controlMask,               xK_i     ), nextScreen *> centerMouse) -- %! Focus next screen
-    , ((modMask .|. controlMask .|. shiftMask, xK_i     ), prevScreen *> centerMouse) -- %! Focus prev screen
+    , ((modMask,                               xK_u     ), onPrevNeighbour def W.greedyView)
+    , ((modMask .|. shiftMask,                 xK_u     ), onPrevNeighbour def W.shift)
+    , ((modMask .|. controlMask,               xK_u     ), onPrevNeighbour def W.view *> centerMouse)
+    , ((modMask,                               xK_i     ), onNextNeighbour def W.greedyView)
+    , ((modMask .|. shiftMask,                 xK_i     ), onNextNeighbour def W.shift)
+    , ((modMask .|. controlMask,               xK_i     ), onNextNeighbour def W.view *> centerMouse)
 
     , ((modMask, xK_y     ), centerMouse) -- %! Center mouse on window
 
