@@ -44,6 +44,7 @@ import XMonad.Hooks.ShowWName (SWNConfig (..), showWNameLogHook)
 import XMonad.Hooks.StatusBar (statusBarProp, withSB)
 import XMonad.Hooks.UrgencyHook (BorderUrgencyHook (..), focusUrgent, withUrgencyHook)
 import XMonad.Hooks.WindowSwallowing (swallowEventHook)
+import XMonad.Hooks.StatusBar.WorkspaceScreen (combineWithScreenName)
 
 import XMonad.Layout.Accordion (Accordion (Accordion))
 import XMonad.Layout.BoringWindows (boringWindows, clearBoring, focusDown, focusUp, markBoringEverywhere)
@@ -94,7 +95,7 @@ main =
         . javaHack
         . rescreenHook rescreenCfg
         . withUrgencyHook (BorderUrgencyHook colorRed)
-        . withSB (statusBarProp "xmobar" myXmobarPP)
+        . withSB (statusBarProp "xmobar" (myXmobarPP >>= combineWithScreenName myWorkspaceScreenCombiner))
         . spawnExternalProcess def
         $ myConfig
   where
@@ -638,6 +639,9 @@ myKeys conf@(XConfig {modMask = modMask}) = fromList $
 --------------------------------------------------------------------------------
 -- xmobar pretty printer
 --------------------------------------------------------------------------------
+
+myWorkspaceScreenCombiner :: WorkspaceId -> String -> String
+myWorkspaceScreenCombiner w n = w <> wrap "[" "]" n
 
 myXmobarPP :: X PP
 myXmobarPP =
