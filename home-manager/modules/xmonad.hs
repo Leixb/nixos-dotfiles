@@ -64,6 +64,7 @@ import XMonad.Layout.NoBorders (smartBorders)
 import XMonad.Layout.Renamed (Rename (Replace), renamed)
 import XMonad.Layout.Spacing (Border (Border), spacingRaw)
 import XMonad.Layout.Spiral (spiral)
+import XMonad.Layout.PerScreen (ifWider)
 import XMonad.Layout.Tabbed (tabbed)
 import XMonad.Layout.ThreeColumns (ThreeCol (ThreeCol))
 
@@ -326,8 +327,9 @@ myLayout =
         . mouseResize
         . boringWindows
         . minimize
-        $ tiled ||| twoPane ||| twoPaneA ||| threeCols ||| spir ||| grid ||| threeColsMid ||| Full
+        $ ifWider 1080 layouts (Mirror layouts)
   where
+    layouts = tiled ||| twoPane ||| twoPaneA ||| threeCols ||| spir ||| grid ||| threeColsMid ||| Full
     nmaster = 1 -- Default number of windows in the master pane
     ratio = 1 / 2 -- Default proportion of screen occupied by master pane
     ratioTwoPane = 6 / 25 -- Proportion of screen occupied by master pane for Two Pane (for paraver)
