@@ -641,7 +641,13 @@ myKeys conf@(XConfig {modMask = modMask}) = fromList $
 --------------------------------------------------------------------------------
 
 myWorkspaceScreenCombiner :: WorkspaceId -> String -> String
-myWorkspaceScreenCombiner w n = w <> wrap "[" "]" n
+myWorkspaceScreenCombiner w n = w <> (renameDisplay n)
+  where
+   -- TODO: this is hardcoded to my main setup; moreover u and i (from prev and next keybinds) only make sense when we have focus on the main display
+   renameDisplay "eDP-1" = "[u]"
+   renameDisplay "DP-1-1" = ""
+   renameDisplay "DP-1-2" = "[i]"
+   renameDisplay x = wrap "[" "]" x
 
 myXmobarPP :: X PP
 myXmobarPP =
