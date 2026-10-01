@@ -11,28 +11,29 @@ import System.Exit (exitSuccess)
 
 import Graphics.X11.ExtraTypes.XF86
 
-import XMonad.StackSet (RationalRect (RationalRect))
-import XMonad.StackSet qualified as W
-
 import XMonad
 import XMonad.Prelude
 
+import XMonad.StackSet (RationalRect (RationalRect))
+import XMonad.StackSet qualified as W
+
 import XMonad.Actions.CopyWindow (copiesPP, copy, copyToAll, kill1, killAllOtherCopies, runOrCopy)
 import XMonad.Actions.CycleWS (Direction1D (..), WSType (..), doTo, emptyWS, hiddenWS, ignoringWSs, moveTo, shiftTo)
-import XMonad.Actions.PhysicalScreens (onPrevNeighbour, onNextNeighbour)
 import XMonad.Actions.DwmPromote (dwmpromote)
 import XMonad.Actions.GroupNavigation (Direction (History), historyHook, nextMatch)
 import XMonad.Actions.Minimize (maximizeWindow, maximizeWindowAndFocus, minimizeWindow, withLastMinimized)
 import XMonad.Actions.MouseResize (mouseResize)
+import XMonad.Actions.PhysicalScreens (onNextNeighbour, onPrevNeighbour)
 import XMonad.Actions.RotSlaves (rotAllUp, rotSlavesUp)
 import XMonad.Actions.Search hiding (Query)
 import XMonad.Actions.Submap (visualSubmap)
 import XMonad.Actions.SwapPromote (masterHistoryHook, swapHybrid)
 import XMonad.Actions.TopicSpace
+import XMonad.Actions.Warp (warpToWindow)
 import XMonad.Actions.WindowGo (runOrRaiseNext)
 import XMonad.Actions.WithAll (killAll)
 
-import XMonad.Hooks.DynamicLog
+import XMonad.Hooks.DynamicLog (PP (..), filterOutWsPP, pad, shorten, wrap, xmobarBorder, xmobarColor, xmobarRaw, xmobarStrip)
 import XMonad.Hooks.EwmhDesktops (ewmh, ewmhFullscreen)
 import XMonad.Hooks.FloatConfigureReq (fixSteamFlicker)
 import XMonad.Hooks.InsertPosition (Focus (Newer), Position (Below), insertPosition)
@@ -42,29 +43,29 @@ import XMonad.Hooks.RefocusLast (refocusLastLayoutHook, refocusLastWhen, refocus
 import XMonad.Hooks.Rescreen (RescreenConfig (..), rescreenHook)
 import XMonad.Hooks.ShowWName (SWNConfig (..), showWNameLogHook)
 import XMonad.Hooks.StatusBar (statusBarProp, withSB)
+import XMonad.Hooks.StatusBar.WorkspaceScreen (combineWithScreenName)
 import XMonad.Hooks.UrgencyHook (BorderUrgencyHook (..), focusUrgent, withUrgencyHook)
 import XMonad.Hooks.WindowSwallowing (swallowEventHook)
-import XMonad.Hooks.StatusBar.WorkspaceScreen (combineWithScreenName)
 
 import XMonad.Layout.Accordion (Accordion (Accordion))
 import XMonad.Layout.BoringWindows (boringWindows, clearBoring, focusDown, focusUp, markBoringEverywhere)
 import XMonad.Layout.CenterMainFluid (CenterMainFluid (CenterMainFluid))
 import XMonad.Layout.CenteredMaster (centerMaster)
-import XMonad.Layout.Decoration
+import XMonad.Layout.Decoration (ModifiedLayout, Theme (..), shrinkText)
 import XMonad.Layout.FocusTracking (focusTracking)
 import XMonad.Layout.Groups.Examples (TiledTabsConfig (tabsTheme))
 import XMonad.Layout.HintedGrid (Grid (Grid))
-import XMonad.Layout.MagicFocus
+import XMonad.Layout.MagicFocus (followOnlyIf)
 import XMonad.Layout.Magnifier (magnifiercz')
 import XMonad.Layout.Master (mastered)
 import XMonad.Layout.Minimize (minimize)
 import XMonad.Layout.MultiToggle (EOT (EOT), Toggle (Toggle), mkToggle, (??))
 import XMonad.Layout.MultiToggle.Instances (StdTransformers (..))
 import XMonad.Layout.NoBorders (smartBorders)
+import XMonad.Layout.PerScreen (ifWider)
 import XMonad.Layout.Renamed (Rename (Replace), renamed)
 import XMonad.Layout.Spacing (Border (Border), spacingRaw)
 import XMonad.Layout.Spiral (spiral)
-import XMonad.Layout.PerScreen (ifWider)
 import XMonad.Layout.Tabbed (tabbed)
 import XMonad.Layout.ThreeColumns (ThreeCol (ThreeCol))
 
@@ -74,7 +75,6 @@ import XMonad.Prompt.Man (manPrompt)
 import XMonad.Prompt.Shell (shellPrompt)
 import XMonad.Prompt.Workspace (workspacePrompt)
 
-import XMonad.Actions.Warp (warpToWindow)
 import XMonad.Util.ClickableWorkspaces (clickablePP)
 import XMonad.Util.Hacks (fixSteamFlicker, javaHack, trayerAboveXmobarEventHook, trayerPaddingXmobarEventHook, windowedFullscreenFixEventHook)
 import XMonad.Util.Loggers (logTitles)
@@ -401,8 +401,7 @@ myHandleEventHook =
         , windowedFullscreenFixEventHook
         , followOnlyIf (not <$> isAccord)
         , swallowEventHook
-            ( isTerm <&&> (not <$> ((title `endsWith` "NVIM") <||> (title `startsWith` "gdb")))
-            )
+            (isTerm <&&> (not <$> ((title `endsWith` "NVIM") <||> (title `startsWith` "gdb"))))
             (not <$> (isTerm <||> isPapercut))
         , refocusLastWhen (refocusingIsActive <&&> (not <$> isFullscreen))
         , trayerAboveXmobarEventHook
@@ -645,11 +644,11 @@ myKeys conf@(XConfig {modMask = modMask}) = fromList $
 myWorkspaceScreenCombiner :: WorkspaceId -> String -> String
 myWorkspaceScreenCombiner w n = w <> (renameDisplay n)
   where
-   -- TODO: this is hardcoded to my main setup; moreover u and i (from prev and next keybinds) only make sense when we have focus on the main display
-   renameDisplay "eDP-1" = "[u]"
-   renameDisplay "DP-1-1" = ""
-   renameDisplay "DP-1-2" = "[i]"
-   renameDisplay x = wrap "[" "]" x
+    -- TODO: this is hardcoded to my main setup; moreover u and i (from prev and next keybinds) only make sense when we have focus on the main display
+    renameDisplay "eDP-1" = "[u]"
+    renameDisplay "DP-1-1" = ""
+    renameDisplay "DP-1-2" = "[i]"
+    renameDisplay x = wrap "[" "]" x
 
 myXmobarPP :: X PP
 myXmobarPP =
