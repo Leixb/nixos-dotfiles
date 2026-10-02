@@ -504,7 +504,7 @@ myKeys conf@(XConfig {modMask = modMask}) = fromList $
     , ((modMask,               xK_k     ), focusUp  ) -- %! Move focus to the previous window
     , ((modMask,               xK_m     ), windows W.focusMaster  ) -- %! Move focus to the master window
     , ((modMask .|. shiftMask, xK_m     ), nextMatch History $ pure True) -- %! Move focus to previous window
-    , ((modMask,               xK_u     ), focusUrgent) -- %! Move focus to urgent window
+    , ((modMask,               xK_y     ), focusUrgent) -- %! Move focus to urgent window
 
     -- modifying the window order
     , ((modMask .|. shiftMask, xK_Return), whenX (swapHybrid True) dwmpromote) -- %! Swap the focused window and the master window
