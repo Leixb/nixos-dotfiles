@@ -322,14 +322,14 @@ twoPaneAccDesc = "TwoPane Acc"
 myLayout =
     avoidStruts
         . refocusLastLayoutHook
-        . mkToggle (MIRROR ?? NBFULL ?? NOBORDERS ?? EOT)
         . smartBorders
         . mouseResize
         . boringWindows
         . minimize
         $ ifWider 1080 layouts (Mirror layouts)
   where
-    layouts = tiled ||| twoPane ||| twoPaneA ||| threeCols ||| spir ||| grid ||| threeColsMid ||| Full
+    toggles = mkToggle (MIRROR ?? NBFULL ?? NOBORDERS ?? EOT)
+    layouts = toggles $ tiled ||| twoPane ||| twoPaneA ||| threeCols ||| spir ||| grid ||| threeColsMid ||| Full
     nmaster = 1 -- Default number of windows in the master pane
     ratio = 1 / 2 -- Default proportion of screen occupied by master pane
     ratioTwoPane = 6 / 25 -- Proportion of screen occupied by master pane for Two Pane (for paraver)
