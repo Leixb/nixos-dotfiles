@@ -297,6 +297,8 @@ in
               set -g fish_vi_force_cursor 1
           end
       end
+
+      fish_add_path ~/.local/bin
     '';
     functions = {
       gitignore =
