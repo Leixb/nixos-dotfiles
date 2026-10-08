@@ -6,7 +6,7 @@
   };
 
   networking.networkmanager.plugins = [
-    pkgs.networkmanager-fortisslvpn
+    pkgs.networkmanager-openconnect
   ];
 
   systemd.services.openfortivpn = {
