@@ -6,7 +6,7 @@
   home.packages = with pkgs; [
     miniupnpc
     # beekeeper-studio
-    zotero
+    # zotero
     solaar
     luakit
     manix
