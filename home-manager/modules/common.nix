@@ -1,5 +1,5 @@
 # vim: sw=2 ts=2:
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgsStable, ... }:
 let
   username = config.home.username;
 
@@ -110,7 +110,7 @@ in
     playerctl # media player control
     powertop # power usage monitor
     qalculate-gtk # calculator (GUI)
-    qbz # qobuz
+    pkgsStable.qbz # qobuz
     ripgrep # grep alternative
     simple-scan # scanner
     sshfs # ssh filesystem mount

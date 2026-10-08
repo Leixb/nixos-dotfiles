@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "https://channels.nixos.org/nixos-unstable/nixexprs.tar.zst";
+    nixpkgs-stable.url = "https://channels.nixos.org/nixos-26.05/nixexprs.tar.zst";
 
     flake-utils.url = "github:numtide/flake-utils";
     flake-compat.url = "github:edolstra/flake-compat";
@@ -102,7 +103,7 @@
           mkSystem =
             name:
             lib.nixosSystem {
-              specialArgs = { inherit self inputs; };
+              specialArgs = { inherit self inputs; pkgsStable = inputs.nixpkgs-stable.legacyPackages.${system}; };
 
               modules = [
                 ./nixos/modules/common.nix

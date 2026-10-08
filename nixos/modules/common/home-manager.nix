@@ -1,4 +1,4 @@
-{ inputs, ... }:
+{ inputs, pkgsStable, ... }:
 {
   imports = [
     inputs.home-manager.nixosModules.home-manager
@@ -6,6 +6,7 @@
 
   home-manager.useGlobalPkgs = true;
   home-manager.useUserPackages = true;
+  home-manager.extraSpecialArgs = { inherit inputs pkgsStable; };
 
   home-manager.sharedModules = [
     ../../../home-manager/modules/common.nix
