@@ -236,7 +236,7 @@
             "glob:'**/*.h'"
             "glob:'**/*.hpp'"
           ];
-          line-range-arg = "--lines=$first:$last";
+          line-range-args = [ "--lines=$first:$last" ];
           run-tool-if-zero-line-ranges = false;
         };
 
@@ -247,7 +247,7 @@
             "--stdin-filename=$path"
           ];
           patterns = [ "glob:'**/*.py'" ];
-          line-range-arg = "--line-ranges $first-$last";
+          line-range-args = [ "--line-ranges $first-$last" ];
           run-tool-if-zero-line-ranges = false;
         };
 
