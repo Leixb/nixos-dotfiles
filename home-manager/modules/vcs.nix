@@ -256,6 +256,8 @@
             (lib.getExe pkgs.nixfmt-tree)
             "--stdin"
             "$path"
+            "--tree-root"
+            "$root"
           ];
           patterns = [ "glob:'**/*.nix'" ];
         };
