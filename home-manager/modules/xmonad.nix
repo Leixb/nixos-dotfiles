@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, pkgsStable, ... }:
 
 {
 
@@ -33,6 +33,7 @@
 
   services.trayer = {
     enable = true;
+    package = pkgsStable.trayer;
     settings = {
       edge = "top";
       align = "right";
