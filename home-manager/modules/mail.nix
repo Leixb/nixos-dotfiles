@@ -2,6 +2,7 @@
   config,
   lib,
   pkgs,
+  pkgsStable,
   ...
 }:
 {
@@ -136,6 +137,7 @@
   };
 
   programs.afew = {
+    package = pkgsStable.afew;
     enable = true;
     extraConfig = ''
       [SpamFilter]
