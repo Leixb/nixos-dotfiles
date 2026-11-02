@@ -46,6 +46,7 @@ in
     gdb
     bear # generate compile_commands.json from arbitrary Makefiles
     ungoogled-chromium
+    telegram-desktop
     radare2
     cling
     glab # gitlab cli
