@@ -5,6 +5,9 @@
   pkgsStable,
   ...
 }:
+let
+  inbox_query = "tag:inbox AND (NOT tag:gmail OR tag:security) AND NOT tag:lists/comite-empresa";
+in
 {
   programs.neomutt = {
     enable = true;
@@ -58,7 +61,7 @@
         set nm_unread_tag = unread
         set mail_check_stats = yes
 
-        set spoolfile = "notmuch://?query=tag:inbox AND NOT tag:gmail"
+        set spoolfile = "notmuch://?query=${inbox_query}"
 
         set crypt_use_gpgme
         set pgp_sign_as = 0x6920CD05
@@ -75,6 +78,11 @@
         set header_cache = "~/Mail/.hcache"
         # use very high $read_inc to speed up reading hcache'd maildirs
         set read_inc=1000
+
+        set flag_safe = yes
+
+        set abort_noattach = ask-yes
+        set abort_noattach_regex = "\\<(attach(|ed|ments?)|adjunt[oaes]?|anexos?)\\>"
 
         set query_command="${lib.getExe pkgs.notmuch-addrlookup} --format=mutt %s" # Ctrl + T
 
@@ -121,7 +129,7 @@
           SUMMARY=""
           while IFS= read -r tid; do
             [ -z "$tid" ] && continue
-            if notmuch search "$tid" and tag:inbox and not tag:gmail | grep -q .; then
+            if notmuch search "$tid" and tag:inbox and not tag:gmail and not tag:sent | grep -q .; then
               COUNT=$((COUNT + 1))
               if [ $COUNT -le 3 ]; then
                 line=$(notmuch search --format=json "$tid" | jq -r '.[0] | "\(.authors): \(.subject)"')
@@ -189,15 +197,20 @@
 
       [Filter.8]
       message = Filter spam
-      query = subject:'\*\*\* SPAM \*\*\**'
+      query = subject:SPAM
       tags = -inbox;+spam
 
-      [InboxFilter]
-
       [Filter.9]
-      message = Tag archived mail
-      query = NOT tag:inbox AND NOT tag:sent AND NOT tag:drafts AND NOT tag:spam AND NOT tag:trash
-      tags = +archive
+      mesage = Fix spam false positives
+      query = from:noreply-securitytracker@nixos.org
+      tags = +inbox;-spam;+security
+
+      [Filter.11]
+      message = Add security tag
+      query = tag:lists/security OR tag:lists/security-announcements
+      tags = +security
+
+      [InboxFilter]
 
       [Filter.10]
       message = Remove inbox tag from trash
@@ -265,7 +278,7 @@
     notmuch.neomutt = {
       enable = true;
       virtualMailboxes = [
-        { name = "inbox"; query = "tag:inbox AND NOT tag:gmail"; }
+        { name = "inbox"; query = inbox_query; }
         { name = "i.all"; query = "tag:inbox"; }
 
         { name = "i.bsc"; query = "tag:inbox AND tag:bsc"; }
@@ -278,6 +291,10 @@
         { name = "flagged"; query = "tag:flagged"; }
         { name = "archive"; query = "tag:archive AND NOT tag:trash"; }
         { name = "all"; query = "NOT tag:trash"; }
+        { name = "security"; query = "tag:security"; }
+
+        { name = "bsc.unread"; query = "tag:unread AND NOT tag:trash AND NOT tag:spam AND tag:bsc"; }
+        { name = "bsc.arch"; query = "tag:archive AND NOT tag:trash AND tag:bsc"; }
 
         { name = "drafts"; query = "tag:drafts AND NOT tag:trash"; }
         { name = "sent"; query = "tag:sent"; type = "messages"; }
@@ -288,10 +305,11 @@
         { name = "lists"; query = "tag:lists"; }
         { name = "l.bsc"; query = "tag:lists/bsc-cns"; }
         { name = "l.personal"; query = "tag:lists/personal"; }
+        { name = "l.comite"; query = "tag:lists/comite-empresa"; }
         { name = "l.star"; query = "tag:lists/star"; }
         { name = "l.jungle"; query = "tag:lists/jungle"; }
         { name = "l.nix"; query = "tag:lists/nix"; }
-        { name = "l.dare"; query = "tag:lists/dare_sw_wp26"; }
+        { name = "l.dare"; query = "tag:/lists\/dare.*/"; }
         { name = "l.phds"; query = "tag:lists/doctorands-tic"; }
         { name = "l.trustack"; query = "tag:lists/tru-stack_all"; }
         { name = "l.nixpkgs"; query = "tag:lists/nixpkgs"; }
