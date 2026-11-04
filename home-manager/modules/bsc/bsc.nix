@@ -51,6 +51,7 @@ in
     cling
     glab # gitlab cli
     kdePackages.okular
+    timewarrior
   ];
 
   xdg.configFile."distrobox/distrobox.conf" = lib.mkForce {
