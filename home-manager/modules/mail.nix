@@ -400,4 +400,39 @@ in
 
     notmuch.neomutt.enable = true;
   };
+
+  accounts.calendar.basePath = "Cal";
+
+  programs.khal = {
+    enable = true;
+    settings.default.default_calendar = "Personal Calendar";
+  };
+  services.pimsync.enable = true;
+  programs.pimsync.enable = true;
+
+  accounts.calendar.accounts.bsc = {
+    primary = true;
+    remote = {
+      passwordCommand = ["cat" "${config.sops.secrets.email_pass.path}"];
+      url = "https://calendar.bsc.es";
+      userName = "abonerib";
+      type = "caldav";
+    };
+    pimsync = {
+      enable = true;
+      extraPairDirectives = [
+        {
+          name = "collections";
+          params = [
+            "all"
+          ];
+        }
+      ];
+    };
+    khal = {
+      enable = true;
+      addresses = [ config.accounts.email.accounts.bsc.address ] ++ config.accounts.email.accounts.bsc.aliases ;
+      type = "discover";
+    };
+  };
 }
