@@ -46,7 +46,7 @@ config = do
             , borderColor = accent colors
             , sepChar = "%"
             , alignSep = "}{"
-            , template = "} %UnsafeXMonadLog% { " ++ timew_template ++ " | %mpris2% | %mail% | %alsa:default:Master% | %cpu% | %memory% %swap% | %battery% | %LEBL% | %date% %_XMONAD_TRAYPAD%"
+            , template = "} %UnsafeXMonadLog% { " ++ timew_template ++ " | %mpris2% | %mail% | %alsa:default:Master% | %cpu% | %memory% | %battery% | %LEBL% | %date% %_XMONAD_TRAYPAD%"
             }
 
 getColors :: IO Colors
