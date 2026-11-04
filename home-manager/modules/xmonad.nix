@@ -12,6 +12,12 @@
     enable = true;
     source = pkgs.replaceVars ./xmobar/xmobar.hs {
       icons = ./xmobar/icons;
+      timew = pkgs.writeShellScript "timew-active" ''
+        while : ; do
+          ${lib.getExe pkgs.timewarrior} get dom.active.tags 2>/dev/null || echo "-"
+          sleep 30
+        done
+      '';
     };
   };
 

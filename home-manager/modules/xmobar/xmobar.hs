@@ -29,6 +29,8 @@ config = do
 
     colors <- getColors
 
+    let timew_template = "<fc=" ++ accent colors ++ ">%TIMEW%</fc>"
+
     return $
         defaultConfig
             { overrideRedirect = True
@@ -44,7 +46,7 @@ config = do
             , borderColor = accent colors
             , sepChar = "%"
             , alignSep = "}{"
-            , template = "} %UnsafeXMonadLog% { %mpris2% | %mail% | %alsa:default:Master% | %cpu% | %memory% %swap% | %battery% | %LEBL% | %date% %_XMONAD_TRAYPAD%"
+            , template = "} %UnsafeXMonadLog% { " ++ timew_template ++ " | %mpris2% | %mail% | %alsa:default:Master% | %cpu% | %memory% %swap% | %battery% | %LEBL% | %date% %_XMONAD_TRAYPAD%"
             }
 
 getColors :: IO Colors
@@ -212,6 +214,7 @@ myCommands color =
             ]
             10
     , Run UnsafeXMonadLog
+    , Run $ CommandReader "@timew@" "TIMEW"
     ]
 
 xrdbGet :: String -> IO (Maybe String)
