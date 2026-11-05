@@ -686,7 +686,16 @@ in
 
   programs.khal = {
     enable = true;
-    settings.default.default_calendar = "Personal Calendar";
+    settings.default.default_calendar = "personal";
+    locale = {
+      timeformat = "%H:%M";
+      dateformat = "%d/%m";
+      longdateformat = "%d/%m/%y";
+      datetimeformat = "%d/%m %H:%M";
+      longdatetimeformat = "%d/%m/%y %H:%M";
+      unicode_symbols = true;
+      weeknumbers = "right";
+    };
   };
   services.pimsync.enable = true;
   programs.pimsync.enable = true;
