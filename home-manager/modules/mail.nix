@@ -579,6 +579,14 @@ in
           name = "github";
           query = "tag:GitHub";
         }
+        {
+          name = "lwn";
+          query = "from:lwn@lwn.net AND subject:freed";
+        }
+        {
+          name = "arxiv";
+          query = "tag:lists/cs";
+        }
 
         {
           name = "menus";
