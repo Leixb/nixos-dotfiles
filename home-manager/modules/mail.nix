@@ -17,37 +17,199 @@ in
     vimKeys = true;
     unmailboxes = true;
     binds = [
-      { map = [ "index" "pager" ]; key = "X"; action = "change-vfolder"; }
-      { map = [ "index" "pager" ]; key = "\\CP"; action = "sidebar-prev"; }
-      { map = [ "index" "pager" ]; key = "\\CN"; action = "sidebar-next"; }
-      { map = [ "index" "pager" ]; key = "\\CO"; action = "sidebar-open"; }
-      { map = [ "index" "pager" ]; key = "B"; action = "sidebar-toggle-visible"; }
-      { map = [ "index" "pager" ]; key = "\\`"; action = "modify-labels"; }
-      { map = [ "index" "pager" ]; key = "S"; action = "vfolder-from-query"; }
-      { map = [ "index" "pager" ]; key = "dd"; action = "noop"; }
-      { map = [ "index" "pager" ]; key = "dt"; action = "noop"; }
-      { map = [ "index" "pager" ]; key = "dT"; action = "noop"; }
-      { map = [ "index" "pager" ]; key = "O"; action = "noop"; }
-      { map = [ "index" "pager" ]; key = "A"; action = "create-alias"; }
-      { map = [ "index" "pager" ]; key = "a"; action = "noop"; }
-      { map = [ "index" "pager" ]; key = "gr"; action = "group-chat-reply"; }
-      { map = [ "index" "pager" ]; key = "gR"; action = "group-reply"; }
+      {
+        map = [
+          "index"
+          "pager"
+        ];
+        key = "X";
+        action = "change-vfolder";
+      }
+      {
+        map = [
+          "index"
+          "pager"
+        ];
+        key = "\\CP";
+        action = "sidebar-prev";
+      }
+      {
+        map = [
+          "index"
+          "pager"
+        ];
+        key = "\\CN";
+        action = "sidebar-next";
+      }
+      {
+        map = [
+          "index"
+          "pager"
+        ];
+        key = "\\CO";
+        action = "sidebar-open";
+      }
+      {
+        map = [
+          "index"
+          "pager"
+        ];
+        key = "B";
+        action = "sidebar-toggle-visible";
+      }
+      {
+        map = [
+          "index"
+          "pager"
+        ];
+        key = "\\`";
+        action = "modify-labels";
+      }
+      {
+        map = [
+          "index"
+          "pager"
+        ];
+        key = "S";
+        action = "vfolder-from-query";
+      }
+      {
+        map = [
+          "index"
+          "pager"
+        ];
+        key = "dd";
+        action = "noop";
+      }
+      {
+        map = [
+          "index"
+          "pager"
+        ];
+        key = "dt";
+        action = "noop";
+      }
+      {
+        map = [
+          "index"
+          "pager"
+        ];
+        key = "dT";
+        action = "noop";
+      }
+      {
+        map = [
+          "index"
+          "pager"
+        ];
+        key = "O";
+        action = "noop";
+      }
+      {
+        map = [
+          "index"
+          "pager"
+        ];
+        key = "A";
+        action = "create-alias";
+      }
+      {
+        map = [
+          "index"
+          "pager"
+        ];
+        key = "a";
+        action = "noop";
+      }
+      {
+        map = [
+          "index"
+          "pager"
+        ];
+        key = "gr";
+        action = "group-chat-reply";
+      }
+      {
+        map = [
+          "index"
+          "pager"
+        ];
+        key = "gR";
+        action = "group-reply";
+      }
     ];
     macros = [
-      { map = [ "index" "pager"]; key = "O"; action = "<shell-escape>systemctl --user start mbsync && afew -v --move-mails && notmuch new && mbsync -a<enter><sync-mailbox>"; } # Full sync
-      { map = [ "index" "pager" ]; key = "dd"; action = "<modify-labels>+trash -inbox -unread<enter>"; }
-      { map = [ "index" "pager" ]; key = "a"; action = "<modify-labels>+archive -inbox<enter>"; }
-      { map = [ "index" "pager" ]; key = "dT"; action = "<tag-thread><modify-labels>+trash -inbox -unread<enter>"; }
-      { map = [ "index" "pager" ]; key = "dt"; action = "<tag-subthread><modify-labels>+trash -inbox -unread<enter>"; }
-      { map = [ "index" "pager" ]; key = "\\cb"; action = "<enter-command>unset wait_key<enter><pipe-message>${lib.getExe pkgs.urlscan}<enter><enter-command>set wait_key<enter>"; } # follow urls
-      { map = [ "attach" "compose" ]; key = "\\cb"; action = "<enter-command>unset wait_key<enter><pipe-message>${lib.getExe pkgs.urlscan}<enter><enter-command>set wait_key<enter>"; } # follow urls
-      { map = [ "index" "pager" ]; key = "\\ct"; action = "<modify-labels>!todo\\n"; } # Toggle todo
+      {
+        map = [
+          "index"
+          "pager"
+        ];
+        key = "O";
+        action = "<shell-escape>systemctl --user start mbsync && afew -v --move-mails && notmuch new && mbsync -a<enter><sync-mailbox>";
+      } # Full sync
+      {
+        map = [
+          "index"
+          "pager"
+        ];
+        key = "dd";
+        action = "<modify-labels>+trash -inbox -unread<enter>";
+      }
+      {
+        map = [
+          "index"
+          "pager"
+        ];
+        key = "a";
+        action = "<modify-labels>+archive -inbox<enter>";
+      }
+      {
+        map = [
+          "index"
+          "pager"
+        ];
+        key = "dT";
+        action = "<tag-thread><modify-labels>+trash -inbox -unread<enter>";
+      }
+      {
+        map = [
+          "index"
+          "pager"
+        ];
+        key = "dt";
+        action = "<tag-subthread><modify-labels>+trash -inbox -unread<enter>";
+      }
+      {
+        map = [
+          "index"
+          "pager"
+        ];
+        key = "\\cb";
+        action = "<enter-command>unset wait_key<enter><pipe-message>${lib.getExe pkgs.urlscan}<enter><enter-command>set wait_key<enter>";
+      } # follow urls
+      {
+        map = [
+          "attach"
+          "compose"
+        ];
+        key = "\\cb";
+        action = "<enter-command>unset wait_key<enter><pipe-message>${lib.getExe pkgs.urlscan}<enter><enter-command>set wait_key<enter>";
+      } # follow urls
+      {
+        map = [
+          "index"
+          "pager"
+        ];
+        key = "\\ct";
+        action = "<modify-labels>!todo\\n";
+      } # Toggle todo
     ];
     extraConfig =
       let
         mailcap = pkgs.writeText "mailcap" ''
           text/html; ${lib.getExe config.programs.firefox.package} %s; test=test -n "$DISPLAY"; nametemplate=%s.html; needsterminal
           text/html; ${lib.getExe pkgs.w3m} -I %{charset} -T text/html; copiousoutput; description=HTML Text; nametemplate=%s.html
+          text/calendar; ${lib.getExe config.programs.khal.package} import %s; needsterminal
           image/*; ${lib.getExe pkgs.timg} %s; needsterminal
           application/pdf; ${lib.getExe pkgs.zathura} '%s'
         '';
@@ -100,48 +262,56 @@ in
 
   services.imapnotify = {
     enable = true;
-    path = [ pkgs.coreutils pkgs.systemd ];
+    path = [
+      pkgs.coreutils
+      pkgs.systemd
+    ];
   };
 
   programs.notmuch = {
     enable = true;
     new.tags = [ "new" ];
     new.ignore = [ ".hcache" ];
-    hooks.postNew = let
-      notmuchPostNew = pkgs.writeShellApplication {
-        name = "notmuch-post";
-        meta.mainProgram = "notmuch-post";
-        runtimeInputs = with pkgs; [
-          libnotify
-          notmuch
-          jq
-        ] ++ (lib.optionals config.programs.afew.enable [ config.programs.afew.package ]);
-        text = ''
-          BEFORE=$(notmuch search --output=threads tag:new 2>/dev/null)
+    hooks.postNew =
+      let
+        notmuchPostNew = pkgs.writeShellApplication {
+          name = "notmuch-post";
+          meta.mainProgram = "notmuch-post";
+          runtimeInputs =
+            with pkgs;
+            [
+              libnotify
+              notmuch
+              jq
+            ]
+            ++ (lib.optionals config.programs.afew.enable [ config.programs.afew.package ]);
+          text = ''
+            BEFORE=$(notmuch search --output=threads tag:new 2>/dev/null)
 
-          ${lib.optionalString config.programs.afew.enable "afew --tag --new"}
+            ${lib.optionalString config.programs.afew.enable "afew --tag --new"}
 
-          if [ "$BEFORE" = "" ]; then
-            exit 0
-          fi
-
-          COUNT=0
-          SUMMARY=""
-          while IFS= read -r tid; do
-            [ -z "$tid" ] && continue
-            if notmuch search "$tid" and tag:inbox and not tag:gmail and not tag:sent | grep -q .; then
-              COUNT=$((COUNT + 1))
-              if [ $COUNT -le 3 ]; then
-                line=$(notmuch search --format=json "$tid" | jq -r '.[0] | "\(.authors): \(.subject)"')
-                SUMMARY+="$line\n"
-              fi
+            if [ "$BEFORE" = "" ]; then
+              exit 0
             fi
-          done <<< "$BEFORE"
 
-          [ "$COUNT" -gt 0 ] && notify-send -i mail-unread "✉️ $COUNT new messages(s)" "$(printf '%b' "$SUMMARY")"
-        '';
-      };
-    in lib.getExe notmuchPostNew;
+            COUNT=0
+            SUMMARY=""
+            while IFS= read -r tid; do
+              [ -z "$tid" ] && continue
+              if notmuch search "$tid" and tag:inbox and not tag:gmail and not tag:sent | grep -q .; then
+                COUNT=$((COUNT + 1))
+                if [ $COUNT -le 3 ]; then
+                  line=$(notmuch search --format=json "$tid" | jq -r '.[0] | "\(.authors): \(.subject)"')
+                  SUMMARY+="$line\n"
+                fi
+              fi
+            done <<< "$BEFORE"
+
+            [ "$COUNT" -gt 0 ] && notify-send -i mail-unread "✉️ $COUNT new messages(s)" "$(printf '%b' "$SUMMARY")"
+          '';
+        };
+      in
+      lib.getExe notmuchPostNew;
   };
 
   programs.afew = {
@@ -278,45 +448,142 @@ in
     notmuch.neomutt = {
       enable = true;
       virtualMailboxes = [
-        { name = "inbox"; query = inbox_query; }
-        { name = "i.all"; query = "tag:inbox"; }
+        {
+          name = "inbox";
+          query = inbox_query;
+        }
+        {
+          name = "i.all";
+          query = "tag:inbox";
+        }
 
-        { name = "i.bsc"; query = "tag:inbox AND tag:bsc"; }
-        { name = "i.upc"; query = "tag:inbox AND tag:upc-dac"; }
-        { name = "i.est"; query = "tag:inbox AND tag:upc-est"; }
-        { name = "i.gmail"; query = "tag:inbox AND tag:gmail"; }
+        {
+          name = "i.bsc";
+          query = "tag:inbox AND tag:bsc";
+        }
+        {
+          name = "i.upc";
+          query = "tag:inbox AND tag:upc-dac";
+        }
+        {
+          name = "i.est";
+          query = "tag:inbox AND tag:upc-est";
+        }
+        {
+          name = "i.gmail";
+          query = "tag:inbox AND tag:gmail";
+        }
 
-        { name = "unread"; query = "tag:unread AND NOT tag:trash AND NOT tag:spam"; }
-        { name = "todo"; query = "tag:todo"; }
-        { name = "flagged"; query = "tag:flagged"; }
-        { name = "archive"; query = "tag:archive AND NOT tag:trash"; }
-        { name = "all"; query = "NOT tag:trash"; }
-        { name = "security"; query = "tag:security"; }
+        {
+          name = "unread";
+          query = "tag:unread AND NOT tag:trash AND NOT tag:spam";
+        }
+        {
+          name = "todo";
+          query = "tag:todo";
+        }
+        {
+          name = "flagged";
+          query = "tag:flagged";
+        }
+        {
+          name = "archive";
+          query = "tag:archive AND NOT tag:trash";
+        }
+        {
+          name = "all";
+          query = "NOT tag:trash";
+        }
+        {
+          name = "security";
+          query = "tag:security";
+        }
 
-        { name = "bsc.unread"; query = "tag:unread AND NOT tag:trash AND NOT tag:spam AND tag:bsc"; }
-        { name = "bsc.arch"; query = "tag:archive AND NOT tag:trash AND tag:bsc"; }
+        {
+          name = "bsc.unread";
+          query = "tag:unread AND NOT tag:trash AND NOT tag:spam AND tag:bsc";
+        }
+        {
+          name = "bsc.arch";
+          query = "tag:archive AND NOT tag:trash AND tag:bsc";
+        }
 
-        { name = "drafts"; query = "tag:drafts AND NOT tag:trash"; }
-        { name = "sent"; query = "tag:sent"; type = "messages"; }
+        {
+          name = "drafts";
+          query = "tag:drafts AND NOT tag:trash";
+        }
+        {
+          name = "sent";
+          query = "tag:sent";
+          type = "messages";
+        }
 
-        { name = "spam"; query = "tag:spam"; }
-        { name = "trash"; query = "tag:trash"; }
+        {
+          name = "spam";
+          query = "tag:spam";
+        }
+        {
+          name = "trash";
+          query = "tag:trash";
+        }
 
-        { name = "lists"; query = "tag:lists"; }
-        { name = "l.bsc"; query = "tag:lists/bsc-cns"; }
-        { name = "l.personal"; query = "tag:lists/personal"; }
-        { name = "l.comite"; query = "tag:lists/comite-empresa"; }
-        { name = "l.star"; query = "tag:lists/star"; }
-        { name = "l.jungle"; query = "tag:lists/jungle"; }
-        { name = "l.nix"; query = "tag:lists/nix"; }
-        { name = "l.dare"; query = "tag:/lists\/dare.*/"; }
-        { name = "l.phds"; query = "tag:lists/doctorands-tic"; }
-        { name = "l.trustack"; query = "tag:lists/tru-stack_all"; }
-        { name = "l.nixpkgs"; query = "tag:lists/nixpkgs"; }
-        { name = "l.pocl"; query = "tag:lists/pocl OR tag:lists/unpublished OR tag:lists/pocl-priv"; }
-        { name = "github"; query = "tag:GitHub"; }
+        {
+          name = "lists";
+          query = "tag:lists";
+        }
+        {
+          name = "l.bsc";
+          query = "tag:lists/bsc-cns";
+        }
+        {
+          name = "l.personal";
+          query = "tag:lists/personal";
+        }
+        {
+          name = "l.comite";
+          query = "tag:lists/comite-empresa";
+        }
+        {
+          name = "l.star";
+          query = "tag:lists/star";
+        }
+        {
+          name = "l.jungle";
+          query = "tag:lists/jungle";
+        }
+        {
+          name = "l.nix";
+          query = "tag:lists/nix";
+        }
+        {
+          name = "l.dare";
+          query = "tag:/lists\/dare.*/";
+        }
+        {
+          name = "l.phds";
+          query = "tag:lists/doctorands-tic";
+        }
+        {
+          name = "l.trustack";
+          query = "tag:lists/tru-stack_all";
+        }
+        {
+          name = "l.nixpkgs";
+          query = "tag:lists/nixpkgs";
+        }
+        {
+          name = "l.pocl";
+          query = "tag:lists/pocl OR tag:lists/unpublished OR tag:lists/pocl-priv";
+        }
+        {
+          name = "github";
+          query = "tag:GitHub";
+        }
 
-        { name = "menus"; query = "from:no-reply@bsc.es AND subject:'MENÚ*'"; }
+        {
+          name = "menus";
+          query = "from:no-reply@bsc.es AND subject:'MENÚ*'";
+        }
       ];
     };
 
@@ -343,7 +610,12 @@ in
       sync.enable = true;
       settings = {
         account = "me";
-        ignore_tags = [ "new" "UPC" "upc" "upc-est" ];
+        ignore_tags = [
+          "new"
+          "UPC"
+          "upc"
+          "upc-est"
+        ];
       };
     };
 
@@ -366,7 +638,12 @@ in
       sync.enable = true;
       settings = {
         account = "me";
-        ignore_tags = [ "new" "UPC" "upc" "upc-dac" ];
+        ignore_tags = [
+          "new"
+          "UPC"
+          "upc"
+          "upc-dac"
+        ];
       };
     };
 
@@ -389,7 +666,11 @@ in
       sync.enable = true;
       settings = {
         account = "me";
-        ignore_tags = [ "new" "gmail" "upc" ];
+        ignore_tags = [
+          "new"
+          "gmail"
+          "upc"
+        ];
       };
     };
 
@@ -413,7 +694,10 @@ in
   accounts.calendar.accounts.bsc = {
     primary = true;
     remote = {
-      passwordCommand = ["cat" "${config.sops.secrets.email_pass.path}"];
+      passwordCommand = [
+        "cat"
+        "${config.sops.secrets.email_pass.path}"
+      ];
       url = "https://calendar.bsc.es";
       userName = "abonerib";
       type = "caldav";
@@ -431,7 +715,10 @@ in
     };
     khal = {
       enable = true;
-      addresses = [ config.accounts.email.accounts.bsc.address ] ++ config.accounts.email.accounts.bsc.aliases ;
+      addresses = [
+        config.accounts.email.accounts.bsc.address
+      ]
+      ++ config.accounts.email.accounts.bsc.aliases;
       type = "discover";
     };
   };
