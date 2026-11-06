@@ -131,6 +131,7 @@ local lsp_list = {
     "lua_ls",
     "tinymist",
     -- "vimls",
+    "ltex_plus",
 }
 
 vim.lsp.config["tinymist"] = {
@@ -257,6 +258,29 @@ vim.lsp.config("lua_ls", {
             telemetry = {
                 enable = false,
             },
+        },
+    },
+    capabilities = capabilities,
+    on_attach = lsp_attach,
+})
+
+vim.lsp.config("ltex_plus", {
+    cmd = { "ltex-ls-plus" },
+    autostart = autostart,
+    settings = {
+        ltex = {
+            enabled = { "latex", "tex", "bib", "markdown", "norg", "neorg", "typst" },
+            language = "en",
+            diagnosticSeverity = "information",
+            setenceCacheSize = 2000,
+            additionalRules = {
+                enablePickyRules = true,
+                motherTongue = "en",
+            },
+            trace = { server = "verbose" },
+            dictionary = {},
+            disabledRules = {},
+            hiddenFalsePositives = {},
         },
     },
     capabilities = capabilities,

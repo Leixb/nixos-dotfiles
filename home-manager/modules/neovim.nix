@@ -66,7 +66,7 @@ in
       fd
 
       ## LSP
-      ltex-ls
+      ltex-ls-plus
       ripgrep
       # rnix-lsp
       nil
@@ -336,7 +336,7 @@ in
       }
 
       {
-        # Must go before grammar-guard, null-ls and other lsp things
+        # Must go before null-ls and other lsp things
         plugin = nvim-lspconfig;
         type = "lua";
         config = builtins.readFile ./neovim/lsp.lua;
@@ -349,12 +349,6 @@ in
           ''
             require'guess-indent'.setup()
           '';
-      }
-
-      {
-        plugin = grammar-guard-nvim;
-        type = "lua";
-        config = builtins.readFile ./neovim/grammar-guard-nvim.lua;
       }
 
       lsp_signature-nvim
