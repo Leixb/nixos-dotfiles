@@ -718,6 +718,45 @@ in
     package = pimsync;
   };
 
+  accounts.contact.basePath = ".contacts";
+  accounts.contact.accounts.bsc = {
+    remote = {
+      url = "https://caldav.bsc.es/SOGo/dav/abonerib/Contacts";
+      type = "carddav";
+      userName = "abonerib";
+      passwordCommand = [
+        "cat"
+        "${config.sops.secrets.email_pass.path}"
+      ];
+    };
+    pimsync = {
+      enable = true;
+      extraRemoteStorageDirectives = [
+        {
+          name = "discovery";
+          params = [ "principal" ];
+        }
+        {
+          name = "interval";
+          params = [ "3600" ];
+        }
+      ];
+      extraPairDirectives = [
+        {
+          name = "collection";
+          params = [ "directory" ];
+        }
+        {
+          name = "conflict_resolution";
+          params = [
+            "keep"
+            "b"
+          ];
+        }
+      ];
+    };
+  };
+
   accounts.calendar.accounts.bsc = {
     primary = true;
     remote = {
