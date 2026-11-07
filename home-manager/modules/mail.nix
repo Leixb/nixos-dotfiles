@@ -694,7 +694,7 @@ in
     notmuch.neomutt.enable = true;
   };
 
-  accounts.calendar.basePath = "Cal";
+  accounts.calendar.basePath = ".calendar";
 
   programs.khal = {
     enable = true;
@@ -764,7 +764,7 @@ in
         "cat"
         "${config.sops.secrets.email_pass.path}"
       ];
-      url = "https://calendar.bsc.es";
+      url = "https://caldav.bsc.es/SOGo/dav/abonerib/Calendar";
       userName = "abonerib";
       type = "caldav";
     };
