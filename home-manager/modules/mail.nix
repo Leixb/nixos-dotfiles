@@ -7,6 +7,10 @@
 }:
 let
   inbox_query = "tag:inbox AND (NOT tag:gmail OR tag:security) AND NOT tag:lists/comite-empresa";
+
+  pimsync = pkgs.pimsync.overrideAttrs (oldAttrs: {
+    patches = (oldAttrs.patches or [ ]) ++ [ ./timeout-pimsync.patch ];
+  });
 in
 {
   programs.neomutt = {
@@ -705,8 +709,14 @@ in
       weeknumbers = "right";
     };
   };
-  services.pimsync.enable = true;
-  programs.pimsync.enable = true;
+  services.pimsync = {
+    enable = true;
+    package = pimsync;
+  };
+  programs.pimsync = {
+    enable = true;
+    package = pimsync;
+  };
 
   accounts.calendar.accounts.bsc = {
     primary = true;

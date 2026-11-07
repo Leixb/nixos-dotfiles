@@ -1,0 +1,20 @@
+Commit ID: 30cc8fc74d65a4b99f0935ca901d40df3ce01da0
+Change ID: lompnuummrqkwxzpozrywyrrunqqnoyw
+Author   : Aleix Boné <aleix.boneribo@bsc.es> (2026-11-07 13:01:45)
+Committer: Aleix Boné <aleix.boneribo@bsc.es> (2026-11-07 13:01:45)
+
+    (no description set)
+
+diff --git a/src/config.rs b/src/config.rs
+index 07f1d4e2dd..5eadcaad9d 100644
+--- a/src/config.rs
++++ b/src/config.rs
+@@ -54,7 +54,7 @@
+ };
+ 
+ /// Default connection and I/O timeout for HTTP connections.
+-pub const DEFAULT_TIMEOUT: Duration = Duration::from_secs(30);
++pub const DEFAULT_TIMEOUT: Duration = Duration::from_secs(120);
+ 
+ /// Default interval for periodic scans.
+ pub const DEFAULT_INTERVAL: Duration = Duration::from_secs(300);
