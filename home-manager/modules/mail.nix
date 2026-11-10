@@ -709,10 +709,24 @@ in
       weeknumbers = "right";
     };
   };
+
   services.pimsync = {
     enable = true;
     package = pimsync;
   };
+
+  systemd.user.services.pimsync = {
+    Unit = {
+      After = [ "network-online.target" ];
+      StartLimitBurst = "10";
+      StartLimitIntervalSec = "10m";
+    };
+    Service = {
+      Restart = "on-failure";
+      RestartSec = "5s";
+    };
+  };
+
   programs.pimsync = {
     enable = true;
     package = pimsync;
