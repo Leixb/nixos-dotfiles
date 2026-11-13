@@ -88,9 +88,9 @@ myCommands color =
     [ Run $ XPropertyLog "_XMONAD_TRAYPAD"
     , Run $ Mpris2 "com.blitzfc.qbz" ["-t", "🎵 <artist> - <title>", "-M", "20"] 10
     , Run $ NotmuchMail "mail"
-    [ MailItem "📬 BSC:" "" "tag:bsc AND tag:inbox AND NOT tag:gmail"
+    [ MailItem "📬 BSC:" "" "tag:bsc AND tag:inbox AND NOT tag:gmail AND NOT tag:lists/comite-empresa"
     , MailItem "📬 UPC:" "" "tag:upc-dac AND tag:inbox AND NOT tag:gmail"
-    , MailItem "📬 EST:" "" "tag:upc-est AND tag:inbox AND NOT tag:gmail"
+    , MailItem "📬 CE:" "" "tag:bsc AND tag:inbox AND tag:lists/comite-empresa"
     ]
     600
     , Run $
