@@ -331,11 +331,6 @@ in
       query = path:bsc/**
       tags = +bsc
 
-      [Filter.2]
-      message = Tag estudiantat UPC account
-      query = path:upc/**
-      tags = +upc;+upc-est
-
       [Filter.3]
       message = Tag DAC UPC account
       query = path:upc-dac/**
@@ -606,38 +601,8 @@ in
   };
 
   # Run notmuch new after lieer import
-  systemd.user.services.lieer-upc.Service.ExecStartPost = "${lib.getExe pkgs.notmuch} new";
   systemd.user.services.lieer-upc-dac.Service.ExecStartPost = "${lib.getExe pkgs.notmuch} new";
   systemd.user.services.lieer-gmail.Service.ExecStartPost = "${lib.getExe pkgs.notmuch} new";
-
-  accounts.email.accounts.upc = {
-    address = "aleix.bone@estudiantat.upc.edu";
-    aliases = [ "aleix.bone@est.fib.upc.edu" ];
-    flavor = "gmail.com";
-    realName = "Aleix Boné";
-    folders.inbox = "mail";
-
-    lieer = {
-      enable = true;
-      sync.enable = true;
-      settings = {
-        account = "me";
-        ignore_tags = [
-          "new"
-          "UPC"
-          "upc"
-          "upc-est"
-        ];
-      };
-    };
-
-    notmuch.enable = true;
-
-    neomutt.enable = true;
-    neomutt.mailboxType = "maildir";
-
-    notmuch.neomutt.enable = true;
-  };
 
   accounts.email.accounts.upc-dac = {
     address = "aleix.bone@upc.edu";
