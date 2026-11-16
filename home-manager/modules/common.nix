@@ -200,7 +200,7 @@ in
     systemd.enable = true;
     settings = {
       theme = config.theme.name;
-      font-size = lib.mkDefault 10;
+      font-size = lib.mkDefault 9;
       window-decoration = "none";
       background-opacity = 0.75;
       shell-integration = "fish";
