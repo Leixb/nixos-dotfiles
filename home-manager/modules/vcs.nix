@@ -55,7 +55,7 @@
         "git@git.sr.ht:~".insteadOf = "sh:";
         "git@gitlab-internal.bsc.es:".insteadOf = "bsc:";
         "git@bscpm04.bsc.es:".insteadOf = "pm:";
-        "gitea@hut:".insteadOf = "jungle:";
+        "git@tent:".insteadOf = "jungle:";
       };
 
       status = {

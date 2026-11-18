@@ -1,6 +1,6 @@
 [
   {
-    name = "Gitea";
+    name = "Forge";
     url = "https://jungle.bsc.es/git";
   }
   {

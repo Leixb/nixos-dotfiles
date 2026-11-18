@@ -353,8 +353,8 @@ in
 
       [HeaderMatchingFilter.1]
       header = X-Mailer
-      pattern = Gitea
-      tags = +gitea
+      pattern = Forgejo
+      tags = +forge;+git
 
       [ArchiveSentMailsFilter]
       sent_tag = sent
