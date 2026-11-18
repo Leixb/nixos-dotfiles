@@ -379,6 +379,11 @@ in
       query = tag:lists/security OR tag:lists/security-announcements
       tags = +security
 
+      [Filter.12]
+      message = Filter out false positive in nixpkgs security
+      query = tag:security AND body:'forge:'
+      tags = -security;+spam;-inbox
+
       [InboxFilter]
 
       [Filter.10]
